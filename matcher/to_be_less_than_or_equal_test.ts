@@ -8,7 +8,6 @@ Deno.test({
     assertSuccess(toBeLessThanOrEqual(1, 2));
     assertSuccess(toBeLessThanOrEqual(1n, 2));
     assertSuccess(toBeLessThanOrEqual(0, 0));
-    assertSuccess(toBeLessThanOrEqual("", 0));
     assertFail(toBeLessThanOrEqual(NaN, NaN));
     assertFail(toBeLessThanOrEqual(NaN, 0));
     assertFail(toBeLessThanOrEqual(1, 0));

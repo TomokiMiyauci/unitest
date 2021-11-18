@@ -3,7 +3,7 @@ import type { MatchResult } from "@matcher/types.ts";
 import { fail, stringify, success } from "@matcher/utils.ts";
 
 function toBeLessThan(
-  actual: unknown,
+  actual: number | bigint,
   comparison: number | bigint,
 ): MatchResult {
   if (Number(actual) < comparison) return success();

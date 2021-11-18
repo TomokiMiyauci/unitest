@@ -9,7 +9,6 @@ Deno.test({
     assertSuccess(toBeGreaterThanOrEqual(1000, 100));
     assertSuccess(toBeGreaterThanOrEqual(1n, 0));
     assertSuccess(toBeGreaterThanOrEqual(0, 0));
-    assertSuccess(toBeGreaterThanOrEqual("", 0));
     assertFail(toBeGreaterThanOrEqual(1n, 2));
     assertFail(toBeGreaterThanOrEqual(NaN, NaN));
   },

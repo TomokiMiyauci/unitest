@@ -10,7 +10,6 @@ Deno.test({
     assertFail(toBeLessThan(0, 0));
     assertFail(toBeLessThan(NaN, NaN));
     assertFail(toBeLessThan(NaN, 0));
-    assertFail(toBeLessThan("", 0));
     assertFail(toBeLessThan(1, 0));
     assertFail(toBeLessThan(1n, 0));
   },
