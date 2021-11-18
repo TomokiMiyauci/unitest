@@ -1,5 +1,8 @@
 {
   "lint": {
+    "files": {
+      "exclude": ["node_modules"]
+    },
     "rules": {
       "exclude": ["no-explicit-any"]
     }
