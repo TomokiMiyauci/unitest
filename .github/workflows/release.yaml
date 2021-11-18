@@ -25,8 +25,27 @@ jobs:
       - name: Lint
         run: deno lint --config deno.json
 
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        deno: [1.16.0]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno }}
+
+      - name: Lint
+        run: deno test --ignore=node_modules --config deno.json --import-map=import_map.json
+
   release:
-    needs: [lint]
+    needs: [lint, test]
     runs-on: ${{ matrix.os }}
 
     strategy:
