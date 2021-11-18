@@ -1,4 +1,6 @@
 {
+  "name": "unitest",
+  "description": "Deno-first universal unit testing framework",
   "private": true,
   "scripts": {
     "commit": "cz",
