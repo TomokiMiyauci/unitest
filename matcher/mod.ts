@@ -10,6 +10,8 @@ import { toBeNaN } from "@matcher/to_be_nan.ts";
 import { toBeInstanceOf } from "@matcher/to_be_instance_of.ts";
 import { toBeGreaterThan } from "@matcher/to_be_greater_than.ts";
 import { toBeGreaterThanOrEqual } from "@matcher/to_be_greater_than_or_equal.ts";
+import { toBeLessThan } from "@matcher/to_be_less_than.ts";
+
 import { toHaveLength } from "@matcher/to_have_length.ts";
 export * from "@matcher/types.ts";
 export * from "@matcher/utils.ts";
@@ -26,6 +28,7 @@ const jestMatcher = {
   toBeInstanceOf,
   toBeGreaterThan,
   toBeGreaterThanOrEqual,
+  toBeLessThan,
   toHaveLength,
 };
 
@@ -37,6 +40,7 @@ export {
   toBeGreaterThan,
   toBeGreaterThanOrEqual,
   toBeInstanceOf,
+  toBeLessThan,
   toBeNaN,
   toBeNull,
   toBeTruthy,
