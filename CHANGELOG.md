@@ -1,3 +1,13 @@
+# [1.0.0-beta.3](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-11-18)
+
+
+### Features
+
+* **matcher:** add `toBeGreaterThan` matcher ([2fb4d3e](https://github.com/TomokiMiyauci/unitest/commit/2fb4d3e9564f1982c645b788b02a0dfae98bdb5a))
+* **matcher:** add `toBeGreaterThanOrEqual` matcher ([8afdcc8](https://github.com/TomokiMiyauci/unitest/commit/8afdcc8f6a4ea011e1e234d3dd02a18fc70e826f))
+* **matcher:** add `toBeLessThan` matcher ([5ce628b](https://github.com/TomokiMiyauci/unitest/commit/5ce628b24e20ab963b9c747aa08c38f4f88f2cb8))
+* **matcher:** add `toBeLessThanOrEqual` matcher ([0636932](https://github.com/TomokiMiyauci/unitest/commit/0636932af9987d21ade80a94507b4b111643646f))
+
 # [1.0.0-beta.2](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-11-18)
 
 
