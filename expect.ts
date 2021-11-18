@@ -1,4 +1,4 @@
-import { AssertionError } from "https://deno.land/std@0.115.1/testing/asserts.ts";
+import { AssertionError } from "./deps.ts";
 import type { Matcher, MatchResult } from "./matcher/types.ts";
 import type { AnyFn, ShiftRightParameters } from "./_types.ts";
 

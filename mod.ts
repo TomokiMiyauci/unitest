@@ -1,10 +1,8 @@
-import { defineExpect } from "./expect.ts";
-import { toBe } from "./matcher/mod.ts";
-export type { Expected, MatcherMap } from "./expect.ts";
-export type { Matcher, MatchResult } from "./matcher/mod.ts";
+import { defineExpect } from "@/expect.ts";
+import { fail, jestMatcher, success, toBe } from "@matcher/mod.ts";
+export type { Expected, MatcherMap } from "@/expect.ts";
+export type { Matcher, MatchResult } from "@/matcher/mod.ts";
 
-const expect = defineExpect({
-  toBe,
-});
+const expect = defineExpect(jestMatcher);
 
-export { defineExpect, expect, toBe };
+export { defineExpect, expect, fail, jestMatcher, success, toBe };
