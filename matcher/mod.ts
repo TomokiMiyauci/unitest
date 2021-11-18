@@ -8,6 +8,7 @@ import { toBeDefined } from "@matcher/to_be_defined.ts";
 import { toBeNull } from "@matcher/to_be_null.ts";
 import { toBeNaN } from "@matcher/to_be_nan.ts";
 import { toBeInstanceOf } from "@matcher/to_be_instance_of.ts";
+import { toBeGreaterThan } from "@matcher/to_be_greater_than.ts";
 import { toHaveLength } from "@matcher/to_have_length.ts";
 export * from "@matcher/types.ts";
 export * from "@matcher/utils.ts";
@@ -22,6 +23,7 @@ const jestMatcher = {
   toBeNull,
   toBeNaN,
   toBeInstanceOf,
+  toBeGreaterThan,
   toHaveLength,
 };
 
@@ -30,6 +32,7 @@ export {
   toBe,
   toBeDefined,
   toBeFalsy,
+  toBeGreaterThan,
   toBeInstanceOf,
   toBeNaN,
   toBeNull,

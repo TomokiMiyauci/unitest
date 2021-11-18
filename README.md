@@ -63,7 +63,7 @@ expect(1000).not.toBe100();
   - [ ] toHaveNthReturnedWith
   - [ ] toHaveProperty
   - [ ] toBeCloseTo
-  - [ ] toBeGreaterThan
+  - [x] toBeGreaterThan
   - [ ] toBeGreaterThanOrEqual
   - [ ] toBeLessThan
   - [ ] toBeLessThanOrEqual
