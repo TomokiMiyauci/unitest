@@ -4,6 +4,7 @@ import { toEqual } from "@matcher/to_equal.ts";
 import { toBeFalsy } from "@matcher/to_be_falsy.ts";
 import { toBeTruthy } from "@matcher/to_be_truthy.ts";
 import { toBeUndefined } from "@matcher/to_be_undefined.ts";
+import { toBeDefined } from "@matcher/to_be_defined.ts";
 export * from "@matcher/types.ts";
 export * from "@matcher/utils.ts";
 
@@ -12,7 +13,16 @@ const jestMatcher = {
   toEqual,
   toBeFalsy,
   toBeTruthy,
+  toBeDefined,
   toBeUndefined,
 };
 
-export { jestMatcher, toBe, toBeFalsy, toBeTruthy, toBeUndefined, toEqual };
+export {
+  jestMatcher,
+  toBe,
+  toBeDefined,
+  toBeFalsy,
+  toBeTruthy,
+  toBeUndefined,
+  toEqual,
+};
