@@ -2,7 +2,12 @@
 import { AssertionError } from "@/deps.ts";
 import { stringify } from "@matcher/utils.ts";
 import type { Matcher, MatchResult } from "@matcher/types.ts";
-import type { AnyFn, ShiftRightParameters } from "@/_types.ts";
+import type {
+  AnyFn,
+  OmitBy,
+  PropertyFilter,
+  ShiftRightParameters,
+} from "@/_types.ts";
 
 type MatcherMap = Record<
   string | symbol,
@@ -25,7 +30,7 @@ type Shift<T extends Record<PropertyKey, AnyFn>> = {
 function defineExpect<M extends MatcherMap>(
   matcherMap: M,
 ) {
-  return (actual: unknown): Expected<M> => {
+  return <T = unknown>(actual: T): Expected<OmitBy<PropertyFilter<M, T>>> => {
     let isNot = false;
 
     const self: any = new Proxy({}, {
