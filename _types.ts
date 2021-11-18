@@ -1,3 +1,4 @@
+// Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 type AnyFn<P = any, R = unknown> = (...args: P[]) => R;
 
 type ShiftRightParameters<T extends AnyFn, R> = IsArityX<T, 0 | 1> extends true

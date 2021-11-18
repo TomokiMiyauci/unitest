@@ -1,3 +1,4 @@
+// Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 export {
   assert,
   assertEquals,

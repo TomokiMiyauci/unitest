@@ -1,3 +1,4 @@
+// Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { AssertionError } from "./deps.ts";
 import type { Matcher, MatchResult } from "./matcher/types.ts";
 import type { AnyFn, ShiftRightParameters } from "./_types.ts";
