@@ -19,4 +19,8 @@ function fail(options?: {
   };
 }
 
-export { fail, success };
+function stringify(value: unknown): string {
+  return String(value);
+}
+
+export { fail, stringify, success };
