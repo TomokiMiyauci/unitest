@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { predict } from "@matcher/to_be.ts";
-import { assertEquals } from "@/dev_deps.ts";
+import { predict, toBe } from "@matcher/to_be.ts";
+import { assertEquals, assertFail, assertSuccess } from "@/dev_deps.ts";
 
 Deno.test({
   name: "predict",
@@ -23,5 +23,13 @@ Deno.test({
     table.forEach(([actual, expected, exp]) =>
       assertEquals(predict(actual, expected), exp)
     );
+  },
+});
+
+Deno.test({
+  name: "toBe",
+  fn: () => {
+    assertSuccess(toBe("", ""));
+    assertFail(toBe("", " "));
   },
 });
