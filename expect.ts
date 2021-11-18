@@ -1,7 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { AssertionError } from "./deps.ts";
-import type { Matcher, MatchResult } from "./matcher/types.ts";
-import type { AnyFn, ShiftRightParameters } from "./_types.ts";
+import { AssertionError } from "@/deps.ts";
+import { stringify } from "@matcher/utils.ts";
+import type { Matcher, MatchResult } from "@matcher/types.ts";
+import type { AnyFn, ShiftRightParameters } from "@/_types.ts";
 
 type MatcherMap = Record<
   string | symbol,
@@ -24,7 +25,7 @@ type Shift<T extends Record<PropertyKey, AnyFn>> = {
 function defineExpect<M extends MatcherMap>(
   matcherMap: M,
 ) {
-  return (value: any): Expected<M> => {
+  return (actual: unknown): Expected<M> => {
     let isNot = false;
 
     const self: any = new Proxy({}, {
@@ -36,11 +37,11 @@ function defineExpect<M extends MatcherMap>(
 
         const matcher = matcherMap[name];
         if (!matcher) {
-          throw new TypeError(`matcher not found: ${String(name)}`);
+          throw new TypeError(`matcher not found: ${stringify(name)}`);
         }
 
         return (...args: any[]) => {
-          const { pass, message } = matcher(value, ...args);
+          const { pass, message } = matcher(actual, ...args);
 
           if (isNot) {
             if (!pass) return;

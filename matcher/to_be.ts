@@ -2,7 +2,7 @@
 import type { MatchResult } from "@matcher/types.ts";
 import { fail, stringify, success } from "@matcher/utils.ts";
 
-function predict(actual: any, expected: any): boolean {
+function predict(actual: unknown, expected: unknown): boolean {
   return Object.is(actual, expected);
 }
 
@@ -10,7 +10,7 @@ function predict(actual: any, expected: any): boolean {
  * @param actual - Any value
  * @param expected - Any Primitive value
  */
-function toBe(actual: any, expected: any): MatchResult {
+function toBe(actual: unknown, expected: unknown): MatchResult {
   if (predict(actual, expected)) return success();
 
   return fail({
