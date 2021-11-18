@@ -20,7 +20,7 @@ function fail(options?: {
 }
 
 function stringify(value: unknown): string {
-  return String(value);
+  return Deno.inspect(value);
 }
 
 export { fail, stringify, success };
