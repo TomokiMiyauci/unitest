@@ -53,7 +53,7 @@ expect(1000).not.toBe100();
   - [x] toBeGreaterThan
   - [x] toBeGreaterThanOrEqual
   - [x] toBeLessThan
-  - [ ] toBeLessThanOrEqual
+  - [x] toBeLessThanOrEqual
   - [ ] toBeCloseTo
   - [ ] toHaveBeenCalled
   - [ ] toHaveBeenCalled
