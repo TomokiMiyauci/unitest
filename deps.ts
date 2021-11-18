@@ -5,5 +5,6 @@ export {
 } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 export {
   isNull,
+  isString,
   isUndefined,
 } from "https://deno.land/x/isx@v1.0.0-beta.6/mod.ts";

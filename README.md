@@ -69,7 +69,7 @@ expect(1000).not.toBe100();
   - [ ] toHaveProperty
   - [ ] toContain
   - [ ] toContainEqual
-  - [ ] toMatch
+  - [x] toMatch
   - [ ] toMatchObject
   - [ ] toMatchSnapshot
   - [ ] toMatchInlineSnapshot
