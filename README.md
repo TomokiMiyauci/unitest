@@ -50,6 +50,11 @@ expect(1000).not.toBe100();
   - [x] toBeUndefined
   - [x] toEqual
   - [x] toHaveLength
+  - [x] toBeGreaterThan
+  - [x] toBeGreaterThanOrEqual
+  - [ ] toBeLessThan
+  - [ ] toBeLessThanOrEqual
+  - [ ] toBeCloseTo
   - [ ] toHaveBeenCalled
   - [ ] toHaveBeenCalled
   - [ ] toHaveBeenCalledTimes
@@ -62,11 +67,6 @@ expect(1000).not.toBe100();
   - [ ] toHaveLastReturnedWith
   - [ ] toHaveNthReturnedWith
   - [ ] toHaveProperty
-  - [ ] toBeCloseTo
-  - [x] toBeGreaterThan
-  - [ ] toBeGreaterThanOrEqual
-  - [ ] toBeLessThan
-  - [ ] toBeLessThanOrEqual
   - [ ] toContain
   - [ ] toContainEqual
   - [ ] toMatch
