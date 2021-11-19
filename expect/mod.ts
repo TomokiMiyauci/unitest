@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { AssertionError, isPromise } from "@/deps.ts";
+import { AssertionError, isPromise, isString } from "@/deps.ts";
 import { stringify } from "@matcher/utils.ts";
 import type { Matcher, MatchResult } from "@matcher/types.ts";
 import type {
@@ -16,7 +16,7 @@ type MatcherMap = Record<
 
 type Expected<
   T extends MatcherMap,
-  V extends string = "not" | "resolves",
+  V extends string = "not" | "resolves" | "rejects",
 > =
   & {
     [k in V]: Omit<Shift<T>, k>;
@@ -41,9 +41,17 @@ function defineExpect<M extends MatcherMap>(
           return self;
         }
 
-        if (name === "resolves") {
+        if (isString(name) && ["resolves", "rejects"].includes(name)) {
           if (!isPromise(actual)) {
             throw new AssertionError("expected value must be a Promise");
+          }
+
+          if (name === "rejects") {
+            actual = ((actual as unknown as Promise<T>).then((v) => {
+              throw new AssertionError(
+                `Promise did not reject. resolved to ${stringify(v)}`,
+              );
+            }).catch((v) => v)) as unknown as T;
           }
 
           _isPromise = true;
