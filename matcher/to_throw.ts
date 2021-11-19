@@ -2,7 +2,7 @@
 import { fail, stringify, success } from "@matcher/utils.ts";
 import type { MatchResult } from "@matcher/types.ts";
 import type { AnyFn } from "@/_types.ts";
-import { isUndefined } from "@/deps.ts";
+import { isError, isUndefined } from "@/deps.ts";
 
 function predict(actual: AnyFn) {
   let hasError = false;
@@ -27,7 +27,7 @@ function toThrow(actual: AnyFn, error?: string | RegExp): MatchResult {
   if (hasError) {
     if (isUndefined(error)) return success();
 
-    if (e instanceof Error && e.message.match(error)) return success();
+    if (isError(e) && e.message.match(error)) return success();
 
     if (e === error) return success();
   }

@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { AssertionError } from "@/deps.ts";
+import { AssertionError, isPromise } from "@/deps.ts";
 import { stringify } from "@matcher/utils.ts";
 import type { Matcher, MatchResult } from "@matcher/types.ts";
 import type {
@@ -31,22 +31,22 @@ function defineExpect<M extends MatcherMap>(
   matcherMap: M,
 ) {
   return <T = unknown>(actual: T): Expected<OmitBy<PropertyFilter<M, T>>> => {
-    let isNot = false;
-    let isPromise = false;
+    let _isNot = false;
+    let _isPromise = false;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
         if (name === "not") {
-          isNot = true;
+          _isNot = true;
           return self;
         }
 
         if (name === "resolves") {
-          if (!(actual instanceof Promise)) {
+          if (!isPromise(actual)) {
             throw new AssertionError("expected value must be a Promise");
           }
 
-          isPromise = true;
+          _isPromise = true;
           return self;
         }
 
@@ -57,7 +57,7 @@ function defineExpect<M extends MatcherMap>(
 
         return (...args: any[]) => {
           const assert = ({ pass, message }: MatchResult): void => {
-            if (isNot) {
+            if (_isNot) {
               if (!pass) return;
               throw new AssertionError(`should not ${message}`);
             } else {
@@ -66,7 +66,7 @@ function defineExpect<M extends MatcherMap>(
             }
           };
 
-          if (isPromise) {
+          if (_isPromise) {
             (actual as unknown as Promise<T>).then((value) =>
               assert(matcher(value, ...args))
             );
