@@ -16,6 +16,7 @@ import { toBeCloseTo } from "@matcher/to_be_close_to.ts";
 import { toMatch } from "@matcher/to_match.ts";
 import { toContain } from "@matcher/to_contain.ts";
 import { toThrow } from "@matcher/to_throw.ts";
+import { toHaveBeenCalled } from "@matcher/to_have_been_called.ts";
 
 import { toHaveLength } from "@matcher/to_have_length.ts";
 export * from "@matcher/types.ts";
@@ -37,6 +38,7 @@ const jestMatcher = {
   toBeCloseTo,
   toBeLessThanOrEqual,
   toHaveLength,
+  toHaveBeenCalled,
   toMatch,
   toContain,
   toThrow,
@@ -59,6 +61,7 @@ export {
   toBeUndefined,
   toContain,
   toEqual,
+  toHaveBeenCalled,
   toHaveLength,
   toMatch,
   toThrow,
