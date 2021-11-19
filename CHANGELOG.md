@@ -1,3 +1,11 @@
+# [1.0.0-beta.11](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-11-19)
+
+
+### Features
+
+* **matcher:** add `toBeAnything` matcher ([38afded](https://github.com/TomokiMiyauci/unitest/commit/38afded166f01001fcae705d2abd527dbb4368d6))
+* **matcher:** add `toBeNil` matcher ([2374c7e](https://github.com/TomokiMiyauci/unitest/commit/2374c7e62ead2abe13edf728de075fb20475d06b))
+
 # [1.0.0-beta.10](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-11-19)
 
 
