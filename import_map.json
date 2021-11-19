@@ -1,6 +1,7 @@
 {
   "imports": {
     "@matcher/": "./matcher/",
+    "@expect/": "./expect/",
     "@/": "./"
   }
 }
