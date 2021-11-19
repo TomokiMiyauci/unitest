@@ -1,3 +1,10 @@
+# [1.0.0-beta.6](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2021-11-19)
+
+
+### Features
+
+* **expect:** add `.resolve` helper ([5d9027d](https://github.com/TomokiMiyauci/unitest/commit/5d9027d0e0814832c3e9e16b59f28536ec727918))
+
 # [1.0.0-beta.5](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-11-19)
 
 
