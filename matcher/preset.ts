@@ -6,6 +6,7 @@ import { toBeTruthy } from "@matcher/to_be_truthy.ts";
 import { toBeUndefined } from "@matcher/to_be_undefined.ts";
 import { toBeDefined } from "@matcher/to_be_defined.ts";
 import { toBeNull } from "@matcher/to_be_null.ts";
+import { toBeAnything } from "@matcher/to_be_anything.ts";
 import { toBeNaN } from "@matcher/to_be_nan.ts";
 import { toBeInstanceOf } from "@matcher/to_be_instance_of.ts";
 import { toBeGreaterThan } from "@matcher/to_be_greater_than.ts";
@@ -57,11 +58,15 @@ const jestMatcher = {
   toMatch,
   toContain,
   toThrow,
+
+  // alternative jest matcher
+  toBeAnything,
 };
 
 export {
   jestMatcher,
   toBe,
+  toBeAnything,
   toBeCloseTo,
   toBeDefined,
   toBeFalsy,

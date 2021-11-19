@@ -6,8 +6,9 @@ export {
 export {
   isError,
   isLength0,
+  isNil,
   isNull,
   isPromise,
   isString,
   isUndefined,
-} from "https://deno.land/x/isx@v1.0.0-beta.8/mod.ts";
+} from "https://deno.land/x/isx@v1.0.0-beta.10/mod.ts";
