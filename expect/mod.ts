@@ -16,7 +16,7 @@ type MatcherMap = Record<
 
 type Expected<
   T extends MatcherMap,
-  V extends string = "not",
+  V extends string = "not" | "resolves",
 > =
   & {
     [k in V]: Omit<Shift<T>, k>;
@@ -32,11 +32,21 @@ function defineExpect<M extends MatcherMap>(
 ) {
   return <T = unknown>(actual: T): Expected<OmitBy<PropertyFilter<M, T>>> => {
     let isNot = false;
+    let isPromise = false;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
         if (name === "not") {
           isNot = true;
+          return self;
+        }
+
+        if (name === "resolves") {
+          if (!(actual instanceof Promise)) {
+            throw new AssertionError("expected value must be a Promise");
+          }
+
+          isPromise = true;
           return self;
         }
 
@@ -46,14 +56,22 @@ function defineExpect<M extends MatcherMap>(
         }
 
         return (...args: any[]) => {
-          const { pass, message } = matcher(actual, ...args);
+          const assert = ({ pass, message }: MatchResult): void => {
+            if (isNot) {
+              if (!pass) return;
+              throw new AssertionError(`should not ${message}`);
+            } else {
+              if (pass) return;
+              throw new AssertionError(message || "Unknown error");
+            }
+          };
 
-          if (isNot) {
-            if (!pass) return;
-            throw new AssertionError(`should not ${message}`);
+          if (isPromise) {
+            (actual as unknown as Promise<T>).then((value) =>
+              assert(matcher(value, ...args))
+            );
           } else {
-            if (pass) return;
-            throw new AssertionError(message || "Unknown error");
+            assert(matcher(actual, ...args));
           }
         };
       },
