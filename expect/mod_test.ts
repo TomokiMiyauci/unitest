@@ -18,7 +18,7 @@ Deno.test({
 
     assertThrows(() => expect("").resolves, AssertionError);
     assertThrows(() => expect("").rejects, AssertionError);
-    assertThrows(() => expect(Promise.resolve('')).rejects, AssertionError);
+    assertThrows(() => expect(Promise.resolve("")).rejects, AssertionError);
     assertThrows(() => expect("").toBe("test"), AssertionError);
   },
 });
