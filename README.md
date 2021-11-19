@@ -125,7 +125,7 @@ This allows TypeScript to do some of the assertions for you.
   - [ ] toMatchSnapshot
   - [ ] toMatchInlineSnapshot
   - [ ] toStrictEqual
-  - [ ] toThrow
+  - [x] toThrow
   - [ ] toThrowErrorMatchingSnapshot
   - [ ] toThrowErrorMatchingInlineSnapshot
 - [ ] Implement interface of custom matcher

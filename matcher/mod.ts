@@ -14,6 +14,7 @@ import { toBeLessThan } from "@matcher/to_be_less_than.ts";
 import { toBeLessThanOrEqual } from "@matcher/to_be_less_than_or_equal.ts";
 import { toMatch } from "@matcher/to_match.ts";
 import { toContain } from "@matcher/to_contain.ts";
+import { toThrow } from "@matcher/to_throw.ts";
 
 import { toHaveLength } from "@matcher/to_have_length.ts";
 export * from "@matcher/types.ts";
@@ -36,6 +37,7 @@ const jestMatcher = {
   toHaveLength,
   toMatch,
   toContain,
+  toThrow,
 };
 
 export {
@@ -56,4 +58,5 @@ export {
   toEqual,
   toHaveLength,
   toMatch,
+  toThrow,
 };
