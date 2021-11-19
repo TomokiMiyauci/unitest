@@ -20,6 +20,7 @@ import { toHaveBeenCalled } from "@matcher/to_have_been_called.ts";
 import { toHaveBeenCalledTimes } from "@matcher/to_have_been_called_times.ts";
 import { toHaveBeenCalledWith } from "@matcher/to_have_been_called_with.ts";
 import { toHaveBeenLastCalledWith } from "@matcher/to_have_been_last_called_with.ts";
+import { toHaveBeenNthCalledWith } from "@matcher/to_have_been_nth_called_with.ts";
 import { toHaveLength } from "@matcher/to_have_length.ts";
 
 const jestMatcher = {
@@ -42,6 +43,7 @@ const jestMatcher = {
   toHaveBeenCalledTimes,
   toHaveBeenCalledWith,
   toHaveBeenLastCalledWith,
+  toHaveBeenNthCalledWith,
   toMatch,
   toContain,
   toThrow,
@@ -68,6 +70,7 @@ export {
   toHaveBeenCalledTimes,
   toHaveBeenCalledWith,
   toHaveBeenLastCalledWith,
+  toHaveBeenNthCalledWith,
   toHaveLength,
   toMatch,
   toThrow,
