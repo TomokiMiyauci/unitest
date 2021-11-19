@@ -118,7 +118,7 @@ This allows TypeScript to do some of the assertions for you.
   - [x] toHaveReturned
   - [x] toHaveReturnedTimes
   - [x] toHaveReturnedWith
-  - [ ] toHaveLastReturnedWith
+  - [x] toHaveLastReturnedWith
   - [ ] toHaveNthReturnedWith
   - [ ] toHaveProperty
   - [x] toContain

@@ -23,4 +23,11 @@ function stringify(value: unknown): string {
   return Deno.inspect(value);
 }
 
-export { fail, stringify, success };
+function takeLast<T extends readonly unknown[] | string>(
+  howMany: number,
+  val: T,
+): T {
+  return (howMany <= 0 ? val.slice(0, -howMany) : val.slice(-howMany)) as T;
+}
+
+export { fail, stringify, success, takeLast };
