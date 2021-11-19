@@ -5,6 +5,7 @@ export {
 } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 export {
   isError,
+  isLength0,
   isNull,
   isPromise,
   isString,
