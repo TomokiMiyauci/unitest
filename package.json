@@ -61,6 +61,7 @@
     ]
   },
   "lint-staged": {
+    "*": "deno fmt -c deno.json",
     "*.ts": "deno run --allow-read --allow-write _tools/copyright.ts",
     "*.{yaml,yml}": "yamllint"
   }
