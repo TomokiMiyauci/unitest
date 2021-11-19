@@ -12,6 +12,7 @@ import { toBeGreaterThan } from "@matcher/to_be_greater_than.ts";
 import { toBeGreaterThanOrEqual } from "@matcher/to_be_greater_than_or_equal.ts";
 import { toBeLessThan } from "@matcher/to_be_less_than.ts";
 import { toBeLessThanOrEqual } from "@matcher/to_be_less_than_or_equal.ts";
+import { toBeCloseTo } from "@matcher/to_be_close_to.ts";
 import { toMatch } from "@matcher/to_match.ts";
 import { toContain } from "@matcher/to_contain.ts";
 import { toThrow } from "@matcher/to_throw.ts";
@@ -33,6 +34,7 @@ const jestMatcher = {
   toBeGreaterThan,
   toBeGreaterThanOrEqual,
   toBeLessThan,
+  toBeCloseTo,
   toBeLessThanOrEqual,
   toHaveLength,
   toMatch,
@@ -43,6 +45,7 @@ const jestMatcher = {
 export {
   jestMatcher,
   toBe,
+  toBeCloseTo,
   toBeDefined,
   toBeFalsy,
   toBeGreaterThan,

@@ -105,7 +105,7 @@ This allows TypeScript to do some of the assertions for you.
   - [x] toBeGreaterThanOrEqual
   - [x] toBeLessThan
   - [x] toBeLessThanOrEqual
-  - [ ] toBeCloseTo
+  - [x] toBeCloseTo
   - [ ] toHaveBeenCalled
   - [ ] toHaveBeenCalled
   - [ ] toHaveBeenCalledTimes
