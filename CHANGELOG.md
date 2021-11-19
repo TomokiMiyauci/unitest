@@ -1,3 +1,12 @@
+# [1.0.0-beta.8](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-11-19)
+
+
+### Features
+
+* **matcher:** add `toBeCloseTo` matcher ([dc66577](https://github.com/TomokiMiyauci/unitest/commit/dc66577ef750b630bd8d346ef82976674f6f48b9))
+* **matcher:** add `toHaveBeenCalled` matcher ([2668260](https://github.com/TomokiMiyauci/unitest/commit/2668260fe32ab58b35d25f1e5853c2f1bf60d06e))
+* **mock:** add `fn` function what make mock ([9b315f1](https://github.com/TomokiMiyauci/unitest/commit/9b315f174b5de3aa6d77961351a7ea4471a17714))
+
 # [1.0.0-beta.7](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2021-11-19)
 
 
