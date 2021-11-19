@@ -2,12 +2,10 @@
 import type { MatchResult } from "@matcher/types.ts";
 import { fail, stringify, success } from "@matcher/utils.ts";
 
-type ContainIterable = { indexOf: (search: any) => number };
+type ContainIterable = { includes: (search: any) => boolean };
 
 function predict(actual: ContainIterable, expected: unknown): boolean {
-  const index = actual.indexOf(expected);
-
-  return index !== -1;
+  return actual.includes(expected);
 }
 
 function toContain(
