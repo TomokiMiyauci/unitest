@@ -105,6 +105,72 @@ This allows TypeScript to do some of the assertions for you.
   - toThrowErrorMatchingInlineSnapshot
 - [ ] Implement third party matcher
   - jest-extended
+    - [ ] toBeEmpty
+    - [ ] toBeOneOf
+    - [x] toBeNil
+    - [ ] toSatisfy
+    - [ ] toBeArray
+    - [ ] toBeArrayOfSize
+    - [ ] toIncludeAllMembers
+    - [ ] toIncludeAllPartialMembers
+    - [ ] toIncludeAnyMembers
+    - [ ] toIncludeSameMembers
+    - [ ] toSatisfyAll
+    - [ ] toSatisfyAny
+    - [ ] toBeBoolean
+    - [ ] toBeTrue
+    - [ ] toBeFalse
+    - [ ] toBeDate
+    - [ ] toBeValidDate
+    - [ ] toBeAfter
+    - [ ] toBeBefore
+    - [ ] toBeAfterOrEqualTo
+    - [ ] toBeBeforeOrEqualTo
+    - [ ] toBeBetween
+    - [ ] toBeFunction
+    - [ ] toThrowWithMessage
+    - [ ] toHaveBeenCalledBefore
+    - [ ] toHaveBeenCalledAfter
+    - [ ] toHaveBeenCalledOnce
+    - [ ] toBeNumber
+    - [ ] toBeNaN
+    - [ ] toBeFinite
+    - [ ] toBePositive
+    - [ ] toBeNegative
+    - [ ] toBeEven
+    - [ ] toBeOdd
+    - [ ] toBeWithin
+    - [ ] toBeInteger
+    - [ ] toBeObject
+    - [ ] toBeEmptyObject
+    - [ ] toContainKey
+    - [ ] toContainKeys
+    - [ ] toContainAllKeys
+    - [ ] toContainAnyKeys
+    - [ ] toContainValue
+    - [ ] toContainValues
+    - [ ] toContainAllValues
+    - [ ] toContainAnyValues
+    - [ ] toContainEntry
+    - [ ] toContainEntries
+    - [ ] toContainAllEntries
+    - [ ] toContainAnyEntries
+    - [ ] toBeExtensible
+    - [ ] toBeFrozen
+    - [ ] toBeSealed
+    - [ ] toResolve
+    - [ ] toReject
+    - [ ] toBeString
+    - [ ] toBeHexadecimal
+    - [ ] toBeDateString
+    - [ ] toEqualCaseInsensitive
+    - [ ] toStartWith
+    - [ ] toEndWith
+    - [ ] toInclude
+    - [ ] toIncludeRepeated
+    - [ ] toIncludeMultiple
+    - [ ] toEqualIgnoringWhitespace
+    - [ ] toBeSymbol
 - [ ] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite
