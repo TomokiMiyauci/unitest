@@ -134,3 +134,9 @@ This allows TypeScript to do some of the assertions for you.
 - [ ] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite
+
+## License
+
+Copyright © 2021-present [TomokiMiyauci](https://github.com/TomokiMiyauci).
+
+Released under the [MIT](./LICENSE) license
