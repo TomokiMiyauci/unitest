@@ -8,6 +8,7 @@ import type {
   PropertyFilter,
   ShiftRightParameters,
 } from "@/_types.ts";
+import { jestMatcher } from "@matcher/preset.ts";
 
 type MatcherMap = Record<
   string | symbol,
@@ -89,5 +90,7 @@ function defineExpect<M extends MatcherMap>(
   };
 }
 
-export { defineExpect };
+const expect = defineExpect(jestMatcher);
+
+export { defineExpect, expect };
 export type { Expected, MatcherMap };
