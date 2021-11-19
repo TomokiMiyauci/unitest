@@ -17,6 +17,7 @@ import { toMatch } from "@matcher/to_match.ts";
 import { toContain } from "@matcher/to_contain.ts";
 import { toThrow } from "@matcher/to_throw.ts";
 import { toHaveBeenCalled } from "@matcher/to_have_been_called.ts";
+import { toHaveBeenCalledTimes } from "@matcher/to_have_been_called_times.ts";
 
 import { toHaveLength } from "@matcher/to_have_length.ts";
 export * from "@matcher/types.ts";
@@ -39,6 +40,7 @@ const jestMatcher = {
   toBeLessThanOrEqual,
   toHaveLength,
   toHaveBeenCalled,
+  toHaveBeenCalledTimes,
   toMatch,
   toContain,
   toThrow,
@@ -62,6 +64,7 @@ export {
   toContain,
   toEqual,
   toHaveBeenCalled,
+  toHaveBeenCalledTimes,
   toHaveLength,
   toMatch,
   toThrow,
