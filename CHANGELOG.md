@@ -1,3 +1,10 @@
+# [1.0.0-beta.7](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2021-11-19)
+
+
+### Features
+
+* **expect:** add `.rejects` helper ([9f9424e](https://github.com/TomokiMiyauci/unitest/commit/9f9424ea7bc8e35e66eab86b94c2ffa7a1d62c8c))
+
 # [1.0.0-beta.6](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2021-11-19)
 
 
