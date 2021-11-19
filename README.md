@@ -94,43 +94,17 @@ This allows TypeScript to do some of the assertions for you.
 
 ## TODO
 
-- [ ] Implement expecter and jest default matcher
-  - [x] toBe
-  - [x] toBeDefined
-  - [x] toBeFalsy
-  - [x] toBeInstanceOf
-  - [x] toBeNaN
-  - [x] toBeNull
-  - [x] toBeTruthy
-  - [x] toBeUndefined
-  - [x] toEqual
-  - [x] toHaveLength
-  - [x] toBeGreaterThan
-  - [x] toBeGreaterThanOrEqual
-  - [x] toBeLessThan
-  - [x] toBeLessThanOrEqual
-  - [x] toBeCloseTo
-  - [x] toHaveBeenCalled
-  - [x] toHaveBeenCalledTimes
-  - [x] toHaveBeenCalledWith
-  - [x] toHaveBeenLastCalledWith
-  - [x] toHaveBeenNthCalledWith
-  - [x] toHaveReturned
-  - [x] toHaveReturnedTimes
-  - [x] toHaveReturnedWith
-  - [x] toHaveLastReturnedWith
-  - [x] toHaveNthReturnedWith
-  - [ ] toHaveProperty
-  - [x] toContain
-  - [ ] toContainEqual
-  - [x] toMatch
-  - [ ] toMatchObject
-  - [ ] toMatchSnapshot
-  - [ ] toMatchInlineSnapshot
-  - [ ] toStrictEqual
-  - [x] toThrow
-  - [ ] toThrowErrorMatchingSnapshot
-  - [ ] toThrowErrorMatchingInlineSnapshot
+- [ ] Implement expecter and jest default matcher (rest)
+  - toHaveProperty
+  - toContainEqual
+  - toMatchObject
+  - toMatchSnapshot
+  - toMatchInlineSnapshot
+  - toStrictEqual
+  - toThrowErrorMatchingSnapshot
+  - toThrowErrorMatchingInlineSnapshot
+- [ ] Implement third party matcher
+  - jest-extended
 - [ ] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite

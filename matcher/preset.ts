@@ -29,7 +29,15 @@ import { toHaveReturnedWith } from "@matcher/to_have_returned_with.ts";
 import { toHaveLastReturnedWith } from "@matcher/to_have_last_returned_with.ts";
 import { toHaveNthReturnedWith } from "@matcher/to_have_nth_returned_with.ts";
 
-const jestMatcher = {
+import { toBeNil } from "@matcher/to_be_nil.ts";
+
+/**
+ * jest built-in matcher map
+ * @see https://jestjs.io/docs/expect
+ *
+ * @beta
+ */
+const jestMatcherMap = {
   toBe,
   toEqual,
   toBeFalsy,
@@ -63,8 +71,17 @@ const jestMatcher = {
   toBeAnything,
 };
 
+/**
+ * Additional jest matchers
+ * @see https://github.com/jest-community/jest-extended
+ */
+const jestExtendedMatcherMap = {
+  toBeNil,
+};
+
 export {
-  jestMatcher,
+  jestExtendedMatcherMap,
+  jestMatcherMap,
   toBe,
   toBeAnything,
   toBeCloseTo,
@@ -76,6 +93,7 @@ export {
   toBeLessThan,
   toBeLessThanOrEqual,
   toBeNaN,
+  toBeNil,
   toBeNull,
   toBeTruthy,
   toBeUndefined,
