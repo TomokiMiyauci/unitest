@@ -1,3 +1,16 @@
+# [1.0.0-beta.5](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-11-19)
+
+
+### Bug Fixes
+
+* **matcher:** change `to_contain` matcher logic to includes ([b260b4b](https://github.com/TomokiMiyauci/unitest/commit/b260b4bac964564582aca19e64e1aca4da562938))
+
+
+### Features
+
+* **matcher:** add `toContain` matcher ([294c543](https://github.com/TomokiMiyauci/unitest/commit/294c543fced929ab5ac7614e12fb95d0b0db072e))
+* **matcher:** add `toThrow` matcher ([a0f8432](https://github.com/TomokiMiyauci/unitest/commit/a0f8432fd5ffeee1c4002a9aaec19818bef55b06))
+
 # [1.0.0-beta.4](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-11-18)
 
 
