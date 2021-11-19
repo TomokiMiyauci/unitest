@@ -1,3 +1,13 @@
+# [1.0.0-beta.9](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-11-19)
+
+
+### Features
+
+* **matcher:** add `toHaveBeenCalledTimes` matcher ([89232fb](https://github.com/TomokiMiyauci/unitest/commit/89232fb3bb8d07d3bd6ca4d5a7b7a0b804c758cd))
+* **matcher:** add `toHaveBeenCalledWith` matcher ([c10b04d](https://github.com/TomokiMiyauci/unitest/commit/c10b04d0af5bf22100d3f888844410a1c27b3aaa))
+* **matcher:** add `toHaveBeenLastCalledWith` matcher ([e6c8fcd](https://github.com/TomokiMiyauci/unitest/commit/e6c8fcd2f2dac4ca964825f8f355c5034dd44bd3))
+* **matcher:** add `toHaveBeenNthCalledWith` matcher ([b1260fc](https://github.com/TomokiMiyauci/unitest/commit/b1260fc13c1b0791970ed453d3471a5f6ee74fe9))
+
 # [1.0.0-beta.8](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-11-19)
 
 
