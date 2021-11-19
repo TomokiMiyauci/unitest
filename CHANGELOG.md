@@ -1,3 +1,16 @@
+# [1.0.0-beta.4](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-11-18)
+
+
+### Bug Fixes
+
+* **matcher:** assign a specific type to actual ([142acc6](https://github.com/TomokiMiyauci/unitest/commit/142acc6e10b6f0fc14814ae48fd796d704fee5f6))
+
+
+### Features
+
+* **expect:** add filtering matcher by generic types ([86026d7](https://github.com/TomokiMiyauci/unitest/commit/86026d748ccd6b6d514c85f6005def270e3fda0c))
+* **matcher:** add `toMatch` matcher ([7fd531c](https://github.com/TomokiMiyauci/unitest/commit/7fd531c82b82fc3cefabd7e199ce4f08a27ab315))
+
 # [1.0.0-beta.3](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-11-18)
 
 
