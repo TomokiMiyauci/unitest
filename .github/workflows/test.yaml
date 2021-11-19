@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-18.04, macos-11, windows-2022]
+        os: [ubuntu-latest, ubuntu-18.04, macos-latest, windows-latest]
         deno: [1.16.0, 1.14.0]
 
     steps:
@@ -23,14 +23,16 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Lint
-        run: deno lint --config deno.json
+        run: |
+          deno fmt -c deno.json
+          deno lint -c deno.json
 
   test:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-18.04, macos-11, windows-2022]
+        os: [ubuntu-latest, ubuntu-18.04, macos-latest, windows-latest]
         deno: [1.16.0, 1.14.0]
 
     steps:
@@ -41,5 +43,5 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }}
 
-      - name: Lint
-        run: deno test --ignore=node_modules --config deno.json --import-map=import_map.json
+      - name: Test
+        run: deno test --ignore=node_modules,README.md --config deno.json --import-map=import_map.json --doc

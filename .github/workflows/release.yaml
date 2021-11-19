@@ -23,7 +23,9 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Lint
-        run: deno lint --config deno.json
+        run: |
+          deno fmt -c deno.json
+          deno lint -c deno.json
 
   test:
     runs-on: ${{ matrix.os }}
@@ -41,8 +43,8 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }}
 
-      - name: Lint
-        run: deno test --ignore=node_modules --config deno.json --import-map=import_map.json
+      - name: Test
+        run: deno test --ignore=node_modules,README.md --config deno.json --import-map=import_map.json --doc
 
   release:
     needs: [lint, test]
