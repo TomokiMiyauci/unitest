@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@matcher/": "./matcher/",
+    "@expect/": "./expect/",
+    "@mock/": "./mock/",
+    "@/": "./"
+  }
+}

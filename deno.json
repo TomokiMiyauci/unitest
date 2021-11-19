@@ -1,7 +1,15 @@
 {
   "lint": {
+    "files": {
+      "exclude": ["node_modules"]
+    },
     "rules": {
       "exclude": ["no-explicit-any"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "exclude": ["node_modules", "CHANGELOG.md"]
     }
   }
 }
