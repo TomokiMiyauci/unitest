@@ -1,3 +1,15 @@
+# [1.0.0-beta.10](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-11-19)
+
+
+### Features
+
+* **matcher:** add `toHaveLastReturnedWith` matcher ([56aeb08](https://github.com/TomokiMiyauci/unitest/commit/56aeb08ac7a7cd70388898f67376e834ff5bf336))
+* **matcher:** add `toHaveNthReturnedWith` matcher ([13606e7](https://github.com/TomokiMiyauci/unitest/commit/13606e7c290ff98bccce2add081ba9609466db5e))
+* **matcher:** add `toHaveReturned` matcher ([9c051ef](https://github.com/TomokiMiyauci/unitest/commit/9c051efbab87c482080a9df0aee61bfb2a7f22ff))
+* **matcher:** add `toHaveReturnedTimes` matcher ([6281f93](https://github.com/TomokiMiyauci/unitest/commit/6281f930d47949e0485cb333b61f395f6cf2b2e1))
+* **matcher:** add `toHaveReturnedWith` matcher ([bade2ae](https://github.com/TomokiMiyauci/unitest/commit/bade2aed23e58c156952eda36a3ea6630fb6bb6f))
+* **mock:** save returned value to mock ([f86e15e](https://github.com/TomokiMiyauci/unitest/commit/f86e15e3d120d85cf44230c100da72772473d55c))
+
 # [1.0.0-beta.9](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-11-19)
 
 
