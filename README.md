@@ -113,7 +113,7 @@ This allows TypeScript to do some of the assertions for you.
   - [x] toHaveBeenCalled
   - [x] toHaveBeenCalledTimes
   - [x] toHaveBeenCalledWith
-  - [ ] toHaveBeenLastCalledWith
+  - [x] toHaveBeenLastCalledWith
   - [ ] toHaveBeenNthCalledWith
   - [ ] toHaveReturned
   - [ ] toHaveReturnedTimes
