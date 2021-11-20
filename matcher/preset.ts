@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeEven } from "@matcher/to_be_even.ts";
 import { toBeOdd } from "@matcher/to_be_odd.ts";
 import { toBePositive } from "@matcher/to_be_positive.ts";
 import { toBeNegative } from "@matcher/to_be_negative.ts";
@@ -96,6 +97,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeEven,
   toBeOdd,
   toBePositive,
   toBeNegative,

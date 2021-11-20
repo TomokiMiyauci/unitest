@@ -7,6 +7,7 @@ export {
   isBoolean,
   isDate,
   isError,
+  isEven,
   isFalse,
   isFunction,
   isLength0,
