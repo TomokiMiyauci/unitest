@@ -13,7 +13,7 @@ jest like testing easy
 ## expect
 
 ```ts
-import { expect } from "https://deno.land/x/unitest@{VERSION}/mod.ts";
+import { expect } from "https://deno.land/x/unitest@VERSION/mod.ts";
 
 expect("").toBe("");
 ```
@@ -25,10 +25,10 @@ It provides custom matcher interface.
 You can add custom matcher easy. The type is automatically extended.
 
 ```ts
-import { defineExpect, jestMatcher } from "https://deno.land/x/unitest@{VERSION}/mod.ts";
+import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@VERSION/mod.ts";
 
 const expect = defineExpect({
-  ...jestMatcher
+  ...jestMatcherMap
   toBe100: (actual) => {
     if (actual === 100) return { pass: true };
     return {
@@ -105,6 +105,72 @@ This allows TypeScript to do some of the assertions for you.
   - toThrowErrorMatchingInlineSnapshot
 - [ ] Implement third party matcher
   - jest-extended
+    - [ ] toBeEmpty
+    - [x] toBeOneOf
+    - [x] toBeNil
+    - [ ] toSatisfy
+    - [x] toBeArray
+    - [x] ~~toBeArrayOfSize~~ toHaveLength
+    - [ ] toIncludeAllMembers
+    - [ ] toIncludeAllPartialMembers
+    - [ ] toIncludeAnyMembers
+    - [ ] toIncludeSameMembers
+    - [ ] toSatisfyAll
+    - [ ] toSatisfyAny
+    - [x] toBeBoolean
+    - [x] toBeTrue
+    - [x] toBeFalse
+    - [x] toBeDate
+    - [x] toBeValidDate
+    - [x] toBeAfter
+    - [x] toBeBefore
+    - [x] toBeAfterOrEqualTo
+    - [x] toBeBeforeOrEqualTo
+    - [x] toBeBetween
+    - [x] toBeFunction
+    - [ ] toThrowWithMessage
+    - [ ] toHaveBeenCalledBefore
+    - [ ] toHaveBeenCalledAfter
+    - [ ] toHaveBeenCalledOnce
+    - [x] toBeNumber
+    - [ ] ~~toBeNaN~~ exists in jest
+    - [x] toBeFinite
+    - [x] toBePositive
+    - [x] toBeNegative
+    - [x] toBeEven
+    - [x] toBeOdd
+    - [x] toBeWithin
+    - [x] toBeInteger
+    - [ ] toBeObject
+    - [ ] toBeEmptyObject
+    - [ ] toContainKey
+    - [ ] toContainKeys
+    - [ ] toContainAllKeys
+    - [ ] toContainAnyKeys
+    - [ ] toContainValue
+    - [ ] toContainValues
+    - [ ] toContainAllValues
+    - [ ] toContainAnyValues
+    - [ ] toContainEntry
+    - [ ] toContainEntries
+    - [ ] toContainAllEntries
+    - [ ] toContainAnyEntries
+    - [ ] toBeExtensible
+    - [ ] toBeFrozen
+    - [ ] toBeSealed
+    - [ ] toResolve
+    - [ ] toReject
+    - [x] toBeString
+    - [ ] toBeHexadecimal
+    - [ ] toBeDateString
+    - [ ] toEqualCaseInsensitive
+    - [ ] toStartWith
+    - [ ] toEndWith
+    - [ ] toInclude
+    - [ ] toIncludeRepeated
+    - [ ] toIncludeMultiple
+    - [ ] toEqualIgnoringWhitespace
+    - [x] toBeSymbol
 - [ ] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite

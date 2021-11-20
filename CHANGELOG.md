@@ -1,3 +1,61 @@
+# [1.0.0-beta.15](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2021-11-20)
+
+
+### Bug Fixes
+
+* **matcher:** `toBeNegative` accept number only and fix logic ([a4e3df0](https://github.com/TomokiMiyauci/unitest/commit/a4e3df08f09be661a45768a558db8ec9afe19fb0))
+
+
+### Features
+
+* **matcher:** add `toBeEven` matcher ([a6d80d6](https://github.com/TomokiMiyauci/unitest/commit/a6d80d6e83a00e1bf793740d8a593731e653130d))
+* **matcher:** add `toBeFinite` matcher ([7a94ee8](https://github.com/TomokiMiyauci/unitest/commit/7a94ee849076f118e48e798556a69393b96213d6))
+* **matcher:** add `toBeInteger` matcher ([583d2d3](https://github.com/TomokiMiyauci/unitest/commit/583d2d34007cd36699f5fe6b1197ffe09863489b))
+* **matcher:** add `toBeNegative` matcher ([14cdb32](https://github.com/TomokiMiyauci/unitest/commit/14cdb32e3df2d9cc0107f68091b0e2fb930fd805))
+* **matcher:** add `toBeOdd` matcher ([1ff6b23](https://github.com/TomokiMiyauci/unitest/commit/1ff6b23376076ae8ce8d2b5dea021bf5a0f2f2b9))
+* **matcher:** add `toBePositive` matcher ([ca3bec6](https://github.com/TomokiMiyauci/unitest/commit/ca3bec684170ac1da895d1fc108be0bd9b7698d1))
+* **matcher:** add `toBeWithin` matcher ([46da609](https://github.com/TomokiMiyauci/unitest/commit/46da609118db999e485ca85ac935a740fda737be))
+
+# [1.0.0-beta.14](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2021-11-20)
+
+
+### Features
+
+* **matcher:** add `toBeAfterOrEqualTo` matcher ([b8c90b5](https://github.com/TomokiMiyauci/unitest/commit/b8c90b52c8b2e0646763131140d42394b120e5f8))
+* **matcher:** add `toBeBefore` matcher ([c7c8002](https://github.com/TomokiMiyauci/unitest/commit/c7c80027cba3d8c3ecb73bb26034512dead5c4cd))
+* **matcher:** add `toBeBeforeOrEqualTo` matcher ([10b36a2](https://github.com/TomokiMiyauci/unitest/commit/10b36a23030d46f52203e88ddee83f1ee6e8df9e))
+* **matcher:** add `toBeBetween` matcher ([e0c4949](https://github.com/TomokiMiyauci/unitest/commit/e0c49496398417ae0a2ef973ca1bff19e9f3c9bb))
+* **matcher:** add `toBeOneOf` matcher ([94ee680](https://github.com/TomokiMiyauci/unitest/commit/94ee680d7ef57f3b9b7c002d065712a1a8315d33))
+
+# [1.0.0-beta.13](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2021-11-20)
+
+
+### Bug Fixes
+
+* **expect:** wrap `expect` on function for tree-shaking ([ba51f65](https://github.com/TomokiMiyauci/unitest/commit/ba51f652be4acba7f67d5a26d41077543677f156))
+
+
+### Features
+
+* **matcher:** add `toBeAfter` matcher ([0f15283](https://github.com/TomokiMiyauci/unitest/commit/0f152832107844ed2f523221bc0e47dba94dddb8))
+* **matcher:** add `toBeDate` matcher ([f321728](https://github.com/TomokiMiyauci/unitest/commit/f3217289bdc6a053aeda09b709fb64cca82005e5))
+* **matcher:** add `toBeFunction` matcher ([481b7bd](https://github.com/TomokiMiyauci/unitest/commit/481b7bd45ad34d8c2528901f0afa6805b3982d19))
+* **matcher:** add `toBeSymbol` matcher ([8530c41](https://github.com/TomokiMiyauci/unitest/commit/8530c41b26cce13c242118e9dfd035f59a97f04d))
+* **matcher:** add `toBeValidDate` matcher ([ac6584f](https://github.com/TomokiMiyauci/unitest/commit/ac6584f1c69eb9d62b1f6d8244383cf4e1c48501))
+* **matcher:** improve assertion error message ([40c8e13](https://github.com/TomokiMiyauci/unitest/commit/40c8e139491e75bee0035e78f63fd28843c4b7da)), closes [#3](https://github.com/TomokiMiyauci/unitest/issues/3)
+
+# [1.0.0-beta.12](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2021-11-20)
+
+
+### Features
+
+* **matcher:** add `toBeArray` matcher ([9b52eb2](https://github.com/TomokiMiyauci/unitest/commit/9b52eb297fb758520430e167c3abd62f3b5e05d5))
+* **matcher:** add `toBeBoolean` matcher ([85234d3](https://github.com/TomokiMiyauci/unitest/commit/85234d3ce0768a1b897c4a155c428908ad1baf8e))
+* **matcher:** add `toBeFalse` matcher ([3c1f4ed](https://github.com/TomokiMiyauci/unitest/commit/3c1f4ed3a70813db6c6b6341eff162619aa42f4d))
+* **matcher:** add `toBeNumber` matcher ([8eb85aa](https://github.com/TomokiMiyauci/unitest/commit/8eb85aa34c0dd1fc4b4de63d5c55bbabd04c517f))
+* **matcher:** add `toBeString` matcher ([a401afa](https://github.com/TomokiMiyauci/unitest/commit/a401afa2adbce123d35eaab53a815a2271e0f3b8))
+* **matcher:** add `toBeTrue` matcher ([4287ca3](https://github.com/TomokiMiyauci/unitest/commit/4287ca37639a406ce07284687e478f20e1304b33))
+
 # [1.0.0-beta.11](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-11-19)
 
 

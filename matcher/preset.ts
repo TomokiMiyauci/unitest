@@ -1,4 +1,26 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeWithin } from "@matcher/to_be_within.ts";
+import { toBeInteger } from "@matcher/to_be_integer.ts";
+import { toBeEven } from "@matcher/to_be_even.ts";
+import { toBeOdd } from "@matcher/to_be_odd.ts";
+import { toBePositive } from "@matcher/to_be_positive.ts";
+import { toBeNegative } from "@matcher/to_be_negative.ts";
+import { toBeFinite } from "@matcher/to_be_finite.ts";
+import { toBeOneOf } from "@matcher/to_be_one_of.ts";
+import { toBeBetween } from "@matcher/to_be_between.ts";
+import { toBeAfterOrEqualTo } from "@matcher/to_be_after_or_equal_to.ts";
+import { toBeBeforeOrEqualTo } from "@matcher/to_be_before_or_equal_to.ts";
+import { toBeBefore } from "@matcher/to_be_before.ts";
+import { toBeAfter } from "@matcher/to_be_after.ts";
+import { toBeSymbol } from "@matcher/to_be_symbol.ts";
+import { toBeValidDate } from "@matcher/to_be_valid_date.ts";
+import { toBeFunction } from "@matcher/to_be_function.ts";
+import { toBeDate } from "@matcher/to_be_date.ts";
+import { toBeString } from "@matcher/to_be_string.ts";
+import { toBeNumber } from "@matcher/to_be_number.ts";
+import { toBeFalse } from "@matcher/to_be_false.ts";
+import { toBeTrue } from "@matcher/to_be_true.ts";
+import { toBeBoolean } from "@matcher/to_be_boolean.ts";
 import { toBe } from "@matcher/to_be.ts";
 import { toEqual } from "@matcher/to_equal.ts";
 import { toBeFalsy } from "@matcher/to_be_falsy.ts";
@@ -30,6 +52,7 @@ import { toHaveLastReturnedWith } from "@matcher/to_have_last_returned_with.ts";
 import { toHaveNthReturnedWith } from "@matcher/to_have_nth_returned_with.ts";
 
 import { toBeNil } from "@matcher/to_be_nil.ts";
+import { toBeArray } from "@matcher/to_be_array.ts";
 
 /**
  * jest built-in matcher map
@@ -76,40 +99,30 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeWithin,
+  toBeInteger,
+  toBeEven,
+  toBeOdd,
+  toBePositive,
+  toBeNegative,
+  toBeFinite,
+  toBeOneOf,
+  toBeBetween,
+  toBeAfterOrEqualTo,
+  toBeBeforeOrEqualTo,
+  toBeBefore,
+  toBeAfter,
+  toBeSymbol,
+  toBeValidDate,
+  toBeFunction,
+  toBeDate,
+  toBeString,
   toBeNil,
+  toBeArray,
+  toBeBoolean,
+  toBeTrue,
+  toBeFalse,
+  toBeNumber,
 };
 
-export {
-  jestExtendedMatcherMap,
-  jestMatcherMap,
-  toBe,
-  toBeAnything,
-  toBeCloseTo,
-  toBeDefined,
-  toBeFalsy,
-  toBeGreaterThan,
-  toBeGreaterThanOrEqual,
-  toBeInstanceOf,
-  toBeLessThan,
-  toBeLessThanOrEqual,
-  toBeNaN,
-  toBeNil,
-  toBeNull,
-  toBeTruthy,
-  toBeUndefined,
-  toContain,
-  toEqual,
-  toHaveBeenCalled,
-  toHaveBeenCalledTimes,
-  toHaveBeenCalledWith,
-  toHaveBeenLastCalledWith,
-  toHaveBeenNthCalledWith,
-  toHaveLastReturnedWith,
-  toHaveLength,
-  toHaveNthReturnedWith,
-  toHaveReturned,
-  toHaveReturnedTimes,
-  toHaveReturnedWith,
-  toMatch,
-  toThrow,
-};
+export { jestExtendedMatcherMap, jestMatcherMap };

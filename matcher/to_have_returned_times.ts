@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "@matcher/types.ts";
-import { fail, stringify, success } from "@matcher/utils.ts";
+import { fail, printHint, success } from "@matcher/utils.ts";
 import type { Mock, MockResult } from "@mock/types.ts";
 
 function predict(mockResults: MockResult[], expected: number): boolean {
@@ -22,9 +22,12 @@ function toHaveReturnedTimes({ mock }: Mock, expected: number): MatchResult {
   if (predict(mock.results, expected)) return success();
 
   return fail({
-    message: `expect(${stringify(mock)}).toHaveReturnedTimes(${
-      stringify(expected)
-    })`,
+    message: printHint({
+      actual: mock,
+      expected,
+      matcherArgs: [expected],
+      matcher: "toHaveReturnedTimes",
+    }),
   });
 }
 
