@@ -133,8 +133,8 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toHaveBeenCalledAfter
     - [ ] toHaveBeenCalledOnce
     - [x] toBeNumber
-    - [ ] toBeNaN
-    - [ ] toBeFinite
+    - [ ] ~~toBeNaN~~ exists in jest
+    - [x] toBeFinite
     - [ ] toBePositive
     - [ ] toBeNegative
     - [ ] toBeEven

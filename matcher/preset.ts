@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeFinite } from "@matcher/to_be_finite.ts";
 import { toBeOneOf } from "@matcher/to_be_one_of.ts";
 import { toBeBetween } from "@matcher/to_be_between.ts";
 import { toBeAfterOrEqualTo } from "@matcher/to_be_after_or_equal_to.ts";
@@ -92,6 +93,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeFinite,
   toBeOneOf,
   toBeBetween,
   toBeAfterOrEqualTo,
