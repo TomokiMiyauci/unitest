@@ -123,7 +123,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBeDate
     - [x] toBeValidDate
     - [x] toBeAfter
-    - [ ] toBeBefore
+    - [x] toBeBefore
     - [ ] toBeAfterOrEqualTo
     - [ ] toBeBeforeOrEqualTo
     - [ ] toBeBetween
