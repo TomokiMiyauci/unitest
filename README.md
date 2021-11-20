@@ -119,7 +119,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toSatisfyAny
     - [x] toBeBoolean
     - [x] toBeTrue
-    - [ ] toBeFalse
+    - [x] toBeFalse
     - [ ] toBeDate
     - [ ] toBeValidDate
     - [ ] toBeAfter

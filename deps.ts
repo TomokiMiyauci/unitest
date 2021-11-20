@@ -6,6 +6,7 @@ export {
 export {
   isBoolean,
   isError,
+  isFalse,
   isLength0,
   isNil,
   isNull,
