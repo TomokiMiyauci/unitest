@@ -1,3 +1,20 @@
+# [1.0.0-beta.13](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2021-11-20)
+
+
+### Bug Fixes
+
+* **expect:** wrap `expect` on function for tree-shaking ([ba51f65](https://github.com/TomokiMiyauci/unitest/commit/ba51f652be4acba7f67d5a26d41077543677f156))
+
+
+### Features
+
+* **matcher:** add `toBeAfter` matcher ([0f15283](https://github.com/TomokiMiyauci/unitest/commit/0f152832107844ed2f523221bc0e47dba94dddb8))
+* **matcher:** add `toBeDate` matcher ([f321728](https://github.com/TomokiMiyauci/unitest/commit/f3217289bdc6a053aeda09b709fb64cca82005e5))
+* **matcher:** add `toBeFunction` matcher ([481b7bd](https://github.com/TomokiMiyauci/unitest/commit/481b7bd45ad34d8c2528901f0afa6805b3982d19))
+* **matcher:** add `toBeSymbol` matcher ([8530c41](https://github.com/TomokiMiyauci/unitest/commit/8530c41b26cce13c242118e9dfd035f59a97f04d))
+* **matcher:** add `toBeValidDate` matcher ([ac6584f](https://github.com/TomokiMiyauci/unitest/commit/ac6584f1c69eb9d62b1f6d8244383cf4e1c48501))
+* **matcher:** improve assertion error message ([40c8e13](https://github.com/TomokiMiyauci/unitest/commit/40c8e139491e75bee0035e78f63fd28843c4b7da)), closes [#3](https://github.com/TomokiMiyauci/unitest/issues/3)
+
 # [1.0.0-beta.12](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2021-11-20)
 
 
