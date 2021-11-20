@@ -6,7 +6,7 @@ function toBeArray(actual: unknown): MatchResult {
   if (Array.isArray(actual)) return success();
 
   return fail({
-    message: `expect(${stringify(actual)}).toBeArray`,
+    message: `expect(${stringify(actual)}).toBeArray()`,
   });
 }
 

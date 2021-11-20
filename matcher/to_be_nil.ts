@@ -7,7 +7,7 @@ function toBeNil(actual: unknown): MatchResult {
   if (isNil(actual)) return success();
 
   return fail({
-    message: `expect(${stringify(actual)}).isNil()`,
+    message: `expect(${stringify(actual)}).toBeNil()`,
   });
 }
 
