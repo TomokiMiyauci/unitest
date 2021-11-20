@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeWithin } from "@matcher/to_be_within.ts";
 import { toBeInteger } from "@matcher/to_be_integer.ts";
 import { toBeEven } from "@matcher/to_be_even.ts";
 import { toBeOdd } from "@matcher/to_be_odd.ts";
@@ -98,6 +99,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeWithin,
   toBeInteger,
   toBeEven,
   toBeOdd,

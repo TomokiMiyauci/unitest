@@ -56,3 +56,4 @@ export { toBePositive } from "@matcher/to_be_positive.ts";
 export { toBeOdd } from "@matcher/to_be_odd.ts";
 export { toBeEven } from "@matcher/to_be_even.ts";
 export { toBeInteger } from "@matcher/to_be_integer.ts";
+export { toBeWithin } from "@matcher/to_be_within.ts";
