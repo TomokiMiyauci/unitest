@@ -51,3 +51,4 @@ export { toBeAfterOrEqualTo } from "@matcher/to_be_after_or_equal_to.ts";
 export { toBeBetween } from "@matcher/to_be_between.ts";
 export { toBeOneOf } from "@matcher/to_be_one_of.ts";
 export { toBeFinite } from "@matcher/to_be_finite.ts";
+export { toBeNegative } from "@matcher/to_be_negative.ts";
