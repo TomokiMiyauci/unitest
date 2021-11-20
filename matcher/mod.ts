@@ -40,3 +40,4 @@ export { toBeTrue } from "@matcher/to_be_true.ts";
 export { toBeFalse } from "@matcher/to_be_false.ts";
 export { toBeNumber } from "@matcher/to_be_number.ts";
 export { toBeString } from "@matcher/to_be_string.ts";
+export { toBeDate } from "@matcher/to_be_date.ts";

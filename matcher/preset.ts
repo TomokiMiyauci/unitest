@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeDate } from "@matcher/to_be_date.ts";
 import { toBeString } from "@matcher/to_be_string.ts";
 import { toBeNumber } from "@matcher/to_be_number.ts";
 import { toBeFalse } from "@matcher/to_be_false.ts";
@@ -82,6 +83,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeDate,
   toBeString,
   toBeNil,
   toBeArray,
