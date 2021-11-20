@@ -30,6 +30,7 @@ import { toHaveLastReturnedWith } from "@matcher/to_have_last_returned_with.ts";
 import { toHaveNthReturnedWith } from "@matcher/to_have_nth_returned_with.ts";
 
 import { toBeNil } from "@matcher/to_be_nil.ts";
+import { toBeArray } from "@matcher/to_be_array.ts";
 
 /**
  * jest built-in matcher map
@@ -77,6 +78,7 @@ const jestMatcherMap = {
  */
 const jestExtendedMatcherMap = {
   toBeNil,
+  toBeArray,
 };
 
 export { jestExtendedMatcherMap, jestMatcherMap };

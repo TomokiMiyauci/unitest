@@ -109,7 +109,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toBeOneOf
     - [x] toBeNil
     - [ ] toSatisfy
-    - [ ] toBeArray
+    - [x] toBeArray
     - [ ] toBeArrayOfSize
     - [ ] toIncludeAllMembers
     - [ ] toIncludeAllPartialMembers

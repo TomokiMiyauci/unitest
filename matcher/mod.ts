@@ -34,3 +34,4 @@ export { toHaveLastReturnedWith } from "@matcher/to_have_last_returned_with.ts";
 export { toHaveNthReturnedWith } from "@matcher/to_have_nth_returned_with.ts";
 
 export { toBeNil } from "@matcher/to_be_nil.ts";
+export { toBeArray } from "@matcher/to_be_array.ts";
