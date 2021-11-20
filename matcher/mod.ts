@@ -46,3 +46,4 @@ export { toBeValidDate } from "@matcher/to_be_valid_date.ts";
 export { toBeSymbol } from "@matcher/to_be_symbol.ts";
 export { toBeAfter } from "@matcher/to_be_after.ts";
 export { toBeBefore } from "@matcher/to_be_before.ts";
+export { toBeBeforeOrEqualTo } from "@matcher/to_be_before_or_equal_to.ts";

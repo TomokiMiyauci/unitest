@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeBeforeOrEqualTo } from "@matcher/to_be_before_or_equal_to.ts";
 import { toBeBefore } from "@matcher/to_be_before.ts";
 import { toBeAfter } from "@matcher/to_be_after.ts";
 import { toBeSymbol } from "@matcher/to_be_symbol.ts";
@@ -88,6 +89,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeBeforeOrEqualTo,
   toBeBefore,
   toBeAfter,
   toBeSymbol,
