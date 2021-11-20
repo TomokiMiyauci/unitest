@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "@matcher/types.ts";
-import { red } from "@/deps.ts";
+import { equal, red } from "@/deps.ts";
 
 function success(options?: {
   message: string;
@@ -92,7 +92,12 @@ ${nestText(red(stringify(expected)), 2)}
   }`;
 }
 
+function contains(array: unknown[], value: unknown): boolean {
+  return array.some((v) => equal(v, value));
+}
+
 export {
+  contains,
   fail,
   nestText,
   printHint,
