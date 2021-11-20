@@ -135,7 +135,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBeNumber
     - [ ] ~~toBeNaN~~ exists in jest
     - [x] toBeFinite
-    - [ ] toBePositive
+    - [x] toBePositive
     - [x] toBeNegative
     - [ ] toBeEven
     - [ ] toBeOdd
