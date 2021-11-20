@@ -170,7 +170,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toIncludeRepeated
     - [ ] toIncludeMultiple
     - [ ] toEqualIgnoringWhitespace
-    - [ ] toBeSymbol
+    - [x] toBeSymbol
 - [ ] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite

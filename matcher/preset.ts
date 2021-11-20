@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeSymbol } from "@matcher/to_be_symbol.ts";
 import { toBeValidDate } from "@matcher/to_be_valid_date.ts";
 import { toBeFunction } from "@matcher/to_be_function.ts";
 import { toBeDate } from "@matcher/to_be_date.ts";
@@ -85,6 +86,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeSymbol,
   toBeValidDate,
   toBeFunction,
   toBeDate,

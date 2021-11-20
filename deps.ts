@@ -15,6 +15,7 @@ export {
   isNumber,
   isPromise,
   isString,
+  isSymbol,
   isTrue,
   isUndefined,
   isValidDate,
