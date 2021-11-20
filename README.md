@@ -110,7 +110,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBeNil
     - [ ] toSatisfy
     - [x] toBeArray
-    - [ ] toBeArrayOfSize
+    - [x] ~~toBeArrayOfSize~~ toHaveLength
     - [ ] toIncludeAllMembers
     - [ ] toIncludeAllPartialMembers
     - [ ] toIncludeAnyMembers
@@ -122,7 +122,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBeFalse
     - [x] toBeDate
     - [x] toBeValidDate
-    - [ ] toBeAfter
+    - [x] toBeAfter
     - [ ] toBeBefore
     - [ ] toBeAfterOrEqualTo
     - [ ] toBeBeforeOrEqualTo
