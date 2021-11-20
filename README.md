@@ -132,7 +132,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toHaveBeenCalledBefore
     - [ ] toHaveBeenCalledAfter
     - [ ] toHaveBeenCalledOnce
-    - [ ] toBeNumber
+    - [x] toBeNumber
     - [ ] toBeNaN
     - [ ] toBeFinite
     - [ ] toBePositive

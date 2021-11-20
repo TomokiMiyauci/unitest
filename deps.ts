@@ -10,6 +10,7 @@ export {
   isLength0,
   isNil,
   isNull,
+  isNumber,
   isPromise,
   isString,
   isTrue,

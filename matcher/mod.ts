@@ -38,3 +38,4 @@ export { toBeArray } from "@matcher/to_be_array.ts";
 export { toBeBoolean } from "@matcher/to_be_boolean.ts";
 export { toBeTrue } from "@matcher/to_be_true.ts";
 export { toBeFalse } from "@matcher/to_be_false.ts";
+export { toBeNumber } from "@matcher/to_be_number.ts";
