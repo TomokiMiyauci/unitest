@@ -90,7 +90,9 @@ function defineExpect<M extends MatcherMap>(
   };
 }
 
-const expect = defineExpect(jestMatcherMap);
+function expect<T>(actual: T) {
+  return defineExpect(jestMatcherMap)(actual);
+}
 
 export { defineExpect, expect };
 export type { Expected, MatcherMap };
