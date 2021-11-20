@@ -127,7 +127,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toBeAfterOrEqualTo
     - [ ] toBeBeforeOrEqualTo
     - [ ] toBeBetween
-    - [ ] toBeFunction
+    - [x] toBeFunction
     - [ ] toThrowWithMessage
     - [ ] toHaveBeenCalledBefore
     - [ ] toHaveBeenCalledAfter

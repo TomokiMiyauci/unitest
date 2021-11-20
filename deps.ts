@@ -8,6 +8,7 @@ export {
   isDate,
   isError,
   isFalse,
+  isFunction,
   isLength0,
   isNil,
   isNull,
