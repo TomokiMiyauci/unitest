@@ -10,7 +10,7 @@ function <%= h.changeCase.camel(name) %>(actual: unknown): MatchResult {
   if (true) return success();
 
   return fail({
-    message: `expect(${stringify(actual)}).<%= h.changeCase.camel(name) %>`,
+    message: `expect(${stringify(actual)}).<%= h.changeCase.camel(name) %>()`,
   });
 }
 
