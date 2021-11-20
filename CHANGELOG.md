@@ -1,3 +1,14 @@
+# [1.0.0-beta.14](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2021-11-20)
+
+
+### Features
+
+* **matcher:** add `toBeAfterOrEqualTo` matcher ([b8c90b5](https://github.com/TomokiMiyauci/unitest/commit/b8c90b52c8b2e0646763131140d42394b120e5f8))
+* **matcher:** add `toBeBefore` matcher ([c7c8002](https://github.com/TomokiMiyauci/unitest/commit/c7c80027cba3d8c3ecb73bb26034512dead5c4cd))
+* **matcher:** add `toBeBeforeOrEqualTo` matcher ([10b36a2](https://github.com/TomokiMiyauci/unitest/commit/10b36a23030d46f52203e88ddee83f1ee6e8df9e))
+* **matcher:** add `toBeBetween` matcher ([e0c4949](https://github.com/TomokiMiyauci/unitest/commit/e0c49496398417ae0a2ef973ca1bff19e9f3c9bb))
+* **matcher:** add `toBeOneOf` matcher ([94ee680](https://github.com/TomokiMiyauci/unitest/commit/94ee680d7ef57f3b9b7c002d065712a1a8315d33))
+
 # [1.0.0-beta.13](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2021-11-20)
 
 
