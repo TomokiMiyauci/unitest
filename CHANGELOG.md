@@ -1,3 +1,21 @@
+# [1.0.0-beta.15](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2021-11-20)
+
+
+### Bug Fixes
+
+* **matcher:** `toBeNegative` accept number only and fix logic ([a4e3df0](https://github.com/TomokiMiyauci/unitest/commit/a4e3df08f09be661a45768a558db8ec9afe19fb0))
+
+
+### Features
+
+* **matcher:** add `toBeEven` matcher ([a6d80d6](https://github.com/TomokiMiyauci/unitest/commit/a6d80d6e83a00e1bf793740d8a593731e653130d))
+* **matcher:** add `toBeFinite` matcher ([7a94ee8](https://github.com/TomokiMiyauci/unitest/commit/7a94ee849076f118e48e798556a69393b96213d6))
+* **matcher:** add `toBeInteger` matcher ([583d2d3](https://github.com/TomokiMiyauci/unitest/commit/583d2d34007cd36699f5fe6b1197ffe09863489b))
+* **matcher:** add `toBeNegative` matcher ([14cdb32](https://github.com/TomokiMiyauci/unitest/commit/14cdb32e3df2d9cc0107f68091b0e2fb930fd805))
+* **matcher:** add `toBeOdd` matcher ([1ff6b23](https://github.com/TomokiMiyauci/unitest/commit/1ff6b23376076ae8ce8d2b5dea021bf5a0f2f2b9))
+* **matcher:** add `toBePositive` matcher ([ca3bec6](https://github.com/TomokiMiyauci/unitest/commit/ca3bec684170ac1da895d1fc108be0bd9b7698d1))
+* **matcher:** add `toBeWithin` matcher ([46da609](https://github.com/TomokiMiyauci/unitest/commit/46da609118db999e485ca85ac935a740fda737be))
+
 # [1.0.0-beta.14](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2021-11-20)
 
 
