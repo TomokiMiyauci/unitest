@@ -5,6 +5,7 @@
   "scripts": {
     "commit": "cz",
     "prepare": "husky install",
+    "template": "HYGEN_TMPLS=_tools pnpm hygen matcher new --name --",
     "release": "semantic-release"
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "commitlint": "^14.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
+    "hygen": "^6.1.0",
     "lint-staged": "^11.2.6",
     "semantic-release": "^18.0.0",
     "yaml-lint": "^1.2.4"
