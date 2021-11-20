@@ -42,3 +42,4 @@ export { toBeNumber } from "@matcher/to_be_number.ts";
 export { toBeString } from "@matcher/to_be_string.ts";
 export { toBeDate } from "@matcher/to_be_date.ts";
 export { toBeFunction } from "@matcher/to_be_function.ts";
+export { toBeValidDate } from "@matcher/to_be_valid_date.ts";

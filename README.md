@@ -121,7 +121,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBeTrue
     - [x] toBeFalse
     - [x] toBeDate
-    - [ ] toBeValidDate
+    - [x] toBeValidDate
     - [ ] toBeAfter
     - [ ] toBeBefore
     - [ ] toBeAfterOrEqualTo
