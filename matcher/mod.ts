@@ -35,3 +35,4 @@ export { toHaveNthReturnedWith } from "@matcher/to_have_nth_returned_with.ts";
 
 export { toBeNil } from "@matcher/to_be_nil.ts";
 export { toBeArray } from "@matcher/to_be_array.ts";
+export { toBeBoolean } from "@matcher/to_be_boolean.ts";

@@ -117,7 +117,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toIncludeSameMembers
     - [ ] toSatisfyAll
     - [ ] toSatisfyAny
-    - [ ] toBeBoolean
+    - [x] toBeBoolean
     - [ ] toBeTrue
     - [ ] toBeFalse
     - [ ] toBeDate
