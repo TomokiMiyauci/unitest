@@ -106,7 +106,7 @@ This allows TypeScript to do some of the assertions for you.
 - [ ] Implement third party matcher
   - jest-extended
     - [ ] toBeEmpty
-    - [ ] toBeOneOf
+    - [x] toBeOneOf
     - [x] toBeNil
     - [ ] toSatisfy
     - [x] toBeArray
