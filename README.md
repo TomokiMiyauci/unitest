@@ -13,7 +13,7 @@ jest like testing easy
 ## expect
 
 ```ts
-import { expect } from "https://deno.land/x/unitest@{VERSION}/mod.ts";
+import { expect } from "https://deno.land/x/unitest@VERSION/mod.ts";
 
 expect("").toBe("");
 ```
@@ -25,10 +25,10 @@ It provides custom matcher interface.
 You can add custom matcher easy. The type is automatically extended.
 
 ```ts
-import { defineExpect, jestMatcher } from "https://deno.land/x/unitest@{VERSION}/mod.ts";
+import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@VERSION/mod.ts";
 
 const expect = defineExpect({
-  ...jestMatcher
+  ...jestMatcherMap
   toBe100: (actual) => {
     if (actual === 100) return { pass: true };
     return {
