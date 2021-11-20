@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "@matcher/types.ts";
+import { red } from "@/deps.ts";
 
 function success(options?: {
   message: string;
@@ -30,4 +31,67 @@ function takeLast<T extends readonly unknown[] | string>(
   return (howMany <= 0 ? val.slice(0, -howMany) : val.slice(-howMany)) as T;
 }
 
-export { fail, stringify, success, takeLast };
+function nestText(text: string, space: number): string {
+  const whiteSpace = " ";
+  return `${whiteSpace.repeat(space)}${text}`.replaceAll(
+    "\n",
+    `\n${whiteSpace.repeat(space)}`,
+  );
+}
+
+function stringifyExpect({
+  actual,
+  expected,
+  matcher,
+}: {
+  actual: string;
+  expected: string;
+  matcher: string;
+}): string {
+  return `expect(${actual}).${matcher}(${expected})`;
+}
+
+function printHint(
+  {
+    actual,
+    expected,
+    matcher,
+    expectedLabel = "Expected value to be:",
+    actualLabel = "Received:",
+  }: {
+    actual: unknown;
+    expected: unknown;
+    matcher: string;
+    expectedLabel?: string;
+    actualLabel?: string;
+  },
+): string {
+  return `${
+    stringifyExpect({
+      actual: stringify(actual),
+      expected: stringify(expected),
+      matcher: matcher,
+    })
+  }
+
+${
+    nestText(
+      `${expectedLabel}
+${nestText(red(stringify(actual)), 2)}
+${actualLabel}
+${nestText(red(stringify(expected)), 2)}
+`,
+      4,
+    )
+  }`;
+}
+
+export {
+  fail,
+  nestText,
+  printHint,
+  stringify,
+  stringifyExpect,
+  success,
+  takeLast,
+};
