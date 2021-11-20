@@ -6,12 +6,11 @@ Deno.test({
   name: "toBeNegative",
   fn: () => {
     assertSuccess(toBeNegative(-1));
-    assertSuccess(toBeNegative(-1n));
     assertFail(toBeNegative(-0));
-    assertFail(toBeNegative(0n));
-    assertFail(toBeNegative(-0n));
     assertFail(toBeNegative(0));
     assertFail(toBeNegative(1));
-    assertFail(toBeNegative(1n));
+    assertFail(toBeNegative(-Infinity));
+    assertFail(toBeNegative(-NaN));
+    assertFail(toBeNegative(Infinity));
   },
 });
