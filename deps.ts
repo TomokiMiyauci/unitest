@@ -11,5 +11,6 @@ export {
   isNull,
   isPromise,
   isString,
+  isTrue,
   isUndefined,
-} from "https://deno.land/x/isx@v1.0.0-beta.10/mod.ts";
+} from "https://deno.land/x/isx@v1.0.0-beta.11/mod.ts";
