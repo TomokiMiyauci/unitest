@@ -48,3 +48,4 @@ export { toBeAfter } from "@matcher/to_be_after.ts";
 export { toBeBefore } from "@matcher/to_be_before.ts";
 export { toBeBeforeOrEqualTo } from "@matcher/to_be_before_or_equal_to.ts";
 export { toBeAfterOrEqualTo } from "@matcher/to_be_after_or_equal_to.ts";
+export { toBeBetween } from "@matcher/to_be_between.ts";
