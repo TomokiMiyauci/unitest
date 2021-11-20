@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { fail, stringify, success } from "@matcher/utils.ts";
+import { fail, printHint, success } from "@matcher/utils.ts";
 import type { MatchResult } from "@matcher/types.ts";
 import type { AnyFn } from "@/_types.ts";
 import { isError, isUndefined } from "@/deps.ts";
@@ -21,19 +21,24 @@ function predict(actual: AnyFn) {
   };
 }
 
-function toThrow(actual: AnyFn, error?: string | RegExp): MatchResult {
+function toThrow(actual: AnyFn, expected?: string | RegExp): MatchResult {
   const { hasError, e } = predict(actual);
 
   if (hasError) {
-    if (isUndefined(error)) return success();
+    if (isUndefined(expected)) return success();
 
-    if (isError(e) && e.message.match(error)) return success();
+    if (isError(e) && e.message.match(expected)) return success();
 
-    if (e === error) return success();
+    if (e === expected) return success();
   }
 
   return fail({
-    message: `expect(${stringify(actual)}).toThrow(${stringify(error)})`,
+    message: printHint({
+      actual,
+      expected,
+      matcherArgs: [expected],
+      matcher: "toThrow",
+    }),
   });
 }
 

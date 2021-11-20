@@ -1,17 +1,20 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "@matcher/types.ts";
-import { fail, stringify, success } from "@matcher/utils.ts";
+import { fail, printHint, success } from "@matcher/utils.ts";
 
 function toBeLessThanOrEqual(
   actual: number | bigint,
-  comparison: number | bigint,
+  expected: number | bigint,
 ): MatchResult {
-  if (Number(actual) <= comparison) return success();
+  if (Number(actual) <= expected) return success();
 
   return fail({
-    message: `expect(${stringify(actual)}).toBeLessThanOrEqual(${
-      stringify(comparison)
-    })`,
+    message: printHint({
+      actual,
+      expected,
+      matcherArgs: [expected],
+      matcher: "toBeLessThanOrEqual",
+    }),
   });
 }
 

@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { fail, stringify, success } from "@matcher/utils.ts";
+import { fail, printHint, success } from "@matcher/utils.ts";
 import { MatchResult } from "@matcher/types.ts";
 import { isString } from "@/deps.ts";
 
@@ -13,7 +13,12 @@ function toMatch(actual: string, expected: string | RegExp): MatchResult {
   if (predict(actual, expected)) return success();
 
   return fail({
-    message: `expect(${stringify(actual)}).toMatch(${stringify(expected)})`,
+    message: printHint({
+      actual,
+      expected,
+      matcherArgs: [expected],
+      matcher: "toMatch",
+    }),
   });
 }
 

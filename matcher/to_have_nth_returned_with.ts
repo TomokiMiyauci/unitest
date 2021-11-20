@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "@matcher/types.ts";
-import { fail, stringify, success } from "@matcher/utils.ts";
+import { fail, printHint, success } from "@matcher/utils.ts";
 import type { Mock, MockResult } from "@mock/types.ts";
 import { equal, isUndefined } from "@/deps.ts";
 
@@ -29,9 +29,12 @@ function toHaveNthReturnedWith(
   if (predict(mock.results, nthCall, expected)) return success();
 
   return fail({
-    message: `expect(${stringify(mock)}).toHaveNthReturnedWith(${
-      stringify(nthCall)
-    }, ${stringify(expected)})`,
+    message: printHint({
+      actual: mock,
+      expected,
+      matcherArgs: [nthCall, expected],
+      matcher: "toHaveNthReturnedWith",
+    }),
   });
 }
 

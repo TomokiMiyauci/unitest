@@ -13,6 +13,7 @@ function toBe(actual: unknown, expected: unknown): MatchResult {
     message: printHint({
       actual,
       expected,
+      matcherArgs: [expected],
       matcher: "toBe",
     }),
   });

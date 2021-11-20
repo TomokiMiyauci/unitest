@@ -51,16 +51,22 @@ function stringifyExpect({
   return `expect(${actual}).${matcher}(${expected})`;
 }
 
+function printIterable(iterable: unknown[]): string[] {
+  return iterable.map((item) => stringify(item));
+}
+
 function printHint(
   {
     actual,
     expected,
     matcher,
+    matcherArgs,
     expectedLabel = "Expected value to be:",
     actualLabel = "Received:",
   }: {
     actual: unknown;
     expected: unknown;
+    matcherArgs?: unknown[];
     matcher: string;
     expectedLabel?: string;
     actualLabel?: string;
@@ -69,16 +75,16 @@ function printHint(
   return `${
     stringifyExpect({
       actual: stringify(actual),
-      expected: stringify(expected),
+      expected: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
       matcher: matcher,
     })
   }
 
 ${
     nestText(
-      `${expectedLabel}
+      `${actualLabel}
 ${nestText(red(stringify(actual)), 2)}
-${actualLabel}
+${expectedLabel}
 ${nestText(red(stringify(expected)), 2)}
 `,
       4,

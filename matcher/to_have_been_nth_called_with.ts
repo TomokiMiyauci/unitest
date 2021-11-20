@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { fail, stringify, success } from "@matcher/utils.ts";
+import { fail, printHint, success } from "@matcher/utils.ts";
 import type { Mock, MockCall } from "@mock/types.ts";
 import type { MatchResult } from "@matcher/types.ts";
 import { equal } from "@/deps.ts";
@@ -21,9 +21,12 @@ function toHaveBeenNthCalledWith(
   if (predict(mock.calls, nthCall, ...expected)) return success();
 
   return fail({
-    message: `expect(${stringify(mock)}).toHaveBeenNthCalledWith(${
-      stringify(nthCall)
-    }, ${stringify(expected)})`,
+    message: printHint({
+      actual: mock,
+      expected,
+      matcherArgs: [nthCall, ...expected],
+      matcher: "toHaveBeenNthCalledWith",
+    }),
   });
 }
 

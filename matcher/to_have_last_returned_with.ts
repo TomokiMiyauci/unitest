@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { equal } from "@/deps.ts";
 import type { MatchResult } from "@matcher/types.ts";
-import { fail, stringify, success, takeLast } from "@matcher/utils.ts";
+import { fail, printHint, success, takeLast } from "@matcher/utils.ts";
 import type { Mock, MockResult } from "@mock/types.ts";
 
 function predict(mockResults: MockResult[], expected: unknown): boolean {
@@ -20,9 +20,12 @@ function toHaveLastReturnedWith(
   if (predict(mock.results, expected)) return success();
 
   return fail({
-    message: `expect(${stringify(mock)}).toHaveLastReturnedWith(${
-      stringify(expected)
-    })`,
+    message: printHint({
+      actual: mock,
+      expected,
+      matcherArgs: [expected],
+      matcher: "toHaveLastReturnedWith",
+    }),
   });
 }
 
