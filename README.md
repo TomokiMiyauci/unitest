@@ -160,7 +160,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toBeSealed
     - [ ] toResolve
     - [ ] toReject
-    - [ ] toBeString
+    - [x] toBeString
     - [ ] toBeHexadecimal
     - [ ] toBeDateString
     - [ ] toEqualCaseInsensitive
