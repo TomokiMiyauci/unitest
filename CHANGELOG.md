@@ -1,3 +1,15 @@
+# [1.0.0-beta.12](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2021-11-20)
+
+
+### Features
+
+* **matcher:** add `toBeArray` matcher ([9b52eb2](https://github.com/TomokiMiyauci/unitest/commit/9b52eb297fb758520430e167c3abd62f3b5e05d5))
+* **matcher:** add `toBeBoolean` matcher ([85234d3](https://github.com/TomokiMiyauci/unitest/commit/85234d3ce0768a1b897c4a155c428908ad1baf8e))
+* **matcher:** add `toBeFalse` matcher ([3c1f4ed](https://github.com/TomokiMiyauci/unitest/commit/3c1f4ed3a70813db6c6b6341eff162619aa42f4d))
+* **matcher:** add `toBeNumber` matcher ([8eb85aa](https://github.com/TomokiMiyauci/unitest/commit/8eb85aa34c0dd1fc4b4de63d5c55bbabd04c517f))
+* **matcher:** add `toBeString` matcher ([a401afa](https://github.com/TomokiMiyauci/unitest/commit/a401afa2adbce123d35eaab53a815a2271e0f3b8))
+* **matcher:** add `toBeTrue` matcher ([4287ca3](https://github.com/TomokiMiyauci/unitest/commit/4287ca37639a406ce07284687e478f20e1304b33))
+
 # [1.0.0-beta.11](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-11-19)
 
 
