@@ -53,3 +53,4 @@ export { toBeOneOf } from "@matcher/to_be_one_of.ts";
 export { toBeFinite } from "@matcher/to_be_finite.ts";
 export { toBeNegative } from "@matcher/to_be_negative.ts";
 export { toBePositive } from "@matcher/to_be_positive.ts";
+export { toBeOdd } from "@matcher/to_be_odd.ts";

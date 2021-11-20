@@ -138,7 +138,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBePositive
     - [x] toBeNegative
     - [ ] toBeEven
-    - [ ] toBeOdd
+    - [x] toBeOdd
     - [ ] toBeWithin
     - [ ] toBeInteger
     - [ ] toBeObject
