@@ -21,7 +21,7 @@ function fail(options?: {
 }
 
 function stringify(value: unknown): string {
-  return Deno.inspect(value);
+  return String(value);
 }
 
 function takeLast<T extends readonly unknown[] | string>(
