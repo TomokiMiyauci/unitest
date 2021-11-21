@@ -25,6 +25,6 @@ export {
   isTrue,
   isUndefined,
   isValidDate,
-} from "https://deno.land/x/isx@v1.0.0-beta.14/mod.ts";
+} from "https://deno.land/x/isx@v1.0.0-beta.15/mod.ts";
 
 export { red } from "https://deno.land/std@0.115.1/fmt/colors.ts";
