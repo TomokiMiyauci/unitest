@@ -1,3 +1,11 @@
+# [1.0.0-beta.16](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2021-11-21)
+
+
+### Features
+
+* **matcher:** add `toBeEmptyObject` matcher ([2a6870a](https://github.com/TomokiMiyauci/unitest/commit/2a6870adccd9d910fb0356ed7485c2b993f12ff2))
+* **matcher:** add `toBeObject` matcher ([8c965b3](https://github.com/TomokiMiyauci/unitest/commit/8c965b3aebbbdee635881b5ccf3dcbc63783b122))
+
 # [1.0.0-beta.15](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2021-11-20)
 
 
