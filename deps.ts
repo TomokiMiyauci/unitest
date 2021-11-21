@@ -15,6 +15,7 @@ export {
   isNil,
   isNull,
   isNumber,
+  isObject,
   isOdd,
   isPositiveNumber,
   isPromise,
