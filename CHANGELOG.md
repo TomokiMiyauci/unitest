@@ -1,3 +1,15 @@
+# [1.0.0-beta.17](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2021-11-21)
+
+
+### Bug Fixes
+
+* **matcher:** use universal stringify function ([0a105fc](https://github.com/TomokiMiyauci/unitest/commit/0a105fc950fb8d7e5598510c38ccfd1259a04499))
+
+
+### Features
+
+* **it:** add `it` closure ([705094c](https://github.com/TomokiMiyauci/unitest/commit/705094cbced1c9950a37dbe38a881980325d77b5))
+
 # [1.0.0-beta.16](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2021-11-21)
 
 
