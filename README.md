@@ -142,7 +142,7 @@ This allows TypeScript to do some of the assertions for you.
     - [x] toBeWithin
     - [x] toBeInteger
     - [x] toBeObject
-    - [ ] toBeEmptyObject
+    - [x] toBeEmptyObject
     - [ ] toContainKey
     - [ ] toContainKeys
     - [ ] toContainAllKeys

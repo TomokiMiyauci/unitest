@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toBeEmptyObject } from "@matcher/to_be_empty_object.ts";
 import { toBeObject } from "@matcher/to_be_object.ts";
 import { toBeWithin } from "@matcher/to_be_within.ts";
 import { toBeInteger } from "@matcher/to_be_integer.ts";
@@ -100,6 +101,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeEmptyObject,
   toBeObject,
   toBeWithin,
   toBeInteger,
