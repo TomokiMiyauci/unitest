@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { toSatisfy } from "./to_satisfy.ts";
 import { toBeEmptyObject } from "./to_be_empty_object.ts";
 import { toBeObject } from "./to_be_object.ts";
 import { toBeWithin } from "./to_be_within.ts";
@@ -101,6 +102,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toSatisfy,
   toBeEmptyObject,
   toBeObject,
   toBeWithin,

@@ -59,3 +59,4 @@ export { toBeInteger } from "./to_be_integer.ts";
 export { toBeWithin } from "./to_be_within.ts";
 export { toBeObject } from "./to_be_object.ts";
 export { toBeEmptyObject } from "./to_be_empty_object.ts";
+export { toSatisfy } from "./to_satisfy.ts";

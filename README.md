@@ -108,7 +108,7 @@ This allows TypeScript to do some of the assertions for you.
     - [ ] toBeEmpty
     - [x] toBeOneOf
     - [x] toBeNil
-    - [ ] toSatisfy
+    - [x] toSatisfy
     - [x] toBeArray
     - [x] ~~toBeArrayOfSize~~ toHaveLength
     - [ ] toIncludeAllMembers
