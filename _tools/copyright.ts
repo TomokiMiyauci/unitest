@@ -10,7 +10,7 @@ const copyright =
 
 for await (
   const { path, isFile } of expandGlob("**/*.ts", {
-    exclude: ["node_modules"],
+    exclude: ["node_modules", "docs"],
   })
 ) {
   if (isFile) {
