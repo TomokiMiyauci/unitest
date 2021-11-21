@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { equal } from "@/deps.ts";
-import { MatchResult } from "@matcher/types.ts";
-import { fail, printHint, success } from "@matcher/utils.ts";
+import { equal } from "../deps.ts";
+import { MatchResult } from "./types.ts";
+import { fail, printHint, success } from "./utils.ts";
 
 function toEqual(actual: unknown, expected: unknown): MatchResult {
   if (equal(actual, expected)) return success();

@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
-import { toBeGreaterThanOrEqual } from "@matcher/to_be_greater_than_or_equal.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { toBeGreaterThanOrEqual } from "./to_be_greater_than_or_equal.ts";
 
 Deno.test({
   name: "toBeGreaterThanOrEqual",

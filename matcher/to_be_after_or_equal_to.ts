@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { MatchResult } from "@matcher/types.ts";
-import { fail, printHint, stringify, success } from "@matcher/utils.ts";
+import type { MatchResult } from "./types.ts";
+import { fail, printHint, stringify, success } from "./utils.ts";
 
 function toBeAfterOrEqualTo(actual: Date, expected: Date): MatchResult {
   if (actual >= expected) return success();

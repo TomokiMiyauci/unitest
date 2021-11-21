@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { MatchResult } from "@matcher/types.ts";
-import { fail, printHint, success } from "@matcher/utils.ts";
-import type { Mock, MockResult } from "@mock/types.ts";
+import type { MatchResult } from "./types.ts";
+import { fail, printHint, success } from "./utils.ts";
+import type { Mock, MockResult } from "../mock/types.ts";
 
 function predict(mockResults: MockResult[]): boolean {
   return mockResults.some(({ type }) => type === "return");

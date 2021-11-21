@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { toHaveBeenCalledTimes } from "@matcher/to_have_been_called_times.ts";
-import { fn } from "@mock/mod.ts";
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
+import { toHaveBeenCalledTimes } from "./to_have_been_called_times.ts";
+import { fn } from "../mock/mod.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
 
 Deno.test({
   name: "toHaveBeenCalledTimes",

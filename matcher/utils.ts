@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { MatchResult } from "@matcher/types.ts";
-import { equal, red } from "@/deps.ts";
+import type { MatchResult } from "./types.ts";
+import { equal, red } from "../deps.ts";
 
 function success(options?: {
   message: string;

@@ -1,8 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { fail, printHint, success } from "@matcher/utils.ts";
-import type { MatchResult } from "@matcher/types.ts";
-import type { AnyFn } from "@/_types.ts";
-import { isError, isUndefined } from "@/deps.ts";
+import { fail, printHint, success } from "./utils.ts";
+import type { MatchResult } from "./types.ts";
+import type { AnyFn } from "../_types.ts";
+import { isError, isUndefined } from "../deps.ts";
 
 function predict(actual: AnyFn) {
   let hasError = false;

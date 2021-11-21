@@ -1,8 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { equal } from "@/deps.ts";
-import type { MatchResult } from "@matcher/types.ts";
-import { fail, printHint, success } from "@matcher/utils.ts";
-import type { Mock, MockResult } from "@mock/types.ts";
+import { equal } from "../deps.ts";
+import type { MatchResult } from "./types.ts";
+import { fail, printHint, success } from "./utils.ts";
+import type { Mock, MockResult } from "../mock/types.ts";
 
 function predict(mockResults: MockResult[], expected: unknown): boolean {
   const result = mockResults.some(({ type, value }) =>

@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { predict, toHaveLength } from "@matcher/to_have_length.ts";
-import { assertEquals, assertFail, assertSuccess } from "@/dev_deps.ts";
+import { predict, toHaveLength } from "./to_have_length.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 
 Deno.test({
   name: "predict",

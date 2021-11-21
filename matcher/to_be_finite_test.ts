@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
-import { toBeFinite } from "@matcher/to_be_finite.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { toBeFinite } from "./to_be_finite.ts";
 
 Deno.test({
   name: "toBeFinite",

@@ -5,7 +5,7 @@ export {
 } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 
 import { assertEquals } from "https://deno.land/std@0.115.1/testing/asserts.ts";
-import type { MatchResult } from "@matcher/types.ts";
+import type { MatchResult } from "./matcher/types.ts";
 
 function assertSuccess({ pass }: MatchResult): void {
   assertEquals(pass, true);

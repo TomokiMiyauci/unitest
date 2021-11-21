@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { Mock, MockCall } from "@mock/types.ts";
+import type { Mock, MockCall } from "./types.ts";
 
 /**
  * Make mock
