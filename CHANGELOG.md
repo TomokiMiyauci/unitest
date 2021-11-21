@@ -1,3 +1,10 @@
+# [1.0.0-beta.18](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2021-11-21)
+
+
+### Bug Fixes
+
+* not use import map, switch to relative path ([e135caa](https://github.com/TomokiMiyauci/unitest/commit/e135caaf2f87d70e9c28c4255cacfa764c58a246)), closes [#5](https://github.com/TomokiMiyauci/unitest/issues/5)
+
 # [1.0.0-beta.17](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2021-11-21)
 
 
