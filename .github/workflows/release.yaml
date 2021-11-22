@@ -44,7 +44,14 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Test
-        run: deno test --ignore=node_modules,README.md,matcher/README.md -c deno.json --doc
+        run: deno test --ignore=node_modules,README.md,matcher/README.md -c deno.json --doc --coverage=coverage
+
+      - name: Generate coverage
+        run: deno coverage coverage --lcov > cov_profile.lcov
+
+      - uses: codecov/codecov-action@v2
+        with:
+          files: cov_profile.lcov
 
   release:
     needs: [lint, test]
