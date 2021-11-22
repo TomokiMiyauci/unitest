@@ -1,8 +1,10 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+import { assertThrows } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 export {
   assert,
   assertThrows,
 } from "https://deno.land/std@0.115.1/testing/asserts.ts";
+import { AssertionError } from "./deps.ts";
 
 import { assertEquals } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 import type { MatchResult } from "./matcher/types.ts";
@@ -15,4 +17,8 @@ function assertFail({ pass }: MatchResult): void {
   assertEquals(pass, false);
 }
 
-export { assertEquals, assertFail, assertSuccess };
+function assertThrowsAssertionError(fn: () => unknown): void {
+  assertThrows(fn, AssertionError);
+}
+
+export { assertEquals, assertFail, assertSuccess, assertThrowsAssertionError };
