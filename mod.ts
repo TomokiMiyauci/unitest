@@ -67,3 +67,8 @@ export * from "./mock/fn.ts";
 export * from "./mock/types.ts";
 export * from "./expect/mod.ts";
 export * from "./it/mod.ts";
+
+export * from "./modifier/not.ts";
+export * from "./modifier/rejects.ts";
+export * from "./modifier/resolves.ts";
+export * from "./modifier/preset.ts";

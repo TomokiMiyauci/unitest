@@ -1,21 +1,25 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+
+import { jestMatcherMap } from "../matcher/preset.ts";
+import { jestModifierMap } from "../modifier/preset.ts";
+import { AssertionError, isPromise } from "../deps.ts";
+import { stringify, stringifyAssert } from "../helper/format.ts";
+
 import type {
   AnyFn,
   OmitBy,
   PropertyFilter,
   ShiftRightParameters,
 } from "../_types.ts";
-import { jestMatcherMap } from "../mod.ts";
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type { PostModifier, PreModifier } from "../modifier/types.ts";
-import { not } from "../modifier/not.ts";
-import { printHint, stringify } from "../matcher/utils.ts";
-import { AssertionError, isObject } from "../deps.ts";
-import { isPromise } from "../deps.ts";
-import { resolves } from "../modifier/resolves.ts";
-import { rejects } from "../modifier/rejects.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
+import type { StringifyAssert } from "../helper/format.ts";
+
+function throwError(message: string, ErrorClass = AssertionError): never {
+  throw new ErrorClass(message);
+}
 
 type Expected<
   T extends MatcherMap,
@@ -56,12 +60,12 @@ function defineExpect<
     const self: any = new Proxy({}, {
       get: (_, name) => {
         // TODO: more need check
-        if (isObject(postModifierMap) && name in postModifierMap) {
+        if (!!postModifierMap && name in postModifierMap) {
           post = [name, postModifierMap[name]];
           return self;
         }
 
-        if (isObject(preModifierMap) && name in preModifierMap) {
+        if (!!preModifierMap && name in preModifierMap) {
           pre = [name, preModifierMap[name]];
           return self;
         }
@@ -71,49 +75,52 @@ function defineExpect<
           throw new TypeError(`matcher not found: ${stringify(name)}`);
         }
 
-        const r = (...args: any[]) => {
-          const { pass, expected } = expectTo({
-            matcher,
+        const execAssert = (
+          { pass, expected, matcherArgs }:
+            & Pick<
+              MatchResult,
+              "pass" | "expected"
+            >
+            & Pick<StringifyAssert, "matcherArgs">,
+        ): void => {
+          const failMessage = stringifyAssert({
             actual,
-            expected: args,
-            preModifier: pre?.[1],
-            postModifier: post?.[1],
+            matcher: stringify(name),
+            expected,
+            matcherArgs,
+            preModifier: pre?.[0],
+            postModifier: post?.[0],
           });
           if (!pass) {
-            const failMessage = printHint({
-              actual,
-              expected,
-              matcher: String(name),
-              matcherArgs: args,
-              preModifier: pre?.[0],
-              postModifier: post?.[0],
-            });
-            throw new AssertionError(failMessage);
+            throwError(failMessage);
           }
+        };
+
+        const expectMap = {
+          matcher,
+          actual,
+          preModifier: pre?.[1],
+          postModifier: post?.[1],
+        };
+
+        const sync = (...args: any[]) => {
+          const result = expectTo({
+            ...expectMap,
+            expected: args,
+          });
+
+          execAssert({ ...result, matcherArgs: args });
         };
 
         const promise = async (...args: any[]) => {
-          const { pass, expected } = await promiseExpectTo({
-            matcher,
-            actual,
+          const result = await promiseExpectTo({
+            ...expectMap,
             expected: args,
-            preModifier: pre?.[1],
-            postModifier: post?.[1],
           });
-          if (!pass) {
-            const failMessage = printHint({
-              actual,
-              expected,
-              matcher: String(name),
-              matcherArgs: args,
-              preModifier: pre?.[0],
-              postModifier: post?.[0],
-            });
-            throw new AssertionError(failMessage);
-          }
+          execAssert({ ...result, matcherArgs: args });
         };
 
-        return isPromise(actual) ? promise : r;
+        return isPromise(actual) ? promise : sync;
       },
     });
 
@@ -184,15 +191,7 @@ function expectTo(
 function expect<T>(actual: T) {
   return defineExpect({
     matcherMap: jestMatcherMap,
-    modifierMap: {
-      post: {
-        not,
-      },
-      pre: {
-        resolves,
-        rejects,
-      },
-    },
+    modifierMap: jestModifierMap,
   })(actual);
 }
 

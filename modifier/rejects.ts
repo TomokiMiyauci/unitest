@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { PreModifierContext, PreModifierResult } from "./types.ts";
 import { AssertionError, isPromise } from "../deps.ts";
-import { stringify } from "../matcher/utils.ts";
+import { stringify } from "../helper/format.ts";
 
 async function rejects(
   { actual }: PreModifierContext,

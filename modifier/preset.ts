@@ -2,10 +2,9 @@
 import { not } from "./not.ts";
 import { resolves } from "./resolves.ts";
 import { rejects } from "./rejects.ts";
-import { ModifierMap } from "./types.ts";
 
 /** Jest default modifier map */
-const jestModifierMap: ModifierMap = {
+const jestModifierMap = {
   pre: {
     resolves,
     rejects,
