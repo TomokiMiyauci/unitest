@@ -14,16 +14,8 @@ import { AssertionError, isObject } from "../deps.ts";
 import { isPromise } from "../deps.ts";
 import { resolves } from "../modifier/resolves.ts";
 import { rejects } from "../modifier/rejects.ts";
-
-type MatcherMap = Record<
-  string | symbol,
-  Matcher
->;
-
-type ModifierMap = {
-  pre?: Record<string | symbol, PreModifier>;
-  post?: Record<string | symbol, PostModifier>;
-};
+import type { ModifierMap } from "../modifier/types.ts";
+import type { MatcherMap } from "../matcher/types.ts";
 
 type Expected<
   T extends MatcherMap,

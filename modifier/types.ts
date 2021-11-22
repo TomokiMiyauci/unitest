@@ -29,8 +29,14 @@ type PostModifier = (
   modifierContext: PostModifierContext,
 ) => MatchResult;
 
+type ModifierMap = {
+  pre?: Record<string | symbol, PreModifier>;
+  post?: Record<string | symbol, PostModifier>;
+};
+
 export type {
   ModifierContext,
+  ModifierMap,
   PostModifier,
   PostModifierContext,
   PostModifierResult,

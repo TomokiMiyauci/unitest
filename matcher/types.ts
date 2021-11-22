@@ -14,4 +14,9 @@ type MatchResult = {
   expectedLabel?: string;
 };
 
-export type { Matcher, MatchResult };
+type MatcherMap = Record<
+  string | symbol,
+  Matcher
+>;
+
+export type { Matcher, MatcherMap, MatchResult };

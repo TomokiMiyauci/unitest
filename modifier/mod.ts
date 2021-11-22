@@ -2,3 +2,4 @@
 export * from "./not.ts";
 export * from "./rejects.ts";
 export * from "./resolves.ts";
+export * from "./preset.ts";
