@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
-import { toBeBefore } from "@matcher/to_be_before.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { toBeBefore } from "./to_be_before.ts";
 
 Deno.test({
   name: "toBeBefore",

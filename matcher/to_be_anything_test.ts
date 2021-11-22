@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
-import { toBeAnything } from "@matcher/to_be_anything.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { toBeAnything } from "./to_be_anything.ts";
 
 Deno.test({
   name: "toBeAnything",

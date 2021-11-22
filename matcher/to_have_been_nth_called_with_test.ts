@@ -2,10 +2,10 @@
 import {
   predict,
   toHaveBeenNthCalledWith,
-} from "@matcher/to_have_been_nth_called_with.ts";
-import { MockCall } from "@mock/types.ts";
-import { fn } from "@mock/mod.ts";
-import { assertEquals, assertFail, assertSuccess } from "@/dev_deps.ts";
+} from "./to_have_been_nth_called_with.ts";
+import { MockCall } from "../mock/types.ts";
+import { fn } from "../mock/mod.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 
 Deno.test({
   name: "predict",

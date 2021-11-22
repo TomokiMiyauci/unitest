@@ -1,3 +1,52 @@
+# [1.0.0-beta.20](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2021-11-22)
+
+
+### Features
+
+* **matcher:** add `toSatisfy` matcher ([f3269b4](https://github.com/TomokiMiyauci/unitest/commit/f3269b42ad622ba7be9abbd1bd90d1e60371a423))
+* **matcher:** change matcher return interface ([ce5fd57](https://github.com/TomokiMiyauci/unitest/commit/ce5fd574449a02f8439becc594b283cb519fd6a2))
+* **modifier:** add `not` modifier ([32c4496](https://github.com/TomokiMiyauci/unitest/commit/32c44969060fc6ad0d0089c3446d4b02152e0b76)), closes [#6](https://github.com/TomokiMiyauci/unitest/issues/6)
+* **modifier:** add `resolves` and `rejects` modifiers ([147bdb9](https://github.com/TomokiMiyauci/unitest/commit/147bdb97cf31eb37f888e81219a6a24e1da6a0d4))
+
+
+### Performance Improvements
+
+* **expect:** remove deplicated code ([4447869](https://github.com/TomokiMiyauci/unitest/commit/4447869fa3e7bd6ef8f2f18830b65d31281cee99)), closes [#6](https://github.com/TomokiMiyauci/unitest/issues/6)
+
+# [1.0.0-beta.19](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.18...v1.0.0-beta.19) (2021-11-21)
+
+
+### Bug Fixes
+
+* do not re-export for not supported bundler ([15e970d](https://github.com/TomokiMiyauci/unitest/commit/15e970d75088b5b3f42ee7ae6832167691ebfcb7))
+
+# [1.0.0-beta.18](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2021-11-21)
+
+
+### Bug Fixes
+
+* not use import map, switch to relative path ([e135caa](https://github.com/TomokiMiyauci/unitest/commit/e135caaf2f87d70e9c28c4255cacfa764c58a246)), closes [#5](https://github.com/TomokiMiyauci/unitest/issues/5)
+
+# [1.0.0-beta.17](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2021-11-21)
+
+
+### Bug Fixes
+
+* **matcher:** use universal stringify function ([0a105fc](https://github.com/TomokiMiyauci/unitest/commit/0a105fc950fb8d7e5598510c38ccfd1259a04499))
+
+
+### Features
+
+* **it:** add `it` closure ([705094c](https://github.com/TomokiMiyauci/unitest/commit/705094cbced1c9950a37dbe38a881980325d77b5))
+
+# [1.0.0-beta.16](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2021-11-21)
+
+
+### Features
+
+* **matcher:** add `toBeEmptyObject` matcher ([2a6870a](https://github.com/TomokiMiyauci/unitest/commit/2a6870adccd9d910fb0356ed7485c2b993f12ff2))
+* **matcher:** add `toBeObject` matcher ([8c965b3](https://github.com/TomokiMiyauci/unitest/commit/8c965b3aebbbdee635881b5ccf3dcbc63783b122))
+
 # [1.0.0-beta.15](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2021-11-20)
 
 

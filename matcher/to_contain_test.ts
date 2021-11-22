@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertEquals, assertFail, assertSuccess } from "@/dev_deps.ts";
-import { predict, toContain } from "@matcher/to_contain.ts";
-import type { ContainIterable } from "@matcher/to_contain.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
+import { predict, toContain } from "./to_contain.ts";
+import type { ContainIterable } from "./to_contain.ts";
 
 Deno.test({
   name: "predict",

@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
-import { toBeBeforeOrEqualTo } from "@matcher/to_be_before_or_equal_to.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { toBeBeforeOrEqualTo } from "./to_be_before_or_equal_to.ts";
 
 Deno.test({
   name: "toBeBeforeOrEqualTo",

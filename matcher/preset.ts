@@ -1,58 +1,61 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { toBeWithin } from "@matcher/to_be_within.ts";
-import { toBeInteger } from "@matcher/to_be_integer.ts";
-import { toBeEven } from "@matcher/to_be_even.ts";
-import { toBeOdd } from "@matcher/to_be_odd.ts";
-import { toBePositive } from "@matcher/to_be_positive.ts";
-import { toBeNegative } from "@matcher/to_be_negative.ts";
-import { toBeFinite } from "@matcher/to_be_finite.ts";
-import { toBeOneOf } from "@matcher/to_be_one_of.ts";
-import { toBeBetween } from "@matcher/to_be_between.ts";
-import { toBeAfterOrEqualTo } from "@matcher/to_be_after_or_equal_to.ts";
-import { toBeBeforeOrEqualTo } from "@matcher/to_be_before_or_equal_to.ts";
-import { toBeBefore } from "@matcher/to_be_before.ts";
-import { toBeAfter } from "@matcher/to_be_after.ts";
-import { toBeSymbol } from "@matcher/to_be_symbol.ts";
-import { toBeValidDate } from "@matcher/to_be_valid_date.ts";
-import { toBeFunction } from "@matcher/to_be_function.ts";
-import { toBeDate } from "@matcher/to_be_date.ts";
-import { toBeString } from "@matcher/to_be_string.ts";
-import { toBeNumber } from "@matcher/to_be_number.ts";
-import { toBeFalse } from "@matcher/to_be_false.ts";
-import { toBeTrue } from "@matcher/to_be_true.ts";
-import { toBeBoolean } from "@matcher/to_be_boolean.ts";
-import { toBe } from "@matcher/to_be.ts";
-import { toEqual } from "@matcher/to_equal.ts";
-import { toBeFalsy } from "@matcher/to_be_falsy.ts";
-import { toBeTruthy } from "@matcher/to_be_truthy.ts";
-import { toBeUndefined } from "@matcher/to_be_undefined.ts";
-import { toBeDefined } from "@matcher/to_be_defined.ts";
-import { toBeNull } from "@matcher/to_be_null.ts";
-import { toBeAnything } from "@matcher/to_be_anything.ts";
-import { toBeNaN } from "@matcher/to_be_nan.ts";
-import { toBeInstanceOf } from "@matcher/to_be_instance_of.ts";
-import { toBeGreaterThan } from "@matcher/to_be_greater_than.ts";
-import { toBeGreaterThanOrEqual } from "@matcher/to_be_greater_than_or_equal.ts";
-import { toBeLessThan } from "@matcher/to_be_less_than.ts";
-import { toBeLessThanOrEqual } from "@matcher/to_be_less_than_or_equal.ts";
-import { toBeCloseTo } from "@matcher/to_be_close_to.ts";
-import { toMatch } from "@matcher/to_match.ts";
-import { toContain } from "@matcher/to_contain.ts";
-import { toThrow } from "@matcher/to_throw.ts";
-import { toHaveBeenCalled } from "@matcher/to_have_been_called.ts";
-import { toHaveBeenCalledTimes } from "@matcher/to_have_been_called_times.ts";
-import { toHaveBeenCalledWith } from "@matcher/to_have_been_called_with.ts";
-import { toHaveBeenLastCalledWith } from "@matcher/to_have_been_last_called_with.ts";
-import { toHaveBeenNthCalledWith } from "@matcher/to_have_been_nth_called_with.ts";
-import { toHaveLength } from "@matcher/to_have_length.ts";
-import { toHaveReturned } from "@matcher/to_have_returned.ts";
-import { toHaveReturnedTimes } from "@matcher/to_have_returned_times.ts";
-import { toHaveReturnedWith } from "@matcher/to_have_returned_with.ts";
-import { toHaveLastReturnedWith } from "@matcher/to_have_last_returned_with.ts";
-import { toHaveNthReturnedWith } from "@matcher/to_have_nth_returned_with.ts";
+import { toSatisfy } from "./to_satisfy.ts";
+import { toBeEmptyObject } from "./to_be_empty_object.ts";
+import { toBeObject } from "./to_be_object.ts";
+import { toBeWithin } from "./to_be_within.ts";
+import { toBeInteger } from "./to_be_integer.ts";
+import { toBeEven } from "./to_be_even.ts";
+import { toBeOdd } from "./to_be_odd.ts";
+import { toBePositive } from "./to_be_positive.ts";
+import { toBeNegative } from "./to_be_negative.ts";
+import { toBeFinite } from "./to_be_finite.ts";
+import { toBeOneOf } from "./to_be_one_of.ts";
+import { toBeBetween } from "./to_be_between.ts";
+import { toBeAfterOrEqualTo } from "./to_be_after_or_equal_to.ts";
+import { toBeBeforeOrEqualTo } from "./to_be_before_or_equal_to.ts";
+import { toBeBefore } from "./to_be_before.ts";
+import { toBeAfter } from "./to_be_after.ts";
+import { toBeSymbol } from "./to_be_symbol.ts";
+import { toBeValidDate } from "./to_be_valid_date.ts";
+import { toBeFunction } from "./to_be_function.ts";
+import { toBeDate } from "./to_be_date.ts";
+import { toBeString } from "./to_be_string.ts";
+import { toBeNumber } from "./to_be_number.ts";
+import { toBeFalse } from "./to_be_false.ts";
+import { toBeTrue } from "./to_be_true.ts";
+import { toBeBoolean } from "./to_be_boolean.ts";
+import { toBe } from "./to_be.ts";
+import { toEqual } from "./to_equal.ts";
+import { toBeFalsy } from "./to_be_falsy.ts";
+import { toBeTruthy } from "./to_be_truthy.ts";
+import { toBeUndefined } from "./to_be_undefined.ts";
+import { toBeDefined } from "./to_be_defined.ts";
+import { toBeNull } from "./to_be_null.ts";
+import { toBeAnything } from "./to_be_anything.ts";
+import { toBeNaN } from "./to_be_nan.ts";
+import { toBeInstanceOf } from "./to_be_instance_of.ts";
+import { toBeGreaterThan } from "./to_be_greater_than.ts";
+import { toBeGreaterThanOrEqual } from "./to_be_greater_than_or_equal.ts";
+import { toBeLessThan } from "./to_be_less_than.ts";
+import { toBeLessThanOrEqual } from "./to_be_less_than_or_equal.ts";
+import { toBeCloseTo } from "./to_be_close_to.ts";
+import { toMatch } from "./to_match.ts";
+import { toContain } from "./to_contain.ts";
+import { toThrow } from "./to_throw.ts";
+import { toHaveBeenCalled } from "./to_have_been_called.ts";
+import { toHaveBeenCalledTimes } from "./to_have_been_called_times.ts";
+import { toHaveBeenCalledWith } from "./to_have_been_called_with.ts";
+import { toHaveBeenLastCalledWith } from "./to_have_been_last_called_with.ts";
+import { toHaveBeenNthCalledWith } from "./to_have_been_nth_called_with.ts";
+import { toHaveLength } from "./to_have_length.ts";
+import { toHaveReturned } from "./to_have_returned.ts";
+import { toHaveReturnedTimes } from "./to_have_returned_times.ts";
+import { toHaveReturnedWith } from "./to_have_returned_with.ts";
+import { toHaveLastReturnedWith } from "./to_have_last_returned_with.ts";
+import { toHaveNthReturnedWith } from "./to_have_nth_returned_with.ts";
 
-import { toBeNil } from "@matcher/to_be_nil.ts";
-import { toBeArray } from "@matcher/to_be_array.ts";
+import { toBeNil } from "./to_be_nil.ts";
+import { toBeArray } from "./to_be_array.ts";
 
 /**
  * jest built-in matcher map
@@ -99,6 +102,9 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toSatisfy,
+  toBeEmptyObject,
+  toBeObject,
   toBeWithin,
   toBeInteger,
   toBeEven,

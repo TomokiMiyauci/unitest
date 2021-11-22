@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { predict, toBe } from "@matcher/to_be.ts";
-import { assertEquals, assertFail, assertSuccess } from "@/dev_deps.ts";
+import { predict, toBe } from "./to_be.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 
 Deno.test({
   name: "predict",

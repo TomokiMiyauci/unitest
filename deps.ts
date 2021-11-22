@@ -6,6 +6,7 @@ export {
 export {
   isBoolean,
   isDate,
+  isEmptyObject,
   isError,
   isEven,
   isFalse,
@@ -15,6 +16,7 @@ export {
   isNil,
   isNull,
   isNumber,
+  isObject,
   isOdd,
   isPositiveNumber,
   isPromise,
@@ -23,6 +25,6 @@ export {
   isTrue,
   isUndefined,
   isValidDate,
-} from "https://deno.land/x/isx@v1.0.0-beta.13/mod.ts";
+} from "https://deno.land/x/isx@v1.0.0-beta.15/mod.ts";
 
-export { red } from "https://deno.land/std@0.115.1/fmt/colors.ts";
+export { green, red } from "https://deno.land/std@0.115.1/fmt/colors.ts";

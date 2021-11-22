@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertEquals } from "@/dev_deps.ts";
-import { contains, stringify } from "@matcher/utils.ts";
+import { assertEquals } from "../dev_deps.ts";
+import { contains } from "./utils.ts";
+import { stringify } from "../helper/format.ts";
 
 Deno.test({
   name: "contains",

@@ -1,8 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { predict, toHaveReturned } from "@matcher/to_have_returned.ts";
-import { assertEquals, assertFail, assertSuccess } from "@/dev_deps.ts";
-import type { MockResult } from "@mock/types.ts";
-import { fn } from "@mock/fn.ts";
+import { predict, toHaveReturned } from "./to_have_returned.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
+import type { MockResult } from "../mock/types.ts";
+import { fn } from "../mock/fn.ts";
 
 Deno.test({
   name: "predict",

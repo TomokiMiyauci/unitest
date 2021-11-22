@@ -1,18 +1,12 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { MatchResult } from "@matcher/types.ts";
-import { isNil } from "@/deps.ts";
-import { fail, printHint, success } from "@matcher/utils.ts";
+import type { MatchResult } from "./types.ts";
+import { isNil } from "../deps.ts";
 
 function toBeAnything(actual: unknown): MatchResult {
-  if (!isNil(actual)) return success();
-
-  return fail({
-    message: printHint({
-      actual,
-      expected: "All except null and undefined",
-      matcher: "toBeAnything",
-    }),
-  });
+  return {
+    pass: !isNil(actual),
+    expected: "except null and undefined",
+  };
 }
 
 export { toBeAnything };

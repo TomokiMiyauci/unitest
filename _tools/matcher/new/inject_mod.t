@@ -5,4 +5,4 @@ append: true
 eof_last: false
 ---
 
-export { <%= h.changeCase.camel(name) %> } from "@matcher/<%= h.changeCase.snake(name) %>.ts";
+export { <%= h.changeCase.camel(name) %> } from "./<%= h.changeCase.snake(name) %>.ts";

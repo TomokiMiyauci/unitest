@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "@/dev_deps.ts";
-import { toBePositive } from "@matcher/to_be_positive.ts";
+import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { toBePositive } from "./to_be_positive.ts";
 
 Deno.test({
   name: "toBePositive",
