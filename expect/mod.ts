@@ -1,26 +1,37 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { AssertionError, isPromise, isString } from "../deps.ts";
-import { stringify } from "../matcher/utils.ts";
-import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type {
   AnyFn,
   OmitBy,
   PropertyFilter,
   ShiftRightParameters,
 } from "../_types.ts";
-import { jestMatcherMap } from "../matcher/preset.ts";
+import { jestMatcherMap } from "../mod.ts";
+import type { Matcher, MatchResult } from "../matcher/types.ts";
+import type { PostModifier, PreModifier } from "./types.ts";
+import { not } from "../modifier/not.ts";
+import { printHint, stringify } from "../matcher/utils.ts";
+import { AssertionError, isObject } from "../deps.ts";
 
 type MatcherMap = Record<
   string | symbol,
   Matcher
 >;
 
+type ModifierMap = {
+  pre?: Record<string | symbol, PreModifier>;
+  post?: Record<string | symbol, PostModifier>;
+};
+
 type Expected<
   T extends MatcherMap,
-  V extends string = "not" | "resolves" | "rejects",
+  Pre extends ModifierMap["pre"],
+  Post extends ModifierMap["post"],
 > =
   & {
-    [k in V]: Omit<Shift<T>, k>;
+    [k in keyof Pre]: Omit<Shift<T>, k> & { [k in keyof Post]: Shift<T> };
+  }
+  & {
+    [k in keyof Post]: Omit<Shift<T>, k>;
   }
   & Shift<T>;
 
@@ -28,59 +39,57 @@ type Shift<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftRightParameters<T[k], MatchResult>;
 };
 
-function defineExpect<M extends MatcherMap>(
-  matcherMap: M,
+function defineExpect<
+  M extends MatcherMap,
+  E extends ModifierMap,
+>(
+  { matcherMap, modifierMap: { pre: preModifierMap, post: postModifierMap } }: {
+    matcherMap: M;
+    modifierMap: E;
+  },
 ) {
-  return <T = unknown>(actual: T): Expected<OmitBy<PropertyFilter<M, T>>> => {
-    let _isNot = false;
-    let _isPromise = false;
+  return <T = unknown>(
+    actual: T,
+  ): Expected<OmitBy<PropertyFilter<M, T>>, E["pre"], E["post"]> => {
+    let pre: [string | symbol, PreModifier] | undefined;
+    let post: [string | symbol, PostModifier] | undefined;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
-        if (name === "not") {
-          _isNot = true;
+        // TODO: more need check
+        if (isObject(postModifierMap) && name in postModifierMap) {
+          post = [name, postModifierMap[name]];
           return self;
         }
 
-        if (isString(name) && ["resolves", "rejects"].includes(name)) {
-          if (!isPromise(actual)) {
-            throw new AssertionError("expected value must be a Promise");
-          }
-
-          if (name === "rejects") {
-            actual = ((actual as unknown as Promise<T>).then((v) => {
-              throw new AssertionError(
-                `Promise did not reject. resolved to ${stringify(v)}`,
-              );
-            }).catch((v) => v)) as unknown as T;
-          }
-
-          _isPromise = true;
+        if (isObject(preModifierMap) && name in preModifierMap) {
+          pre = [name, preModifierMap[name]];
           return self;
         }
 
-        const matcher = matcherMap[name];
+        const matcher = matcherMap[name] as Matcher | undefined;
         if (!matcher) {
           throw new TypeError(`matcher not found: ${stringify(name)}`);
         }
 
         return (...args: any[]) => {
-          const assert = ({ pass, message }: MatchResult): void => {
-            if (_isNot) {
-              if (!pass) return;
-              throw new AssertionError(`should not ${message}`);
-            } else {
-              if (pass) return;
-              throw new AssertionError(message || "Unknown error");
-            }
-          };
-
-          if (_isPromise) {
-            (actual as unknown as Promise<T>).then((value) =>
-              assert(matcher(value, ...args))
-            );
-          } else {
-            assert(matcher(actual, ...args));
+          const { pass, expected } = expectTo({
+            matcher,
+            actual,
+            expected: args,
+            preModifier: pre?.[1],
+            postModifier: post?.[1],
+          });
+          if (!pass) {
+            const failMessage = printHint({
+              actual,
+              expected,
+              matcher: String(name),
+              matcherArgs: args,
+              preModifier: pre?.[0],
+              postModifier: post?.[0],
+            });
+            throw new AssertionError(failMessage);
           }
         };
       },
@@ -90,8 +99,44 @@ function defineExpect<M extends MatcherMap>(
   };
 }
 
+function expectTo(
+  { matcher, actual, expected, postModifier }: {
+    actual: unknown;
+    expected: unknown[];
+    matcher: Matcher;
+    preModifier?: PreModifier;
+    postModifier?: PostModifier;
+  },
+): MatchResult {
+  const { pass, expected: expLabel } = matcher(actual, ...expected);
+
+  const after = postModifier?.({
+    actual,
+    expected,
+    matcher,
+    pass,
+    expectedValue: expLabel,
+  });
+
+  const [_pass, _failMessage] = after
+    ? [after.pass, after.expected]
+    : [pass, expLabel];
+
+  return {
+    pass: _pass,
+    expected: _failMessage,
+  };
+}
+
 function expect<T>(actual: T) {
-  return defineExpect(jestMatcherMap)(actual);
+  return defineExpect({
+    matcherMap: jestMatcherMap,
+    modifierMap: {
+      post: {
+        not,
+      },
+    },
+  })(actual);
 }
 
 export { defineExpect, expect };
