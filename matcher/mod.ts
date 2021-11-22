@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 export * from "./preset.ts";
 export * from "./types.ts";
-export * from "./utils.ts";
+export * from "../helper/format.ts";
 
 export { toBe } from "./to_be.ts";
 export { toEqual } from "./to_equal.ts";
