@@ -1,3 +1,18 @@
+# [1.0.0-beta.20](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2021-11-22)
+
+
+### Features
+
+* **matcher:** add `toSatisfy` matcher ([f3269b4](https://github.com/TomokiMiyauci/unitest/commit/f3269b42ad622ba7be9abbd1bd90d1e60371a423))
+* **matcher:** change matcher return interface ([ce5fd57](https://github.com/TomokiMiyauci/unitest/commit/ce5fd574449a02f8439becc594b283cb519fd6a2))
+* **modifier:** add `not` modifier ([32c4496](https://github.com/TomokiMiyauci/unitest/commit/32c44969060fc6ad0d0089c3446d4b02152e0b76)), closes [#6](https://github.com/TomokiMiyauci/unitest/issues/6)
+* **modifier:** add `resolves` and `rejects` modifiers ([147bdb9](https://github.com/TomokiMiyauci/unitest/commit/147bdb97cf31eb37f888e81219a6a24e1da6a0d4))
+
+
+### Performance Improvements
+
+* **expect:** remove deplicated code ([4447869](https://github.com/TomokiMiyauci/unitest/commit/4447869fa3e7bd6ef8f2f18830b65d31281cee99)), closes [#6](https://github.com/TomokiMiyauci/unitest/issues/6)
+
 # [1.0.0-beta.19](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.18...v1.0.0-beta.19) (2021-11-21)
 
 
