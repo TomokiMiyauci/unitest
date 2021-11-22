@@ -1,3 +1,10 @@
+# [1.0.0-beta.21](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2021-11-22)
+
+
+### Features
+
+* **compat:** add `Deno.test` compat as `it` function ([21a9caa](https://github.com/TomokiMiyauci/unitest/commit/21a9caadfa597f670acab545d3dae87ae74a875e))
+
 # [1.0.0-beta.20](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2021-11-22)
 
 
