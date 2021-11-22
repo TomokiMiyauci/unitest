@@ -1,24 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { MatchResult } from "./types.ts";
-import { equal, red } from "../deps.ts";
-
-function success(options?: {
-  message: string;
-}): MatchResult {
-  return {
-    pass: true,
-    message: options?.message,
-  };
-}
-
-function fail(options?: {
-  message: string;
-}): MatchResult {
-  return {
-    pass: false,
-    message: options?.message,
-  };
-}
+import { equal, green, isUndefined, red } from "../deps.ts";
 
 function stringify(value: unknown): string {
   return String(value);
@@ -43,12 +24,18 @@ function stringifyExpect({
   actual,
   expected,
   matcher,
+  preModifier,
+  postModifier,
 }: {
   actual: string;
   expected: string;
   matcher: string;
+  preModifier: string;
+  postModifier: string;
 }): string {
-  return `expect(${actual}).${matcher}(${expected})`;
+  return `expect(${actual})${preModifier ? `.${preModifier}` : ""}${
+    postModifier ? `.${postModifier}` : ""
+  }.${matcher}(${expected})`;
 }
 
 function printIterable(iterable: unknown[]): string[] {
@@ -61,8 +48,10 @@ function printHint(
     expected,
     matcher,
     matcherArgs,
-    expectedLabel = "Expected value to be:",
-    actualLabel = "Received:",
+    expectedLabel = "Expected:",
+    actualLabel = "Actual:",
+    preModifier,
+    postModifier,
   }: {
     actual: unknown;
     expected: unknown;
@@ -70,6 +59,8 @@ function printHint(
     matcher: string;
     expectedLabel?: string;
     actualLabel?: string;
+    preModifier?: string | symbol;
+    postModifier?: string | symbol;
   },
 ): string {
   return `${
@@ -77,13 +68,15 @@ function printHint(
       actual: stringify(actual),
       expected: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
       matcher: matcher,
+      preModifier: isUndefined(preModifier) ? "" : String(preModifier),
+      postModifier: isUndefined(postModifier) ? "" : String(postModifier),
     })
   }
 
 ${
     nestText(
       `${actualLabel}
-${nestText(red(stringify(actual)), 2)}
+${nestText(green(stringify(actual)), 2)}
 ${expectedLabel}
 ${nestText(red(stringify(expected)), 2)}
 `,
@@ -96,13 +89,4 @@ function contains(array: unknown[], value: unknown): boolean {
   return array.some((v) => equal(v, value));
 }
 
-export {
-  contains,
-  fail,
-  nestText,
-  printHint,
-  stringify,
-  stringifyExpect,
-  success,
-  takeLast,
-};
+export { contains, nestText, printHint, stringify, stringifyExpect, takeLast };

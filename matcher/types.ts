@@ -5,8 +5,13 @@ type Matcher = (
 ) => MatchResult;
 
 type MatchResult = {
+  /** result of matcher */
   pass: boolean;
-  message?: string;
+
+  /** fail message */
+  expected: unknown;
+
+  expectedLabel?: string;
 };
 
 export type { Matcher, MatchResult };

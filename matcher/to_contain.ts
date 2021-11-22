@@ -1,6 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "./types.ts";
-import { fail, printHint, success } from "./utils.ts";
 
 type ContainIterable = { includes: (search: any) => boolean };
 
@@ -12,16 +11,10 @@ function toContain(
   actual: ContainIterable,
   expected: unknown,
 ): MatchResult {
-  if (predict(actual, expected)) return success();
-
-  return fail({
-    message: printHint({
-      actual,
-      expected,
-      matcherArgs: [expected],
-      matcher: "toContain",
-    }),
-  });
+  return {
+    pass: predict(actual, expected),
+    expected,
+  };
 }
 
 export { predict, toContain };

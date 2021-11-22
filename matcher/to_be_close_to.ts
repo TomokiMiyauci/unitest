@@ -1,6 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "./types.ts";
-import { fail, printHint, success } from "./utils.ts";
 
 function predict(actual: number, expected: number, precision: number): boolean {
   if (!isFinite(actual) && !isFinite(expected)) return true;
@@ -16,16 +15,10 @@ function toBeCloseTo(
   expected: number,
   precision = 2,
 ): MatchResult {
-  if (predict(actual, expected, precision)) return success();
-
-  return fail({
-    message: printHint({
-      actual,
-      expected,
-      matcherArgs: [expected, precision],
-      matcher: "toBeCloseTo",
-    }),
-  });
+  return {
+    pass: predict(actual, expected, precision),
+    expected,
+  };
 }
 
 export { predict, toBeCloseTo };

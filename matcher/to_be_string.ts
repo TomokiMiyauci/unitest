@@ -1,18 +1,12 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { MatchResult } from "./types.ts";
-import { fail, printHint, success } from "./utils.ts";
 import { isString } from "../deps.ts";
 
 function toBeString(actual: unknown): MatchResult {
-  if (isString(actual)) return success();
-
-  return fail({
-    message: printHint({
-      actual,
-      expected: "String",
-      matcher: "toBeString",
-    }),
-  });
+  return {
+    pass: isString(actual),
+    expected: "string",
+  };
 }
 
 export { toBeString };

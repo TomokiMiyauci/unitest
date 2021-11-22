@@ -7,7 +7,7 @@ import type {
 } from "../_types.ts";
 import { jestMatcherMap } from "../mod.ts";
 import type { Matcher, MatchResult } from "../matcher/types.ts";
-import type { PostModifier, PreModifier } from "./types.ts";
+import type { PostModifier, PreModifier } from "../modifier/types.ts";
 import { not } from "../modifier/not.ts";
 import { printHint, stringify } from "../matcher/utils.ts";
 import { AssertionError, isObject } from "../deps.ts";
