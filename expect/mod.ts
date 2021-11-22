@@ -11,6 +11,9 @@ import type { PostModifier, PreModifier } from "../modifier/types.ts";
 import { not } from "../modifier/not.ts";
 import { printHint, stringify } from "../matcher/utils.ts";
 import { AssertionError, isObject } from "../deps.ts";
+import { isPromise } from "../deps.ts";
+import { resolves } from "../modifier/resolves.ts";
+import { rejects } from "../modifier/rejects.ts";
 
 type MatcherMap = Record<
   string | symbol,
@@ -41,16 +44,20 @@ type Shift<T extends Record<PropertyKey, AnyFn>> = {
 
 function defineExpect<
   M extends MatcherMap,
-  E extends ModifierMap,
+  Modifier extends ModifierMap,
 >(
   { matcherMap, modifierMap: { pre: preModifierMap, post: postModifierMap } }: {
     matcherMap: M;
-    modifierMap: E;
+    modifierMap: Modifier;
   },
 ) {
   return <T = unknown>(
     actual: T,
-  ): Expected<OmitBy<PropertyFilter<M, T>>, E["pre"], E["post"]> => {
+  ): Expected<
+    OmitBy<PropertyFilter<M, T>>,
+    Modifier["pre"],
+    Modifier["post"]
+  > => {
     let pre: [string | symbol, PreModifier] | undefined;
     let post: [string | symbol, PostModifier] | undefined;
 
@@ -72,7 +79,7 @@ function defineExpect<
           throw new TypeError(`matcher not found: ${stringify(name)}`);
         }
 
-        return (...args: any[]) => {
+        const r = (...args: any[]) => {
           const { pass, expected } = expectTo({
             matcher,
             actual,
@@ -92,10 +99,64 @@ function defineExpect<
             throw new AssertionError(failMessage);
           }
         };
+
+        const promise = async (...args: any[]) => {
+          const { pass, expected } = await promiseExpectTo({
+            matcher,
+            actual,
+            expected: args,
+            preModifier: pre?.[1],
+            postModifier: post?.[1],
+          });
+          if (!pass) {
+            const failMessage = printHint({
+              actual,
+              expected,
+              matcher: String(name),
+              matcherArgs: args,
+              preModifier: pre?.[0],
+              postModifier: post?.[0],
+            });
+            throw new AssertionError(failMessage);
+          }
+        };
+
+        return isPromise(actual) ? promise : r;
       },
     });
 
     return self;
+  };
+}
+
+async function promiseExpectTo(
+  { actual, matcher, expected, preModifier, postModifier }: {
+    actual: unknown;
+    expected: unknown[];
+    matcher: Matcher;
+    preModifier?: PreModifier;
+    postModifier?: PostModifier;
+  },
+): Promise<MatchResult> {
+  const { actual: _actual } = await preModifier?.({
+    actual,
+    expected,
+    matcher,
+  }) ?? { actual };
+
+  const { pass, expected: expectedValue } = matcher(_actual, ...expected);
+
+  const { pass: _pass, expected: _expected } = postModifier?.({
+    actual: _actual,
+    expected,
+    matcher,
+    pass,
+    expectedValue,
+  }) ?? { pass, expected };
+
+  return {
+    pass: _pass,
+    expected: _expected,
   };
 }
 
@@ -134,6 +195,10 @@ function expect<T>(actual: T) {
     modifierMap: {
       post: {
         not,
+      },
+      pre: {
+        resolves,
+        rejects,
       },
     },
   })(actual);

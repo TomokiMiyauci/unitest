@@ -38,7 +38,7 @@ type TypeMatcher = Omit<
 
 Deno.test({
   name: "expect",
-  fn: () => {
+  fn: async () => {
     expect("").toBe("");
     expect("").not.toBe(" ");
     assertThrowsAssertionError(() => expect("").toBe("1"));
@@ -74,6 +74,9 @@ Deno.test({
 
     expect(new String("")).toBeInstanceOf(String);
     assertThrowsAssertionError(() => expect("").toBeInstanceOf(String));
+
+    await expect(Promise.resolve("aa")).resolves.toBe("aa");
+    await expect(Promise.reject("a")).rejects.toBe("a");
   },
 });
 
