@@ -3,3 +3,4 @@ node_modules
 *.local
 *.log
 coverage
+cov_profile.lcov
