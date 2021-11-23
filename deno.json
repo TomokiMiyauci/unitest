@@ -9,7 +9,7 @@
   },
   "fmt": {
     "files": {
-      "exclude": ["node_modules", "CHANGELOG.md", "docs"]
+      "exclude": ["node_modules", "CHANGELOG.md", "dist", ".aleph"]
     }
   }
 }

@@ -7,15 +7,6 @@ export default function Home() {
         <title>Home | Unitest</title>
       </head>
 
-      <header className="border-b shadow p-2 antialiased text-gray-600">
-        <h1 className="text-2xl space-x-2">
-          <span>Unitest</span>{" "}
-          <span className="bg-amber-500 rounded-md px-1 text-gray-700 shadow">
-            Beta
-          </span>
-        </h1>
-      </header>
-
       <main className="antialiased text-gray-600">
         <article className="flex space-y-6 mt-10 flex-col items-center justify-center">
           <div className="border bg-gradient-to-br via-green-400 from-amber-500 to-rose-500 rounded-md grid place-items-center shadow h-72 w-72">

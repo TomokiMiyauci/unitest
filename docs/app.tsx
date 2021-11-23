@@ -1,12 +1,12 @@
-import React, { FC } from 'react'
+import React, { ComponentType } from "react";
+import "./styles/global.css";
 
-export default function App({ Page, pageProps }: { Page: FC, pageProps: Record<string, unknown> }) {
+export default function App(
+  { Page, pageProps }: { Page: ComponentType<any>; pageProps: any },
+) {
   return (
-    <>
-      <head>
-        <meta name="viewport" content="width=device-width" />
-      </head>
+    <main>
       <Page {...pageProps} />
-    </>
-  )
+    </main>
+  );
 }
