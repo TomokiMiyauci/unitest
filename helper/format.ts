@@ -1,8 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { green, isUndefined, red } from "../deps.ts";
 
+function isDeno(): boolean {
+  return "Deno" in globalThis;
+}
+
 function stringify(value: unknown): string {
-  return String(value);
+  const _stringify = isDeno() ? Deno.inspect : String;
+  return _stringify(value);
 }
 
 function printIterable(iterable: unknown[]): string[] {
