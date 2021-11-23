@@ -6,42 +6,36 @@ export default <Plugin> {
   setup: (aleph) => {
     const windi = new Processor();
 
-    // inject preflight
-    aleph.onTransform(/app.tsx/, async ({ module, code, bundleMode }) => {
-      const { specifier } = module;
-      const url = specifier.replace(/\.(j|t)sx$/i, "") + ".tailwind.css";
-      const StyleSheet = windi.preflight();
-      const preflight = StyleSheet.build(true);
+    aleph.onTransform(/\.(j|t)sx$/i, async ({ module, code, bundleMode }) => {
+      const { specifier, jsxStaticClassNames } = module;
 
-      const cssModule = await aleph.addModule(url, preflight, false);
+      const isApp = /\/app.tsx/.test(specifier);
+
+      const _jsxStaticClassNames = isApp
+        ? jsxStaticClassNames ?? [""]
+        : jsxStaticClassNames;
+
+      if (!_jsxStaticClassNames || !_jsxStaticClassNames.length) return;
+
+      const url = specifier.replace(/\.(j|t)sx$/i, "") + ".tailwind.css";
+      const interpretedSheet =
+        windi.interpret(_jsxStaticClassNames.join(" ")).styleSheet;
+      const minify = aleph.mode === "production";
+
+      if (isApp) {
+        interpretedSheet.extend(windi.preflight());
+      }
+      const css = interpretedSheet.build(minify);
+      const cssModule = await aleph.addModule(url, css, !minify);
 
       return {
+        // import tailwind css
         code: `import "${
           aleph.resolveImport(cssModule, specifier, bundleMode, true)
         }";${code}`,
+        // support SSR
         extraDeps: [{ specifier: url, virtual: true }],
       };
-    });
-
-    aleph.onTransform(/\.(j|t)sx$/i, async ({ module, code, bundleMode }) => {
-      const { specifier, jsxStaticClassNames } = module;
-      if (jsxStaticClassNames?.length) {
-        const url = specifier.replace(/\.(j|t)sx$/i, "") + ".tailwind.css";
-        const interpretedSheet =
-          windi.interpret(jsxStaticClassNames.join(" ")).styleSheet;
-        const minify = aleph.mode === "production";
-        const css = interpretedSheet.build(minify);
-        const cssModule = await aleph.addModule(url, css, true);
-
-        return {
-          // import tailwind css
-          code: `import "${
-            aleph.resolveImport(cssModule, specifier, bundleMode, true)
-          }";${code}`,
-          // support SSR
-          extraDeps: [{ specifier: url, virtual: true }],
-        };
-      }
     });
   },
 };
