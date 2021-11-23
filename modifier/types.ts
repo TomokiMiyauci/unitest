@@ -1,24 +1,22 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 
-type ModifierContext<Pre extends boolean> = Pre extends true ? ({
+type PreModifierContext = {
   actual: unknown;
   expected: unknown[];
   matcher: Matcher;
-})
-  : 
-    & {
-      actual: unknown;
-      expected: unknown[];
-      matcher: Matcher;
-    }
-    & Pick<MatchResult, "pass">
-    & { expectedValue: unknown };
+};
 
-type PreModifierContext = ModifierContext<true>;
 type PreModifierResult = { actual: unknown };
 
-type PostModifierContext = ModifierContext<false>;
+type PostModifierContext =
+  & {
+    actual: unknown;
+    expected: unknown[];
+    matcher: Matcher;
+  }
+  & Pick<MatchResult, "pass">
+  & { expectedValue: MatchResult["expected"] };
 type PostModifierResult = Partial<MatchResult>;
 
 type PostModifierFn = (
@@ -49,7 +47,6 @@ type PickModifierByType<
 };
 
 export type {
-  ModifierContext,
   ModifierMap,
   PickModifierByType,
   PostModifier,
