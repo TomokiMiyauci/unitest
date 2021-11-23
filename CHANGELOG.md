@@ -1,3 +1,15 @@
+# [1.0.0-beta.23](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.22...v1.0.0-beta.23) (2021-11-23)
+
+
+### Bug Fixes
+
+* **it:** fix it accept types ([cb0b79e](https://github.com/TomokiMiyauci/unitest/commit/cb0b79e5eee7663080063a473352b7e4b3356ee7))
+
+
+### Features
+
+* **helper:** use Deno.inspect safely at `stringify` ([edb1f18](https://github.com/TomokiMiyauci/unitest/commit/edb1f182494fb0f44ce2ae2b2ab7de3ca41d338e))
+
 # [1.0.0-beta.22](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.21...v1.0.0-beta.22) (2021-11-23)
 
 
