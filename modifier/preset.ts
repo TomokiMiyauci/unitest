@@ -5,13 +5,9 @@ import { rejects } from "./rejects.ts";
 
 /** Jest default modifier map */
 const jestModifierMap = {
-  pre: {
-    resolves,
-    rejects,
-  },
-  post: {
-    not,
-  },
+  not,
+  resolves,
+  rejects,
 };
 
 export { jestModifierMap };

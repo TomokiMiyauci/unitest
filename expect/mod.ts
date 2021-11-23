@@ -12,7 +12,11 @@ import type {
   ShiftRightParameters,
 } from "../_types.ts";
 import type { Matcher, MatchResult } from "../matcher/types.ts";
-import type { PostModifier, PreModifier } from "../modifier/types.ts";
+import type {
+  PickModifierByType,
+  PostModifierFn,
+  PreModifierFn,
+} from "../modifier/types.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
 import type { StringifyAssert } from "../helper/format.ts";
@@ -23,8 +27,8 @@ function throwError(message: string, ErrorClass = AssertionError): never {
 
 type Expected<
   T extends MatcherMap,
-  Pre extends ModifierMap["pre"],
-  Post extends ModifierMap["post"],
+  Pre extends PickModifierByType<ModifierMap, "pre">,
+  Post extends PickModifierByType<ModifierMap, "post">,
 > =
   & {
     [k in keyof Pre]: Omit<Shift<T>, k> & { [k in keyof Post]: Shift<T> };
@@ -42,7 +46,7 @@ function defineExpect<
   M extends MatcherMap,
   Modifier extends ModifierMap,
 >(
-  { matcherMap, modifierMap: { pre: preModifierMap, post: postModifierMap } }: {
+  { matcherMap, modifierMap }: {
     matcherMap: M;
     modifierMap: Modifier;
   },
@@ -51,23 +55,27 @@ function defineExpect<
     actual: T,
   ): Expected<
     OmitBy<PropertyFilter<M, T>>,
-    Modifier["pre"],
-    Modifier["post"]
+    PickModifierByType<Modifier, "pre">,
+    PickModifierByType<Modifier, "post">
   > => {
-    let pre: [string | symbol, PreModifier] | undefined;
-    let post: [string | symbol, PostModifier] | undefined;
+    let pre: [string | symbol, PreModifierFn] | undefined;
+    let post: [string | symbol, PostModifierFn] | undefined;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
         // TODO: more need check
-        if (!!postModifierMap && name in postModifierMap) {
-          post = [name, postModifierMap[name]];
-          return self;
-        }
+        if (
+          !!modifierMap && name in modifierMap
+        ) {
+          const modifier = modifierMap[name];
 
-        if (!!preModifierMap && name in preModifierMap) {
-          pre = [name, preModifierMap[name]];
-          return self;
+          if (modifier.type === "post") {
+            post = [name, modifier.fn];
+            return self;
+          } else {
+            pre = [name, modifier.fn];
+            return self;
+          }
         }
 
         const matcher = matcherMap[name] as Matcher | undefined;
@@ -133,8 +141,8 @@ async function promiseExpectTo(
     actual: unknown;
     expected: unknown[];
     matcher: Matcher;
-    preModifier?: PreModifier;
-    postModifier?: PostModifier;
+    preModifier?: PreModifierFn;
+    postModifier?: PostModifierFn;
   },
 ): Promise<MatchResult> {
   const { actual: _actual } = await preModifier?.({
@@ -164,8 +172,8 @@ function expectTo(
     actual: unknown;
     expected: unknown[];
     matcher: Matcher;
-    preModifier?: PreModifier;
-    postModifier?: PostModifier;
+    preModifier?: PreModifierFn;
+    postModifier?: PostModifierFn;
   },
 ): MatchResult {
   const { pass, expected: expLabel } = matcher(actual, ...expected);

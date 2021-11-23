@@ -19,7 +19,7 @@ export default function Home() {
           </p>
 
           <a
-            href="/get-started"
+            href="/docs/get-started/"
             className="bg-green-400 rounded p-2 uppercase shadow-md"
           >
             Get Started

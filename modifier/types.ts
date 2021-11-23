@@ -18,29 +18,46 @@ type ModifierContext<Pre extends boolean> = Pre extends true ? ({
 type PreModifierContext = ModifierContext<true>;
 type PreModifierResult = { actual: unknown };
 
-type PreModifier = (
-  modifierContext: PreModifierContext,
-) => PreModifierResult | Promise<PreModifierResult>;
-
 type PostModifierContext = ModifierContext<false>;
 type PostModifierResult = MatchResult;
 
-type PostModifier = (
+type PostModifierFn = (
   modifierContext: PostModifierContext,
 ) => MatchResult;
 
-type ModifierMap = {
-  pre?: Record<string | symbol, PreModifier>;
-  post?: Record<string | symbol, PostModifier>;
+type PreModifierFn = (
+  modifierContext: PreModifierContext,
+) => PreModifierResult | Promise<PreModifierResult>;
+
+type PostModifier = {
+  type: "post";
+  fn: PostModifierFn;
+};
+
+type PreModifier = {
+  type: "pre";
+  fn: PreModifierFn;
+};
+
+type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;
+
+type PickModifierByType<
+  M extends ModifierMap,
+  Type extends (PreModifier | PostModifier)["type"],
+> = {
+  [k in keyof M as (M[k]["type"] extends Type ? k : never)]: M[k];
 };
 
 export type {
   ModifierContext,
   ModifierMap,
+  PickModifierByType,
   PostModifier,
   PostModifierContext,
+  PostModifierFn,
   PostModifierResult,
   PreModifier,
   PreModifierContext,
+  PreModifierFn,
   PreModifierResult,
 };

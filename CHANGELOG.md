@@ -1,3 +1,10 @@
+# [1.0.0-beta.22](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.21...v1.0.0-beta.22) (2021-11-23)
+
+
+### Features
+
+* **modifier:** change modifier interface to flatten and have type ([e240af8](https://github.com/TomokiMiyauci/unitest/commit/e240af8c56a518e3828c4d1bf785d4124a9dcacf)), closes [#6](https://github.com/TomokiMiyauci/unitest/issues/6)
+
 # [1.0.0-beta.21](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2021-11-22)
 
 

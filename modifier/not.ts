@@ -1,15 +1,16 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { PostModifierContext, PostModifierResult } from "./types.ts";
+import type { PostModifier } from "./types.ts";
 
-function not(
-  { pass, expectedValue }: PostModifierContext,
-): PostModifierResult {
-  const expected = pass ? `not ${expectedValue}` : expectedValue;
+const not: PostModifier = {
+  type: "post",
+  fn: ({ pass, expectedValue }) => {
+    const expected = pass ? `not ${expectedValue}` : expectedValue;
 
-  return {
-    pass: !pass,
-    expected,
-  };
-}
+    return {
+      pass: !pass,
+      expected,
+    };
+  },
+};
 
 export { not };

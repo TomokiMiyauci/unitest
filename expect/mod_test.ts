@@ -11,9 +11,7 @@ Deno.test({
         toBe,
       },
       modifierMap: {
-        post: {
-          not,
-        },
+        not,
       },
     });
 

@@ -23,7 +23,7 @@ Registry: <https://deno.land/x/unitest@VERSION>
 `expect(actual)[modifier][matcher]`
 
 ```ts
-import { expect } from "https://deno.land/x/unitest@VERSION/mod.ts";
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 Deno.test({
   name: "test it!",
@@ -38,7 +38,7 @@ Deno.test({
 Same as follow:
 
 ```ts
-import { expect, it } from "https://deno.land/x/unitest@VERSION/mod.ts";
+import { expect, it } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 it("test it", () => {
   expect("test").not.toBe("it!");
@@ -54,7 +54,7 @@ you can greatly reduce the bundle size.
 import {
   defineExpect,
   toEqual,
-} from "https://deno.land/x/unitest@VERSION/mod.ts";
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const expect = defineExpect({
   matcherMap: {
@@ -80,7 +80,7 @@ it("should be 100", () => {
 
 ### preset
 
-`matcher` や `modifier` のプリセットを提供しています。`jest` や`jest-extended` のマッチャーが存在します。
+Presets for `matcher` and `modifier` are provided. There are `jest` and `jest-extended` matchers.
 
 ```ts
 import {
@@ -88,7 +88,7 @@ import {
   it,
   jestExtendedMatherMap,
   jestMatcherMap,
-} from "https://deno.land/x/unitest@VERSION/mod.ts";
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const expect = defineExpect({
   matcherMap: {

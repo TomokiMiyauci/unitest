@@ -3,7 +3,7 @@ import React from "react";
 export default function Header() {
   return (
     <header
-      className={`p-2 text-gray-600 sticky top-0 bg-gray-50`}
+      className={`p-2 text-gray-600 sticky top-0 backdrop-filter backdrop-blur`}
     >
       <a href="/">
         <h1 className="text-2xl space-x-2">
