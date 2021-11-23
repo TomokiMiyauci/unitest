@@ -29,11 +29,9 @@ export default <Plugin> {
       const cssModule = await aleph.addModule(url, css, !minify);
 
       return {
-        // import tailwind css
         code: `import "${
           aleph.resolveImport(cssModule, specifier, bundleMode, true)
         }";${code}`,
-        // support SSR
         extraDeps: [{ specifier: url, virtual: true }],
       };
     });
