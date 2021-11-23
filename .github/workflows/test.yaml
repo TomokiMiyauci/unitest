@@ -2,9 +2,10 @@ name: test
 
 on:
   push:
+    paths-ignore:
+      - 'docs/**'
   schedule:
     - cron:  '* 9 * * *'
-
 jobs:
   lint:
     runs-on: ${{ matrix.os }}
