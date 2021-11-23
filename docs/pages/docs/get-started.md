@@ -80,7 +80,7 @@ it("should be 100", () => {
 
 ### preset
 
-`matcher` や `modifier` のプリセットを提供しています。`jest` や`jest-extended` のマッチャーが存在します。
+Presets for `matcher` and `modifier` are provided. There are `jest` and `jest-extended` matchers.
 
 ```ts
 import {
