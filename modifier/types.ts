@@ -19,15 +19,15 @@ type PreModifierContext = ModifierContext<true>;
 type PreModifierResult = { actual: unknown };
 
 type PostModifierContext = ModifierContext<false>;
-type PostModifierResult = MatchResult;
+type PostModifierResult = Partial<MatchResult>;
 
 type PostModifierFn = (
   modifierContext: PostModifierContext,
-) => MatchResult;
+) => PostModifierResult;
 
 type PreModifierFn = (
   modifierContext: PreModifierContext,
-) => PreModifierResult | Promise<PreModifierResult>;
+) => PreModifierResult | Promise<PreModifierResult> | never;
 
 type PostModifier = {
   type: "post";
