@@ -44,4 +44,4 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Test
-        run: deno test --ignore=node_modules,README.md,matcher/README.md -c deno.json --doc
+        run: deno test --ignore=node_modules --import-map=test_import_map.json -c deno.json --doc

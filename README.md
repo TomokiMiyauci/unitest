@@ -18,7 +18,7 @@ Deno-first **uni**versal **unit** testing framework
 ## expect
 
 ```ts
-import { expect } from "https://deno.land/x/unitest@VERSION/mod.ts";
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 expect("").toBe("");
 ```
@@ -30,7 +30,7 @@ It provides custom matcher interface.
 You can add custom matcher easy. The type is automatically extended.
 
 ```ts
-import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@VERSION/mod.ts";
+import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const expect = defineExpect({
   ...jestMatcherMap

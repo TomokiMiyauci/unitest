@@ -17,7 +17,7 @@ import {
   defineExpect,
   jestExtendedMatcherMap,
   jestMatcherMap,
-} from "https://deno.land/x/unitest@VERSION/mod.ts";
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const { toBeString } = jestExtendedMatcherMap;
 
