@@ -1,19 +1,20 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { PreModifierContext, PreModifierResult } from "./types.ts";
+import type { PreModifier } from "./types.ts";
 import { AssertionError, isPromise } from "../deps.ts";
 
-async function resolves(
-  { actual }: PreModifierContext,
-): Promise<PreModifierResult> {
-  if (!isPromise(actual)) {
-    throw new AssertionError("expected value must be a Promise");
-  }
+const resolves: PreModifier = {
+  type: "pre",
+  fn: async ({ actual }) => {
+    if (!isPromise(actual)) {
+      throw new AssertionError("expected value must be a Promise");
+    }
 
-  const resolvedActual = await actual;
+    const resolvedActual = await actual;
 
-  return {
-    actual: resolvedActual,
-  };
-}
+    return {
+      actual: resolvedActual,
+    };
+  },
+};
 
 export { resolves };
