@@ -93,7 +93,7 @@ function defineExpect<
         ): void => {
           const failMessage = stringifyAssert({
             actual,
-            matcher: stringify(name),
+            matcher: String(name),
             expected,
             matcherArgs,
             preModifier: pre?.[0],
@@ -153,13 +153,14 @@ async function promiseExpectTo(
 
   const { pass, expected: expectedValue } = matcher(_actual, ...expected);
 
-  const { pass: _pass, expected: _expected } = postModifier?.({
-    actual: _actual,
-    expected,
-    matcher,
-    pass,
-    expectedValue,
-  }) ?? { pass, expected };
+  const { pass: _pass = pass, expected: _expected = expectedValue } =
+    postModifier?.({
+      actual: _actual,
+      expected,
+      matcher,
+      pass,
+      expectedValue,
+    }) ?? { pass, expected };
 
   return {
     pass: _pass,
@@ -176,23 +177,20 @@ function expectTo(
     postModifier?: PostModifierFn;
   },
 ): MatchResult {
-  const { pass, expected: expLabel } = matcher(actual, ...expected);
+  const { pass, expected: expectedValue } = matcher(actual, ...expected);
 
-  const after = postModifier?.({
-    actual,
-    expected,
-    matcher,
-    pass,
-    expectedValue: expLabel,
-  });
-
-  const [_pass, _failMessage] = after
-    ? [after.pass, after.expected]
-    : [pass, expLabel];
+  const { pass: _pass = pass, expected: _expected = expectedValue } =
+    postModifier?.({
+      actual,
+      expected,
+      matcher,
+      pass,
+      expectedValue,
+    }) ?? { pass, expected: expectedValue };
 
   return {
     pass: _pass,
-    expected: _failMessage,
+    expected: _expected,
   };
 }
 
