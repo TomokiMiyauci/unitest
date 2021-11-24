@@ -1,3 +1,12 @@
+# [1.0.0-beta.26](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.25...v1.0.0-beta.26) (2021-11-24)
+
+
+### Features
+
+* **it:** add `each` function ([7239b55](https://github.com/TomokiMiyauci/unitest/commit/7239b5589cf761dca5880db22b8fbdc024f043e2))
+* **matcher:** add `toSatisfyAll` matcher ([017a3b6](https://github.com/TomokiMiyauci/unitest/commit/017a3b66db4118308a176c8f581ae06dd9bc18de))
+* **matcher:** add `toSatisfyAll` matcher ([59e2b1d](https://github.com/TomokiMiyauci/unitest/commit/59e2b1d615a51697c50d7b10e0789870d720d56d))
+
 # [1.0.0-beta.25](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.24...v1.0.0-beta.25) (2021-11-24)
 
 
