@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 import { assertThrows } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 export {
   assert,

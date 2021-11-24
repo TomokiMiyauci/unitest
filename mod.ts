@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 // TODO:(miyauci) Bundlers such as aleph.js do not handle re-exports. Therefore, each module is exported directly.
 
 export { toSatisfy } from "./matcher/to_satisfy.ts";

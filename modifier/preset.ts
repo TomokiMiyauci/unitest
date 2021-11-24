@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 import { not } from "./not.ts";
 import { resolves } from "./resolves.ts";
 import { rejects } from "./rejects.ts";

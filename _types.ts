@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 type AnyFn<R = unknown> = (...args: any) => R;
 
 type ShiftRightParameters<T extends AnyFn, R> = IsArityX<T, 0 | 1> extends true
