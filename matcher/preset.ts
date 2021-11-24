@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toBeFrozen } from "./to_be_frozen.ts";
 import { toSatisfy } from "./to_satisfy.ts";
 import { toBeEmptyObject } from "./to_be_empty_object.ts";
 import { toBeObject } from "./to_be_object.ts";
@@ -103,6 +104,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeFrozen,
   toSatisfy,
   toBeEmptyObject,
   toBeObject,
