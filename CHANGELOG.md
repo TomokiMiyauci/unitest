@@ -1,3 +1,12 @@
+# [1.0.0-beta.25](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.24...v1.0.0-beta.25) (2021-11-24)
+
+
+### Features
+
+* **matcher:** add `toBeExtensible` matcher ([9cbe6e3](https://github.com/TomokiMiyauci/unitest/commit/9cbe6e3a8f634ec7afe7eb22f7e6afe55c4c30b2))
+* **matcher:** add `toBeFrozen` matcher ([0032aea](https://github.com/TomokiMiyauci/unitest/commit/0032aeacfe7101c714be9d3eedaf6df38050d463))
+* **matcher:** add `toBeSealed` matcher ([3bdbcbe](https://github.com/TomokiMiyauci/unitest/commit/3bdbcbe50e4f5542e4ecbb6e3b637c8624e6447e))
+
 # [1.0.0-beta.24](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.23...v1.0.0-beta.24) (2021-11-24)
 
 
