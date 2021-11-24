@@ -9,6 +9,7 @@ import { stringify, stringifyAssert } from "../helper/format.ts";
 import type {
   AnyFn,
   OmitBy,
+  PromisifyMap,
   PropertyFilter,
   ShiftRightParameters,
 } from "../_types.ts";
@@ -30,14 +31,17 @@ type Expected<
   T extends MatcherMap,
   Pre extends PickModifierByType<ModifierMap, "pre">,
   Post extends PickModifierByType<ModifierMap, "post">,
+  IsPromise extends boolean,
 > =
   & {
-    [k in keyof Pre]: Omit<Shift<T>, k> & { [k in keyof Post]: Shift<T> };
+    [k in keyof Pre]:
+      & PromisifyMap<Omit<Shift<T>, k>, IsPromise>
+      & { [k in keyof Post]: PromisifyMap<Shift<T>, IsPromise> };
   }
   & {
-    [k in keyof Post]: Omit<Shift<T>, k>;
+    [k in keyof Post]: PromisifyMap<Omit<Shift<T>, k>, IsPromise>;
   }
-  & Shift<T>;
+  & PromisifyMap<Shift<T>, IsPromise>;
 
 type Shift<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftRightParameters<T[k], MatchResult>;
@@ -57,14 +61,14 @@ function defineExpect<
   ): Expected<
     OmitBy<PropertyFilter<M, T>>,
     PickModifierByType<Modifier, "pre">,
-    PickModifierByType<Modifier, "post">
+    PickModifierByType<Modifier, "post">,
+    T extends Promise<any> ? true : false
   > => {
     let pre: [string | symbol, PreModifierFn] | undefined;
     let post: [string | symbol, PostModifierFn] | undefined;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
-        // TODO: more need check
         if (
           !!modifierMap && name in modifierMap
         ) {
