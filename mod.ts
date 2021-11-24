@@ -3,6 +3,7 @@
 // Bundlers such as aleph.js do not handle re-exports. Therefore, each module is exported directly.
 
 export { toSatisfy } from "./matcher/to_satisfy.ts";
+export { toBeExtensible } from "./matcher/to_be_extensible.ts";
 export { toBeFrozen } from "./matcher/to_be_frozen.ts";
 export { toBe } from "./matcher/to_be.ts";
 export { toEqual } from "./matcher/to_equal.ts";
