@@ -135,7 +135,6 @@ This allows TypeScript to do some of the assertions for you.
     - toContainEntries
     - toContainAllEntries
     - toContainAnyEntries
-    - toBeSealed
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
     - toBeHexadecimal

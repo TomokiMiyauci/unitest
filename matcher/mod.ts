@@ -63,3 +63,4 @@ export { toBeEmptyObject } from "./to_be_empty_object.ts";
 export { toSatisfy } from "./to_satisfy.ts";
 export { toBeFrozen } from "./to_be_frozen.ts";
 export { toBeExtensible } from "./to_be_extensible.ts";
+export { toBeSealed } from "./to_be_sealed.ts";

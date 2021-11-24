@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toBeSealed } from "./to_be_sealed.ts";
 import { toBeExtensible } from "./to_be_extensible.ts";
 import { toBeFrozen } from "./to_be_frozen.ts";
 import { toSatisfy } from "./to_satisfy.ts";
@@ -105,6 +106,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeSealed,
   toBeExtensible,
   toBeFrozen,
   toSatisfy,
