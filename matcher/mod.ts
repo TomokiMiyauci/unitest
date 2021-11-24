@@ -65,3 +65,4 @@ export { toBeFrozen } from "./to_be_frozen.ts";
 export { toBeExtensible } from "./to_be_extensible.ts";
 export { toBeSealed } from "./to_be_sealed.ts";
 export { toSatisfyAll } from "./to_satisfy_all.ts";
+export { toSatisfyAny } from "./to_satisfy_any.ts";

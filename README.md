@@ -116,7 +116,6 @@ This allows TypeScript to do some of the assertions for you.
     - toIncludeAllPartialMembers
     - toIncludeAnyMembers
     - toIncludeSameMembers
-    - toSatisfyAny
     - toThrowWithMessage
     - toHaveBeenCalledBefore
     - toHaveBeenCalledAfter

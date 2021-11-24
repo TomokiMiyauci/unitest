@@ -4,6 +4,7 @@
 
 export { toSatisfy } from "./matcher/to_satisfy.ts";
 export { toSatisfyAll } from "./matcher/to_satisfy_all.ts";
+export { toSatisfyAny } from "./matcher/to_satisfy_any.ts";
 export { toBeSealed } from "./matcher/to_be_sealed.ts";
 export { toBeExtensible } from "./matcher/to_be_extensible.ts";
 export { toBeFrozen } from "./matcher/to_be_frozen.ts";
