@@ -1,3 +1,10 @@
+# [1.0.0-beta.24](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.23...v1.0.0-beta.24) (2021-11-24)
+
+
+### Bug Fixes
+
+* **expect:** fix return types to promise when expect value is promise ([3f2216b](https://github.com/TomokiMiyauci/unitest/commit/3f2216b60d477b1111c134b2bc4ce36215deeff8))
+
 # [1.0.0-beta.23](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.22...v1.0.0-beta.23) (2021-11-23)
 
 
