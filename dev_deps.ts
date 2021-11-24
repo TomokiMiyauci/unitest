@@ -24,8 +24,15 @@ function assertExpected(
     matcher: Matcher;
     expected: MatchResult["expected"];
   },
+  options: Partial<{
+    actual: unknown;
+    expectedArgs: unknown[];
+  }> = { actual: {}, expectedArgs: [] },
 ): void {
-  assertEquals(matcher({}).expected, expected);
+  assertEquals(
+    matcher(options.actual, ...options.expectedArgs ?? []).expected,
+    expected,
+  );
 }
 
 function assertThrowsAssertionError(fn: () => unknown): void {
