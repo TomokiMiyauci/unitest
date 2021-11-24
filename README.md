@@ -108,75 +108,48 @@ This allows TypeScript to do some of the assertions for you.
   - toStrictEqual
   - toThrowErrorMatchingSnapshot
   - toThrowErrorMatchingInlineSnapshot
-- [ ] Implement third party matcher
+- [ ] Implement third party matcher (rest)
   - jest-extended
-    - [ ] toBeEmpty
-    - [x] toBeOneOf
-    - [x] toBeNil
-    - [x] toSatisfy
-    - [x] toBeArray
-    - [x] ~~toBeArrayOfSize~~ toHaveLength
-    - [ ] toIncludeAllMembers
-    - [ ] toIncludeAllPartialMembers
-    - [ ] toIncludeAnyMembers
-    - [ ] toIncludeSameMembers
-    - [ ] toSatisfyAll
-    - [ ] toSatisfyAny
-    - [x] toBeBoolean
-    - [x] toBeTrue
-    - [x] toBeFalse
-    - [x] toBeDate
-    - [x] toBeValidDate
-    - [x] toBeAfter
-    - [x] toBeBefore
-    - [x] toBeAfterOrEqualTo
-    - [x] toBeBeforeOrEqualTo
-    - [x] toBeBetween
-    - [x] toBeFunction
-    - [ ] toThrowWithMessage
-    - [ ] toHaveBeenCalledBefore
-    - [ ] toHaveBeenCalledAfter
-    - [ ] toHaveBeenCalledOnce
-    - [x] toBeNumber
-    - [ ] ~~toBeNaN~~ exists in jest
-    - [x] toBeFinite
-    - [x] toBePositive
-    - [x] toBeNegative
-    - [x] toBeEven
-    - [x] toBeOdd
-    - [x] toBeWithin
-    - [x] toBeInteger
-    - [x] toBeObject
-    - [x] toBeEmptyObject
-    - [ ] toContainKey
-    - [ ] toContainKeys
-    - [ ] toContainAllKeys
-    - [ ] toContainAnyKeys
-    - [ ] toContainValue
-    - [ ] toContainValues
-    - [ ] toContainAllValues
-    - [ ] toContainAnyValues
-    - [ ] toContainEntry
-    - [ ] toContainEntries
-    - [ ] toContainAllEntries
-    - [ ] toContainAnyEntries
-    - [ ] toBeExtensible
-    - [ ] toBeFrozen
-    - [ ] toBeSealed
-    - [ ] toResolve
-    - [ ] toReject
-    - [x] toBeString
-    - [ ] toBeHexadecimal
-    - [ ] toBeDateString
-    - [ ] toEqualCaseInsensitive
-    - [ ] toStartWith
-    - [ ] toEndWith
-    - [ ] toInclude
-    - [ ] toIncludeRepeated
-    - [ ] toIncludeMultiple
-    - [ ] toEqualIgnoringWhitespace
-    - [x] toBeSymbol
-- [ ] Implement interface of custom matcher
+    - toBeEmpty
+    - ~~toBeArrayOfSize~~ toHaveLength
+    - toIncludeAllMembers
+    - toIncludeAllPartialMembers
+    - toIncludeAnyMembers
+    - toIncludeSameMembers
+    - toSatisfyAll
+    - toSatisfyAny
+    - toThrowWithMessage
+    - toHaveBeenCalledBefore
+    - toHaveBeenCalledAfter
+    - toHaveBeenCalledOnce
+    - ~~toBeNaN~~ exists in jest
+    - toContainKey
+    - toContainKeys
+    - toContainAllKeys
+    - toContainAnyKeys
+    - toContainValue
+    - toContainValues
+    - toContainAllValues
+    - toContainAnyValues
+    - toContainEntry
+    - toContainEntries
+    - toContainAllEntries
+    - toContainAnyEntries
+    - toBeExtensible
+    - toBeFrozen
+    - toBeSealed
+    - ~~toResolve~~ not pure
+    - ~~toReject~~ not pure
+    - toBeHexadecimal
+    - toBeDateString
+    - toEqualCaseInsensitive
+    - toStartWith
+    - toEndWith
+    - toInclude
+    - toIncludeRepeated
+    - toIncludeMultiple
+    - toEqualIgnoringWhitespace
+- [x] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite
 
