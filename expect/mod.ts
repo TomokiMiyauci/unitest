@@ -53,7 +53,7 @@ function defineExpect<
 >(
   { matcherMap, modifierMap }: {
     matcherMap: M;
-    modifierMap: Modifier;
+    modifierMap?: Modifier;
   },
 ) {
   return <T = unknown>(
