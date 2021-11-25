@@ -5,7 +5,6 @@ const expect = defineExpect({
   matcherMap: {
     toHaveProperty,
   },
-  modifierMap: {},
 });
 
 it("should not occur error", () => {
