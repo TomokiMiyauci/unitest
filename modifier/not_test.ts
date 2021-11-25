@@ -8,8 +8,8 @@ Deno.test({
     assertEquals(
       predict({
         pass: true,
-        expected: [],
-        expectedValue: 1,
+        matcherArgs: [],
+        expected: 1,
         "matcher": {} as any,
         "actual": {} as any,
       }),
@@ -22,14 +22,14 @@ Deno.test({
     assertEquals(
       predict({
         pass: false,
-        expected: [],
-        expectedValue: 1,
+        matcherArgs: [],
+        expected: 1,
         "matcher": {} as any,
         "actual": {} as any,
       }),
       {
         pass: true,
-        expected: undefined,
+        expected: 1,
       },
     );
   },

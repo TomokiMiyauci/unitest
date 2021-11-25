@@ -9,7 +9,7 @@ Deno.test({
     assertEquals(
       await predict({
         actual: Promise.reject("test"),
-        expected: [],
+        matcherArgs: [],
         matcher: {} as any,
       }),
       { actual: "test" },
@@ -19,7 +19,7 @@ Deno.test({
       () =>
         predict({
           actual: Promise.resolve("test"),
-          expected: [],
+          matcherArgs: [],
           matcher: {} as any,
         }),
       AssertionError,
@@ -30,7 +30,7 @@ Deno.test({
       () =>
         predict({
           actual: "test",
-          expected: [],
+          matcherArgs: [],
           matcher: {} as any,
         }),
       AssertionError,

@@ -8,13 +8,11 @@ import type {
 import { stringify } from "../helper/format.ts";
 
 function predict(
-  { pass, expectedValue }: PostModifierContext,
+  { pass, expected }: PostModifierContext,
 ): PostModifierResult {
-  const expected = pass ? `[not] ${stringify(expectedValue)}` : undefined;
-
   return {
     pass: !pass,
-    expected,
+    expected: pass ? `[not] ${stringify(expected)}` : expected,
   };
 }
 
