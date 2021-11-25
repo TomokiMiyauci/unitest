@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-// deno-lint-ignore-file ban-types
+
 import { equal, isLength0, isObject, isUndefined } from "../deps.ts";
 
 function takeLast<T extends readonly unknown[] | string>(

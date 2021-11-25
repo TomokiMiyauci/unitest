@@ -13,7 +13,6 @@ Deno.test({
   name: "predict",
   fn: () => {
     const symbol = Symbol.for("test");
-    // deno-lint-ignore ban-types
     const table: [object, PropertyKey | PropertyKey[], PredictResult][] = [[
       {},
       [],

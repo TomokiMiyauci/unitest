@@ -2,7 +2,6 @@
 // This module is browser compatible.
 import type { MatchResult } from "./types.ts";
 
-// deno-lint-ignore ban-types
 function toBeInstanceOf(actual: unknown, expected: Function): MatchResult {
   return {
     pass: actual instanceof expected,

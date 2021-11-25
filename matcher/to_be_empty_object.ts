@@ -3,7 +3,6 @@
 import type { MatchResult } from "./types.ts";
 import { isEmptyObject } from "../deps.ts";
 
-// deno-lint-ignore ban-types
 function toBeEmptyObject(actual: object): MatchResult {
   return {
     pass: isEmptyObject(actual),

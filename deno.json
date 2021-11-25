@@ -4,7 +4,7 @@
       "exclude": ["node_modules", "docs"]
     },
     "rules": {
-      "exclude": ["no-explicit-any"]
+      "exclude": ["no-explicit-any", "ban-types"]
     }
   },
   "fmt": {
