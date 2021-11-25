@@ -33,14 +33,16 @@ You can add custom matcher easy. The type is automatically extended.
 import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const expect = defineExpect({
-  ...jestMatcherMap
-  toBe100: (actual) => {
-    if (actual === 100) return { pass: true };
-    return {
-      pass: false,
-      message,
-    };
-  },
+  matcherMap: {
+    ...jestMatcherMap
+    toBe100: (actual) => {
+      if (actual === 100) return { pass: true };
+      return {
+        pass: false,
+        message,
+      };
+    },
+  }
 });
 
 expect(1000).not.toBe100();

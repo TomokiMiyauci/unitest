@@ -22,13 +22,14 @@ import {
 const { toBeString } = jestExtendedMatcherMap;
 
 const expect = defineExpect({
-  ...jestMatcherMap,
+  matcherMap: {
+    ...jestMatcherMap,
+    toBeString,
+    toBeFoo: (actual: unknown) => {
+      if (actual === "foo") return { pass: true };
 
-  toBeString,
-  toBeFoo: (actual: unknown) => {
-    if (actual === "foo") return { pass: true };
-
-    return { pass: false };
+      return { pass: false };
+    },
   },
 });
 ```
