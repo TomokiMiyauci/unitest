@@ -1,3 +1,10 @@
+# [1.0.0-beta.27](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.26...v1.0.0-beta.27) (2021-11-25)
+
+
+### Features
+
+* **matcher:** add `toHaveProperty` matcher ([2340b9a](https://github.com/TomokiMiyauci/unitest/commit/2340b9ab974bcd2d91c78fb24bd5527817c42cb1))
+
 # [1.0.0-beta.26](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.25...v1.0.0-beta.26) (2021-11-24)
 
 
