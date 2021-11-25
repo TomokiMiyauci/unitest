@@ -102,7 +102,6 @@ Released under the [MIT](./LICENSE) license
     - toBeHexadecimal
     - toBeDateString
     - toEqualCaseInsensitive
-    - toStartWith
     - toEndWith
     - toInclude
     - toIncludeRepeated

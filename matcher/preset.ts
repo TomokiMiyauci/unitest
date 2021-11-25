@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toStartWith } from "./to_start_with.ts";
 import { toContainKeys } from "./to_contain_keys.ts";
 import { toSatisfyAny } from "./to_satisfy_any.ts";
 import { toSatisfyAll } from "./to_satisfy_all.ts";
@@ -110,6 +111,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toStartWith,
   toContainKeys,
   toSatisfyAny,
   toSatisfyAll,

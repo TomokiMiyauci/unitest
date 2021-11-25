@@ -7,6 +7,7 @@ export { toSatisfyAll } from "./matcher/to_satisfy_all.ts";
 export { toSatisfyAny } from "./matcher/to_satisfy_any.ts";
 export { toHaveProperty } from "./matcher/to_have_property.ts";
 export { toContainKeys } from "./matcher/to_contain_keys.ts";
+export { toStartWith } from "./matcher/to_start_with.ts";
 export { toBeSealed } from "./matcher/to_be_sealed.ts";
 export { toBeExtensible } from "./matcher/to_be_extensible.ts";
 export { toBeFrozen } from "./matcher/to_be_frozen.ts";
