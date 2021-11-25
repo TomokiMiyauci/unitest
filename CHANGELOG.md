@@ -1,3 +1,16 @@
+# [1.0.0-beta.28](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2021-11-25)
+
+
+### Bug Fixes
+
+* **expect:** improve types ([e91626a](https://github.com/TomokiMiyauci/unitest/commit/e91626ab0c338e61ce384bbb82a5770ad496177a))
+
+
+### Features
+
+* **matcher:** add `toContainKeys` matcher ([4ec8855](https://github.com/TomokiMiyauci/unitest/commit/4ec8855e87485d64cd73f9daeb8a692a49520dcf))
+* **matcher:** change matcher return value interface ([fce278f](https://github.com/TomokiMiyauci/unitest/commit/fce278fb7bf589df5442283b67aaa504401df47a))
+
 # [1.0.0-beta.27](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.26...v1.0.0-beta.27) (2021-11-25)
 
 
