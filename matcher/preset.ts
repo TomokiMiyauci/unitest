@@ -15,6 +15,8 @@ import { toBeOdd } from "./to_be_odd.ts";
 import { toBePositive } from "./to_be_positive.ts";
 import { toBeNegative } from "./to_be_negative.ts";
 import { toBeFinite } from "./to_be_finite.ts";
+import { toBeNil } from "./to_be_nil.ts";
+import { toBeArray } from "./to_be_array.ts";
 import { toBeOneOf } from "./to_be_one_of.ts";
 import { toBeBetween } from "./to_be_between.ts";
 import { toBeAfterOrEqualTo } from "./to_be_after_or_equal_to.ts";
@@ -59,9 +61,7 @@ import { toHaveReturnedTimes } from "./to_have_returned_times.ts";
 import { toHaveReturnedWith } from "./to_have_returned_with.ts";
 import { toHaveLastReturnedWith } from "./to_have_last_returned_with.ts";
 import { toHaveNthReturnedWith } from "./to_have_nth_returned_with.ts";
-
-import { toBeNil } from "./to_be_nil.ts";
-import { toBeArray } from "./to_be_array.ts";
+import { toHaveProperty } from "./to_have_property.ts";
 
 /**
  * jest built-in matcher map
@@ -95,6 +95,7 @@ const jestMatcherMap = {
   toHaveReturnedWith,
   toHaveLastReturnedWith,
   toHaveNthReturnedWith,
+  toHaveProperty,
   toMatch,
   toContain,
   toThrow,

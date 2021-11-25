@@ -100,7 +100,6 @@ This allows TypeScript to do some of the assertions for you.
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
-  - toHaveProperty
   - toContainEqual
   - toMatchObject
   - toMatchSnapshot

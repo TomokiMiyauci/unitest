@@ -33,6 +33,7 @@ export { toHaveReturnedTimes } from "./to_have_returned_times.ts";
 export { toHaveReturnedWith } from "./to_have_returned_with.ts";
 export { toHaveLastReturnedWith } from "./to_have_last_returned_with.ts";
 export { toHaveNthReturnedWith } from "./to_have_nth_returned_with.ts";
+export { toHaveProperty } from "./to_have_property.ts";
 
 export { toBeNil } from "./to_be_nil.ts";
 export { toBeArray } from "./to_be_array.ts";
