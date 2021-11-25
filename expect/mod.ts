@@ -4,7 +4,7 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { AssertionError, isPromise } from "../deps.ts";
-import { stringify, stringifyAssert } from "../helper/format.ts";
+import { stringify, stringifyResult } from "../helper/format.ts";
 
 import type {
   AnyFn,
@@ -21,7 +21,7 @@ import type {
 } from "../modifier/types.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
-import type { StringifyAssert } from "../helper/format.ts";
+import type { StringifyResultArgs } from "../helper/format.ts";
 
 function throwError(message: string, ErrorClass = AssertionError): never {
   throw new ErrorClass(message);
@@ -94,17 +94,17 @@ function defineExpect<
               MatchResult,
               "pass" | "expected"
             >
-            & Pick<StringifyAssert, "matcherArgs">,
+            & Pick<StringifyResultArgs, "matcherArgs">,
         ): void => {
-          const failMessage = stringifyAssert({
-            actual,
-            matcher: String(name),
-            expected,
-            matcherArgs,
-            preModifier: pre?.[0],
-            postModifier: post?.[0],
-          });
           if (!pass) {
+            const failMessage = stringifyResult({
+              actual,
+              matcher: String(name),
+              expected,
+              matcherArgs,
+              preModifier: pre?.[0],
+              postModifier: post?.[0],
+            });
             throwError(failMessage);
           }
         };
@@ -119,7 +119,7 @@ function defineExpect<
         const sync = (...args: any[]) => {
           const result = expectTo({
             ...expectMap,
-            expected: args,
+            matcherArgs: args,
           });
 
           execAssert({ ...result, matcherArgs: args });
@@ -128,7 +128,7 @@ function defineExpect<
         const promise = async (...args: any[]) => {
           const result = await promiseExpectTo({
             ...expectMap,
-            expected: args,
+            matcherArgs: args,
           });
           execAssert({ ...result, matcherArgs: args });
         };
@@ -141,61 +141,52 @@ function defineExpect<
   };
 }
 
+type ExpectedToArgs = {
+  actual: unknown;
+  matcherArgs: unknown[];
+  matcher: Matcher;
+  preModifier?: PreModifierFn;
+  postModifier?: PostModifierFn;
+};
+
 async function promiseExpectTo(
-  { actual, matcher, expected, preModifier, postModifier }: {
-    actual: unknown;
-    expected: unknown[];
-    matcher: Matcher;
-    preModifier?: PreModifierFn;
-    postModifier?: PostModifierFn;
-  },
+  { actual, matcher, matcherArgs, preModifier, postModifier }: ExpectedToArgs,
 ): Promise<MatchResult> {
-  const { actual: _actual } = await preModifier?.({
+  const preResult = await preModifier?.({
     actual,
-    expected,
+    matcherArgs,
     matcher,
   }) ?? { actual };
 
-  const { pass, expected: expectedValue } = matcher(_actual, ...expected);
+  const matchResult = matcher(preResult.actual ?? actual, ...matcherArgs);
 
-  const { pass: _pass = pass, expected: _expected = expectedValue } =
-    postModifier?.({
-      actual: _actual,
-      expected,
-      matcher,
-      pass,
-      expectedValue,
-    }) ?? { pass, expected };
+  const postResult = postModifier?.({
+    actual: matchResult.actual,
+    matcherArgs,
+    matcher,
+    pass: matchResult.pass,
+    expected: matchResult.expected ?? matcherArgs,
+  }) ?? matchResult;
 
-  return {
-    pass: _pass,
-    expected: _expected,
-  };
+  return { ...matchResult, ...postResult };
 }
 
 function expectTo(
-  { matcher, actual, expected, postModifier }: {
-    actual: unknown;
-    expected: unknown[];
-    matcher: Matcher;
-    preModifier?: PreModifierFn;
-    postModifier?: PostModifierFn;
-  },
+  { matcher, actual, matcherArgs, postModifier }: ExpectedToArgs,
 ): MatchResult {
-  const { pass, expected: expectedValue } = matcher(actual, ...expected);
+  const matchResult = matcher(actual, ...matcherArgs);
 
-  const { pass: _pass = pass, expected: _expected = expectedValue } =
-    postModifier?.({
-      actual,
-      expected,
-      matcher,
-      pass,
-      expectedValue,
-    }) ?? { pass, expected: expectedValue };
+  const postResult = postModifier?.({
+    actual,
+    matcherArgs,
+    matcher,
+    pass: matchResult.pass,
+    expected: matchResult.expected ?? matcherArgs,
+  }) ?? matchResult;
 
   return {
-    pass: _pass,
-    expected: _expected,
+    ...matchResult,
+    ...postResult,
   };
 }
 

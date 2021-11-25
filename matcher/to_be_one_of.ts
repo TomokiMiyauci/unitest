@@ -7,7 +7,7 @@ function toBeOneOf(actual: unknown, expected: unknown[]): MatchResult {
   return {
     pass: contains(expected, actual),
     expected,
-    expectedLabel: "Expected any of:",
+    expectedHint: "Expected any of:",
   };
 }
 

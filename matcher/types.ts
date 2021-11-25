@@ -6,13 +6,20 @@ type Matcher = (
 ) => MatchResult;
 
 type MatchResult = {
-  /** result of matcher */
+  /** result of matching */
   pass: boolean;
 
-  /** fail message */
-  expected: unknown;
+  /** overwrite actual value when display error */
+  actual?: unknown;
 
-  expectedLabel?: string;
+  /** overwrite expected value when display error */
+  expected?: unknown;
+
+  /** hint for actual value when display error */
+  actualHint?: unknown;
+
+  /** hint for expected value when display error */
+  expectedHint?: unknown;
 };
 
 type MatcherMap = Record<
