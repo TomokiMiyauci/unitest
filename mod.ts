@@ -1,7 +1,15 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-// TODO:(miyauci) Bundlers such as aleph.js do not handle re-exports. Therefore, each module is exported directly.
+// This module is browser compatible.
+// Bundlers such as aleph.js do not handle re-exports. Therefore, each module is exported directly.
 
 export { toSatisfy } from "./matcher/to_satisfy.ts";
+export { toSatisfyAll } from "./matcher/to_satisfy_all.ts";
+export { toSatisfyAny } from "./matcher/to_satisfy_any.ts";
+export { toHaveProperty } from "./matcher/to_have_property.ts";
+export { toContainKeys } from "./matcher/to_contain_keys.ts";
+export { toBeSealed } from "./matcher/to_be_sealed.ts";
+export { toBeExtensible } from "./matcher/to_be_extensible.ts";
+export { toBeFrozen } from "./matcher/to_be_frozen.ts";
 export { toBe } from "./matcher/to_be.ts";
 export { toEqual } from "./matcher/to_equal.ts";
 export { toBeFalsy } from "./matcher/to_be_falsy.ts";

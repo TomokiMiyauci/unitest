@@ -1,9 +1,10 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 
 type PreModifierContext = {
   actual: unknown;
-  expected: unknown[];
+  matcherArgs: unknown[];
   matcher: Matcher;
 };
 
@@ -12,11 +13,10 @@ type PreModifierResult = { actual: unknown };
 type PostModifierContext =
   & {
     actual: unknown;
-    expected: unknown[];
+    matcherArgs: unknown[];
     matcher: Matcher;
   }
-  & Pick<MatchResult, "pass">
-  & { expectedValue: MatchResult["expected"] };
+  & Pick<MatchResult, "pass" | "expected">;
 type PostModifierResult = Partial<MatchResult>;
 
 type PostModifierFn = (

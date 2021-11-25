@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 export * from "./preset.ts";
 export * from "./types.ts";
 export * from "../helper/format.ts";
@@ -32,6 +33,7 @@ export { toHaveReturnedTimes } from "./to_have_returned_times.ts";
 export { toHaveReturnedWith } from "./to_have_returned_with.ts";
 export { toHaveLastReturnedWith } from "./to_have_last_returned_with.ts";
 export { toHaveNthReturnedWith } from "./to_have_nth_returned_with.ts";
+export { toHaveProperty } from "./to_have_property.ts";
 
 export { toBeNil } from "./to_be_nil.ts";
 export { toBeArray } from "./to_be_array.ts";
@@ -60,3 +62,9 @@ export { toBeWithin } from "./to_be_within.ts";
 export { toBeObject } from "./to_be_object.ts";
 export { toBeEmptyObject } from "./to_be_empty_object.ts";
 export { toSatisfy } from "./to_satisfy.ts";
+export { toBeFrozen } from "./to_be_frozen.ts";
+export { toBeExtensible } from "./to_be_extensible.ts";
+export { toBeSealed } from "./to_be_sealed.ts";
+export { toSatisfyAll } from "./to_satisfy_all.ts";
+export { toSatisfyAny } from "./to_satisfy_any.ts";
+export { toContainKeys } from "./to_contain_keys.ts";

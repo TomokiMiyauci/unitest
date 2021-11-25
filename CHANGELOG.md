@@ -1,3 +1,48 @@
+# [1.0.0-beta.28](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2021-11-25)
+
+
+### Bug Fixes
+
+* **expect:** improve types ([e91626a](https://github.com/TomokiMiyauci/unitest/commit/e91626ab0c338e61ce384bbb82a5770ad496177a))
+
+
+### Features
+
+* **matcher:** add `toContainKeys` matcher ([4ec8855](https://github.com/TomokiMiyauci/unitest/commit/4ec8855e87485d64cd73f9daeb8a692a49520dcf))
+* **matcher:** change matcher return value interface ([fce278f](https://github.com/TomokiMiyauci/unitest/commit/fce278fb7bf589df5442283b67aaa504401df47a))
+
+# [1.0.0-beta.27](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.26...v1.0.0-beta.27) (2021-11-25)
+
+
+### Features
+
+* **matcher:** add `toHaveProperty` matcher ([2340b9a](https://github.com/TomokiMiyauci/unitest/commit/2340b9ab974bcd2d91c78fb24bd5527817c42cb1))
+
+# [1.0.0-beta.26](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.25...v1.0.0-beta.26) (2021-11-24)
+
+
+### Features
+
+* **it:** add `each` function ([7239b55](https://github.com/TomokiMiyauci/unitest/commit/7239b5589cf761dca5880db22b8fbdc024f043e2))
+* **matcher:** add `toSatisfyAll` matcher ([017a3b6](https://github.com/TomokiMiyauci/unitest/commit/017a3b66db4118308a176c8f581ae06dd9bc18de))
+* **matcher:** add `toSatisfyAll` matcher ([59e2b1d](https://github.com/TomokiMiyauci/unitest/commit/59e2b1d615a51697c50d7b10e0789870d720d56d))
+
+# [1.0.0-beta.25](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.24...v1.0.0-beta.25) (2021-11-24)
+
+
+### Features
+
+* **matcher:** add `toBeExtensible` matcher ([9cbe6e3](https://github.com/TomokiMiyauci/unitest/commit/9cbe6e3a8f634ec7afe7eb22f7e6afe55c4c30b2))
+* **matcher:** add `toBeFrozen` matcher ([0032aea](https://github.com/TomokiMiyauci/unitest/commit/0032aeacfe7101c714be9d3eedaf6df38050d463))
+* **matcher:** add `toBeSealed` matcher ([3bdbcbe](https://github.com/TomokiMiyauci/unitest/commit/3bdbcbe50e4f5542e4ecbb6e3b637c8624e6447e))
+
+# [1.0.0-beta.24](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.23...v1.0.0-beta.24) (2021-11-24)
+
+
+### Bug Fixes
+
+* **expect:** fix return types to promise when expect value is promise ([3f2216b](https://github.com/TomokiMiyauci/unitest/commit/3f2216b60d477b1111c134b2bc4ce36215deeff8))
+
 # [1.0.0-beta.23](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.22...v1.0.0-beta.23) (2021-11-23)
 
 

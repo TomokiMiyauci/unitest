@@ -1,4 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
 type AnyFn<R = unknown> = (...args: any) => R;
 
 type ShiftRightParameters<T extends AnyFn, R> = IsArityX<T, 0 | 1> extends true
@@ -24,4 +25,19 @@ type OmitBy<T, U = never> = {
   [k in keyof T as T[k] extends U ? never : k]: T[k];
 };
 
-export type { AnyFn, IsArityX, OmitBy, PropertyFilter, ShiftRightParameters };
+type Promisify<T extends AnyFn, Do extends boolean> = ((
+  ...args: Parameters<T>
+) => Do extends true ? Promise<ReturnType<T>> : ReturnType<T>);
+
+type PromisifyMap<T extends Record<PropertyKey, AnyFn>, Do extends boolean> = {
+  [k in keyof T]: Promisify<T[k], Do extends true ? true : false>;
+};
+
+export type {
+  AnyFn,
+  IsArityX,
+  OmitBy,
+  PromisifyMap,
+  PropertyFilter,
+  ShiftRightParameters,
+};

@@ -1,7 +1,7 @@
 ---
 inject: true
 to: matcher/preset.ts
-at_line: 1
+at_line: 2
 eof_last: false
 ---
 
