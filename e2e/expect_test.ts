@@ -26,5 +26,4 @@ it("toStartWith", () => {
   });
 
   expect("abcde").toStartWith("abc");
-  expect("abc").toStartWith("x");
 });

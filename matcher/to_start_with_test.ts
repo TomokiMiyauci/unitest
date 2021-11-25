@@ -13,6 +13,7 @@ Deno.test({
     assertEquals(toStartWith("", " "), {
       pass: false,
       expectedHint: "Expected to start with:",
+      expected: " ",
     });
   },
 });

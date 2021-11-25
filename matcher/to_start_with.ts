@@ -7,6 +7,7 @@ function toStartWith(actual: string, prefix: string): MatchResult {
   return {
     pass: actual.startsWith(prefix),
     expectedHint: "Expected to start with:",
+    expected: prefix,
   };
 }
 
