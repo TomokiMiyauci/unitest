@@ -62,4 +62,4 @@ function hasPath(
   return false;
 }
 
-export { contains, hasPath, propPath, takeLast };
+export { contains, has, hasPath, propPath, takeLast };

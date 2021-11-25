@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toContainKeys } from "./to_contain_keys.ts";
 import { toSatisfyAny } from "./to_satisfy_any.ts";
 import { toSatisfyAll } from "./to_satisfy_all.ts";
 import { toBeSealed } from "./to_be_sealed.ts";
@@ -109,6 +110,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toContainKeys,
   toSatisfyAny,
   toSatisfyAll,
   toBeSealed,

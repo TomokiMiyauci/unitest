@@ -122,8 +122,7 @@ This allows TypeScript to do some of the assertions for you.
     - toHaveBeenCalledAfter
     - toHaveBeenCalledOnce
     - ~~toBeNaN~~ exists in jest
-    - toContainKey
-    - toContainKeys
+    - ~~toContainKey~~ same as toHaveProperty
     - toContainAllKeys
     - toContainAnyKeys
     - toContainValue
