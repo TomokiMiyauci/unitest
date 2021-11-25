@@ -1,3 +1,11 @@
+# [1.0.0-beta.29](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2021-11-25)
+
+
+### Features
+
+* **expect:** add overwrite expect and actual hint when error ([fe0954d](https://github.com/TomokiMiyauci/unitest/commit/fe0954d05fc37d33a9803731cc58101806011deb))
+* **matcher:** add `toStartWith` matcher ([f8014fb](https://github.com/TomokiMiyauci/unitest/commit/f8014fbb46886f896a9857932953d122d6cc4f58))
+
 # [1.0.0-beta.28](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2021-11-25)
 
 
