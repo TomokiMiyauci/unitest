@@ -89,10 +89,10 @@ function defineExpect<
         }
 
         const execAssert = (
-          { pass, expected, matcherArgs }:
+          { pass, expected, matcherArgs, expectedHint, actualHint }:
             & Pick<
               MatchResult,
-              "pass" | "expected"
+              "pass" | "expected" | "expectedHint" | "actualHint"
             >
             & Pick<StringifyResultArgs, "matcherArgs">,
         ): void => {
@@ -101,6 +101,8 @@ function defineExpect<
               actual,
               matcher: String(name),
               expected,
+              expectedHint,
+              actualHint,
               matcherArgs,
               preModifier: pre?.[0],
               postModifier: post?.[0],
