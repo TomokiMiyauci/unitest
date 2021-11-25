@@ -17,89 +17,51 @@ Deno-first **uni**versal **unit** testing framework
 
 :construction: This is beta
 
-## expect
+## Features
+
+- Like jest but not jest\
+  You can express declarative tests around the symbolic expect in jest. Also,
+  all matchers are composable and customizable. jest and jest-extended matchers
+  are provided as presets.
+
+- Universal\
+  It is designed for use with Deno first and foremost.\
+  It is also compatible to work in browsers and Node.js environments.
+
+- Compositable\
+  Unitest is also intended to be used in a browser.\
+  For this reason, we provide a composable interface to keep the bundle size as
+  small as possible.
+
+- TypeScript-first\
+  Type-safe tests can be expressed. A type filter restricts the availability of
+  only those matchers that satisfy the data type under test.\
+  It also keeps the bundle size small by transferring part of the data type
+  validation to TypeScript.
+
+## Getting Started
+
+Visit <https://unitest.vercel.app/> to get started with Unitest.
+
+## Quick view
 
 ```ts
-import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, it } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-expect("").toBe("");
-```
-
-### Custom matcher
-
-It provides custom matcher interface.
-
-You can add custom matcher easy. The type is automatically extended.
-
-```ts
-import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    ...jestMatcherMap
-    toBe100: (actual) => {
-      if (actual === 100) return { pass: true };
-      return {
-        pass: false,
-        message,
-      };
-    },
-  }
+it("should not equal", () => {
+  expect("Deno").not.toBe("Node");
 });
-
-expect(1000).not.toBe100();
 ```
 
-### Power of TypeScript
+## Contributing
 
-Take full advantage of the power of TypeScript's type analysis.
+Please see our [CONTRIBUTING.md](./CONTRIBUTING.MD).
 
-In the example above, the actual `toBe100` takes no arguments. (It's not
-variadic arguments.)
+## License
 
-The matcher takes an `actual` value as its first argument. However, in the type
-definition, the `actual` value is removed. This is accomplished by TypeScript.
+Copyright © 2021-present [TomokiMiyauci](https://github.com/TomokiMiyauci).
 
-Let's look at a more advanced example.
-
-The type definition of a matcher `toBeGreaterThan` looks like this.
-
-```ts
-function toBeGreaterThan(
-  actual: number | bigint,
-  comparison: number | bigint,
-) {}
-```
-
-`toBeGreaterThan` takes a `number` | `bigint` as `comparison`. Therefore, the
-`actual` value should also be `number` | `bigint`. Because `jest` separated the
-matcher implementation from its type definition, it was difficult to give
-`actual` a type other than `any`.
-
-In this project, we use all the power of TypeScript.
-
-The type of `actual` will filter the available matchers.
-
-For example, if `actual` has a value of type `string`, only matchers with a
-first argument of a type compatible with `string` will be available.
-
-```ts
-expect("hello").toBeUndefined();
-expect("world").toMatch(/hello/);
-
-// This will result in a type error.
-// expect('world').toBeGreaterThan(0)
-```
-
-```ts
-expect(10).toBeUndefined();
-expect(10).toBeGreaterThan(3);
-
-// This will result in a type error.
-// expect(10).toMatch("10")
-```
-
-This allows TypeScript to do some of the assertions for you.
+Released under the [MIT](./LICENSE) license
 
 ## TODO
 
@@ -149,9 +111,3 @@ This allows TypeScript to do some of the assertions for you.
 - [x] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite
-
-## License
-
-Copyright © 2021-present [TomokiMiyauci](https://github.com/TomokiMiyauci).
-
-Released under the [MIT](./LICENSE) license
