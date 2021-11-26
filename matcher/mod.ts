@@ -73,3 +73,4 @@ export { toEndWith } from "./to_end_with.ts";
 export { toInclude } from "./to_include.ts";
 export { toBeDateString } from "./to_be_date_string.ts";
 export { toIncludeRepeated } from "./to_include_repeated.ts";
+export { toIncludeMultiple } from "./to_include_multiple.ts";

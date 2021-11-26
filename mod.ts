@@ -11,6 +11,7 @@ export { toStartWith } from "./matcher/to_start_with.ts";
 export { toEndWith } from "./matcher/to_end_with.ts";
 export { toInclude } from "./matcher/to_include.ts";
 export { toIncludeRepeated } from "./matcher/to_include_repeated.ts";
+export { toIncludeMultiple } from "./matcher/to_include_multiple.ts";
 export { toBeDateString } from "./matcher/to_be_date_string.ts";
 export { toBeSealed } from "./matcher/to_be_sealed.ts";
 export { toBeExtensible } from "./matcher/to_be_extensible.ts";

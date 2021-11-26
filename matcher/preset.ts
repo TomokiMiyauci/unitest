@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toIncludeMultiple } from "./to_include_multiple.ts";
 import { toIncludeRepeated } from "./to_include_repeated.ts";
 import { toBeDateString } from "./to_be_date_string.ts";
 import { toInclude } from "./to_include.ts";
@@ -115,6 +116,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toIncludeMultiple,
   toIncludeRepeated,
   toBeDateString,
   toInclude,
