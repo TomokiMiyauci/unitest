@@ -7,11 +7,13 @@ export {
 export {
   isBoolean,
   isDate,
+  isDateString,
   isEmptyObject,
   isError,
   isEven,
   isFalse,
   isFunction,
+  isHexColor,
   isLength0,
   isNegativeNumber,
   isNil,
@@ -26,7 +28,7 @@ export {
   isTrue,
   isUndefined,
   isValidDate,
-} from "https://deno.land/x/isx@v1.0.0-beta.15/mod.ts";
+} from "https://deno.land/x/isx@v1.0.0-beta.16/mod.ts";
 
 export {
   blue,
