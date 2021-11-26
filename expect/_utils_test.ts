@@ -3,6 +3,7 @@ import { expectTo } from "./_utils.ts";
 import { assertEquals } from "../dev_deps.ts";
 import { not } from "../modifier/not.ts";
 import { NOT } from "../dev_deps.ts";
+import { toEqualIgnoringWhitespace } from "../matcher/to_equal_ignoring_whitespace.ts";
 
 Deno.test({
   name: "expectTo",
@@ -65,6 +66,23 @@ Deno.test({
         expected: "empty string",
         actualHint: "Actual:",
         expectedHint: `Expected value: ${NOT}`,
+      },
+    );
+
+    assertEquals(
+      expectTo({
+        actual: " a b c",
+        matcher: toEqualIgnoringWhitespace,
+        expectedHint: "Expected:",
+        matcherArgs: [" e f g "],
+        actualHint: "Actual:",
+      }),
+      {
+        pass: false,
+        actual: "abc",
+        actualHint: "Actual except white-space:",
+        expectedHint: `Expected except white-space:`,
+        expected: "efg",
       },
     );
   },

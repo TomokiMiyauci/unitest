@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toEqualIgnoringWhitespace } from "./to_equal_ignoring_whitespace.ts";
 import { toIncludeMultiple } from "./to_include_multiple.ts";
 import { toIncludeRepeated } from "./to_include_repeated.ts";
 import { toBeDateString } from "./to_be_date_string.ts";
@@ -116,6 +117,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toEqualIgnoringWhitespace,
   toIncludeMultiple,
   toIncludeRepeated,
   toBeDateString,
