@@ -69,3 +69,4 @@ export { toSatisfyAll } from "./to_satisfy_all.ts";
 export { toSatisfyAny } from "./to_satisfy_any.ts";
 export { toContainKeys } from "./to_contain_keys.ts";
 export { toStartWith } from "./to_start_with.ts";
+export { toEndWith } from "./to_end_with.ts";
