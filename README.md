@@ -100,7 +100,6 @@ Released under the [MIT](./LICENSE) license
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
     - toBeHexadecimal
-    - toBeDateString
     - toEqualCaseInsensitive
     - toIncludeRepeated
     - toIncludeMultiple
