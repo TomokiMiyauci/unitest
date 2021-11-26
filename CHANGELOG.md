@@ -1,3 +1,12 @@
+# [1.0.0-beta.31](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.30...v1.0.0-beta.31) (2021-11-26)
+
+
+### Features
+
+* **matcher:** add `toBeDateString` matcher ([2704e26](https://github.com/TomokiMiyauci/unitest/commit/2704e26a04cfd5855540209e412d497ce64a3c31))
+* **matcher:** add `toEndWith` matcher ([0ea209f](https://github.com/TomokiMiyauci/unitest/commit/0ea209f2106ba11588c1228d0a36fc3ee7d396fd))
+* **matcher:** add `toInclude` matcher ([4e543a8](https://github.com/TomokiMiyauci/unitest/commit/4e543a8846cce65ae8454632e48206ad1fda6665))
+
 # [1.0.0-beta.30](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2021-11-26)
 
 
