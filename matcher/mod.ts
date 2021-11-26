@@ -77,3 +77,4 @@ export { toIncludeMultiple } from "./to_include_multiple.ts";
 export { toEqualIgnoringWhitespace } from "./to_equal_ignoring_whitespace.ts";
 export { toEqualCaseInsensitive } from "./to_equal_case_insensitive.ts";
 export { toBeHexColor } from "./to_be_hex_color.ts";
+export { toIncludeAllMembers } from "./to_include_all_members.ts";

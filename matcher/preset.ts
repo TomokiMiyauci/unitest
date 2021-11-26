@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toIncludeAllMembers } from "./to_include_all_members.ts";
 import { toBeHexColor } from "./to_be_hex_color.ts";
 import { toEqualCaseInsensitive } from "./to_equal_case_insensitive.ts";
 import { toEqualIgnoringWhitespace } from "./to_equal_ignoring_whitespace.ts";
@@ -119,6 +120,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toIncludeAllMembers,
   toBeHexColor,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,

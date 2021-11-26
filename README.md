@@ -77,7 +77,6 @@ Released under the [MIT](./LICENSE) license
   - jest-extended
     - toBeEmpty
     - ~~toBeArrayOfSize~~ toHaveLength
-    - toIncludeAllMembers
     - toIncludeAllPartialMembers
     - toIncludeAnyMembers
     - toIncludeSameMembers
