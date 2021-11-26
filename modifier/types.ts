@@ -16,7 +16,7 @@ type PostModifierContext =
     matcherArgs: unknown[];
     matcher: Matcher;
   }
-  & Pick<MatchResult, "pass" | "expected">;
+  & Pick<MatchResult, "pass" | "expected" | "expectedHint" | "actualHint">;
 type PostModifierResult = Partial<MatchResult>;
 
 type PostModifierFn = (

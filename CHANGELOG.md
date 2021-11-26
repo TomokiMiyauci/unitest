@@ -1,3 +1,43 @@
+# [1.0.0-beta.32](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.31...v1.0.0-beta.32) (2021-11-26)
+
+
+### Features
+
+* **matcher:** add `toBeHexColor` matcher ([33f1a05](https://github.com/TomokiMiyauci/unitest/commit/33f1a051331e2279fb458c5ef1d7be3d18b396ca))
+* **matcher:** add `toEqualCaseInsensitive` matcher ([7e43f70](https://github.com/TomokiMiyauci/unitest/commit/7e43f70c5e6ddfd5faeccd699198be4cb3f1c239))
+* **matcher:** add `toEqualIgnoringWhitespace` matcher ([5d37bfd](https://github.com/TomokiMiyauci/unitest/commit/5d37bfd2b727bacd1e40b4fdf238ee10fb532b71))
+* **matcher:** add `toIncludeMultiple` matcher ([e228215](https://github.com/TomokiMiyauci/unitest/commit/e2282156fb8eafde19119c6a369a31d41056be13))
+* **matcher:** add `toIncludeRepeated` matcher ([e6cf728](https://github.com/TomokiMiyauci/unitest/commit/e6cf728412cf1c3d9d1ebe91cb0bb55c2f643f74))
+
+# [1.0.0-beta.31](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.30...v1.0.0-beta.31) (2021-11-26)
+
+
+### Features
+
+* **matcher:** add `toBeDateString` matcher ([2704e26](https://github.com/TomokiMiyauci/unitest/commit/2704e26a04cfd5855540209e412d497ce64a3c31))
+* **matcher:** add `toEndWith` matcher ([0ea209f](https://github.com/TomokiMiyauci/unitest/commit/0ea209f2106ba11588c1228d0a36fc3ee7d396fd))
+* **matcher:** add `toInclude` matcher ([4e543a8](https://github.com/TomokiMiyauci/unitest/commit/4e543a8846cce65ae8454632e48206ad1fda6665))
+
+# [1.0.0-beta.30](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2021-11-26)
+
+
+### Bug Fixes
+
+* **modifier:** change display expected hint and color to blue ([75bd82b](https://github.com/TomokiMiyauci/unitest/commit/75bd82b3366d985d216b7baecbe9499078eba0ea))
+
+
+### Features
+
+* **expect:** merge expectedHint and actualHint with match result ([380a6e8](https://github.com/TomokiMiyauci/unitest/commit/380a6e899352559a6cee24f1c5526e6bb5631512))
+
+# [1.0.0-beta.29](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2021-11-25)
+
+
+### Features
+
+* **expect:** add overwrite expect and actual hint when error ([fe0954d](https://github.com/TomokiMiyauci/unitest/commit/fe0954d05fc37d33a9803731cc58101806011deb))
+* **matcher:** add `toStartWith` matcher ([f8014fb](https://github.com/TomokiMiyauci/unitest/commit/f8014fbb46886f896a9857932953d122d6cc4f58))
+
 # [1.0.0-beta.28](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2021-11-25)
 
 

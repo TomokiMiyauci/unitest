@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { not, predict } from "./not.ts";
 import { assertEquals } from "../dev_deps.ts";
+import { NOT } from "../dev_deps.ts";
 
 Deno.test({
   name: "predict",
@@ -10,12 +11,13 @@ Deno.test({
         pass: true,
         matcherArgs: [],
         expected: 1,
-        "matcher": {} as any,
-        "actual": {} as any,
+        matcher: {} as any,
+        actual: {} as any,
+        expectedHint: "Expected:",
       }),
       {
         pass: false,
-        expected: "[not] 1",
+        expectedHint: `Expected: ${NOT}`,
       },
     );
 
@@ -24,12 +26,13 @@ Deno.test({
         pass: false,
         matcherArgs: [],
         expected: 1,
-        "matcher": {} as any,
-        "actual": {} as any,
+        matcher: {} as any,
+        actual: {} as any,
+        expectedHint: "Expected value is:",
       }),
       {
         pass: true,
-        expected: 1,
+        expectedHint: `Expected value is: ${NOT}`,
       },
     );
   },

@@ -1,5 +1,14 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toBeHexColor } from "./to_be_hex_color.ts";
+import { toEqualCaseInsensitive } from "./to_equal_case_insensitive.ts";
+import { toEqualIgnoringWhitespace } from "./to_equal_ignoring_whitespace.ts";
+import { toIncludeMultiple } from "./to_include_multiple.ts";
+import { toIncludeRepeated } from "./to_include_repeated.ts";
+import { toBeDateString } from "./to_be_date_string.ts";
+import { toInclude } from "./to_include.ts";
+import { toEndWith } from "./to_end_with.ts";
+import { toStartWith } from "./to_start_with.ts";
 import { toContainKeys } from "./to_contain_keys.ts";
 import { toSatisfyAny } from "./to_satisfy_any.ts";
 import { toSatisfyAll } from "./to_satisfy_all.ts";
@@ -110,6 +119,15 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeHexColor,
+  toEqualCaseInsensitive,
+  toEqualIgnoringWhitespace,
+  toIncludeMultiple,
+  toIncludeRepeated,
+  toBeDateString,
+  toInclude,
+  toEndWith,
+  toStartWith,
   toContainKeys,
   toSatisfyAny,
   toSatisfyAll,

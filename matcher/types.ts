@@ -9,17 +9,17 @@ type MatchResult = {
   /** result of matching */
   pass: boolean;
 
+  /** overwrite expected value when display error */
+  expected: unknown;
+
   /** overwrite actual value when display error */
   actual?: unknown;
 
-  /** overwrite expected value when display error */
-  expected?: unknown;
-
   /** hint for actual value when display error */
-  actualHint?: unknown;
+  actualHint?: string;
 
   /** hint for expected value when display error */
-  expectedHint?: unknown;
+  expectedHint?: string;
 };
 
 type MatcherMap = Record<

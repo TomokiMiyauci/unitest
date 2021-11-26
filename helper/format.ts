@@ -64,9 +64,9 @@ type StringifyAssertArgs = {
 function stringifyAssert({
   actual,
   expected,
-  expectedHint = "Expected:",
-  actualHint = "Actual:",
-}: StringifyAssertArgs): string {
+  expectedHint,
+  actualHint,
+}: Required<StringifyAssertArgs>): string {
   return nestText(
     `${actualHint}
 ${nestText(green(stringify(actual)), 2)}
