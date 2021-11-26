@@ -4,7 +4,7 @@ to: matcher/<%= h.changeCase.snake(name) %>_test.ts
 
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { assertExpected, assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { <%= h.changeCase.camel(name) %> } from "./<%= h.changeCase.snake(name) %>.ts";
 
 Deno.test({
@@ -13,9 +13,9 @@ Deno.test({
     assertSuccess(<%= h.changeCase.camel(name) %>(true));
     assertFail(<%= h.changeCase.camel(name) %>(false));
 
-    assertExpected({
-      matcher: <%= h.changeCase.camel(name) %>,
-      expected: "",
+    assertEquals(<%= h.changeCase.camel(name) %>(true), {
+      pass: true,
+      expected: ""
     });
   },
 });
