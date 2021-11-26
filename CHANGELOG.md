@@ -1,3 +1,15 @@
+# [1.0.0-beta.30](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2021-11-26)
+
+
+### Bug Fixes
+
+* **modifier:** change display expected hint and color to blue ([75bd82b](https://github.com/TomokiMiyauci/unitest/commit/75bd82b3366d985d216b7baecbe9499078eba0ea))
+
+
+### Features
+
+* **expect:** merge expectedHint and actualHint with match result ([380a6e8](https://github.com/TomokiMiyauci/unitest/commit/380a6e899352559a6cee24f1c5526e6bb5631512))
+
 # [1.0.0-beta.29](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2021-11-25)
 
 
