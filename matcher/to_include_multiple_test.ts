@@ -9,6 +9,7 @@ Deno.test({
     assertSuccess(toIncludeMultiple("", []));
     assertSuccess(toIncludeMultiple("ab", ["a", "b"]));
     assertSuccess(toIncludeMultiple("deno node ", ["deno"]));
+    assertFail(toIncludeMultiple("abc", ["d"]));
 
     assertEquals(toIncludeMultiple("", ["a", "b", "c"]), {
       pass: false,
