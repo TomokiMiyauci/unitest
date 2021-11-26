@@ -13,6 +13,7 @@ export { toInclude } from "./matcher/to_include.ts";
 export { toIncludeRepeated } from "./matcher/to_include_repeated.ts";
 export { toIncludeMultiple } from "./matcher/to_include_multiple.ts";
 export { toEqualIgnoringWhitespace } from "./matcher/to_equal_ignoring_whitespace.ts";
+export { toEqualCaseInsensitive } from "./matcher/to_equal_case_insensitive.ts";
 export { toBeDateString } from "./matcher/to_be_date_string.ts";
 export { toBeSealed } from "./matcher/to_be_sealed.ts";
 export { toBeExtensible } from "./matcher/to_be_extensible.ts";

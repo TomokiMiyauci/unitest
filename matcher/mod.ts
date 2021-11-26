@@ -75,3 +75,4 @@ export { toBeDateString } from "./to_be_date_string.ts";
 export { toIncludeRepeated } from "./to_include_repeated.ts";
 export { toIncludeMultiple } from "./to_include_multiple.ts";
 export { toEqualIgnoringWhitespace } from "./to_equal_ignoring_whitespace.ts";
+export { toEqualCaseInsensitive } from "./to_equal_case_insensitive.ts";

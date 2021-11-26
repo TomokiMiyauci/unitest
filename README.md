@@ -100,7 +100,6 @@ Released under the [MIT](./LICENSE) license
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
     - toBeHexadecimal
-    - toEqualCaseInsensitive
 - [x] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite
