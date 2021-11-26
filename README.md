@@ -101,7 +101,6 @@ Released under the [MIT](./LICENSE) license
     - ~~toReject~~ not pure
     - toBeHexadecimal
     - toEqualCaseInsensitive
-    - toIncludeRepeated
     - toIncludeMultiple
     - toEqualIgnoringWhitespace
 - [x] Implement interface of custom matcher
