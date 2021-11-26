@@ -29,6 +29,7 @@ export {
 } from "https://deno.land/x/isx@v1.0.0-beta.15/mod.ts";
 
 export {
+  blue,
   gray,
   green,
   red,
