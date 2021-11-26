@@ -99,7 +99,7 @@ Released under the [MIT](./LICENSE) license
     - toContainAnyEntries
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
-    - toBeHexadecimal
+    - ~~toBeHexadecimal~~ -> toBeHexColor
 - [x] Implement interface of custom matcher
 - [ ] Implement `it` suite
 - [ ] Implement `describe` suite
