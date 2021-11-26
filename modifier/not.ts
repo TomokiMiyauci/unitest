@@ -1,18 +1,18 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { blue } from "../deps.ts";
 import type {
   PostModifier,
   PostModifierContext,
   PostModifierResult,
 } from "./types.ts";
-import { stringify } from "../helper/format.ts";
 
 function predict(
-  { pass, expected }: PostModifierContext,
+  { pass, expectedHint }: PostModifierContext,
 ): PostModifierResult {
   return {
     pass: !pass,
-    expected: pass ? `[not] ${stringify(expected)}` : expected,
+    expectedHint: `${expectedHint} ${blue("[not]")}`,
   };
 }
 
