@@ -1,3 +1,14 @@
+# [1.0.0-beta.32](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.31...v1.0.0-beta.32) (2021-11-26)
+
+
+### Features
+
+* **matcher:** add `toBeHexColor` matcher ([33f1a05](https://github.com/TomokiMiyauci/unitest/commit/33f1a051331e2279fb458c5ef1d7be3d18b396ca))
+* **matcher:** add `toEqualCaseInsensitive` matcher ([7e43f70](https://github.com/TomokiMiyauci/unitest/commit/7e43f70c5e6ddfd5faeccd699198be4cb3f1c239))
+* **matcher:** add `toEqualIgnoringWhitespace` matcher ([5d37bfd](https://github.com/TomokiMiyauci/unitest/commit/5d37bfd2b727bacd1e40b4fdf238ee10fb532b71))
+* **matcher:** add `toIncludeMultiple` matcher ([e228215](https://github.com/TomokiMiyauci/unitest/commit/e2282156fb8eafde19119c6a369a31d41056be13))
+* **matcher:** add `toIncludeRepeated` matcher ([e6cf728](https://github.com/TomokiMiyauci/unitest/commit/e6cf728412cf1c3d9d1ebe91cb0bb55c2f643f74))
+
 # [1.0.0-beta.31](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.30...v1.0.0-beta.31) (2021-11-26)
 
 
