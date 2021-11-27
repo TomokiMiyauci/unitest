@@ -6,7 +6,7 @@ import type { MatchResult } from "./types.ts";
 
 function toContainAnyEntries(
   actual: object,
-  expected: [PropertyKey, unknown][],
+  expected: [string, unknown][],
 ): MatchResult {
   const entries = Object.entries(actual);
   return {
