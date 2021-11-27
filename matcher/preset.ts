@@ -1,5 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toContainValues } from "./to_contain_values.ts";
+import { toContainEntries } from "./to_contain_entries.ts";
+import { toContainAnyEntries } from "./to_contain_any_entries.ts";
+import { toContainEntry } from "./to_contain_entry.ts";
+import { toContainAnyValues } from "./to_contain_any_values.ts";
+import { toContainValue } from "./to_contain_value.ts";
+import { toContainAnyKeys } from "./to_contain_any_keys.ts";
+import { toIncludeAllMembers } from "./to_include_all_members.ts";
 import { toBeHexColor } from "./to_be_hex_color.ts";
 import { toEqualCaseInsensitive } from "./to_equal_case_insensitive.ts";
 import { toEqualIgnoringWhitespace } from "./to_equal_ignoring_whitespace.ts";
@@ -119,6 +127,14 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toContainValues,
+  toContainEntries,
+  toContainAnyEntries,
+  toContainEntry,
+  toContainAnyValues,
+  toContainValue,
+  toContainAnyKeys,
+  toIncludeAllMembers,
   toBeHexColor,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,

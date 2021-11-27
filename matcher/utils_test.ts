@@ -1,6 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { assertEquals } from "../dev_deps.ts";
-import { contains, hasPath, propPath } from "./utils.ts";
+import {
+  containAll,
+  contains,
+  containSome,
+  hasPath,
+  prop,
+  propPath,
+} from "./utils.ts";
 import { stringify } from "../helper/format.ts";
 
 Deno.test({
@@ -42,6 +49,67 @@ Deno.test({
         }`,
       );
     });
+  },
+});
+
+Deno.test({
+  name: "containSome",
+  fn: () => {
+    const table: [
+      ...Parameters<typeof containSome>,
+      ReturnType<typeof containSome>,
+    ][] = [
+      [[], [], false],
+      [[], [1], false],
+      [[1, 2, 3], [2], true],
+      [[1, 2, 3], [2, 3], true],
+      [[1, 2, 3], [{}, [], 1], true],
+    ];
+    table.forEach(([target, part, result]) => {
+      assertEquals(
+        containSome(target, part),
+        result,
+      );
+    });
+  },
+});
+
+Deno.test({
+  name: "containAll",
+  fn: () => {
+    const table: [
+      ...Parameters<typeof containAll>,
+      ReturnType<typeof containAll>,
+    ][] = [
+      [[], [], true],
+      [["a", "b", "c"], ["a", "b"], true],
+      [[1, 2, 3], [2], true],
+      [[1, 2, 3], [2, 3], true],
+      [[1, 2, [], 3, {}], [{}, [], 1], true],
+      [[1, 2, [], 3, {}], [{}, [], 4], false],
+    ];
+    table.forEach(([target, part, result]) => {
+      assertEquals(
+        containAll(target, part),
+        result,
+      );
+    });
+  },
+});
+
+Deno.test({
+  name: "prop",
+  fn: () => {
+    const table: [...Parameters<typeof prop>, ReturnType<typeof prop>][] = [
+      ["", {}, undefined],
+      ["a", { a: 1 }, 1],
+      ["a", [], undefined],
+      ["length", [], 0],
+    ];
+
+    table.forEach(([key, object, result]) =>
+      assertEquals(prop(key, object), result)
+    );
   },
 });
 

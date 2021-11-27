@@ -48,7 +48,7 @@ function expectTo(
   const matchResult = matcher(actual, ...matcherArgs);
 
   const postResult = postModifier?.({
-    actual,
+    actual: matchResult?.actual ?? actual,
     matcherArgs,
     matcher,
     expectedHint: matchResult.expectedHint ?? expectedHint,
@@ -57,6 +57,7 @@ function expectTo(
   }) ?? matchResult;
 
   return {
+    actual,
     expectedHint,
     actualHint,
     ...matchResult,

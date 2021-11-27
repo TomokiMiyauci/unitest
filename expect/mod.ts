@@ -91,21 +91,26 @@ function defineExpect<
         }
 
         const execAssert = (
-          { pass, expected, matcherArgs, expectedHint, actualHint }:
-            & Pick<
-              MatchResult,
-              "pass" | "expected" | "expectedHint" | "actualHint"
-            >
+          {
+            pass,
+            matcherArgs,
+            expectedHint,
+            actualHint,
+            actual: actualValue,
+            expected: expectedValue,
+          }:
+            & MatchResult
             & Pick<StringifyResultArgs, "matcherArgs">,
         ): void => {
           if (!pass) {
             const failMessage = stringifyResult({
               actual,
+              matcherArgs,
               matcher: String(name),
-              expected,
+              actualValue,
+              expectedValue,
               expectedHint,
               actualHint,
-              matcherArgs,
               preModifier: pre?.[0],
               postModifier: post?.[0],
             });

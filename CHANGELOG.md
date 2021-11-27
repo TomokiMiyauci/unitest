@@ -1,3 +1,29 @@
+# [1.0.0-beta.34](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.33...v1.0.0-beta.34) (2021-11-27)
+
+
+### Bug Fixes
+
+* **matcher:** change `toContainAnyEntries` types ([45f8deb](https://github.com/TomokiMiyauci/unitest/commit/45f8deb26b8fafe880b573a576303989fbb6f49c))
+
+
+### Features
+
+* **matcher:** add `toContainAnyEntries` matcher ([8005015](https://github.com/TomokiMiyauci/unitest/commit/8005015b3ee444b136237d9f066076381a634307))
+* **matcher:** add `toContainAnyValues` matcher ([a91338f](https://github.com/TomokiMiyauci/unitest/commit/a91338f2272128cf9fa0c522606df6f3cb1b3135))
+* **matcher:** add `toContainEntries` matcher ([beb20b2](https://github.com/TomokiMiyauci/unitest/commit/beb20b2ed1f35c7602a59283fabb15ee3806878f))
+* **matcher:** add `toContainEntry` matcher ([e43e419](https://github.com/TomokiMiyauci/unitest/commit/e43e419a5d5d2daa8517c769d17326e0978e32f8))
+* **matcher:** add `toContainValues` matcher ([e1daab6](https://github.com/TomokiMiyauci/unitest/commit/e1daab632204592a62cedda022ff456072e53d72))
+
+# [1.0.0-beta.33](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.32...v1.0.0-beta.33) (2021-11-27)
+
+
+### Features
+
+* **expect:** display matcher defined actual value when assert error ([59e887a](https://github.com/TomokiMiyauci/unitest/commit/59e887ad6fa6e1f6e68d16a0af2bd4c8f5937d0f))
+* **matcher:** add `toContainAnyKeys` matcher ([719cb82](https://github.com/TomokiMiyauci/unitest/commit/719cb8249ee08e436832d4252b447d18eae0c4f9))
+* **matcher:** add `toContainValue` matcher ([5eb17e6](https://github.com/TomokiMiyauci/unitest/commit/5eb17e6fc1678024791915bc5557b67dc81378dd))
+* **matcher:** add `toIncludeAllMembers` matcher ([730c5e2](https://github.com/TomokiMiyauci/unitest/commit/730c5e20d024354b97fe4c10b778595514b278a6))
+
 # [1.0.0-beta.32](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.31...v1.0.0-beta.32) (2021-11-26)
 
 
