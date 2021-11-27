@@ -5,8 +5,8 @@ import { containSome } from "./utils.ts";
 import type { MatchResult } from "./types.ts";
 
 function toIncludeAnyMembers(
-  actual: unknown[],
-  expected: unknown[],
+  actual: readonly unknown[],
+  expected: readonly unknown[],
 ): MatchResult {
   return {
     pass: containSome(actual, expected),

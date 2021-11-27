@@ -26,7 +26,7 @@ function assertExpected(
   },
   options: Partial<{
     actual: unknown;
-    expectedArgs: unknown[];
+    expectedArgs: readonly unknown[];
   }> = { actual: {}, expectedArgs: [] },
 ): void {
   assertEquals(

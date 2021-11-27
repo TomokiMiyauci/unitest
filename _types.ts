@@ -33,6 +33,10 @@ type PromisifyMap<T extends Record<PropertyKey, AnyFn>, Do extends boolean> = {
   [k in keyof T]: Promisify<T[k], Do extends true ? true : false>;
 };
 
+type Writable<T> = {
+  -readonly [k in keyof T]: T[k];
+};
+
 export type {
   AnyFn,
   IsArityX,
@@ -40,4 +44,5 @@ export type {
   PromisifyMap,
   PropertyFilter,
   ShiftRightParameters,
+  Writable,
 };

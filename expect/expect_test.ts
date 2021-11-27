@@ -20,7 +20,7 @@ type StringMatcher = PickByFirstArg<JestMatcherMap, string>;
 type MockMatcher = PickByFirstArg<JestMatcherMap, Mock>;
 type FunctionMatcher = PickByFirstArg<
   JestMatcherMap,
-  (...args: unknown[]) => any
+  (...args: readonly unknown[]) => any
 >;
 type ContainMatcher = PickByFirstArg<
   JestMatcherMap,

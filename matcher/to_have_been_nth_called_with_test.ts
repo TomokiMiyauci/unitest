@@ -10,7 +10,7 @@ import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 Deno.test({
   name: "predict",
   fn: () => {
-    const table: [MockCall["calls"], number, unknown[], boolean][] = [
+    const table: [MockCall["calls"], number, readonly unknown[], boolean][] = [
       [
         [],
         0,

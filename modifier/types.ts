@@ -4,7 +4,7 @@ import type { Matcher, MatchResult } from "../matcher/types.ts";
 
 type PreModifierContext = {
   actual: unknown;
-  matcherArgs: unknown[];
+  matcherArgs: readonly unknown[];
   matcher: Matcher;
 };
 
@@ -13,7 +13,7 @@ type PreModifierResult = { actual: unknown };
 type PostModifierContext =
   & {
     actual: unknown;
-    matcherArgs: unknown[];
+    matcherArgs: readonly unknown[];
     matcher: Matcher;
   }
   & Pick<MatchResult, "pass" | "expected" | "expectedHint" | "actualHint">;

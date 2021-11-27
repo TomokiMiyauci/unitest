@@ -6,7 +6,11 @@ import { predict, toIncludeSameMembers } from "./to_include_same_members.ts";
 Deno.test({
   name: "predict",
   fn: () => {
-    const table: [readonly unknown[], readonly unknown[], boolean][] = [
+    const table: [
+      readonly unknown[],
+      readonly unknown[],
+      boolean,
+    ][] = [
       [[], [], true],
       [[1], [1], true],
       [[1], [1, 2], false],

@@ -11,7 +11,7 @@ function stringify(value: unknown): string {
   return _stringify(value);
 }
 
-function printIterable(iterable: unknown[]): string[] {
+function printIterable(iterable: readonly unknown[]): string[] {
   return iterable.map((item) => stringify(item));
 }
 
@@ -46,7 +46,7 @@ function stringifyExpect({
 type StringifyResultArgs = {
   actual: unknown;
   matcher: string;
-  matcherArgs?: unknown[];
+  matcherArgs?: readonly unknown[];
 
   actualValue: unknown;
   expectedValue: unknown;
