@@ -1,3 +1,12 @@
+# [1.0.0-beta.35](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.34...v1.0.0-beta.35) (2021-11-27)
+
+
+### Features
+
+* **matcher:** add `toBeEmpty` matcher ([c5e2f18](https://github.com/TomokiMiyauci/unitest/commit/c5e2f18eebcb03f4ba16df13c8918059f677a954))
+* **matcher:** add `toIncludeAnyMembers` matcher ([3aaf913](https://github.com/TomokiMiyauci/unitest/commit/3aaf91331a221af873d07304f51c1fceaaa949ba))
+* **matcher:** add `toIncludeSameMembers` matcher ([310c20a](https://github.com/TomokiMiyauci/unitest/commit/310c20ae51c91c6cd47ca5b8382a1b8e2a74aa50))
+
 # [1.0.0-beta.34](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.33...v1.0.0-beta.34) (2021-11-27)
 
 
