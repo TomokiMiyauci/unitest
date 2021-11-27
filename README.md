@@ -87,7 +87,6 @@ Released under the [MIT](./LICENSE) license
     - ~~toBeNaN~~ exists in jest
     - ~~toContainKey~~ same as toHaveProperty
     - toContainAllKeys
-    - toContainValue
     - toContainValues
     - toContainAllValues
     - toContainAnyValues
