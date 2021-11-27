@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { assertEquals } from "../dev_deps.ts";
-import { contains, containSome, hasPath, propPath } from "./utils.ts";
+import { contains, containSome, hasPath, prop, propPath } from "./utils.ts";
 import { stringify } from "../helper/format.ts";
 
 Deno.test({
@@ -64,6 +64,22 @@ Deno.test({
         result,
       );
     });
+  },
+});
+
+Deno.test({
+  name: "prop",
+  fn: () => {
+    const table: [...Parameters<typeof prop>, ReturnType<typeof prop>][] = [
+      ["", {}, undefined],
+      ["a", { a: 1 }, 1],
+      ["a", [], undefined],
+      ["length", [], 0],
+    ];
+
+    table.forEach(([key, object, result]) =>
+      assertEquals(prop(key, object), result)
+    );
   },
 });
 
