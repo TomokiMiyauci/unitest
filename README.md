@@ -91,7 +91,6 @@ Released under the [MIT](./LICENSE) license
     - toContainAllValues
     - toContainEntries
     - toContainAllEntries
-    - toContainAnyEntries
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
     - ~~toBeHexadecimal~~ -> toBeHexColor
