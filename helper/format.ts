@@ -45,9 +45,11 @@ function stringifyExpect({
 
 type StringifyResultArgs = {
   actual: unknown;
-  expected: unknown;
-  matcherArgs?: unknown[];
   matcher: string;
+  matcherArgs?: unknown[];
+
+  actualValue: unknown;
+  expectedValue: unknown;
   expectedHint?: string;
   actualHint?: string;
   preModifier?: string | symbol;
@@ -55,23 +57,23 @@ type StringifyResultArgs = {
 };
 
 type StringifyAssertArgs = {
-  actual: unknown;
-  expected: unknown;
+  actualValue: unknown;
+  expectedValue: unknown;
   expectedHint?: string;
   actualHint?: string;
 };
 
 function stringifyAssert({
-  actual,
-  expected,
+  actualValue,
+  expectedValue,
   expectedHint,
   actualHint,
 }: Required<StringifyAssertArgs>): string {
   return nestText(
     `${actualHint}
-${nestText(green(stringify(actual)), 2)}
+${nestText(green(stringify(actualValue)), 2)}
 ${expectedHint}
-${nestText(red(stringify(expected)), 2)}
+${nestText(red(stringify(expectedValue)), 2)}
 `,
     4,
   );
@@ -82,7 +84,8 @@ function stringifyResult(
     actual,
     matcherArgs,
     matcher,
-    expected,
+    actualValue,
+    expectedValue,
     expectedHint = "Expected:",
     actualHint = "Actual:",
     preModifier,
@@ -101,9 +104,9 @@ function stringifyResult(
 
 ${
     stringifyAssert({
-      actual,
+      actualValue,
       actualHint,
-      expected,
+      expectedValue,
       expectedHint,
     })
   }`;

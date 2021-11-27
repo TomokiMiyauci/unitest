@@ -4,6 +4,7 @@ import { assertEquals } from "../dev_deps.ts";
 import { not } from "../modifier/not.ts";
 import { NOT } from "../dev_deps.ts";
 import { toEqualIgnoringWhitespace } from "../matcher/to_equal_ignoring_whitespace.ts";
+import { toContainAnyKeys } from "../matcher/to_contain_any_keys.ts";
 
 Deno.test({
   name: "expectTo",
@@ -21,6 +22,7 @@ Deno.test({
       }),
       {
         pass: true,
+        actual: "",
         expected: "empty string",
         actualHint: "Actual:",
         expectedHint: "Expected:",
@@ -42,6 +44,7 @@ Deno.test({
       }),
       {
         pass: true,
+        actual: "",
         expected: "empty string",
         actualHint: "Actual value:",
         expectedHint: "Expected value:",
@@ -63,6 +66,7 @@ Deno.test({
       }),
       {
         pass: false,
+        actual: "",
         expected: "empty string",
         actualHint: "Actual:",
         expectedHint: `Expected value: ${NOT}`,
@@ -83,6 +87,23 @@ Deno.test({
         actualHint: "Actual except white-space:",
         expectedHint: `Expected except white-space:`,
         expected: "efg",
+      },
+    );
+
+    assertEquals(
+      expectTo({
+        actual: { a: 1, b: 2 },
+        matcher: toContainAnyKeys,
+        expectedHint: "Expected:",
+        actualHint: "Actual:",
+        matcherArgs: [["c", "d", "f"]],
+      }),
+      {
+        pass: false,
+        actual: Object.keys({ a: 1, b: 2 }),
+        actualHint: "Actual keys:",
+        expectedHint: `Expected to contain any of keys:`,
+        expected: ["c", "d", "f"],
       },
     );
   },
