@@ -77,7 +77,6 @@ Released under the [MIT](./LICENSE) license
   - jest-extended
     - ~~toBeArrayOfSize~~ toHaveLength
     - toIncludeAllPartialMembers
-    - toIncludeSameMembers
     - toThrowWithMessage
     - toHaveBeenCalledBefore
     - toHaveBeenCalledAfter

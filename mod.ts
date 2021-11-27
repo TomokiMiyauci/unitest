@@ -23,6 +23,7 @@ export { toContainAnyEntries } from "./matcher/to_contain_any_entries.ts";
 export { toContainEntries } from "./matcher/to_contain_entries.ts";
 export { toContainValues } from "./matcher/to_contain_values.ts";
 export { toIncludeAnyMembers } from "./matcher/to_include_any_members.ts";
+export { toIncludeSameMembers } from "./matcher/to_include_same_members.ts";
 export { toBeEmpty } from "./matcher/to_be_empty.ts";
 export { toBeHexColor } from "./matcher/to_be_hex_color.ts";
 export { toBeDateString } from "./matcher/to_be_date_string.ts";

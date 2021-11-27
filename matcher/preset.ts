@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toIncludeSameMembers } from "./to_include_same_members.ts";
 import { toIncludeAnyMembers } from "./to_include_any_members.ts";
 import { toBeEmpty } from "./to_be_empty.ts";
 import { toContainValues } from "./to_contain_values.ts";
@@ -129,6 +130,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toIncludeSameMembers,
   toIncludeAnyMembers,
   toBeEmpty,
   toContainValues,
