@@ -89,7 +89,6 @@ Released under the [MIT](./LICENSE) license
     - toContainAllKeys
     - toContainValues
     - toContainAllValues
-    - toContainEntries
     - toContainAllEntries
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
