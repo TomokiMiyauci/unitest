@@ -18,6 +18,10 @@ function containSome(target: unknown[], part: unknown[]): boolean {
   return part.some((value) => contains(target, value));
 }
 
+function containAll(target: unknown[], part: unknown[]): boolean {
+  return part.every((value) => contains(target, value));
+}
+
 function has(
   key: PropertyKey,
   object: object,
@@ -66,4 +70,13 @@ function hasPath(
   return false;
 }
 
-export { contains, containSome, has, hasPath, prop, propPath, takeLast };
+export {
+  containAll,
+  contains,
+  containSome,
+  has,
+  hasPath,
+  prop,
+  propPath,
+  takeLast,
+};

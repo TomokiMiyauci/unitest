@@ -1,6 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { assertEquals } from "../dev_deps.ts";
-import { contains, containSome, hasPath, prop, propPath } from "./utils.ts";
+import {
+  containAll,
+  contains,
+  containSome,
+  hasPath,
+  prop,
+  propPath,
+} from "./utils.ts";
 import { stringify } from "../helper/format.ts";
 
 Deno.test({
@@ -61,6 +68,29 @@ Deno.test({
     table.forEach(([target, part, result]) => {
       assertEquals(
         containSome(target, part),
+        result,
+      );
+    });
+  },
+});
+
+Deno.test({
+  name: "containAll",
+  fn: () => {
+    const table: [
+      ...Parameters<typeof containAll>,
+      ReturnType<typeof containAll>,
+    ][] = [
+      [[], [], true],
+      [["a", "b", "c"], ["a", "b"], true],
+      [[1, 2, 3], [2], true],
+      [[1, 2, 3], [2, 3], true],
+      [[1, 2, [], 3, {}], [{}, [], 1], true],
+      [[1, 2, [], 3, {}], [{}, [], 4], false],
+    ];
+    table.forEach(([target, part, result]) => {
+      assertEquals(
+        containAll(target, part),
         result,
       );
     });
