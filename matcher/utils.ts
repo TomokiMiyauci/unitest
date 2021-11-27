@@ -14,6 +14,10 @@ function contains(array: unknown[], value: unknown): boolean {
   return array.some((v) => equal(v, value));
 }
 
+function containSome(target: unknown[], part: unknown[]): boolean {
+  return part.some((value) => contains(target, value));
+}
+
 function has(
   key: PropertyKey,
   object: object,
@@ -62,4 +66,4 @@ function hasPath(
   return false;
 }
 
-export { contains, has, hasPath, propPath, takeLast };
+export { contains, containSome, has, hasPath, propPath, takeLast };

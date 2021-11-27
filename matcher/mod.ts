@@ -80,3 +80,4 @@ export { toBeHexColor } from "./to_be_hex_color.ts";
 export { toIncludeAllMembers } from "./to_include_all_members.ts";
 export { toContainAnyKeys } from "./to_contain_any_keys.ts";
 export { toContainValue } from "./to_contain_value.ts";
+export { toContainAnyValues } from "./to_contain_any_values.ts";

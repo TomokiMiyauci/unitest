@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { assertEquals } from "../dev_deps.ts";
-import { contains, hasPath, propPath } from "./utils.ts";
+import { contains, containSome, hasPath, propPath } from "./utils.ts";
 import { stringify } from "../helper/format.ts";
 
 Deno.test({
@@ -40,6 +40,28 @@ Deno.test({
         `returns false when array does not contain given value: ${
           stringify(value)
         }`,
+      );
+    });
+  },
+});
+
+Deno.test({
+  name: "containSome",
+  fn: () => {
+    const table: [
+      ...Parameters<typeof containSome>,
+      ReturnType<typeof containSome>,
+    ][] = [
+      [[], [], false],
+      [[], [1], false],
+      [[1, 2, 3], [2], true],
+      [[1, 2, 3], [2, 3], true],
+      [[1, 2, 3], [{}, [], 1], true],
+    ];
+    table.forEach(([target, part, result]) => {
+      assertEquals(
+        containSome(target, part),
+        result,
       );
     });
   },
