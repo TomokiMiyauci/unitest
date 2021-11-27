@@ -21,6 +21,7 @@ export { toContainAnyValues } from "./matcher/to_contain_any_values.ts";
 export { toContainEntry } from "./matcher/to_contain_entry.ts";
 export { toContainAnyEntries } from "./matcher/to_contain_any_entries.ts";
 export { toContainEntries } from "./matcher/to_contain_entries.ts";
+export { toContainValues } from "./matcher/to_contain_values.ts";
 export { toBeHexColor } from "./matcher/to_be_hex_color.ts";
 export { toBeDateString } from "./matcher/to_be_date_string.ts";
 export { toBeSealed } from "./matcher/to_be_sealed.ts";

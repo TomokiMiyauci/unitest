@@ -84,3 +84,4 @@ export { toContainAnyValues } from "./to_contain_any_values.ts";
 export { toContainEntry } from "./to_contain_entry.ts";
 export { toContainAnyEntries } from "./to_contain_any_entries.ts";
 export { toContainEntries } from "./to_contain_entries.ts";
+export { toContainValues } from "./to_contain_values.ts";
