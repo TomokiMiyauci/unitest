@@ -1,3 +1,13 @@
+# [1.0.0-beta.33](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.32...v1.0.0-beta.33) (2021-11-27)
+
+
+### Features
+
+* **expect:** display matcher defined actual value when assert error ([59e887a](https://github.com/TomokiMiyauci/unitest/commit/59e887ad6fa6e1f6e68d16a0af2bd4c8f5937d0f))
+* **matcher:** add `toContainAnyKeys` matcher ([719cb82](https://github.com/TomokiMiyauci/unitest/commit/719cb8249ee08e436832d4252b447d18eae0c4f9))
+* **matcher:** add `toContainValue` matcher ([5eb17e6](https://github.com/TomokiMiyauci/unitest/commit/5eb17e6fc1678024791915bc5557b67dc81378dd))
+* **matcher:** add `toIncludeAllMembers` matcher ([730c5e2](https://github.com/TomokiMiyauci/unitest/commit/730c5e20d024354b97fe4c10b778595514b278a6))
+
 # [1.0.0-beta.32](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.31...v1.0.0-beta.32) (2021-11-26)
 
 
