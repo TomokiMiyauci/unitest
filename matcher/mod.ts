@@ -81,3 +81,4 @@ export { toIncludeAllMembers } from "./to_include_all_members.ts";
 export { toContainAnyKeys } from "./to_contain_any_keys.ts";
 export { toContainValue } from "./to_contain_value.ts";
 export { toContainAnyValues } from "./to_contain_any_values.ts";
+export { toContainEntry } from "./to_contain_entry.ts";
