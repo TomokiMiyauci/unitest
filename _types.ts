@@ -37,10 +37,13 @@ type Writable<T> = {
   -readonly [k in keyof T]: T[k];
 };
 
+type Primitive = string | number | bigint | symbol | boolean | null | undefined;
+
 export type {
   AnyFn,
   IsArityX,
   OmitBy,
+  Primitive,
   PromisifyMap,
   PropertyFilter,
   ShiftRightParameters,

@@ -1,22 +1,30 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+
+import { isString } from "../deps.ts";
+import type { Primitive } from "../_types.ts";
 import type { MatchResult } from "./types.ts";
 
-type ContainIterable = { includes: (search: any) => boolean };
+function predict(actual: Iterable<unknown>, expected: Primitive): boolean {
+  if (isString(actual)) {
+    if (!isString(expected)) return false;
+    return actual.includes(expected);
+  }
 
-function predict(actual: ContainIterable, expected: unknown): boolean {
-  return actual.includes(expected);
+  const iterable = [...actual];
+
+  return iterable.includes(expected);
 }
 
 function toContain(
-  actual: ContainIterable,
-  expected: unknown,
+  actual: Iterable<unknown>,
+  expected: Primitive,
 ): MatchResult {
   return {
     pass: predict(actual, expected),
     expected,
+    expectedHint: "Expected to contain:",
   };
 }
 
 export { predict, toContain };
-export type { ContainIterable };
