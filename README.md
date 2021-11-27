@@ -75,7 +75,6 @@ Released under the [MIT](./LICENSE) license
   - toThrowErrorMatchingInlineSnapshot
 - [ ] Implement third party matcher (rest)
   - jest-extended
-    - toBeEmpty
     - ~~toBeArrayOfSize~~ toHaveLength
     - toIncludeAllPartialMembers
     - toIncludeAnyMembers

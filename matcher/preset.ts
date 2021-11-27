@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toBeEmpty } from "./to_be_empty.ts";
 import { toContainValues } from "./to_contain_values.ts";
 import { toContainEntries } from "./to_contain_entries.ts";
 import { toContainAnyEntries } from "./to_contain_any_entries.ts";
@@ -127,6 +128,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toBeEmpty,
   toContainValues,
   toContainEntries,
   toContainAnyEntries,
