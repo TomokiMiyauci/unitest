@@ -1,14 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { AnyFn } from "../_types.ts";
+import { it as _it } from "../describe/mod.ts";
 
 import { each } from "./each.ts";
-/** Creates a test closure */
-function _it(name: string, fn: () => void | Promise<void>) {
-  Deno.test({
-    name,
-    fn,
-  });
-}
 
 function defineIt<T extends Record<string | symbol, AnyFn>>(
   obj: T,

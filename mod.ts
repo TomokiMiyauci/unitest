@@ -101,4 +101,10 @@ export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
 export { resolves } from "./modifier/resolves.ts";
 export * from "./modifier/preset.ts";
-export * from "./describe/mod.ts";
+export {
+  afterAll,
+  afterEach,
+  beforeAfter,
+  beforeEach,
+  describe,
+} from "./describe/mod.ts";
