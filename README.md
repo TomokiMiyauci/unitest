@@ -66,7 +66,6 @@ Released under the [MIT](./LICENSE) license
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
-  - toContainEqual
   - toMatchObject
   - toMatchSnapshot
   - toMatchInlineSnapshot
