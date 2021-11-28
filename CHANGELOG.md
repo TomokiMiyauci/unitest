@@ -1,3 +1,12 @@
+# [1.0.0-beta.37](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.36...v1.0.0-beta.37) (2021-11-28)
+
+
+### Features
+
+* **describe:** add `describe` runner ([e9f6a45](https://github.com/TomokiMiyauci/unitest/commit/e9f6a4539b1d9ffea5e639ee4a99e4d36211b03d))
+* **describe:** add hooks for before and after test ([392c152](https://github.com/TomokiMiyauci/unitest/commit/392c152be75f5bf33a2309a14a6da39c106e7c0a))
+* **matcher:** add `toContainEqual` matcher ([8adecc6](https://github.com/TomokiMiyauci/unitest/commit/8adecc6966567a8ebfda64ea17d6ddb8a060040f))
+
 # [1.0.0-beta.36](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.35...v1.0.0-beta.36) (2021-11-28)
 
 
