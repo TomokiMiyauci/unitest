@@ -108,3 +108,4 @@ export {
   beforeEach,
   describe,
 } from "./describe/mod.ts";
+export { test } from "./test/mod.ts";
