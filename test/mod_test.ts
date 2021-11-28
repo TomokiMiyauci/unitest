@@ -2,6 +2,7 @@
 import { test } from "./mod.ts";
 import { fn } from "../mock/fn.ts";
 import { assertEquals } from "../dev_deps.ts";
+import { expect } from "../expect/mod.ts";
 
 Deno.test({
   name: "should call setup function before test",
@@ -53,5 +54,13 @@ Deno.test({
         assertEquals(mock.mock.calls.length, 1);
       },
     });
+  },
+});
+
+Deno.test({
+  name: "each is defined by default",
+  fn: () => {
+    expect(test).toBeDefined();
+    expect(test).toHaveProperty("each");
   },
 });

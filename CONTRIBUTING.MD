@@ -35,9 +35,9 @@ deno test --ignore=node_modules
 - e2e - End to End tests
 - [expect](./expect/README.md) - expect module
 - helper - helper for entire module
-- [it](./it/README.md) - closure for expect
 - [matcher](./matcher/README.md) - matcher collections
 - modifier - modifier collections
+- [test](./test/README.md) - test register
 
 ## Code Style
 

@@ -90,4 +90,4 @@ Released under the [MIT](./LICENSE) license
     - ~~toBeHexadecimal~~ -> toBeHexColor
 - [x] Implement interface of custom matcher
 - [ ] Implement `it` suite
-- [ ] Implement `describe` suite
+- [ ] ~~Implement `describe` suite~~

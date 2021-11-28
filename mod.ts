@@ -95,7 +95,6 @@ export * from "./matcher/utils.ts";
 export * from "./mock/fn.ts";
 export * from "./mock/types.ts";
 export * from "./expect/mod.ts";
-export * from "./it/mod.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
@@ -108,4 +107,4 @@ export {
   beforeEach,
   describe,
 } from "./describe/mod.ts";
-export { test } from "./test/mod.ts";
+export * from "./test/mod.ts";
