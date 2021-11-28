@@ -1,3 +1,11 @@
+# [1.0.0-beta.36](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.35...v1.0.0-beta.36) (2021-11-28)
+
+
+### Bug Fixes
+
+* add readonly signature to array types ([dee5c1f](https://github.com/TomokiMiyauci/unitest/commit/dee5c1f51580cc9473ee29ef7677a09740e017bb))
+* **matcher:** change `toContain` matcher types waht accept all iterable types ([a9e7eaa](https://github.com/TomokiMiyauci/unitest/commit/a9e7eaa10468afb8b8da29c07a2c5935f8409d1d))
+
 # [1.0.0-beta.35](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.34...v1.0.0-beta.35) (2021-11-27)
 
 
