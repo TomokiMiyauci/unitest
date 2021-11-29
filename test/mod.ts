@@ -36,11 +36,11 @@ function _test<T extends Record<PropertyKey, unknown>>(
     const { setup, teardown, fn, ...rest } = t;
     Deno.test({
       ...rest,
-      fn: (denoContext) => {
+      fn: async (denoContext) => {
         const context = setup?.() ?? {} as T;
 
         try {
-          fn({ ...context, ...denoContext });
+          await fn({ ...context, ...denoContext });
         } finally {
           teardown?.(context);
         }
