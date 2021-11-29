@@ -6,7 +6,7 @@ import { equal } from "../deps.ts";
 
 function predict(
   calls: MockCall["calls"],
-  ...expected: unknown[]
+  ...expected: readonly unknown[]
 ): boolean {
   const lastCalled = calls[calls.length - 1];
   return equal(lastCalled, expected);
@@ -14,7 +14,7 @@ function predict(
 
 function toHaveBeenLastCalledWith(
   { mock }: Mock,
-  ...expected: unknown[]
+  ...expected: readonly unknown[]
 ): MatchResult {
   return {
     pass: predict(mock.calls, ...expected),

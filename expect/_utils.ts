@@ -5,7 +5,7 @@ import type { PostModifierFn, PreModifierFn } from "../modifier/types.ts";
 
 type ExpectedToArgs = {
   actual: unknown;
-  matcherArgs: unknown[];
+  matcherArgs: readonly unknown[];
   matcher: Matcher;
   preModifier?: PreModifierFn;
   postModifier?: PostModifierFn;

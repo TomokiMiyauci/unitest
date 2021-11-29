@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
   defineExpect,
-  it,
+  test,
   toHaveProperty,
   toStartWith,
   toThrow,
@@ -13,17 +13,23 @@ const expect = defineExpect({
   },
 });
 
-it("should not occur error", () => {
-  expect({ a: "" }).toHaveProperty("a");
+test({
+  name: "should not occur error",
+  fn: () => {
+    expect({ a: "" }).toHaveProperty("a");
+  },
 });
 
-it("toStartWith", () => {
-  const expect = defineExpect({
-    matcherMap: {
-      toStartWith,
-      toThrow,
-    },
-  });
+test({
+  name: "toStartWith",
+  fn: () => {
+    const expect = defineExpect({
+      matcherMap: {
+        toStartWith,
+        toThrow,
+      },
+    });
 
-  expect("abcde").toStartWith("abc");
+    expect("abcde").toStartWith("abc");
+  },
 });

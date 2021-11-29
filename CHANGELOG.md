@@ -1,3 +1,44 @@
+# [1.0.0-beta.39](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2021-11-29)
+
+
+### Features
+
+* **test:** accept jest style interface ([e185b5f](https://github.com/TomokiMiyauci/unitest/commit/e185b5ff00c1ad9e10d40fd323fd0b05c93d6acc))
+
+# [1.0.0-beta.38](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2021-11-29)
+
+
+### Features
+
+* **test:** add `test` function instead of `it` ([81b3d55](https://github.com/TomokiMiyauci/unitest/commit/81b3d55d1345b2be1a67558cc3d2d7fd274cc45a))
+* **test:** add `test` function what register test case ([05fa94e](https://github.com/TomokiMiyauci/unitest/commit/05fa94e1278634a1aafd2ee45c2527952b134b96))
+
+# [1.0.0-beta.37](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.36...v1.0.0-beta.37) (2021-11-28)
+
+
+### Features
+
+* **describe:** add `describe` runner ([e9f6a45](https://github.com/TomokiMiyauci/unitest/commit/e9f6a4539b1d9ffea5e639ee4a99e4d36211b03d))
+* **describe:** add hooks for before and after test ([392c152](https://github.com/TomokiMiyauci/unitest/commit/392c152be75f5bf33a2309a14a6da39c106e7c0a))
+* **matcher:** add `toContainEqual` matcher ([8adecc6](https://github.com/TomokiMiyauci/unitest/commit/8adecc6966567a8ebfda64ea17d6ddb8a060040f))
+
+# [1.0.0-beta.36](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.35...v1.0.0-beta.36) (2021-11-28)
+
+
+### Bug Fixes
+
+* add readonly signature to array types ([dee5c1f](https://github.com/TomokiMiyauci/unitest/commit/dee5c1f51580cc9473ee29ef7677a09740e017bb))
+* **matcher:** change `toContain` matcher types waht accept all iterable types ([a9e7eaa](https://github.com/TomokiMiyauci/unitest/commit/a9e7eaa10468afb8b8da29c07a2c5935f8409d1d))
+
+# [1.0.0-beta.35](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.34...v1.0.0-beta.35) (2021-11-27)
+
+
+### Features
+
+* **matcher:** add `toBeEmpty` matcher ([c5e2f18](https://github.com/TomokiMiyauci/unitest/commit/c5e2f18eebcb03f4ba16df13c8918059f677a954))
+* **matcher:** add `toIncludeAnyMembers` matcher ([3aaf913](https://github.com/TomokiMiyauci/unitest/commit/3aaf91331a221af873d07304f51c1fceaaa949ba))
+* **matcher:** add `toIncludeSameMembers` matcher ([310c20a](https://github.com/TomokiMiyauci/unitest/commit/310c20ae51c91c6cd47ca5b8382a1b8e2a74aa50))
+
 # [1.0.0-beta.34](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.33...v1.0.0-beta.34) (2021-11-27)
 
 

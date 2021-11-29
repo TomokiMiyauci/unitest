@@ -6,7 +6,7 @@ import { predict, toIncludeAllMembers } from "./to_include_all_members.ts";
 Deno.test({
   name: "predict",
   fn: () => {
-    const table: [unknown[], unknown[], boolean][] = [
+    const table: [readonly unknown[], readonly unknown[], boolean][] = [
       [[], [], true],
       [[null, undefined, 1], [1], true],
       [

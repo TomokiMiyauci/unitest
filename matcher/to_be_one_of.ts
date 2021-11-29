@@ -3,7 +3,7 @@
 import type { MatchResult } from "./types.ts";
 import { contains } from "./utils.ts";
 
-function toBeOneOf(actual: unknown, expected: unknown[]): MatchResult {
+function toBeOneOf(actual: unknown, expected: readonly unknown[]): MatchResult {
   return {
     pass: contains(expected, actual),
     expected,

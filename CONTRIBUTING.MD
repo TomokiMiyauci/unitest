@@ -30,13 +30,14 @@ deno test --ignore=node_modules
 ## Project Structure
 
 - [compat](./compat/README.md) - compat module for browser
+- [describe](./describe/README.md) - test block definer
 - docs - documents and document generator
 - e2e - End to End tests
 - [expect](./expect/README.md) - expect module
 - helper - helper for entire module
-- [it](./it/README.md) - closure for expect
 - [matcher](./matcher/README.md) - matcher collections
 - modifier - modifier collections
+- [test](./test/README.md) - test register
 
 ## Code Style
 

@@ -4,13 +4,16 @@
 import type { MatchResult } from "./types.ts";
 import { contains } from "./utils.ts";
 
-function predict(actual: unknown[], expected: unknown[]): boolean {
+function predict(
+  actual: readonly unknown[],
+  expected: readonly unknown[],
+): boolean {
   return expected.every((value) => contains(actual, value));
 }
 
 function toIncludeAllMembers(
-  actual: unknown[],
-  expected: unknown[],
+  actual: readonly unknown[],
+  expected: readonly unknown[],
 ): MatchResult {
   return {
     pass: predict(actual, expected),

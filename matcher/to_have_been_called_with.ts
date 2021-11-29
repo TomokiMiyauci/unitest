@@ -6,7 +6,7 @@ import type { MatchResult } from "./types.ts";
 
 function toHaveBeenCalledWith(
   { mock }: Mock,
-  ...expected: unknown[]
+  ...expected: readonly unknown[]
 ): MatchResult {
   return {
     pass: contains(mock.calls, expected),

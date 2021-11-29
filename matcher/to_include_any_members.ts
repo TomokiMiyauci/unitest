@@ -4,19 +4,15 @@
 import { containSome } from "./utils.ts";
 import type { MatchResult } from "./types.ts";
 
-function toContainAnyValues(
-  actual: object,
+function toIncludeAnyMembers(
+  actual: readonly unknown[],
   expected: readonly unknown[],
 ): MatchResult {
-  const actualValue = Object.values(actual);
-
   return {
-    pass: containSome(actualValue, expected),
-    actual: actualValue,
-    actualHint: "Actual values:",
+    pass: containSome(actual, expected),
     expected,
-    expectedHint: "Expected to contain any of values:",
+    expectedHint: "Expected to include any of:",
   };
 }
 
-export { toContainAnyValues };
+export { toIncludeAnyMembers };

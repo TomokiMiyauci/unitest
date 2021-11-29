@@ -10,15 +10,21 @@ function takeLast<T extends readonly unknown[] | string>(
   return (howMany <= 0 ? val.slice(0, -howMany) : val.slice(-howMany)) as T;
 }
 
-function contains(array: unknown[], value: unknown): boolean {
+function contains(array: readonly unknown[], value: unknown): boolean {
   return array.some((v) => equal(v, value));
 }
 
-function containSome(target: unknown[], part: unknown[]): boolean {
+function containSome(
+  target: readonly unknown[],
+  part: readonly unknown[],
+): boolean {
   return part.some((value) => contains(target, value));
 }
 
-function containAll(target: unknown[], part: unknown[]): boolean {
+function containAll(
+  target: readonly unknown[],
+  part: readonly unknown[],
+): boolean {
   return part.every((value) => contains(target, value));
 }
 

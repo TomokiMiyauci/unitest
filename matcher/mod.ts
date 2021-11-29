@@ -85,3 +85,7 @@ export { toContainEntry } from "./to_contain_entry.ts";
 export { toContainAnyEntries } from "./to_contain_any_entries.ts";
 export { toContainEntries } from "./to_contain_entries.ts";
 export { toContainValues } from "./to_contain_values.ts";
+export { toBeEmpty } from "./to_be_empty.ts";
+export { toIncludeAnyMembers } from "./to_include_any_members.ts";
+export { toIncludeSameMembers } from "./to_include_same_members.ts";
+export { toContainEqual } from "./to_contain_equal.ts";

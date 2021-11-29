@@ -4,7 +4,10 @@
 import { containAll } from "./utils.ts";
 import type { MatchResult } from "./types.ts";
 
-function toContainValues(actual: object, expected: unknown[]): MatchResult {
+function toContainValues(
+  actual: object,
+  expected: readonly unknown[],
+): MatchResult {
   const values = Object.values(actual);
 
   return {

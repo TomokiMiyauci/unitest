@@ -4,7 +4,6 @@ import { assertThrowsAssertionError } from "../dev_deps.ts";
 
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { Mock } from "../mock/types.ts";
-import type { ContainIterable } from "../matcher/to_contain.ts";
 
 type JestMatcherMap = typeof jestMatcherMap;
 
@@ -20,11 +19,11 @@ type StringMatcher = PickByFirstArg<JestMatcherMap, string>;
 type MockMatcher = PickByFirstArg<JestMatcherMap, Mock>;
 type FunctionMatcher = PickByFirstArg<
   JestMatcherMap,
-  (...args: unknown[]) => any
+  (...args: readonly unknown[]) => any
 >;
-type ContainMatcher = PickByFirstArg<
+type IterableMatcher = PickByFirstArg<
   JestMatcherMap,
-  ContainIterable
+  Iterable<unknown>
 >;
 
 type TypeMatcher = Omit<
@@ -33,7 +32,7 @@ type TypeMatcher = Omit<
   | keyof StringMatcher
   | keyof MockMatcher
   | keyof FunctionMatcher
-  | keyof ContainMatcher
+  | keyof IterableMatcher
 >;
 
 Deno.test({

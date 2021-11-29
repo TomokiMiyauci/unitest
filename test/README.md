@@ -1,38 +1,69 @@
-# it
+# test
 
-`it` is a closure that handles `expect`, and works like the syntax for jest.
+Register a test which will be run and the containing module looks like a test
+module. fn can be async if required.
 
 ```ts
-import { expect, it } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-it("should not be the same", () => {
-  expect("Deno").not.toBe("Node");
+test({
+  name: "should not be the same",
+  fn: () => {
+    expect("Deno").not.toBe("Node");
+  },
 });
 ```
 
-This is equivalent to the follow:
+## setup/teardown
+
+`test` can accept `setup` and `teardown` property.
+
+setup can be used to define a mock or to set up a specific instance.
+
+The variables returned by setup are passed as arguments to `fn`. You can access
+these variables in tests.
+
+teardown is a hook that is called after the test has finished. The argument to
+teardown is the return value of setup, which can be used to perform various
+cleanups.
 
 ```ts
-Deno.test("should be not the same", () => {
-  expect("Deno").not.toBe("Node");
+test({
+  name: "should request actual",
+  setup: () => {
+    const myClass = new MyClass();
+    myClass.init();
+
+    return {
+      myClass,
+    };
+  },
+
+  fn: ({ myClass }) => {
+    myClass.do(); // test it
+  },
+
+  teardown: ({ myClass }) => {
+    myClass.reset();
+  },
 });
 ```
 
 ## each
 
-We can now do table-driven tests with jest's `it.each`, and unitest has a
+We can now do table-driven tests with jest's `test.each`, and unitest has a
 similar interface.
 
-`it.each(table)(name, fn)`.
+`test.each(table)(name, fn)`.
 
 ```ts
-import { expect, it } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 function double(value: number): number {
   return value * 2;
 }
 
-it.each([[1, 2], [100, 200]])(
+test.each([[1, 2], [100, 200]])(
   "double(%d) => %d",
   (actual, expected) => expect(double(actual)).toBe(expected),
 );

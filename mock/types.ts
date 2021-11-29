@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 type MockCall = {
-  calls: unknown[][];
+  calls: readonly unknown[][];
   results: MockResult[];
 };
 
@@ -13,7 +13,8 @@ type MockResult = {
   value: unknown;
 };
 
-interface Mock<T = unknown, Y extends unknown[] = any[]> extends Function {
+interface Mock<T = unknown, Y extends readonly unknown[] = any[]>
+  extends Function {
   (...args: Y): T;
   mock: MockCall;
 }

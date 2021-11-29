@@ -1,5 +1,9 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toContainEqual } from "./to_contain_equal.ts";
+import { toIncludeSameMembers } from "./to_include_same_members.ts";
+import { toIncludeAnyMembers } from "./to_include_any_members.ts";
+import { toBeEmpty } from "./to_be_empty.ts";
 import { toContainValues } from "./to_contain_values.ts";
 import { toContainEntries } from "./to_contain_entries.ts";
 import { toContainAnyEntries } from "./to_contain_any_entries.ts";
@@ -116,6 +120,7 @@ const jestMatcherMap = {
   toHaveProperty,
   toMatch,
   toContain,
+  toContainEqual,
   toThrow,
 
   // alternative jest matcher
@@ -127,6 +132,9 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toIncludeSameMembers,
+  toIncludeAnyMembers,
+  toBeEmpty,
   toContainValues,
   toContainEntries,
   toContainAnyEntries,
