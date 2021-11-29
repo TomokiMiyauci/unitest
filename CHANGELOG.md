@@ -1,3 +1,10 @@
+# [1.0.0-beta.41](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.40...v1.0.0-beta.41) (2021-11-29)
+
+
+### Bug Fixes
+
+* **test:** handle async test ([04e9e59](https://github.com/TomokiMiyauci/unitest/commit/04e9e598f192dd61afc6d567475fb09832427668))
+
 # [1.0.0-beta.40](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2021-11-29)
 
 
