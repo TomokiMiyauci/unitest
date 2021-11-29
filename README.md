@@ -31,7 +31,7 @@ Deno-first **uni**versal **unit** testing framework
   all matchers are composable and customizable. jest and jest-extended matchers
   are provided as presets.
 
-- :recycle: Compositable\
+- ♻️ Compositable\
   Unitest is also intended to be used in a browser.\
   For this reason, we provide a composable interface to keep the bundle size as
   small as possible.
@@ -42,7 +42,7 @@ Deno-first **uni**versal **unit** testing framework
   It also keeps the bundle size small by transferring part of the data type
   validation to TypeScript.
 
-- :wolf: Isolated\
+- 🐺 Isolated\
   Each module is independent, with no dependency on context. This means that
   they can be combined with any module.
 

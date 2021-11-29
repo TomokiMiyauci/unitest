@@ -38,7 +38,30 @@ export default function Home() {
           <div className="grid md:gap-20 sm:grid-cols-2 lg:grid-cols-3">
             <div className="p-4 rounded-md">
               <h2 className="text-3xl mb-2 text-true-gray-700">
-                Like jest but not jest
+                🦕 Deno-first
+              </h2>
+
+              <p className="text-gray-500">
+                It has been designed with Deno first, and actively uses the Deno
+                Runtime API.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-md">
+              <h2 className="text-3xl mb-2 text-true-gray-700">🌎 Universal</h2>
+              <p className="text-gray-500">
+                It is also compatible to work in browsers and Node.js
+                environments.
+              </p>
+              <p className="text-gray-500">
+                Use the compatible `compat` module instead of the Deno Runtime
+                API.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-md">
+              <h2 className="text-3xl mb-2 text-true-gray-700">
+                🃏 Like jest but not jest
               </h2>
               <p className="text-gray-500">
                 You can express declarative tests around the symbolic expect in
@@ -52,18 +75,9 @@ export default function Home() {
             </div>
 
             <div className="p-4 rounded-md">
-              <h2 className="text-3xl mb-2 text-true-gray-700">Universal</h2>
-              <p className="text-gray-500">
-                It is designed for use with Deno first and foremost.
-              </p>
-              <p className="text-gray-500">
-                It is also compatible to work in browsers and Node.js
-                environments.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-md">
-              <h2 className="text-3xl mb-2 text-true-gray-700">Compositable</h2>
+              <h2 className="text-3xl mb-2 text-true-gray-700">
+                <span className="text-emerald-500">♻️</span> Compositable
+              </h2>
               <p className="text-gray-500">
                 Unitest is also intended to be used in a browser.
               </p>
@@ -75,7 +89,7 @@ export default function Home() {
 
             <div className="p-4 rounded-md">
               <h2 className="text-3xl mb-2 text-true-gray-700">
-                TypeScript-first
+                📄 TypeScript-first
               </h2>
               <p className="text-gray-500">
                 Type-safe tests can be expressed. A type filter restricts the
@@ -85,6 +99,16 @@ export default function Home() {
               <p className="text-gray-500">
                 It also keeps the bundle size small by transferring part of the
                 data type validation to TypeScript.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-md">
+              <h2 className="text-3xl mb-2 text-true-gray-700">
+                🐺 Isolated
+              </h2>
+              <p className="text-gray-500">
+                Each module is independent, with no dependency on context. This
+                means that they can be combined with any module.
               </p>
             </div>
           </div>
