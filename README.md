@@ -92,5 +92,5 @@ Released under the [MIT](./LICENSE) license
     - ~~toReject~~ not pure
     - ~~toBeHexadecimal~~ -> toBeHexColor
 - [x] Implement interface of custom matcher
-- [ ] Implement `it` suite
+- [ ] Implement `test` suite
 - [ ] ~~Implement `describe` suite~~

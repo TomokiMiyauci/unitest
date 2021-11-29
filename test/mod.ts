@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { AnyFn } from "../_types.ts";
+import { isString } from "../deps.ts";
 import { each } from "./each.ts";
 
 type Test<Context extends Record<PropertyKey, unknown>> = {
@@ -20,21 +21,32 @@ function defineTest<T extends Record<string | symbol, AnyFn>>({
   return _test as never;
 }
 
-function _test<T extends Record<PropertyKey, unknown>>(t: Test<T>) {
-  const { setup, teardown, fn, ...rest } = t;
+function _test<T extends Record<PropertyKey, unknown>>(t: Test<T>): void;
+function _test(
+  name: string,
+  fn: Deno.TestDefinition["fn"],
+): void;
+function _test<T extends Record<PropertyKey, unknown>>(
+  t: string | Test<T>,
+  ...args: Deno.TestDefinition["fn"][]
+): void {
+  if (isString(t)) {
+    Deno.test(t, args[0]);
+  } else {
+    const { setup, teardown, fn, ...rest } = t;
+    Deno.test({
+      ...rest,
+      fn: (denoContext) => {
+        const context = setup?.() ?? {} as T;
 
-  Deno.test({
-    ...rest,
-    fn: (denoContext) => {
-      const context = setup?.() ?? {} as T;
-
-      try {
-        fn({ ...context, ...denoContext });
-      } finally {
-        teardown?.(context);
-      }
-    },
-  });
+        try {
+          fn({ ...context, ...denoContext });
+        } finally {
+          teardown?.(context);
+        }
+      },
+    });
+  }
 }
 
 const test = defineTest({
