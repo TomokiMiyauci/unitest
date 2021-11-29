@@ -19,25 +19,32 @@ Deno-first **uni**versal **unit** testing framework
 
 ## Features
 
-- Like jest but not jest\
+- 🦕 Deno-first\
+  It has been designed with Deno first, and actively uses the Deno Runtime API.
+
+- 🌎 Universal\
+  It is also compatible to work in browsers and Node.js environments. Use the
+  compatible `compat` module instead of the Deno Runtime API.
+
+- 🃏 Like jest but not jest\
   You can express declarative tests around the symbolic expect in jest. Also,
   all matchers are composable and customizable. jest and jest-extended matchers
   are provided as presets.
 
-- Universal\
-  It is designed for use with Deno first and foremost.\
-  It is also compatible to work in browsers and Node.js environments.
-
-- Compositable\
+- :recycle: Compositable\
   Unitest is also intended to be used in a browser.\
   For this reason, we provide a composable interface to keep the bundle size as
   small as possible.
 
-- TypeScript-first\
+- 📄 TypeScript-first\
   Type-safe tests can be expressed. A type filter restricts the availability of
   only those matchers that satisfy the data type under test.\
   It also keeps the bundle size small by transferring part of the data type
   validation to TypeScript.
+
+- :wolf: Isolated\
+  Each module is independent, with no dependency on context. This means that
+  they can be combined with any module.
 
 ## Getting Started
 
