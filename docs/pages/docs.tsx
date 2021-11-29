@@ -1,6 +1,26 @@
 import React, { ComponentType } from "react";
 import "../styles/docs.css";
 
+type Doc = {
+  name: string;
+  path: string;
+};
+
+const docs: Doc[] = [
+  {
+    name: "Get Started",
+    path: "get-started",
+  },
+  {
+    name: "Matcher",
+    path: "matcher",
+  },
+  {
+    name: "Expect",
+    path: "expect",
+  },
+];
+
 type DocsProps = {
   Page?: ComponentType<any>;
 };
@@ -10,11 +30,17 @@ export default function Docs({ Page }: DocsProps) {
     <div>
       <aside className="top-50px p-2 md:fixed md:w-72 inset-y-0">
         <h2 className="uppercase px-2 text-gray-400 text-sm">documentation</h2>
-        <nav>
+        <nav className="mt-2">
           <ul>
-            <li className="p-2">
-              <a className="flex" href="/docs/get-started">Get Started</a>
-            </li>
+            {docs.map(({ name, path }) => {
+              return (
+                <li className="px-2 py-0.5" key={path}>
+                  <a className="flex" href={`/docs/${path}`}>
+                    {name}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </aside>
