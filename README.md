@@ -46,10 +46,13 @@ Visit <https://unitest.vercel.app/> to get started with Unitest.
 ## Quick view
 
 ```ts
-import { expect, it } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-it("should not equal", () => {
-  expect("Deno").not.toBe("Node");
+test({
+  name: "should not equal",
+  fn: () => {
+    expect("Deno").not.toBe("Node");
+  },
 });
 ```
 
