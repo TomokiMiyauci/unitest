@@ -1,3 +1,10 @@
+# [1.0.0-beta.39](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2021-11-29)
+
+
+### Features
+
+* **test:** accept jest style interface ([e185b5f](https://github.com/TomokiMiyauci/unitest/commit/e185b5ff00c1ad9e10d40fd323fd0b05c93d6acc))
+
 # [1.0.0-beta.38](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2021-11-29)
 
 
