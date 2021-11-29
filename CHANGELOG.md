@@ -1,3 +1,10 @@
+# [1.0.0-beta.40](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2021-11-29)
+
+
+### Bug Fixes
+
+* **describe:** do not export describe module ([f2ce485](https://github.com/TomokiMiyauci/unitest/commit/f2ce4853ed342ee7af4eedfad4732089c507242b))
+
 # [1.0.0-beta.39](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2021-11-29)
 
 
