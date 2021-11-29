@@ -1,3 +1,11 @@
+# [1.0.0-beta.38](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2021-11-29)
+
+
+### Features
+
+* **test:** add `test` function instead of `it` ([81b3d55](https://github.com/TomokiMiyauci/unitest/commit/81b3d55d1345b2be1a67558cc3d2d7fd274cc45a))
+* **test:** add `test` function what register test case ([05fa94e](https://github.com/TomokiMiyauci/unitest/commit/05fa94e1278634a1aafd2ee45c2527952b134b96))
+
 # [1.0.0-beta.37](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.36...v1.0.0-beta.37) (2021-11-28)
 
 
