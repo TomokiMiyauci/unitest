@@ -5,6 +5,7 @@ import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { AssertionError, isPromise } from "../deps.ts";
 import { stringify, stringifyResult } from "../helper/format.ts";
+import { anything } from "./anything.ts";
 
 import type {
   AnyFn,
@@ -25,6 +26,7 @@ import {
   expectTo,
   promiseExpectTo,
 } from "./_utils.ts";
+import { stringifyEquality } from "../helper/equal.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
 import type { StringifyResultArgs } from "../helper/format.ts";
@@ -108,7 +110,7 @@ function defineExpect<
               matcherArgs,
               matcher: String(name),
               actualValue,
-              expectedValue,
+              expectedValue: stringifyEquality(expectedValue),
               expectedHint,
               actualHint,
               preModifier: pre?.[0],
@@ -159,5 +161,5 @@ function expect<T>(actual: T) {
   })(actual);
 }
 
-export { defineExpect, expect };
+export { anything, defineExpect, expect };
 export type { Expected, MatcherMap };
