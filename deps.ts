@@ -33,11 +33,13 @@ export {
 
 export {
   blue,
+  brightBlack,
   gray,
   green,
   red,
   yellow,
 } from "https://deno.land/std@0.116.0/fmt/colors.ts";
+export { fromFileUrl } from "https://deno.land/std@0.116.0/path/mod.ts";
 
 // third party
 
