@@ -1,7 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { equal, isObject } from "../deps.ts";
+import { isObject } from "../deps.ts";
+import { equal } from "../helper/equal.ts";
 import type { MatchResult } from "./types.ts";
 
 function predict(
