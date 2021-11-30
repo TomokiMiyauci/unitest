@@ -1,4 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 
 import type { PostModifierFn, PreModifierFn } from "../modifier/types.ts";
