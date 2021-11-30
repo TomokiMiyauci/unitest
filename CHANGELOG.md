@@ -1,3 +1,12 @@
+# [1.0.0-beta.42](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.41...v1.0.0-beta.42) (2021-11-30)
+
+
+### Features
+
+* **expect:** add `anything` function ([d9b495b](https://github.com/TomokiMiyauci/unitest/commit/d9b495ba74658259487701d9c6c7245f67c5b541))
+* **matcher:** use custom equal function ([7a282c9](https://github.com/TomokiMiyauci/unitest/commit/7a282c9146cbd09ecfa6c1a3f60394ec5e6c0925))
+* **report:** add line number reporter for assertion ([eb9f47b](https://github.com/TomokiMiyauci/unitest/commit/eb9f47b032180abc80b7c6bb3706e505d3ddfc0e))
+
 # [1.0.0-beta.41](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.40...v1.0.0-beta.41) (2021-11-29)
 
 
