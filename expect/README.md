@@ -100,3 +100,15 @@ test("should not be null or undefined", () => {
   expect(actual).toEqual(anything());
 });
 ```
+
+## any
+
+`any(constructor)` matches anything that was created with the given constructor.
+
+```ts
+import { any, expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect(Infinity).toEqual(any(Number));
+});
+```

@@ -6,6 +6,7 @@ import { jestModifierMap } from "../modifier/preset.ts";
 import { AssertionError, isPromise } from "../deps.ts";
 import { stringify, stringifyResult } from "../helper/format.ts";
 import { anything } from "./anything.ts";
+import { any } from "./any.ts";
 
 import type {
   AnyFn,
@@ -161,5 +162,5 @@ function expect<T>(actual: T) {
   })(actual);
 }
 
-export { anything, defineExpect, expect };
+export { any, anything, defineExpect, expect };
 export type { Expected, MatcherMap };

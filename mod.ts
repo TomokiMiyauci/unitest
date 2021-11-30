@@ -97,6 +97,7 @@ export * from "./mock/types.ts";
 export { defineExpect, expect } from "./expect/mod.ts";
 export type { Expected, MatcherMap } from "./expect/mod.ts";
 export { anything } from "./expect/anything.ts";
+export { any } from "./expect/any.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
