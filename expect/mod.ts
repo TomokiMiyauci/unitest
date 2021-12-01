@@ -7,6 +7,7 @@ import { AssertionError, isPromise } from "../deps.ts";
 import { stringify, stringifyResult } from "../helper/format.ts";
 import { anything } from "./anything.ts";
 import { any } from "./any.ts";
+import { arrayContaining } from "./array_containing.ts";
 
 import type {
   AnyFn,
@@ -162,5 +163,5 @@ function expect<T>(actual: T) {
   })(actual);
 }
 
-export { any, anything, defineExpect, expect };
+export { any, anything, arrayContaining, defineExpect, expect };
 export type { Expected, MatcherMap };
