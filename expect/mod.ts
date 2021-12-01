@@ -10,6 +10,7 @@ import { any } from "./any.ts";
 import { arrayContaining } from "./array_containing.ts";
 import { objectContaining } from "./object_containing.ts";
 import { anyNumber } from "./any_number.ts";
+import { anyString } from "./any_string.ts";
 
 import type {
   AnyFn,
@@ -168,6 +169,7 @@ function expect<T>(actual: T) {
 export {
   any,
   anyNumber,
+  anyString,
   anything,
   arrayContaining,
   defineExpect,

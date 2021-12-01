@@ -100,6 +100,8 @@ export { anything } from "./expect/anything.ts";
 export { any } from "./expect/any.ts";
 export { arrayContaining } from "./expect/array_containing.ts";
 export { objectContaining } from "./expect/object_containing.ts";
+export { anyString } from "./expect/any_string.ts";
+export { anyNumber } from "./expect/any_number.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";

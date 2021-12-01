@@ -154,6 +154,22 @@ test("should be any number", () => {
 });
 ```
 
+## anyString
+
+`anyString()` matches any `string` or `String`
+
+```ts
+import {
+  anyString,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any string", () => {
+  expect("hello").toEqual(anyString());
+});
+```
+
 ## anyNumber
 
 `anyNumber()` matches any `number` or `Number`
