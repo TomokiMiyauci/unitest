@@ -1,3 +1,11 @@
+# [1.0.0-beta.43](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2021-12-01)
+
+
+### Features
+
+* **expect:** add `any` function ([da9bcae](https://github.com/TomokiMiyauci/unitest/commit/da9bcae865487a400ca986b82ab0632437612c7d))
+* **expect:** add `arrayContaining` function ([5de93b8](https://github.com/TomokiMiyauci/unitest/commit/5de93b866773f19829177cc5f5c111de2d35f67f))
+
 # [1.0.0-beta.42](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.41...v1.0.0-beta.42) (2021-11-30)
 
 
