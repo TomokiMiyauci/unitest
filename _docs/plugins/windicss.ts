@@ -1,3 +1,4 @@
+// Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import Processor from "https://esm.sh/windicss@3.1.7";
 import type { Plugin } from "https://deno.land/x/aleph@v0.3.0-beta.19/types.d.ts";
 

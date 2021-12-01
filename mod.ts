@@ -94,10 +94,19 @@ export * from "./matcher/utils.ts";
 
 export * from "./mock/fn.ts";
 export * from "./mock/types.ts";
-export * from "./expect/mod.ts";
+export { defineExpect, expect } from "./expect/mod.ts";
+export type { Expected, MatcherMap } from "./expect/mod.ts";
+export { anything } from "./expect/anything.ts";
+export { any } from "./expect/any.ts";
+export { arrayContaining } from "./expect/array_containing.ts";
+export { objectContaining } from "./expect/object_containing.ts";
+export { anyString } from "./expect/any_string.ts";
+export { anyNumber } from "./expect/any_number.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
 export { resolves } from "./modifier/resolves.ts";
 export * from "./modifier/preset.ts";
 export * from "./test/mod.ts";
+
+export { equal, equality } from "./helper/equal.ts";

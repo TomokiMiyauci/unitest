@@ -2,7 +2,8 @@
 // This module is browser compatible.
 import type { MatchResult } from "./types.ts";
 import type { Mock, MockResult } from "../mock/types.ts";
-import { equal, isUndefined } from "../deps.ts";
+import { isUndefined } from "../deps.ts";
+import { equal } from "../helper/equal.ts";
 
 function predict(
   mockResults: MockResult[],

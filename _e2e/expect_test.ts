@@ -1,17 +1,14 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
+  any,
+  anything,
   defineExpect,
+  expect,
+  objectContaining,
   test,
-  toHaveProperty,
   toStartWith,
   toThrow,
 } from "../mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toHaveProperty,
-  },
-});
 
 test({
   name: "should not occur error",
@@ -32,4 +29,14 @@ test({
 
     expect("abcde").toStartWith("abc");
   },
+});
+
+test("anything", () => {
+  expect({}).toEqual(anything());
+});
+
+test("objectContaining", () => {
+  expect({ a: 1, b: "any" }).toEqual(
+    objectContaining({ a: any(Number), b: any(String) }),
+  );
 });

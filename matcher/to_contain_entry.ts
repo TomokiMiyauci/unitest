@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { has, prop } from "./utils.ts";
-import { equal } from "../deps.ts";
+import { equal } from "../helper/equal.ts";
 import type { MatchResult } from "./types.ts";
 
 function predict(

@@ -58,6 +58,19 @@ Deno.test({
 });
 
 Deno.test({
+  name: "should handle promise",
+  fn: () => {
+    test({
+      name: "test",
+
+      fn: async () => {
+        await Promise.resolve("");
+      },
+    });
+  },
+});
+
+Deno.test({
   name: "each is defined by default",
   fn: () => {
     expect(test).toBeDefined();

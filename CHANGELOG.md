@@ -1,3 +1,36 @@
+# [1.0.0-beta.44](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2021-12-01)
+
+
+### Features
+
+* **expect:** add `anyNumber` function ([eab1e1f](https://github.com/TomokiMiyauci/unitest/commit/eab1e1f084047edaed22e42baac5c984583f42ba))
+* **expect:** add `anyString` function ([546ab60](https://github.com/TomokiMiyauci/unitest/commit/546ab60cf0c000310abbedf759a225d8a66d1bbc))
+* **expect:** add `objectContaining` function ([d2e6524](https://github.com/TomokiMiyauci/unitest/commit/d2e652462715b7b248df9c1e16edc4154273a2e8))
+
+# [1.0.0-beta.43](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2021-12-01)
+
+
+### Features
+
+* **expect:** add `any` function ([da9bcae](https://github.com/TomokiMiyauci/unitest/commit/da9bcae865487a400ca986b82ab0632437612c7d))
+* **expect:** add `arrayContaining` function ([5de93b8](https://github.com/TomokiMiyauci/unitest/commit/5de93b866773f19829177cc5f5c111de2d35f67f))
+
+# [1.0.0-beta.42](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.41...v1.0.0-beta.42) (2021-11-30)
+
+
+### Features
+
+* **expect:** add `anything` function ([d9b495b](https://github.com/TomokiMiyauci/unitest/commit/d9b495ba74658259487701d9c6c7245f67c5b541))
+* **matcher:** use custom equal function ([7a282c9](https://github.com/TomokiMiyauci/unitest/commit/7a282c9146cbd09ecfa6c1a3f60394ec5e6c0925))
+* **report:** add line number reporter for assertion ([eb9f47b](https://github.com/TomokiMiyauci/unitest/commit/eb9f47b032180abc80b7c6bb3706e505d3ddfc0e))
+
+# [1.0.0-beta.41](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.40...v1.0.0-beta.41) (2021-11-29)
+
+
+### Bug Fixes
+
+* **test:** handle async test ([04e9e59](https://github.com/TomokiMiyauci/unitest/commit/04e9e598f192dd61afc6d567475fb09832427668))
+
 # [1.0.0-beta.40](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2021-11-29)
 
 

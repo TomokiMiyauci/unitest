@@ -2,7 +2,7 @@
 // This module is browser compatible.
 import type { Mock, MockCall } from "../mock/types.ts";
 import type { MatchResult } from "./types.ts";
-import { equal } from "../deps.ts";
+import { equal } from "../helper/equal.ts";
 
 function predict(
   calls: MockCall["calls"],

@@ -3,6 +3,7 @@
 import { assertThrows } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 export {
   assert,
+  assertExists,
   assertRejects,
   assertThrows,
 } from "https://deno.land/std@0.115.1/testing/asserts.ts";

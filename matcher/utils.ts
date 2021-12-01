@@ -1,7 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { equal, isLength0, isObject, isUndefined } from "../deps.ts";
+import { isLength0, isObject, isUndefined } from "../deps.ts";
+import { equal } from "../helper/equal.ts";
 
 function takeLast<T extends readonly unknown[] | string>(
   howMany: number,
