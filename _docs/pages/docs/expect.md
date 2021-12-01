@@ -85,13 +85,71 @@ expect(10).toBeGreaterThan(3);
 
 This allows TypeScript to do some of the assertions for you.
 
-## Differences from jest
+## anything
 
-Unitest prefers to be loosely coupled, simple and low on code.
+`anything()` matches anything but `null` or `undefined`.
 
-It does not implement some of the things implemented in jest, and provides other
-ways.
+```ts
+import {
+  anything,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-| jest                                                              | unitest        |
-| ----------------------------------------------------------------- | -------------- |
-| [expect.anything()](https://jestjs.io/docs/expect#expectanything) | toBeAnything() |
+test("should not be null or undefined", () => {
+  expect(actual).toEqual(anything());
+});
+```
+
+## any
+
+`any(constructor)` matches anything that was created with the given constructor.
+
+```ts
+import { any, expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect(Infinity).toEqual(any(Number));
+});
+```
+
+## arrayContaining
+
+`arrayContaining(array)` matches a received array which contains all of the
+elements in the expected array.
+
+```ts
+import {
+  arrayContaining,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect(["Alice", "Bob", "Eve"]).toEqual(arrayContaining(["Eve", "Bob"]));
+});
+```
+
+## objectContaining
+
+`objectContaining(object)` matches any received object that recursively matches
+the expected properties
+
+```ts
+import {
+  any,
+  expect,
+  objectContaining,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect({
+    name: "Bob",
+    score: 100,
+  }).toEqual({
+    name: any(String),
+    score: any(Number),
+  });
+});
+```
