@@ -1,3 +1,12 @@
+# [1.0.0-beta.44](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2021-12-01)
+
+
+### Features
+
+* **expect:** add `anyNumber` function ([eab1e1f](https://github.com/TomokiMiyauci/unitest/commit/eab1e1f084047edaed22e42baac5c984583f42ba))
+* **expect:** add `anyString` function ([546ab60](https://github.com/TomokiMiyauci/unitest/commit/546ab60cf0c000310abbedf759a225d8a66d1bbc))
+* **expect:** add `objectContaining` function ([d2e6524](https://github.com/TomokiMiyauci/unitest/commit/d2e652462715b7b248df9c1e16edc4154273a2e8))
+
 # [1.0.0-beta.43](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2021-12-01)
 
 
