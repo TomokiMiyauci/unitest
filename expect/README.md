@@ -129,3 +129,27 @@ test("should be any number", () => {
   expect(["Alice", "Bob", "Eve"]).toEqual(arrayContaining(["Eve", "Bob"]));
 });
 ```
+
+## objectContaining
+
+`objectContaining(object)` matches any received object that recursively matches
+the expected properties
+
+```ts
+import {
+  any,
+  expect,
+  objectContaining,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect({
+    name: "Bob",
+    score: 100,
+  }).toEqual({
+    name: any(String),
+    score: any(Number),
+  });
+});
+```

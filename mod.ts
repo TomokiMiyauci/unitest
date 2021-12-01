@@ -99,6 +99,7 @@ export type { Expected, MatcherMap } from "./expect/mod.ts";
 export { anything } from "./expect/anything.ts";
 export { any } from "./expect/any.ts";
 export { arrayContaining } from "./expect/array_containing.ts";
+export { objectContaining } from "./expect/object_containing.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
