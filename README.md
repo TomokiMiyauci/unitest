@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Unitest</h1>
 
-<img width="140px" hight="140px" src="./docs/public/logo.svg" />
+<img width="140px" hight="140px" src="./_docs/public/logo.svg" />
 
 [![test](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml/badge.svg?branch=beta)](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml)
 [![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black)](https://deno.land/x/unitest)
