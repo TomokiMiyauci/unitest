@@ -30,7 +30,7 @@ class AnyNumber implements Equality {
  * test("should be any number", () => {
  *   expect(Infinity).toEqual(anyNumber());
  * });
-```
+ * ```
  */
 function anyNumber(): AnyNumber {
   return new AnyNumber();
