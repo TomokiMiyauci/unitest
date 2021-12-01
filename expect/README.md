@@ -153,3 +153,19 @@ test("should be any number", () => {
   });
 });
 ```
+
+## anyNumber
+
+`anyNumber()` matches any `number` or `Number`
+
+```ts
+import {
+  anyNumber,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect(Infinity).toEqual(anyNumber());
+});
+```

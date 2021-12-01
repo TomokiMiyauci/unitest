@@ -5,12 +5,12 @@ import { equality } from "../helper/equal.ts";
 import {
   isBoolean,
   isFunction,
-  isNumber,
   isObject,
   isString,
   isSymbol,
 } from "../deps.ts";
 import type { Equality } from "../helper/equal.ts";
+import { isAnyNumber } from "./any_number.ts";
 
 function isBigInt(value: unknown): value is bigint {
   return typeof value === "bigint";
@@ -18,10 +18,6 @@ function isBigInt(value: unknown): value is bigint {
 
 function isAnyString(value: unknown): value is string | String {
   return isString(value) || value instanceof String;
-}
-
-function isAnyNumber(value: unknown): value is number | Number {
-  return isNumber(value) || value instanceof Number;
 }
 
 function isAnyFunction(value: unknown): value is Function {
@@ -93,7 +89,6 @@ export {
   isAnyBigInt,
   isAnyBoolean,
   isAnyFunction,
-  isAnyNumber,
   isAnyString,
   isAnySymbol,
   isBigInt,

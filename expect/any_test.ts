@@ -6,7 +6,6 @@ import {
   isAnyBigInt,
   isAnyBoolean,
   isAnyFunction,
-  isAnyNumber,
   isAnyString,
   isAnySymbol,
   isBigInt,
@@ -81,21 +80,6 @@ Deno.test("isAnyBigInt", () => {
   ];
 
   table.forEach(([value, result]) => assertEquals(isAnyBigInt(value), result));
-});
-
-Deno.test("isAnyNumber", () => {
-  const table: [
-    ...Parameters<typeof isAnyNumber>,
-    ReturnType<typeof isAnyNumber>,
-  ][] = [
-    [1, true],
-    [0, true],
-    [new Number(100), true],
-    [Number, false],
-    [1n, false],
-  ];
-
-  table.forEach(([value, result]) => assertEquals(isAnyNumber(value), result));
 });
 
 Deno.test("isAnyFunction", () => {
