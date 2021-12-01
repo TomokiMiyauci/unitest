@@ -112,3 +112,20 @@ test("should be any number", () => {
   expect(Infinity).toEqual(any(Number));
 });
 ```
+
+## arrayContaining
+
+`arrayContaining(array)` matches a received array which contains all of the
+elements in the expected array.
+
+```ts
+import {
+  arrayContaining,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any number", () => {
+  expect(["Alice", "Bob", "Eve"]).toEqual(arrayContaining(["Eve", "Bob"]));
+});
+```
