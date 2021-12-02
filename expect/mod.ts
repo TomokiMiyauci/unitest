@@ -11,6 +11,7 @@ import { arrayContaining } from "./array_containing.ts";
 import { objectContaining } from "./object_containing.ts";
 import { anyNumber } from "./any_number.ts";
 import { anyString } from "./any_string.ts";
+import { stringMatching } from "./string_matching.ts";
 
 import type {
   AnyFn,
@@ -175,5 +176,6 @@ export {
   defineExpect,
   expect,
   objectContaining,
+  stringMatching,
 };
 export type { Expected, MatcherMap };
