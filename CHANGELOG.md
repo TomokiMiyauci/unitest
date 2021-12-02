@@ -1,3 +1,11 @@
+# [1.0.0-beta.45](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2021-12-02)
+
+
+### Features
+
+* **expect:** add `stringContaining` function ([d7d5849](https://github.com/TomokiMiyauci/unitest/commit/d7d5849cb2d1be55d885a47b6f1c2bdad7b4bb16))
+* **expect:** add `stringMatching` function ([c38aac1](https://github.com/TomokiMiyauci/unitest/commit/c38aac1420b2675fe7bdf0e9bb8ee2ff4e1a4b7f))
+
 # [1.0.0-beta.44](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2021-12-01)
 
 
