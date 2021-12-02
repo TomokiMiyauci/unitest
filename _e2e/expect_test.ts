@@ -5,6 +5,7 @@ import {
   defineExpect,
   expect,
   objectContaining,
+  stringContaining,
   stringMatching,
   test,
   toStartWith,
@@ -44,4 +45,8 @@ test("objectContaining", () => {
 
 test("should be match pattern", () => {
   expect("hello! This is a good day.").toEqual(stringMatching(/good/));
+});
+
+test("should contain pattern", () => {
+  expect("hello! This is a good day.").toEqual(stringContaining("good"));
 });

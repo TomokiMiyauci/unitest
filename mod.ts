@@ -103,6 +103,7 @@ export { objectContaining } from "./expect/object_containing.ts";
 export { anyString } from "./expect/any_string.ts";
 export { anyNumber } from "./expect/any_number.ts";
 export { stringMatching } from "./expect/string_matching.ts";
+export { stringContaining } from "./expect/string_containing.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";

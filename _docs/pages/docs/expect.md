@@ -171,6 +171,23 @@ test("should be match pattern", () => {
 });
 ```
 
+## stringContaining
+
+`stringMatching(string)` matches if `string` contains
+
+```ts
+import {
+  any,
+  expect,
+  stringMatching,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should contain pattern", () => {
+  expect("hello! This is a good day.").toEqual(stringMatching("good"));
+});
+```
+
 ## anyString
 
 `anyString()` matches any `string` or `String`
