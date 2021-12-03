@@ -90,7 +90,6 @@ export { toBeEmptyObject } from "./matcher/to_be_empty_object.ts";
 
 export * from "./matcher/preset.ts";
 export * from "./matcher/types.ts";
-export * from "./matcher/utils.ts";
 
 export * from "./mock/fn.ts";
 export * from "./mock/types.ts";
