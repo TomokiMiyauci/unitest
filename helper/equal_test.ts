@@ -1,8 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { equal, equality, isEquality, stringifyEquality } from "./equal.ts";
-import { anything } from "../expect/anything.ts";
-import { anyNumber } from "../expect/any_number.ts";
-import { anyString } from "../expect/any_string.ts";
+import { anything } from "../fake/anything.ts";
+import { anyNumber } from "../fake/any_number.ts";
+import { anyString } from "../fake/any_string.ts";
 import { fn } from "../mock/fn.ts";
 import { assertEquals } from "../dev_deps.ts";
 

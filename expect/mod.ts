@@ -5,14 +5,6 @@ import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { AssertionError, isPromise } from "../deps.ts";
 import { stringify, stringifyResult } from "../helper/format.ts";
-import { anything } from "./anything.ts";
-import { any } from "./any.ts";
-import { arrayContaining } from "./array_containing.ts";
-import { objectContaining } from "./object_containing.ts";
-import { anyNumber } from "./any_number.ts";
-import { anyString } from "./any_string.ts";
-import { stringMatching } from "./string_matching.ts";
-import { stringContaining } from "./string_containing.ts";
 
 import type {
   AnyFn,
@@ -168,16 +160,5 @@ function expect<T>(actual: T) {
   })(actual);
 }
 
-export {
-  any,
-  anyNumber,
-  anyString,
-  anything,
-  arrayContaining,
-  defineExpect,
-  expect,
-  objectContaining,
-  stringContaining,
-  stringMatching,
-};
+export { defineExpect, expect };
 export type { Expected, MatcherMap };
