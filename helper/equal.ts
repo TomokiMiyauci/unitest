@@ -37,6 +37,10 @@ function isKeyedCollection(x: unknown): x is Set<unknown> {
 function equal(c: unknown, d: unknown): boolean {
   const seen = new Map();
   return (function compare(a: unknown, b: unknown): boolean {
+    if (isObject(a) && isEquality(a)) {
+      return a[equality](b);
+    }
+
     if (isObject(b) && isEquality(b)) {
       return b[equality](a);
     }

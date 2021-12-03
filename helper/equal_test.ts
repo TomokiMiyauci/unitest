@@ -313,6 +313,16 @@ Deno.test("equal", () => {
       [{ a: anyNumber(), b: [], c: anyString() }, [1, anyString(), true]],
       false,
     ],
+    [
+      anyNumber(),
+      1,
+      true,
+    ],
+    [
+      anyNumber(),
+      anyNumber(),
+      false,
+    ],
   ];
 
   table.forEach(([a, b, result]) => assertEquals(equal(a, b), result));
