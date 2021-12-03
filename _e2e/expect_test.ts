@@ -1,6 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
   any,
+  anyNumber,
+  anyString,
   anything,
   defineExpect,
   expect,
@@ -49,4 +51,28 @@ test("should be match pattern", () => {
 
 test("should contain pattern", () => {
   expect("hello! This is a good day.").toEqual(stringContaining("good"));
+});
+
+test("should any string", () => {
+  expect("hello! This is a good day.").toEqual(anyString());
+});
+
+test("should any number", () => {
+  expect(1).toEqual(anyNumber());
+});
+
+test("should any number", () => {
+  expect({ a: 1 }).toEqual({ a: anyNumber() });
+});
+
+test("should any object", () => {
+  expect({}).toEqual(any(Object));
+});
+
+test("should {} object", () => {
+  expect({ a: {} }).toEqual({ a: {} });
+});
+
+test("should { a: {} } object", () => {
+  expect({ a: {} }).toEqual({ a: any(Object) });
 });

@@ -2,7 +2,6 @@
 // This module is browser compatible.
 export {
   AssertionError,
-  equal,
 } from "https://deno.land/std@0.115.1/testing/asserts.ts";
 export {
   isBoolean,
