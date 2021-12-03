@@ -139,3 +139,19 @@ test("should be any number", () => {
   expect(Infinity).toEqual(anyNumber());
 });
 ```
+
+## anyOf
+
+`anyOf(array)` matches any of expected value
+
+```ts
+import {
+  anyOf,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any of 1, 2, 3", () => {
+  expect(3).toEqual(anyOf([1, 2, 3]));
+});
+```

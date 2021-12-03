@@ -103,6 +103,7 @@ export { anyString } from "./fake/any_string.ts";
 export { anyNumber } from "./fake/any_number.ts";
 export { stringMatching } from "./fake/string_matching.ts";
 export { stringContaining } from "./fake/string_containing.ts";
+export { anyOf } from "./fake/any_of.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";

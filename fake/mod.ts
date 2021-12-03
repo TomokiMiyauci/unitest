@@ -9,3 +9,4 @@ export { anyNumber } from "./any_number.ts";
 export { anyString } from "./any_string.ts";
 export { stringMatching } from "./string_matching.ts";
 export { stringContaining } from "./string_containing.ts";
+export { anyOf } from "./any_of.ts";
