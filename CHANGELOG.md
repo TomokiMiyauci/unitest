@@ -1,3 +1,10 @@
+# [1.0.0-beta.46](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2021-12-03)
+
+
+### Features
+
+* **helper:** add original equal funciton what predicate original mock ([41a98ba](https://github.com/TomokiMiyauci/unitest/commit/41a98baf5f2f7ff8a9f3512a3b146844f6f22d52))
+
 # [1.0.0-beta.45](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2021-12-02)
 
 
