@@ -4,7 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "deno.importMap": "import_map.json",
   "deno.enable": true,
   "deno.suggest.imports.hosts": {
     "https://deno.land": true
@@ -15,5 +14,14 @@
   "deno.internalDebug": true,
   "deno.lint": true,
   "deno.suggest.completeFunctionCalls": true,
-  "deno.unstable": true
+  "deno.unstable": true,
+  "deno.codeLens.references": true,
+  "deno.suggest.autoImports": true,
+  "deno.suggest.names": true,
+  "deno.suggest.imports.autoDiscover": true,
+  "deno.suggest.paths": true,
+  "deno.codeLens.test": true,
+  "deno.codeLens.testArgs": [
+    "--allow-all"
+  ]
 }
