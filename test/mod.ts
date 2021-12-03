@@ -1,9 +1,30 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+
 import { AnyFn } from "../_types.ts";
-import { AssertionError, fromFileUrl, isString } from "../deps.ts";
+import { isString } from "../deps.ts";
 import { each } from "./each.ts";
-import { parseStackTrace } from "../report/stack_trace.ts";
-import { prettyCode } from "../report/assertion.ts";
+
+// interface CallSite {
+//   getThis(): any;
+//   getTypeName(): string;
+//   getFunctionName(): string;
+//   getMethodName(): string;
+//   getFileName(): string;
+//   getLineNumber(): number;
+//   getColumnNumber(): number;
+//   getFunction(): Function;
+//   getEvalOrigin(): string;
+//   isNative(): boolean;
+//   isToplevel(): boolean;
+//   isEval(): boolean;
+//   isConstructor(): boolean;
+// }
+
+// declare global {
+//   interface ErrorConstructor {
+//     prepareStackTrace(err: Error, callsites: CallSite[]): any;
+//   }
+// }
 
 type Test<Context extends Record<PropertyKey, unknown>> = {
   setup?: () => Context | void;
@@ -22,6 +43,33 @@ function defineTest<T extends Record<string | symbol, AnyFn>>({
 
   return _test as never;
 }
+
+async function hasReadPermission(): Promise<boolean> {
+  try {
+    const { state } = await Deno.permissions.query({
+      name: "read",
+    });
+
+    return state === "granted";
+  } catch {
+    return false;
+  }
+}
+
+// async function safeReadFile(
+//   ...[path, options]: Parameters<typeof Deno.readTextFile>
+// ): Promise<[false] | [true, string]> {
+//   try {
+//     const code = await Deno.readTextFile(
+//       path,
+//       options,
+//     );
+
+//     return [true, code];
+//   } catch {
+//     return [false];
+//   }
+// }
 
 function _test<T extends Record<PropertyKey, unknown>>(t: Test<T>): void;
 function _test(
@@ -44,36 +92,17 @@ function _test<T extends Record<PropertyKey, unknown>>(
         try {
           await fn({ ...context, ...denoContext });
         } catch (e) {
-          if (e instanceof Error) {
-            if (e.stack) {
-              const { state } = await Deno.permissions.query({
-                name: "read",
-              });
-
-              if (state !== "granted") {
-                throw e;
-              }
-
-              const stackTraces = parseStackTrace(e.stack);
-              const testFileStack = stackTraces.find(({ file }) => {
-                return /file:\/\/\S+_test\.[j|t]sx?$/.test(file);
-              });
-
-              if (!testFileStack) {
-                throw e;
-              }
-
-              const { lineNumber, column, file } = testFileStack;
-              const code = await Deno.readTextFile(
-                fromFileUrl(file),
-              );
-
-              const pretty = prettyCode({ code, lineNumber, column });
-              throw new AssertionError(`${e.message}\n${pretty}\n`);
-            }
-          } else {
+          if (!(e instanceof Error)) {
             throw Error("panic: unexpected error");
           }
+
+          if (!e.stack || !await hasReadPermission()) {
+            throw e;
+          }
+
+          // TODO:(miyauci) implement friendly stack trace
+
+          throw e;
         } finally {
           teardown?.(context);
         }

@@ -2,10 +2,11 @@
 // This module is browser compatible.
 
 import { equality } from "../helper/equal.ts";
-import { isBoolean, isFunction, isObject, isSymbol } from "../deps.ts";
+import { isFunction, isObject, isSymbol } from "../deps.ts";
 import type { Equality } from "../helper/equal.ts";
 import { isAnyNumber } from "./any_number.ts";
 import { isAnyString } from "./any_string.ts";
+import { isAnyBoolean } from "./any_boolean.ts";
 
 function isBigInt(value: unknown): value is bigint {
   return typeof value === "bigint";
@@ -13,10 +14,6 @@ function isBigInt(value: unknown): value is bigint {
 
 function isAnyFunction(value: unknown): value is Function {
   return isFunction(value) || value instanceof Function;
-}
-
-function isAnyBoolean(value: unknown): value is boolean | Boolean {
-  return isBoolean(value) || value instanceof Boolean;
 }
 
 function isAnyBigInt(value: unknown): value is bigint | BigInt {
@@ -78,7 +75,6 @@ export {
   any,
   equalAnyOf,
   isAnyBigInt,
-  isAnyBoolean,
   isAnyFunction,
   isAnyString,
   isAnySymbol,

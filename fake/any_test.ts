@@ -4,7 +4,6 @@ import {
   any,
   equalAnyOf,
   isAnyBigInt,
-  isAnyBoolean,
   isAnyFunction,
   isAnyString,
   isAnySymbol,
@@ -25,21 +24,6 @@ Deno.test("isAnyString", () => {
   ];
 
   table.forEach(([value, result]) => assertEquals(isAnyString(value), result));
-});
-
-Deno.test("isAnyBoolean", () => {
-  const table: [
-    ...Parameters<typeof isAnyBoolean>,
-    ReturnType<typeof isAnyBoolean>,
-  ][] = [
-    [false, true],
-    [true, true],
-    [new Boolean(false), true],
-    [new Boolean(true), true],
-    [Boolean, false],
-  ];
-
-  table.forEach(([value, result]) => assertEquals(isAnyBoolean(value), result));
 });
 
 Deno.test("isAnySymbol", () => {

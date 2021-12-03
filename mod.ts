@@ -90,20 +90,21 @@ export { toBeEmptyObject } from "./matcher/to_be_empty_object.ts";
 
 export * from "./matcher/preset.ts";
 export * from "./matcher/types.ts";
-export * from "./matcher/utils.ts";
 
 export * from "./mock/fn.ts";
 export * from "./mock/types.ts";
 export { defineExpect, expect } from "./expect/mod.ts";
 export type { Expected, MatcherMap } from "./expect/mod.ts";
-export { anything } from "./expect/anything.ts";
-export { any } from "./expect/any.ts";
-export { arrayContaining } from "./expect/array_containing.ts";
-export { objectContaining } from "./expect/object_containing.ts";
-export { anyString } from "./expect/any_string.ts";
-export { anyNumber } from "./expect/any_number.ts";
-export { stringMatching } from "./expect/string_matching.ts";
-export { stringContaining } from "./expect/string_containing.ts";
+export { anything } from "./fake/anything.ts";
+export { any } from "./fake/any.ts";
+export { arrayContaining } from "./fake/array_containing.ts";
+export { objectContaining } from "./fake/object_containing.ts";
+export { anyString } from "./fake/any_string.ts";
+export { anyNumber } from "./fake/any_number.ts";
+export { anyBoolean } from "./fake/any_boolean.ts";
+export { stringMatching } from "./fake/string_matching.ts";
+export { stringContaining } from "./fake/string_containing.ts";
+export { anyOf } from "./fake/any_of.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";

@@ -1,3 +1,24 @@
+# [1.0.0-beta.47](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2021-12-03)
+
+
+### Bug Fixes
+
+* **helper:** to be objective equivalence of fake object ([7f4b91c](https://github.com/TomokiMiyauci/unitest/commit/7f4b91cbaa37929939875cb08c961fda3e8e547b))
+* not export utility at mod ([e7b339c](https://github.com/TomokiMiyauci/unitest/commit/e7b339c900d981698057b38d2bde6fdb8f1e1575))
+
+
+### Features
+
+* **fake:** add `anyBoolean` fake object ([009a40c](https://github.com/TomokiMiyauci/unitest/commit/009a40c22b10e6485e6a0d4e7b1b0ec3918077c7))
+* **fake:** add `anyOf` fake object ([efd2221](https://github.com/TomokiMiyauci/unitest/commit/efd2221fbc38cd8d923c294102c198c7e06790f9))
+
+# [1.0.0-beta.46](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2021-12-03)
+
+
+### Features
+
+* **helper:** add original equal funciton what predicate original mock ([41a98ba](https://github.com/TomokiMiyauci/unitest/commit/41a98baf5f2f7ff8a9f3512a3b146844f6f22d52))
+
 # [1.0.0-beta.45](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2021-12-02)
 
 
