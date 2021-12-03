@@ -12,12 +12,16 @@ const docs: Doc[] = [
     path: "get-started",
   },
   {
-    name: "Matcher",
+    name: "matcher",
     path: "matcher",
   },
   {
-    name: "Expect",
+    name: "expect",
     path: "expect",
+  },
+  {
+    name: "fake",
+    path: "fake",
   },
 ];
 
