@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
   any,
+  anyBoolean,
   anyNumber,
   anyOf,
   anyString,
@@ -57,4 +58,18 @@ test("should { a: {} } object", () => {
 test("should be any of mixed fake object", () => {
   expect("").toEqual(anyOf([anyNumber(), anyString()]));
   expect({}).not.toEqual(anyOf([anyNumber(), anyString()]));
+});
+
+test("should be any boolean", () => {
+  expect({
+    a: false,
+  }).toEqual({
+    a: anyBoolean(),
+  });
+
+  expect({
+    a: 1,
+  }).not.toEqual({
+    a: anyBoolean(),
+  });
 });

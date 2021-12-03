@@ -101,6 +101,7 @@ export { arrayContaining } from "./fake/array_containing.ts";
 export { objectContaining } from "./fake/object_containing.ts";
 export { anyString } from "./fake/any_string.ts";
 export { anyNumber } from "./fake/any_number.ts";
+export { anyBoolean } from "./fake/any_boolean.ts";
 export { stringMatching } from "./fake/string_matching.ts";
 export { stringContaining } from "./fake/string_containing.ts";
 export { anyOf } from "./fake/any_of.ts";

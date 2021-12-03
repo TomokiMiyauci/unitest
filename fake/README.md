@@ -140,6 +140,22 @@ test("should be any number", () => {
 });
 ```
 
+## anyBoolean
+
+`anyBoolean()` matches any `boolean` or `Boolean`
+
+```ts
+import {
+  anyBoolean,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any boolean", () => {
+  expect(new Boolean(false)).toEqual(anyBoolean());
+});
+```
+
 ## anyOf
 
 `anyOf(array)` matches any of expected value

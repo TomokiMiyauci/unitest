@@ -7,6 +7,7 @@ export { arrayContaining } from "./array_containing.ts";
 export { objectContaining } from "./object_containing.ts";
 export { anyNumber } from "./any_number.ts";
 export { anyString } from "./any_string.ts";
+export { anyBoolean } from "./any_boolean.ts";
 export { stringMatching } from "./string_matching.ts";
 export { stringContaining } from "./string_containing.ts";
 export { anyOf } from "./any_of.ts";
