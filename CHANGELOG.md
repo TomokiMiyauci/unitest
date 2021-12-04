@@ -1,3 +1,10 @@
+# [1.0.0-beta.48](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2021-12-04)
+
+
+### Features
+
+* **fake:** add `anyArray` fake object ([5cc49ef](https://github.com/TomokiMiyauci/unitest/commit/5cc49ef54b863805e47fe9338f0e848685a12d12))
+
 # [1.0.0-beta.47](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2021-12-03)
 
 
