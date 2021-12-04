@@ -11,3 +11,4 @@ export { anyBoolean } from "./any_boolean.ts";
 export { stringMatching } from "./string_matching.ts";
 export { stringContaining } from "./string_containing.ts";
 export { anyOf } from "./any_of.ts";
+export { anyArray } from "./any_array.ts";

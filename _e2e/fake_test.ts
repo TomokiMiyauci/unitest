@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
   any,
+  anyArray,
   anyBoolean,
   anyNumber,
   anyOf,
@@ -71,5 +72,43 @@ test("should be any boolean", () => {
     a: 1,
   }).not.toEqual({
     a: anyBoolean(),
+  });
+});
+
+test("should be any array", () => {
+  expect({
+    a: [],
+  }).toEqual({
+    a: anyArray(),
+  });
+
+  expect({
+    trades: [
+      [1, 2],
+      [3, 4],
+      [5, 6],
+    ],
+  }).toEqual({
+    trades: anyArray(anyArray(anyNumber())),
+  });
+
+  expect({
+    trades: [
+      [1, 2],
+      [3, 4],
+      [5, 6],
+    ],
+  }).not.toEqual({
+    trades: anyArray(anyArray(anyString())),
+  });
+
+  expect({
+    trades: [
+      { price: 100, amount: 200 },
+      { price: 200, amount: 400 },
+      { price: 400, amount: 800 },
+    ],
+  }).toEqual({
+    trades: anyArray({ price: anyNumber(), amount: anyNumber() }),
   });
 });

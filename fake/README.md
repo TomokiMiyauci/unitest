@@ -156,6 +156,31 @@ test("should be any boolean", () => {
 });
 ```
 
+## anyArray
+
+`anyArray(?unknown)` matches any `array` or any specific `array`
+
+```ts
+import {
+  anyArray,
+  anyString,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any array", () => {
+  expect({ students: ["Alice", "Bob", "John"] }).toEqual({
+    students: anyArray(),
+  });
+});
+
+test("should be any string array", () => {
+  expect({ students: ["Alice", "Bob", "John"] }).toEqual({
+    students: anyArray(anyString()),
+  });
+});
+```
+
 ## anyOf
 
 `anyOf(array)` matches any of expected value

@@ -105,6 +105,7 @@ export { anyBoolean } from "./fake/any_boolean.ts";
 export { stringMatching } from "./fake/string_matching.ts";
 export { stringContaining } from "./fake/string_containing.ts";
 export { anyOf } from "./fake/any_of.ts";
+export { anyArray } from "./fake/any_array.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
