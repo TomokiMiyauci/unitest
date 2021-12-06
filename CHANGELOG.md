@@ -1,3 +1,10 @@
+# [1.0.0-beta.50](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2021-12-06)
+
+
+### Features
+
+* **dummy:** rename fake to dummy object ([1c6d65c](https://github.com/TomokiMiyauci/unitest/commit/1c6d65c259b2e50db8659c56fd77cef683fda203))
+
 # [1.0.0-beta.49](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2021-12-06)
 
 
