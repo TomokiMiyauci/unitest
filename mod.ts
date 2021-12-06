@@ -114,3 +114,4 @@ export * from "./modifier/preset.ts";
 export * from "./test/mod.ts";
 
 export { equal, equality } from "./helper/equal.ts";
+export { each } from "./test/each.ts";
