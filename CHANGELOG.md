@@ -1,3 +1,10 @@
+# [1.0.0-beta.49](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2021-12-06)
+
+
+### Bug Fixes
+
+* **test:** fix pass args of sprintf ([5f81f78](https://github.com/TomokiMiyauci/unitest/commit/5f81f78c426bc3236777585c7fcf5c57a74f8ba8))
+
 # [1.0.0-beta.48](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2021-12-04)
 
 
