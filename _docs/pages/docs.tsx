@@ -20,8 +20,8 @@ const docs: Doc[] = [
     path: "expect",
   },
   {
-    name: "fake",
-    path: "fake",
+    name: "dummy",
+    path: "dummy",
   },
 ];
 

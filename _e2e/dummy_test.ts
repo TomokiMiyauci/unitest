@@ -56,7 +56,7 @@ test("should { a: {} } object", () => {
   expect({ a: {} }).toEqual({ a: any(Object) });
 });
 
-test("should be any of mixed fake object", () => {
+test("should be any of mixed dummy object", () => {
   expect("").toEqual(anyOf([anyNumber(), anyString()]));
   expect({}).not.toEqual(anyOf([anyNumber(), anyString()]));
 });

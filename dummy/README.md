@@ -1,9 +1,9 @@
-# fake
+# dummy
 
-fake provides fake object. The fake object is the only specially processed
+dummy provides dummy object. The dummy object is the only specially processed
 object in the `equal` function.
 
-The fake object can be used to perform asymmetric matching.
+The dummy object can be used to perform asymmetric matching.
 
 ## anything
 
