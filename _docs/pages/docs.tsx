@@ -27,6 +27,10 @@ const docs: Doc[] = [
     name: "mock",
     path: "mock",
   },
+  {
+    name: "test",
+    path: "test",
+  },
 ];
 
 type DocsProps = {

@@ -24,16 +24,22 @@ Deno.test({
 Deno.test({
   name: "should not call teardown function before test",
   fn: () => {
-    const mock = fn();
-
     test({
       name: "test",
 
-      fn: () => {
+      fn: ({ mock }) => {
         assertEquals(mock.mock.calls.length, 0);
       },
-      teardown: () => {
-        mock();
+      setup: () => {
+        const mock = fn();
+        return {
+          localThis: {
+            mock,
+          },
+          teardown: () => {
+            mock();
+          },
+        };
       },
     });
   },
@@ -42,16 +48,21 @@ Deno.test({
 Deno.test({
   name: "should call teardown when test is done",
   fn: () => {
-    const mock = fn();
-
     test({
       name: "test",
 
       fn: () => {
       },
-      teardown: () => {
-        mock();
-        assertEquals(mock.mock.calls.length, 1);
+      setup() {
+        const mock = fn();
+
+        return {
+          localThis: { mock },
+          teardown: () => {
+            mock();
+            assertEquals(mock.mock.calls.length, 1);
+          },
+        };
       },
     });
   },
