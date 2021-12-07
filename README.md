@@ -66,6 +66,11 @@ test({
 });
 ```
 
+then, `deno test`
+
+**Currently the test runner CLI relies on the Deno CLI. This is subject to
+change in the future.**
+
 ## Contributing
 
 Please see our [CONTRIBUTING.md](./CONTRIBUTING.MD).
