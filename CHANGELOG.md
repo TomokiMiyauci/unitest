@@ -1,3 +1,10 @@
+# [1.0.0-beta.52](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.51...v1.0.0-beta.52) (2021-12-07)
+
+
+### Features
+
+* **test:** change interface of jest style test what accept 3rd args of options ([ca97069](https://github.com/TomokiMiyauci/unitest/commit/ca97069ecc65bf79d51602c0fa2c4938a76782cd))
+
 # [1.0.0-beta.51](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2021-12-07)
 
 
