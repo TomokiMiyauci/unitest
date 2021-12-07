@@ -1,9 +1,7 @@
 <div align="center">
   <h1>Unitest</h1>
 
-<img width="140px" hight="140px" src="./_docs/public/logo.svg" />
-
-<br />
+<img width="160px" hight="160px" src="./_docs/public/logo.svg" />
 
 [![test](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml/badge.svg?branch=beta)](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml)
 ![release](https://img.shields.io/github/v/release/TomokiMiyauci/unitest?sort=semver)
