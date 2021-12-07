@@ -1,3 +1,15 @@
+# [1.0.0-beta.51](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2021-12-07)
+
+
+### Bug Fixes
+
+* **mock:** define mock object interface and change deps types ([a5844f3](https://github.com/TomokiMiyauci/unitest/commit/a5844f35942b539ad7e59e6f18c99ee25efa2047))
+
+
+### Features
+
+* **mock:** add `spyOn` function ([6f5b675](https://github.com/TomokiMiyauci/unitest/commit/6f5b675813db4a15009b291585c6b49798264198))
+
 # [1.0.0-beta.50](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2021-12-06)
 
 
