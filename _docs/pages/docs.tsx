@@ -23,6 +23,10 @@ const docs: Doc[] = [
     name: "dummy",
     path: "dummy",
   },
+  {
+    name: "mock",
+    path: "mock",
+  },
 ];
 
 type DocsProps = {
