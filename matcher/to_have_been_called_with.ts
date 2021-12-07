@@ -1,11 +1,11 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 import { contains } from "./utils.ts";
-import type { Mock } from "../mock/types.ts";
+import type { MockObject } from "../mock/fn.ts";
 import type { MatchResult } from "./types.ts";
 
 function toHaveBeenCalledWith(
-  { mock }: Mock,
+  { mock }: MockObject,
   ...expected: readonly unknown[]
 ): MatchResult {
   return {

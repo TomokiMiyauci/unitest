@@ -10,7 +10,7 @@ function each<T extends ReadonlyArray<unknown> | [unknown]>(
   return (name: string, fn: (...args: T) => void): void => {
     cases.forEach((_case) => {
       Deno.test({
-        name: sprintf(name, _case),
+        name: sprintf(name, ..._case),
         fn: () => fn(..._case),
       });
     });

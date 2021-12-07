@@ -1,4 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
 import { equality } from "../helper/equal.ts";
 import { isBoolean } from "../deps.ts";
 import type { Equality } from "../helper/equal.ts";

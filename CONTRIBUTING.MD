@@ -33,9 +33,10 @@ deno test --ignore=node_modules
 - docs - documents and document generator
 - e2e - End to End tests
 - [expect](./expect/README.md) - expect module
-- [fake](./fake/README.md) - fake objects
+- [dummy](./dummy/README.md) - dummy objects
 - helper - helper for entire module
 - [matcher](./matcher/README.md) - matcher collections
+- [mock](./mock/README.md) - mock object
 - modifier - modifier collections
 - [test](./test/README.md) - test register
 

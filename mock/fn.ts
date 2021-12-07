@@ -1,46 +1,37 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type { Mock, MockCall } from "./types.ts";
-import type { Writable } from "../_types.ts";
 
-/**
- * Make mock
- * @returns Mock object
- *
- * @beta
- */
-function fn(): Mock;
-function fn<T, Y extends unknown[]>(
-  implementation: (...args: Y) => T,
-): Mock<T, Y>;
-function fn<T, Y extends unknown[]>(
-  implementation?: (...args: Y) => T,
-): Mock {
-  const calls: Writable<MockCall["calls"]> = [];
-  const results: MockCall["results"] = [];
+import { Mock } from "./mock.ts";
+import type { MockObject } from "./mock.ts";
 
-  const self = new Proxy(new Function(), {
-    apply: (_, __, args) => {
-      const value = implementation?.(...args as Y);
-      calls.push(args);
+/** make mock object */
+function fn<T extends unknown[]>(
+  implementation: (...args: T) => unknown,
+): MockObject<T>;
+function fn(): MockObject;
+function fn(implementation?: (...args: unknown[]) => unknown): MockObject {
+  const mock = new Mock();
 
-      results.push({
+  const call = (...args: unknown[]): void => {
+    const value = implementation?.(...args);
+    mock.add({
+      args,
+      result: {
         type: "return",
         value,
-      });
-    },
+      },
+    });
+  };
 
-    get: (_, props) => {
-      if (props === "mock") {
-        return {
-          calls,
-          results,
-        };
-      }
+  Object.defineProperty(call, "mock", {
+    get() {
+      const { results, calls } = mock;
+      return { results, calls };
     },
   });
 
-  return self as Mock;
+  return call as MockObject;
 }
 
 export { fn };
+export type { MockObject };

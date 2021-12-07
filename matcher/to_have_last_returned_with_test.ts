@@ -4,7 +4,7 @@ import {
   toHaveLastReturnedWith,
 } from "./to_have_last_returned_with.ts";
 import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
-import type { MockResult } from "../mock/types.ts";
+import type { MockResult } from "../mock/mock.ts";
 import { fn } from "../mock/fn.ts";
 
 Deno.test({

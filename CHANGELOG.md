@@ -1,3 +1,36 @@
+# [1.0.0-beta.51](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2021-12-07)
+
+
+### Bug Fixes
+
+* **mock:** define mock object interface and change deps types ([a5844f3](https://github.com/TomokiMiyauci/unitest/commit/a5844f35942b539ad7e59e6f18c99ee25efa2047))
+
+
+### Features
+
+* **mock:** add `spyOn` function ([6f5b675](https://github.com/TomokiMiyauci/unitest/commit/6f5b675813db4a15009b291585c6b49798264198))
+
+# [1.0.0-beta.50](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2021-12-06)
+
+
+### Features
+
+* **dummy:** rename fake to dummy object ([1c6d65c](https://github.com/TomokiMiyauci/unitest/commit/1c6d65c259b2e50db8659c56fd77cef683fda203))
+
+# [1.0.0-beta.49](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2021-12-06)
+
+
+### Bug Fixes
+
+* **test:** fix pass args of sprintf ([5f81f78](https://github.com/TomokiMiyauci/unitest/commit/5f81f78c426bc3236777585c7fcf5c57a74f8ba8))
+
+# [1.0.0-beta.48](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2021-12-04)
+
+
+### Features
+
+* **fake:** add `anyArray` fake object ([5cc49ef](https://github.com/TomokiMiyauci/unitest/commit/5cc49ef54b863805e47fe9338f0e848685a12d12))
+
 # [1.0.0-beta.47](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2021-12-03)
 
 

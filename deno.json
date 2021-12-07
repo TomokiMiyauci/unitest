@@ -1,7 +1,7 @@
 {
   "lint": {
     "files": {
-      "exclude": ["node_modules", "docs"]
+      "exclude": ["node_modules", "_docs"]
     },
     "rules": {
       "exclude": ["no-explicit-any", "ban-types"]

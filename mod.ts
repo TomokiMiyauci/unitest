@@ -92,19 +92,21 @@ export * from "./matcher/preset.ts";
 export * from "./matcher/types.ts";
 
 export * from "./mock/fn.ts";
-export * from "./mock/types.ts";
+export * from "./mock/mock.ts";
+export * from "./mock/spy_on.ts";
 export { defineExpect, expect } from "./expect/mod.ts";
 export type { Expected, MatcherMap } from "./expect/mod.ts";
-export { anything } from "./fake/anything.ts";
-export { any } from "./fake/any.ts";
-export { arrayContaining } from "./fake/array_containing.ts";
-export { objectContaining } from "./fake/object_containing.ts";
-export { anyString } from "./fake/any_string.ts";
-export { anyNumber } from "./fake/any_number.ts";
-export { anyBoolean } from "./fake/any_boolean.ts";
-export { stringMatching } from "./fake/string_matching.ts";
-export { stringContaining } from "./fake/string_containing.ts";
-export { anyOf } from "./fake/any_of.ts";
+export { anything } from "./dummy/anything.ts";
+export { any } from "./dummy/any.ts";
+export { arrayContaining } from "./dummy/array_containing.ts";
+export { objectContaining } from "./dummy/object_containing.ts";
+export { anyString } from "./dummy/any_string.ts";
+export { anyNumber } from "./dummy/any_number.ts";
+export { anyBoolean } from "./dummy/any_boolean.ts";
+export { stringMatching } from "./dummy/string_matching.ts";
+export { stringContaining } from "./dummy/string_containing.ts";
+export { anyOf } from "./dummy/any_of.ts";
+export { anyArray } from "./dummy/any_array.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
@@ -113,3 +115,4 @@ export * from "./modifier/preset.ts";
 export * from "./test/mod.ts";
 
 export { equal, equality } from "./helper/equal.ts";
+export { each } from "./test/each.ts";

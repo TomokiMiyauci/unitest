@@ -1,9 +1,9 @@
-# fake
+# dummy
 
-fake provides fake object. The fake object is the only specially processed
+dummy provides dummy object. The dummy object is the only specially processed
 object in the `equal` function.
 
-The fake object can be used to perform asymmetric matching.
+The dummy object can be used to perform asymmetric matching.
 
 ## anything
 
@@ -153,6 +153,31 @@ import {
 
 test("should be any boolean", () => {
   expect(new Boolean(false)).toEqual(anyBoolean());
+});
+```
+
+## anyArray
+
+`anyArray(?unknown)` matches any `array` or any specific `array`
+
+```ts
+import {
+  anyArray,
+  anyString,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any array", () => {
+  expect({ students: ["Alice", "Bob", "John"] }).toEqual({
+    students: anyArray(),
+  });
+});
+
+test("should be any string array", () => {
+  expect({ students: ["Alice", "Bob", "John"] }).toEqual({
+    students: anyArray(anyString()),
+  });
 });
 ```
 
