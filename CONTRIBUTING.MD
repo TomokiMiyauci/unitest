@@ -36,6 +36,7 @@ deno test --ignore=node_modules
 - [dummy](./dummy/README.md) - dummy objects
 - helper - helper for entire module
 - [matcher](./matcher/README.md) - matcher collections
+- [mock](./mock/README.md) - mock object
 - modifier - modifier collections
 - [test](./test/README.md) - test register
 
