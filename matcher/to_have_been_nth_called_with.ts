@@ -1,11 +1,11 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type { Mock, MockCall } from "../mock/types.ts";
+import type { MockObject } from "../mock/mock.ts";
 import type { MatchResult } from "./types.ts";
 import { equal } from "../helper/equal.ts";
 
 function predict(
-  calls: MockCall["calls"],
+  calls: MockObject["mock"]["calls"],
   nthCall: number,
   ...expected: readonly unknown[]
 ): boolean {
@@ -14,7 +14,7 @@ function predict(
 }
 
 function toHaveBeenNthCalledWith(
-  { mock }: Mock,
+  { mock }: MockObject,
   nthCall: number,
   ...expected: readonly unknown[]
 ): MatchResult {

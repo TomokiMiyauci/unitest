@@ -92,7 +92,7 @@ export * from "./matcher/preset.ts";
 export * from "./matcher/types.ts";
 
 export * from "./mock/fn.ts";
-export * from "./mock/types.ts";
+export * from "./mock/mock.ts";
 export { defineExpect, expect } from "./expect/mod.ts";
 export type { Expected, MatcherMap } from "./expect/mod.ts";
 export { anything } from "./dummy/anything.ts";

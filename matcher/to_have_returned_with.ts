@@ -2,9 +2,12 @@
 // This module is browser compatible.
 import { equal } from "../helper/equal.ts";
 import type { MatchResult } from "./types.ts";
-import type { Mock, MockResult } from "../mock/types.ts";
+import type { MockObject, MockResult } from "../mock/mock.ts";
 
-function predict(mockResults: MockResult[], expected: unknown): boolean {
+function predict(
+  mockResults: readonly MockResult[],
+  expected: unknown,
+): boolean {
   const result = mockResults.some(({ type, value }) =>
     type === "return" && equal(value, expected)
   );
@@ -13,7 +16,10 @@ function predict(mockResults: MockResult[], expected: unknown): boolean {
 }
 
 /** Use to ensure that a mock function returned a specific value. */
-function toHaveReturnedWith({ mock }: Mock, expected: unknown): MatchResult {
+function toHaveReturnedWith(
+  { mock }: MockObject,
+  expected: unknown,
+): MatchResult {
   return {
     pass: predict(mock.results, expected),
     expected,

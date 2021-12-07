@@ -1,12 +1,12 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 import type { MatchResult } from "./types.ts";
-import type { Mock, MockResult } from "../mock/types.ts";
+import type { MockObject, MockResult } from "../mock/mock.ts";
 import { isUndefined } from "../deps.ts";
 import { equal } from "../helper/equal.ts";
 
 function predict(
-  mockResults: MockResult[],
+  mockResults: readonly MockResult[],
   nthCall: number,
   expected: unknown,
 ): boolean {
@@ -21,7 +21,7 @@ function predict(
 
 /** Use to test the specific value that a mock function returned for the nth call. */
 function toHaveNthReturnedWith(
-  { mock }: Mock,
+  { mock }: MockObject,
   nthCall: number,
   expected: unknown,
 ): MatchResult {

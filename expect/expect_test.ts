@@ -3,7 +3,7 @@ import { expect } from "./mod.ts";
 import { assertThrowsAssertionError } from "../dev_deps.ts";
 
 import { jestMatcherMap } from "../matcher/preset.ts";
-import { Mock } from "../mock/types.ts";
+import { MockObject } from "../mock/mock.ts";
 
 type JestMatcherMap = typeof jestMatcherMap;
 
@@ -16,7 +16,7 @@ type PickByFirstArg<
 
 type NumberMatcher = PickByFirstArg<JestMatcherMap, number | bigint>;
 type StringMatcher = PickByFirstArg<JestMatcherMap, string>;
-type MockMatcher = PickByFirstArg<JestMatcherMap, Mock>;
+type MockMatcher = PickByFirstArg<JestMatcherMap, MockObject>;
 type FunctionMatcher = PickByFirstArg<
   JestMatcherMap,
   (...args: readonly unknown[]) => any

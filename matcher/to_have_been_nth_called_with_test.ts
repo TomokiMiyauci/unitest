@@ -3,14 +3,14 @@ import {
   predict,
   toHaveBeenNthCalledWith,
 } from "./to_have_been_nth_called_with.ts";
-import { MockCall } from "../mock/types.ts";
+import { MockSpec } from "../mock/mock.ts";
 import { fn } from "../mock/mod.ts";
 import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 
 Deno.test({
   name: "predict",
   fn: () => {
-    const table: [MockCall["calls"], number, readonly unknown[], boolean][] = [
+    const table: [MockSpec["calls"], number, readonly unknown[], boolean][] = [
       [
         [],
         0,
