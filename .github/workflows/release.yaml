@@ -26,7 +26,7 @@ jobs:
 
       - name: Lint
         run: |
-          deno fmt -c deno.json
+          deno fmt -c deno.json --check
           deno lint -c deno.json
 
   test:
@@ -46,7 +46,7 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Test
-        run: deno test --ignore=node_modules --import-map=test_import_map.json -c deno.json --doc --coverage=coverage
+        run: deno test --ignore=node_modules,_docs --import-map=test_import_map.json --doc --coverage=coverage
 
       - name: Generate coverage
         run: deno coverage coverage --lcov > cov_profile.lcov
@@ -82,7 +82,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.0.2
+          version: 6.23.6
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --prefer-offline, --ignore-scripts]
