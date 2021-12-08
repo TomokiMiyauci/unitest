@@ -4,6 +4,7 @@ import {
   expect,
   not,
   test,
+  toBeAfter,
   toBeAfterOrEqualTo,
   toStartWith,
   toThrow,
@@ -42,5 +43,19 @@ test("passes when input is equal to or after date", () => {
 
   expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2018"));
   expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2019"));
-  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2020"));
+  expect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
+});
+
+test("passes when input is after date", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeAfter,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("01/01/2019")).toBeAfter(new Date("01/01/2018"));
+  expect(new Date("01/01/2018")).not.toBeAfter(new Date("01/01/2019"));
 });
