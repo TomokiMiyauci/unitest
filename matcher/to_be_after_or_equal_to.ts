@@ -24,14 +24,14 @@ import type { MatchResult } from "./types.ts";
  * test("passes when input is equal to or after date", () => {
  *   expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2018"));
  *   expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2019"));
- *   xpect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
+ *   expect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
  * });
  * ```
  */
 function toBeAfterOrEqualTo(actual: Date, expected: Date): MatchResult {
   return {
     pass: actual >= expected,
-    expectedHint: "Expected date to be after or equal to:",
+    expectedHint: "Expected to be after or equal to:",
     expected,
   };
 }

@@ -26,7 +26,7 @@ Deno.test({
       {
         pass: false,
         expected: new Date("2000/1/1 00:00:01"),
-        expectedHint: "Expected date to be after or equal to:",
+        expectedHint: "Expected to be after or equal to:",
       },
     );
   },
