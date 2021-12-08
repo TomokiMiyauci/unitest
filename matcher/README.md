@@ -26,9 +26,10 @@ const expect = defineExpect({
     ...jestMatcherMap,
     toBeString,
     toBeFoo: (actual: unknown) => {
-      if (actual === "foo") return { pass: true };
-
-      return { pass: false };
+      return {
+        pass: actual === "foo",
+        expected: "foo",
+      };
     },
   },
 });

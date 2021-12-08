@@ -16,19 +16,25 @@ It provides custom matcher interface.
 You can add custom matcher easy. The type is automatically extended.
 
 ```ts
-import { defineExpect, jestMatcherMap } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import {
+  defineExpect,
+  jestMatcherMap,
+  not,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const expect = defineExpect({
   matcherMap: {
-    ...jestMatcherMap
-    toBe100: (actual) => {
-      if (actual === 100) return { pass: true };
+    ...jestMatcherMap,
+    toBe100: (actual: unknown) => {
       return {
-        pass: false,
-        message,
+        pass: actual === 100,
+        expected: 100,
       };
     },
-  }
+  },
+  modifierMap: {
+    not,
+  },
 });
 
 expect(1000).not.toBe100();
@@ -68,6 +74,7 @@ For example, if `actual` has a value of type `string`, only matchers with a
 first argument of a type compatible with `string` will be available.
 
 ```ts
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 expect("hello").toBeUndefined();
 expect("world").toMatch(/hello/);
 
@@ -76,6 +83,8 @@ expect("world").toMatch(/hello/);
 ```
 
 ```ts
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
 expect(10).toBeUndefined();
 expect(10).toBeGreaterThan(3);
 
