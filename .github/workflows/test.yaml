@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-18.04, macos-latest, windows-latest]
-        deno: [1.16.0]
+        deno: [1.16.0, 1.15.0]
 
     steps:
       - name: Checkout
@@ -25,7 +25,7 @@ jobs:
 
       - name: Lint
         run: |
-          deno fmt -c deno.json
+          deno fmt -c deno.json --check
           deno lint -c deno.json
 
   test:
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-18.04, macos-latest, windows-latest]
-        deno: [1.16.0]
+        deno: [1.16.0, 1.15.0]
 
     steps:
       - name: Checkout
@@ -45,4 +45,4 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Test
-        run: deno test --ignore=node_modules --import-map=test_import_map.json -c deno.json --doc
+        run: deno test --ignore=node_modules,_docs --import-map=test_import_map.json --doc

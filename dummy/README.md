@@ -17,7 +17,9 @@ import {
 } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("should not be null or undefined", () => {
-  expect(actual).toEqual(anything());
+  expect("").toEqual(anything());
+  expect(null).not.toEqual(anything());
+  expect(undefined).not.toEqual(anything());
 });
 ```
 

@@ -8,7 +8,7 @@ import type { MockObject } from "./mock.ts";
 /** tracks calls to object method name
  * This function has a side effect.
  * ```ts
- * import { spyOn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ * import { spyOn, test, expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
  *
  * const video = {
  *   play() {

@@ -36,7 +36,11 @@ import { test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 test({
   name: "should request actual",
   setup: () => {
-    const myClass = new MyClass();
+    const myClass = new class MyClass {
+      init() {}
+      do() {}
+      reset() {}
+    }();
     myClass.init();
 
     return {
@@ -82,13 +86,13 @@ similar interface.
 types: `test.each(table)(name, fn)`.
 
 ```ts
-import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { each, expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 function double(value: number): number {
   return value * 2;
 }
 
-test.each([[1, 2], [100, 200]])(
+each([[1, 2], [100, 200]])(
   "double(%d) => %d",
   (actual, expected) => expect(double(actual)).toBe(expected),
 );

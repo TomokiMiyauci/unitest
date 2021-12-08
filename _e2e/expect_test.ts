@@ -1,5 +1,15 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { defineExpect, expect, test, toStartWith, toThrow } from "../mod.ts";
+import {
+  defineExpect,
+  expect,
+  not,
+  test,
+  toBeAfter,
+  toBeAfterOrEqualTo,
+  toBeArray,
+  toStartWith,
+  toThrow,
+} from "../mod.ts";
 
 test({
   name: "should not occur error",
@@ -20,4 +30,48 @@ test({
 
     expect("abcde").toStartWith("abc");
   },
+});
+
+test("passes when input is equal to or after date", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeAfterOrEqualTo,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2018"));
+  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2019"));
+  expect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
+});
+
+test("passes when input is after date", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeAfter,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("01/01/2019")).toBeAfter(new Date("01/01/2018"));
+  expect(new Date("01/01/2018")).not.toBeAfter(new Date("01/01/2019"));
+});
+
+test("passes when value is an array", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeArray,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect([]).toBeArray();
+  expect([1]).toBeArray();
+  expect(true).not.toBeArray();
 });

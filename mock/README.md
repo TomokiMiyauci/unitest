@@ -21,7 +21,11 @@ Make a mock object similar to `fn` but also tracks calls to object[methodName].
 This function has a side effect.
 
 ```ts
-import { spyOn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import {
+  expect,
+  spyOn,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const video = {
   play() {

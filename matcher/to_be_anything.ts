@@ -3,10 +3,13 @@
 import type { MatchResult } from "./types.ts";
 import { isNil } from "../deps.ts";
 
+/**
+ * @deprecated
+ */
 function toBeAnything(actual: unknown): MatchResult {
   return {
     pass: !isNil(actual),
-    expected: "except null and undefined",
+    expected: "All except null and undefined",
   };
 }
 

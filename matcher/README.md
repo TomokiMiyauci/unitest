@@ -26,10 +26,101 @@ const expect = defineExpect({
     ...jestMatcherMap,
     toBeString,
     toBeFoo: (actual: unknown) => {
-      if (actual === "foo") return { pass: true };
-
-      return { pass: false };
+      return {
+        pass: actual === "foo",
+        expected: "foo",
+      };
     },
   },
+});
+```
+
+## toBeAfterOrEqualTo
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeAfterOrEqualTo` when checking if a date equals to or occurs after
+`date`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeAfterOrEqualTo,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeAfterOrEqualTo,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when input is equal to or after date", () => {
+  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2018"));
+  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2019"));
+  expect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
+});
+```
+
+## toBeAfter
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeAfter` when checking if a date occurs after date.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeAfter,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeAfter,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when input is after date", () => {
+  expect(new Date("01/01/2019")).toBeAfter(new Date("01/01/2018"));
+  expect(new Date("01/01/2018")).not.toBeAfter(new Date("01/01/2019"));
+});
+```
+
+## toBeArray
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeArray` when checking if a value is an Array.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeArray,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeArray,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an array", () => {
+  expect([]).toBeArray();
+  expect([1]).toBeArray();
+  expect(true).not.toBeArray();
 });
 ```
