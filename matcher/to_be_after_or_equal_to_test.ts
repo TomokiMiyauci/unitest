@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeAfterOrEqualTo } from "./to_be_after_or_equal_to.ts";
 
 Deno.test({
@@ -16,6 +16,18 @@ Deno.test({
         new Date("2000/1/1 00:00:00"),
         new Date("2000/1/1 00:00:01"),
       ),
+    );
+
+    assertEquals(
+      toBeAfterOrEqualTo(
+        new Date("2000/1/1 00:00:00"),
+        new Date("2000/1/1 00:00:01"),
+      ),
+      {
+        pass: false,
+        expected: new Date("2000/1/1 00:00:01"),
+        expectedHint: "Expected date to be after or equal to:",
+      },
     );
   },
 });

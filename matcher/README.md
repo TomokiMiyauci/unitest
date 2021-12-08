@@ -33,3 +33,34 @@ const expect = defineExpect({
   },
 });
 ```
+
+## toBeAfterOrEqualTo
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeAfterOrEqualTo` when checking if a date equals to or occurs after
+`date`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeAfterOrEqualTo,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeAfterOrEqualTo,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when input is equal to or after date", () => {
+  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2018"));
+  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2019"));
+  xpect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
+});
+```
