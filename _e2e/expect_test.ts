@@ -6,6 +6,7 @@ import {
   test,
   toBeAfter,
   toBeAfterOrEqualTo,
+  toBeArray,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -58,4 +59,19 @@ test("passes when input is after date", () => {
 
   expect(new Date("01/01/2019")).toBeAfter(new Date("01/01/2018"));
   expect(new Date("01/01/2018")).not.toBeAfter(new Date("01/01/2019"));
+});
+
+test("passes when value is an array", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeArray,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect([]).toBeArray();
+  expect([1]).toBeArray();
+  expect(true).not.toBeArray();
 });
