@@ -1495,6 +1495,21 @@ test("passes when object contains all of the given values", () => {
 });
 ```
 
+## toContain
+
+preset: `jestMatcherMap`
+
+Use `.toContain` when you want to check that an item is in an array.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when array contains given value", () => {
+  expect([1, 2, 3, 4, 5]).toContain(3);
+  expect([{}, [], ""]).not.toContain(3);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

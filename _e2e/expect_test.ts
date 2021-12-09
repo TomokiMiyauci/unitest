@@ -750,3 +750,8 @@ test("passes when object contains all of the given values", () => {
   expect(object).toContainValues(["baz", "bar"]);
   expect(object).not.toContainValues(["qux", "foo"]);
 });
+
+test("passes when array contains given value", () => {
+  expect([1, 2, 3, 4, 5]).toContain(3);
+  expect([{}, [], ""]).not.toContain(3);
+});
