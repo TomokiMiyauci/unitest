@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeDefined } from "./to_be_defined.ts";
 
 Deno.test({
@@ -7,5 +7,9 @@ Deno.test({
   fn: () => {
     assertSuccess(toBeDefined({}));
     assertFail(toBeDefined(undefined));
+    assertEquals(toBeDefined(undefined), {
+      pass: false,
+      expected: "All except undefined",
+    });
   },
 });

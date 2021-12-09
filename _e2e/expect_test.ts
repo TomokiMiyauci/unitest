@@ -184,3 +184,8 @@ test("passes when value is a date", () => {
   expect("01/01/2018").not.toBeDate();
   expect(undefined).not.toBeDate();
 });
+
+test("there is a new flavor idea", () => {
+  expect("defined").toBeDefined();
+  expect(undefined).not.toBeDefined();
+});

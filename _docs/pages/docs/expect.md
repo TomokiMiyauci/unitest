@@ -331,3 +331,18 @@ test("passes when value is a date", () => {
   expect(undefined).not.toBeDate();
 });
 ```
+
+## toBeDefined
+
+preset: `jestMatcherMap`
+
+Use `.toBeDefined` to check that a variable is not undefined.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("there is a new flavor idea", () => {
+  expect("defined").toBeDefined();
+  expect(undefined).not.toBeDefined();
+});
+```
