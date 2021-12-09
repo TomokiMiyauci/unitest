@@ -1048,6 +1048,35 @@ test("passes when value is a string", () => {
 });
 ```
 
+## toBeSymbol
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeSymbol` when checking if a value is a `symbol`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeSymbol,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeSymbol,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a symbol", () => {
+  expect(Symbol()).toBeSymbol();
+  expect(true).not.toBeSymbol();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

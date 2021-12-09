@@ -32,6 +32,7 @@ import {
   toBePositive,
   toBeSealed,
   toBeString,
+  toBeSymbol,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -526,4 +527,17 @@ test("passes when value is a string", () => {
   expect("").toBeString();
   expect("hello").toBeString();
   expect(new String("hello")).not.toBeString();
+});
+
+test("passes when value is a symbol", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeSymbol,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(Symbol()).toBeSymbol();
+  expect(true).not.toBeSymbol();
 });
