@@ -18,6 +18,7 @@ import {
   toBeEven,
   toBeExtensible,
   toBeFalse,
+  toBeFinite,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -269,4 +270,19 @@ test("should be falsy", () => {
   expect(false).toBeFalsy();
   expect(0).toBeFalsy();
   expect(1).not.toBeFalsy();
+});
+
+test("passes when value is a finite number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFinite,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(1).toBeFinite();
+  expect(Infinity).not.toBeFinite();
+  expect(NaN).not.toBeFinite();
 });

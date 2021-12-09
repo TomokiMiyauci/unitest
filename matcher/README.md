@@ -510,6 +510,37 @@ test("should be falsy", () => {
 });
 ```
 
+## toBeFinite
+
+preset: `jestMatcherMap`
+
+Use `.toBeFinite` when checking if a value is a `number`, not `NaN` or
+`Infinity`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFinite,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFinite,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a finite number", () => {
+  expect(1).toBeFinite();
+  expect(Infinity).not.toBeFinite();
+  expect(NaN).not.toBeFinite();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
