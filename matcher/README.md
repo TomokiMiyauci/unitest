@@ -1385,6 +1385,22 @@ test("passes when object contains given entry", () => {
 });
 ```
 
+## toContainEqual
+
+preset: `jestMatcherMap`
+
+Use `.toContainEqual` when you want to check that an item with a specific
+structure and values is contained in an array.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when array contains given value", () => {
+  expect({ a: "foo", b: "bar" }).toContainEqual({ a: "foo" });
+  expect({ a: "foo", b: "bar" }).not.toContainEqual({ c: "hoo" });
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

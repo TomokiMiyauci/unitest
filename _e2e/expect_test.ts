@@ -697,3 +697,8 @@ test("passes when object contains given entry", () => {
   expect(object).toContainEntry(["c", "baz"]);
   expect(object).not.toContainEntry(["a", "qux"]);
 });
+
+test("passes when array contains given value", () => {
+  expect({ a: "foo", b: "bar" }).toContainEqual({ a: "foo" });
+  expect({ a: "foo", b: "bar" }).not.toContainEqual({ c: "hoo" });
+});
