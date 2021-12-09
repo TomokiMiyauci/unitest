@@ -11,6 +11,7 @@ import {
   toBeBeforeOrEqualTo,
   toBeBetween,
   toBeBoolean,
+  toBeDateString,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -151,4 +152,19 @@ test("passes when value is a boolean", () => {
 
 test("adding works sanely with decimals", () => {
   expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
+});
+
+test("passes when value is a valid toBeDateString", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeDateString,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect("2019-11-27T14:05:07.520Z").toBeDateString();
+  expect("11/12/21").toBeDateString();
+  expect("not a date").not.toBeDateString();
 });

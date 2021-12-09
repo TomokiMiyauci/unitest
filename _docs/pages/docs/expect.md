@@ -260,6 +260,8 @@ test("passes when value is a boolean", () => {
 
 ## toBeCloseTo
 
+preset: `jestMatcherMap`
+
 Use `.toBeCloseTo` to compare floating point numbers for approximate equality.
 
 ```ts
@@ -267,5 +269,35 @@ import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("adding works sanely with decimals", () => {
   expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
+});
+```
+
+## toBeDateString
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeDateString` when checking if a value is a valid date string.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeDateString,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeDateString,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a valid toBeDateString", () => {
+  expect("2019-11-27T14:05:07.520Z").toBeDateString();
+  expect("11/12/21").toBeDateString();
+  expect("not a date").not.toBeDateString();
 });
 ```
