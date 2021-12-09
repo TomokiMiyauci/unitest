@@ -1077,6 +1077,35 @@ test("passes when value is a symbol", () => {
 });
 ```
 
+## toBeTrue
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeTrue` when checking a value is `true`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeTrue,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeTrue,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is true", () => {
+  expect(true).toBeTrue();
+  expect(false).not.toBeTrue();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
