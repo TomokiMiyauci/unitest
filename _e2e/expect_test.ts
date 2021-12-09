@@ -36,6 +36,7 @@ import {
   toBeTrue,
   toBeValidDate,
   toBeWithin,
+  toContainAnyEntries,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -604,4 +605,25 @@ test("should be", () => {
 
 test("promise", async () => {
   await expect(Promise.resolve("test")).resolves.not.toBe("tes");
+});
+
+test("passes when object contains at least one of the given entries", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainAnyEntries,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["a", "foo"],
+  ]);
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["b", "bar"],
+  ]);
+  expect(object).not.toContainAnyEntries([["d", "qux"]]);
 });

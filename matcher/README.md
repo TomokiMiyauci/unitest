@@ -1214,6 +1214,44 @@ test("should be", () => {
 });
 ```
 
+## toContainAnyEntries
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainAnyEntries` when checking if an object contains at least one of
+the provided entries.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainAnyEntries,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainAnyEntries,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains at least one of the given entries", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["a", "foo"],
+  ]);
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["b", "bar"],
+  ]);
+  expect(object).not.toContainAnyEntries([["d", "qux"]]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
