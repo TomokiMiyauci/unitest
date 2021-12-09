@@ -464,6 +464,35 @@ test("passes when value is extensible", () => {
 });
 ```
 
+## toBeFalse
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFalse` when checking a value is equal (===) to false.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFalse,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFalse,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("should be false", () => {
+  expect(false).toBeFalse();
+  expect(true).not.toBeFalse();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

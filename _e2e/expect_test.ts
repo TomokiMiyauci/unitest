@@ -17,6 +17,7 @@ import {
   toBeEmptyObject,
   toBeEven,
   toBeExtensible,
+  toBeFalse,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -248,4 +249,18 @@ test("passes when value is extensible", () => {
   });
   expect({ a: 1 }).toBeExtensible();
   expect(1).not.toBeExtensible();
+});
+
+test("should be false", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFalse,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(false).toBeFalse();
+  expect(true).not.toBeFalse();
 });
