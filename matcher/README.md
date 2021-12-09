@@ -463,3 +463,29 @@ test("passes when value is extensible", () => {
   expect(1).not.toBeExtensible();
 });
 ```
+
+## TODO
+
+- [ ] Implement expecter and jest default matcher (rest)
+  - toMatchObject
+  - toMatchSnapshot
+  - toMatchInlineSnapshot
+  - toStrictEqual
+  - toThrowErrorMatchingSnapshot
+  - toThrowErrorMatchingInlineSnapshot
+- [ ] Implement third party matcher (rest)
+  - jest-extended
+    - ~~toBeArrayOfSize~~ toHaveLength
+    - toIncludeAllPartialMembers
+    - toThrowWithMessage
+    - toHaveBeenCalledBefore
+    - toHaveBeenCalledAfter
+    - toHaveBeenCalledOnce
+    - ~~toBeNaN~~ exists in jest
+    - ~~toContainKey~~ same as toHaveProperty
+    - toContainAllKeys
+    - toContainAllValues
+    - toContainAllEntries
+    - ~~toResolve~~ not pure
+    - ~~toReject~~ not pure
+    - ~~toBeHexadecimal~~ -> toBeHexColor
