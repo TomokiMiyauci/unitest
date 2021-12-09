@@ -30,6 +30,7 @@ import {
   toBeOdd,
   toBeOneOf,
   toBePositive,
+  toBeSealed,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -496,4 +497,18 @@ test("passes when value is a positive number", () => {
   expect(Infinity).not.toBePositive();
   expect(-1).not.toBePositive();
   expect(NaN).not.toBePositive();
+});
+
+test("passes when value is sealed", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeSealed,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(Object.seal({})).toBeSealed();
+  expect(1).toBeSealed();
+  expect({}).not.toBeSealed();
 });
