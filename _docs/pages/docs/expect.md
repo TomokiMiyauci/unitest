@@ -301,3 +301,33 @@ test("passes when value is a valid toBeDateString", () => {
   expect("not a date").not.toBeDateString();
 });
 ```
+
+## toBeDate
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeDate` when checking if a value is a Date.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeDate,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeDate,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a date", () => {
+  expect(new Date("01/01/2018")).toBeDate();
+  expect("01/01/2018").not.toBeDate();
+  expect(undefined).not.toBeDate();
+});
+```

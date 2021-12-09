@@ -11,6 +11,7 @@ import {
   toBeBeforeOrEqualTo,
   toBeBetween,
   toBeBoolean,
+  toBeDate,
   toBeDateString,
   toStartWith,
   toThrow,
@@ -167,4 +168,19 @@ test("passes when value is a valid toBeDateString", () => {
   expect("2019-11-27T14:05:07.520Z").toBeDateString();
   expect("11/12/21").toBeDateString();
   expect("not a date").not.toBeDateString();
+});
+
+test("passes when value is a date", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeDate,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("01/01/2018")).toBeDate();
+  expect("01/01/2018").not.toBeDate();
+  expect(undefined).not.toBeDate();
 });
