@@ -13,6 +13,7 @@ import {
   toBeBoolean,
   toBeDate,
   toBeDateString,
+  toBeEmpty,
   toBeEmptyObject,
   toStartWith,
   toThrow,
@@ -204,4 +205,17 @@ test("passes when value is an empty object", () => {
   expect({}).toBeEmptyObject();
   expect([]).toBeEmptyObject();
   expect({ a: "hello" }).not.toBeEmptyObject();
+});
+
+test("passes when given an empty", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeEmpty,
+    },
+  });
+
+  expect("").toBeEmpty();
+  expect([]).toBeEmpty();
+  expect({}).toBeEmpty();
+  expect(new Map()).toBeEmpty();
 });
