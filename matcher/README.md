@@ -682,6 +682,36 @@ test("passes when value is instance of class", () => {
 });
 ```
 
+## toBeInteger
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeInteger` when checking if a number is an integer.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeInteger,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeInteger,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an integer", () => {
+  expect(1).toBeInteger();
+  expect(1.0).toBeInteger();
+  expect(1.1).not.toBeInteger();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

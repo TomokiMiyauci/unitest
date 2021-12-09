@@ -22,6 +22,7 @@ import {
   toBeFrozen,
   toBeFunction,
   toBeHexColor,
+  toBeInteger,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -351,4 +352,18 @@ test("passes when value is instance of class", () => {
   expect(new A()).toBeInstanceOf(A);
   expect(() => {}).toBeInstanceOf(Function);
   expect(new A()).not.toBeInstanceOf(Function);
+});
+
+test("passes when value is an integer", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeInteger,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeInteger();
+  expect(1.0).toBeInteger();
+  expect(1.1).not.toBeInteger();
 });
