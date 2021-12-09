@@ -13,6 +13,7 @@ import {
   toBeBoolean,
   toBeDate,
   toBeDateString,
+  toBeEmptyObject,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -188,4 +189,19 @@ test("passes when value is a date", () => {
 test("there is a new flavor idea", () => {
   expect("defined").toBeDefined();
   expect(undefined).not.toBeDefined();
+});
+
+test("passes when value is an empty object", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeEmptyObject,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect({}).toBeEmptyObject();
+  expect([]).toBeEmptyObject();
+  expect({ a: "hello" }).not.toBeEmptyObject();
 });

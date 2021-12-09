@@ -346,3 +346,33 @@ test("there is a new flavor idea", () => {
   expect(undefined).not.toBeDefined();
 });
 ```
+
+## toBeEmptyObject
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeEmptyObject` when checking if a value is an empty Object.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeEmptyObject,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeEmptyObject,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an empty object", () => {
+  expect({}).toBeEmptyObject();
+  expect([]).toBeEmptyObject();
+  expect({ a: "hello" }).not.toBeEmptyObject();
+});
+```
