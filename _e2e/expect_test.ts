@@ -11,7 +11,12 @@ import {
   toBeBeforeOrEqualTo,
   toBeBetween,
   toBeBoolean,
+  toBeDate,
   toBeDateString,
+  toBeEmpty,
+  toBeEmptyObject,
+  toBeEven,
+  toBeExtensible,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -167,4 +172,80 @@ test("passes when value is a valid toBeDateString", () => {
   expect("2019-11-27T14:05:07.520Z").toBeDateString();
   expect("11/12/21").toBeDateString();
   expect("not a date").not.toBeDateString();
+});
+
+test("passes when value is a date", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeDate,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("01/01/2018")).toBeDate();
+  expect("01/01/2018").not.toBeDate();
+  expect(undefined).not.toBeDate();
+});
+
+test("there is a new flavor idea", () => {
+  expect("defined").toBeDefined();
+  expect(undefined).not.toBeDefined();
+});
+
+test("passes when value is an empty object", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeEmptyObject,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect({}).toBeEmptyObject();
+  expect([]).toBeEmptyObject();
+  expect({ a: "hello" }).not.toBeEmptyObject();
+});
+
+test("passes when given an empty", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeEmpty,
+    },
+  });
+
+  expect("").toBeEmpty();
+  expect([]).toBeEmpty();
+  expect({}).toBeEmpty();
+  expect(new Map()).toBeEmpty();
+});
+
+test("passes when value is an even number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeEven,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(2).toBeEven();
+  expect(1).not.toBeEven();
+  expect(NaN).not.toBeEven();
+});
+
+test("passes when value is extensible", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeExtensible,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect({ a: 1 }).toBeExtensible();
+  expect(1).not.toBeExtensible();
 });

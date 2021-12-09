@@ -80,32 +80,3 @@ Please see our [CONTRIBUTING.md](./CONTRIBUTING.MD).
 Copyright © 2021-present [TomokiMiyauci](https://github.com/TomokiMiyauci).
 
 Released under the [MIT](./LICENSE) license
-
-## TODO
-
-- [ ] Implement expecter and jest default matcher (rest)
-  - toMatchObject
-  - toMatchSnapshot
-  - toMatchInlineSnapshot
-  - toStrictEqual
-  - toThrowErrorMatchingSnapshot
-  - toThrowErrorMatchingInlineSnapshot
-- [ ] Implement third party matcher (rest)
-  - jest-extended
-    - ~~toBeArrayOfSize~~ toHaveLength
-    - toIncludeAllPartialMembers
-    - toThrowWithMessage
-    - toHaveBeenCalledBefore
-    - toHaveBeenCalledAfter
-    - toHaveBeenCalledOnce
-    - ~~toBeNaN~~ exists in jest
-    - ~~toContainKey~~ same as toHaveProperty
-    - toContainAllKeys
-    - toContainAllValues
-    - toContainAllEntries
-    - ~~toResolve~~ not pure
-    - ~~toReject~~ not pure
-    - ~~toBeHexadecimal~~ -> toBeHexColor
-- [x] Implement interface of custom matcher
-- [ ] Implement `test` suite
-- [x] ~~Implement `describe` suite~~

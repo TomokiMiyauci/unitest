@@ -301,3 +301,191 @@ test("passes when value is a valid toBeDateString", () => {
   expect("not a date").not.toBeDateString();
 });
 ```
+
+## toBeDate
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeDate` when checking if a value is a Date.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeDate,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeDate,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a date", () => {
+  expect(new Date("01/01/2018")).toBeDate();
+  expect("01/01/2018").not.toBeDate();
+  expect(undefined).not.toBeDate();
+});
+```
+
+## toBeDefined
+
+preset: `jestMatcherMap`
+
+Use `.toBeDefined` to check that a variable is not undefined.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("there is a new flavor idea", () => {
+  expect("defined").toBeDefined();
+  expect(undefined).not.toBeDefined();
+});
+```
+
+## toBeEmptyObject
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeEmptyObject` when checking if a value is an empty Object.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeEmptyObject,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeEmptyObject,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an empty object", () => {
+  expect({}).toBeEmptyObject();
+  expect([]).toBeEmptyObject();
+  expect({ a: "hello" }).not.toBeEmptyObject();
+});
+```
+
+## toBeEmpty
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeEmpty` when checking if a String `''`, `Array` `[]`, `Object` `{}`, or
+`Iterable` is empty.
+
+```ts
+import {
+  defineExpect,
+  test,
+  toBeEmpty,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeEmpty,
+  },
+});
+
+test("passes when given an empty", () => {
+  expect("").toBeEmpty();
+  expect([]).toBeEmpty();
+  expect({}).toBeEmpty();
+  expect(new Map()).toBeEmpty();
+});
+```
+
+## toBeEven
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeEven` when checking if a value is an even `Number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeEven,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeEven,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an even number", () => {
+  expect(2).toBeEven();
+  expect(1).not.toBeEven();
+  expect(NaN).not.toBeEven();
+});
+```
+
+## toBeExtensible
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeExtensible` when checking if an object is extensible.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeExtensible,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeExtensible,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is extensible", () => {
+  expect({ a: 1 }).toBeExtensible();
+  expect(1).not.toBeExtensible();
+});
+```
+
+## TODO
+
+- [ ] Implement expecter and jest default matcher (rest)
+  - toMatchObject
+  - toMatchSnapshot
+  - toMatchInlineSnapshot
+  - toStrictEqual
+  - toThrowErrorMatchingSnapshot
+  - toThrowErrorMatchingInlineSnapshot
+- [ ] Implement third party matcher (rest)
+  - jest-extended
+    - ~~toBeArrayOfSize~~ toHaveLength
+    - toIncludeAllPartialMembers
+    - toThrowWithMessage
+    - toHaveBeenCalledBefore
+    - toHaveBeenCalledAfter
+    - toHaveBeenCalledOnce
+    - ~~toBeNaN~~ exists in jest
+    - ~~toContainKey~~ same as toHaveProperty
+    - toContainAllKeys
+    - toContainAllValues
+    - toContainAllEntries
+    - ~~toResolve~~ not pure
+    - ~~toReject~~ not pure
+    - ~~toBeHexadecimal~~ -> toBeHexColor
