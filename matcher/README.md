@@ -618,6 +618,22 @@ test("passes when value greater than or equal to", () => {
 });
 ```
 
+## toBeGreaterThan
+
+preset: `jestMatcherMap`
+
+Use `.toBeGreaterThan` to compare `actual > expected` for `number` or `bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value greater than", () => {
+  expect(100).toBeGreaterThan(99);
+  expect(100n).toBeGreaterThan(99n);
+  expect(1).not.toBeGreaterThan(1);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
