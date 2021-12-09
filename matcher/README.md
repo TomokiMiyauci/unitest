@@ -1354,6 +1354,37 @@ test("passes when object contains all of the given entries", () => {
 });
 ```
 
+## toContainEntry
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainEntry` when checking if an object contains the provided entry.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainEntry,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainEntry,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains given entry", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainEntry(["a", "foo"]);
+  expect(object).toContainEntry(["c", "baz"]);
+  expect(object).not.toContainEntry(["a", "qux"]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
