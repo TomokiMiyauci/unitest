@@ -264,3 +264,9 @@ test("should be false", () => {
   expect(false).toBeFalse();
   expect(true).not.toBeFalse();
 });
+
+test("should be falsy", () => {
+  expect(false).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect(1).not.toBeFalsy();
+});

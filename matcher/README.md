@@ -493,6 +493,23 @@ test("should be false", () => {
 });
 ```
 
+## toBeFalsy
+
+preset: `jestMatcherMap`
+
+Use `.toBeFalsy` when you don't care what a value is and you want to ensure a
+value is false in a boolean context.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be falsy", () => {
+  expect(false).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect(1).not.toBeFalsy();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
