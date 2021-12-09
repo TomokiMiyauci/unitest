@@ -16,6 +16,7 @@ import {
   toBeEmpty,
   toBeEmptyObject,
   toBeEven,
+  toBeExtensible,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -234,4 +235,17 @@ test("passes when value is an even number", () => {
   expect(2).toBeEven();
   expect(1).not.toBeEven();
   expect(NaN).not.toBeEven();
+});
+
+test("passes when value is extensible", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeExtensible,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect({ a: 1 }).toBeExtensible();
+  expect(1).not.toBeExtensible();
 });
