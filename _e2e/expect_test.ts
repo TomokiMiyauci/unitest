@@ -21,6 +21,7 @@ import {
   toBeFinite,
   toBeFrozen,
   toBeFunction,
+  toBeHexColor,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -328,4 +329,19 @@ test("passes when value greater than", () => {
   expect(100).toBeGreaterThan(99);
   expect(100n).toBeGreaterThan(99n);
   expect(1).not.toBeGreaterThan(1);
+});
+
+test("passes when value is a valid hex color", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeHexColor,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("#abc123").toBeHexColor();
+  expect("#FFF").toBeHexColor();
+  expect("#000000").toBeHexColor();
+  expect("#123ffg").not.toBeHexColor();
 });

@@ -634,6 +634,37 @@ test("passes when value greater than", () => {
 });
 ```
 
+## toBeHexColor
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeHexadecimal` when checking if a value is a valid HTML hex color.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeHexColor,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeHexColor,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a valid hex color", () => {
+  expect("#abc123").toBeHexColor();
+  expect("#FFF").toBeHexColor();
+  expect("#000000").toBeHexColor();
+  expect("#123ffg").not.toBeHexColor();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
