@@ -745,6 +745,22 @@ test("passes when value less than", () => {
 });
 ```
 
+## toBeNaN
+
+preset: `jestMatcherMap`
+
+Use `.toBeNaN` when checking a value is `NaN`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than", () => {
+  expect(NaN).toBeNaN();
+  expect(-NaN).toBeNaN();
+  expect(1).not.toBeNaN();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
