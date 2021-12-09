@@ -821,3 +821,395 @@ test("passes when value is null or undefined", () => {
   expect(true).not.toBeNil();
 });
 ```
+
+## toBeNull
+
+preset: `jestMatcherMap`
+
+Use `.toBeNull` when checking a value is `null`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value is null", () => {
+  expect(null).toBeNull();
+  expect(undefined).not.toBeNull();
+});
+```
+
+## toBeNumber
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeNumber` when checking if a value is a `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeNumber,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeNumber,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a number", () => {
+  expect(1).toBeNumber();
+  expect(NaN).toBeNumber();
+  expect(Infinity).toBeNumber();
+  expect(true).not.toBeNumber();
+});
+```
+
+## toBeObject
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeObject` when checking if a value is an `Object`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeObject,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeObject,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an object", () => {
+  expect({}).toBeObject();
+  expect({ a: "hello" }).toBeObject();
+  expect(true).not.toBeObject();
+});
+```
+
+## toBeOdd
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeOdd` when checking if a value is an odd `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeOdd,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeOdd,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an odd number", () => {
+  expect(1).toBeOdd();
+  expect(2).not.toBeOdd();
+  expect(NaN).not.toBeOdd();
+});
+```
+
+## toBeOneOf
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeOneOf` when checking if a value is a member of a given `Array`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeOneOf,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeOneOf,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is in given array", () => {
+  expect(1).toBeOneOf([1, 2, 3]);
+  expect(4).not.toBeOneOf([1, 2, 3]);
+});
+```
+
+## toBePositive
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBePositive` when checking if a value is a positive `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBePositive,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBePositive,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a positive number", () => {
+  expect(1).toBePositive();
+  expect(Infinity).not.toBePositive();
+  expect(-1).not.toBePositive();
+  expect(NaN).not.toBePositive();
+});
+```
+
+## toBeSealed
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeSealed` when checking if an value is sealed.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeSealed,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeSealed,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is sealed", () => {
+  expect(Object.seal({})).toBeSealed();
+  expect(1).toBeSealed();
+  expect({}).not.toBeSealed();
+});
+```
+
+## toBeString
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeString` when checking if a value is a `string`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeString,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeString,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a string", () => {
+  expect("").toBeString();
+  expect("hello").toBeString();
+  expect(new String("hello")).not.toBeString();
+});
+```
+
+## toBeSymbol
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeSymbol` when checking if a value is a `symbol`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeSymbol,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeSymbol,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a symbol", () => {
+  expect(Symbol()).toBeSymbol();
+  expect(true).not.toBeSymbol();
+});
+```
+
+## toBeTrue
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeTrue` when checking a value is `true`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeTrue,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeTrue,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is true", () => {
+  expect(true).toBeTrue();
+  expect(false).not.toBeTrue();
+});
+```
+
+## toBeTruthy
+
+preset: `jestMatcherMap`
+
+Use `.toBeTruthy` when you don't care what a value is and you want to ensure a
+value is true in a boolean context.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be truthy", () => {
+  expect(true).toBeTruthy();
+  expect(1).toBeTruthy();
+  expect(0).not.toBeTruthy();
+});
+```
+
+## toBeUndefined
+
+preset: `jestMatcherMap`
+
+Use `.toBeUndefined` to check that a value is `undefined`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be truthy", () => {
+  expect(undefined).toBeUndefined();
+  expect(null).not.toBeUndefined();
+});
+```
+
+## toBeValidDate
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeValidDate` when check that a `Date` is valid.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeValidDate,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeValidDate,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when Date is valid", () => {
+  expect(new Date("01/01/2018")).toBeValidDate();
+  expect(new Date("01/90/2018")).not.toBeValidDate();
+  expect(new Date("invalid")).not.toBeValidDate();
+});
+```
+
+## toBeWithin
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeWithin` when checking if a `number` is in between the given bounds of:
+start (inclusive) and end (exclusive).
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeWithin,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeWithin,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when number is within given bounds", () => {
+  expect(1).toBeWithin(1, 3);
+  expect(2).toBeWithin(1, 3);
+  expect(3).not.toBeWithin(1, 3);
+});
+```
+
+## toBe
+
+preset: `jestMatcherMap`
+
+Use `.toBe` to compare primitive values.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be", () => {
+  expect(0).toBe(0);
+  expect(0).not.toBe(-0);
+});
+```
