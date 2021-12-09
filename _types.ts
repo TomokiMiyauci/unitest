@@ -18,13 +18,13 @@ type PickByFirstParameter<T extends Record<string, AnyFn>, U> = {
 
 type Resolve<T> = T extends Promise<infer X> ? X : T;
 
-type IsPromise<T> = T extends Promise<any> ? true : false;
+type IsPromise<T> = T extends Promise<unknown> ? true : false;
 
 type ReturnTypePromisifyMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: (...args: Parameters<T[k]>) => Promise<ReturnType<T[k]>>;
 };
 
-type Shift<T> = T extends [infer _, ...infer Rest] ? Rest : never;
+type Shift<T> = T extends [unknown, ...infer Rest] ? Rest : never;
 
 type ShiftFnArg<T extends AnyFn> = IsNever<Shift<Parameters<T>>> extends true
   ? () => ReturnType<T>
