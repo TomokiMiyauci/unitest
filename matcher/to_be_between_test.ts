@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeBetween } from "./to_be_between.ts";
+import { stringify } from "../helper/format.ts";
 
 Deno.test({
   name: "toBeBetween",
@@ -43,6 +44,20 @@ Deno.test({
         new Date("2000/1/1 00:00:00"),
         new Date("2000/1/1 00:00:00"),
       ),
+    );
+
+    assertEquals(
+      toBeBetween(
+        new Date("2000/1/1 00:00:01"),
+        new Date("2000/1/1 00:00:00"),
+        new Date("2000/1/1 00:00:00"),
+      ),
+      {
+        pass: false,
+        expected: `${stringify(new Date("2000/1/1 00:00:00"))} <= Actual <= ${
+          stringify(new Date("2000/1/1 00:00:00"))
+        }`,
+      },
     );
   },
 });

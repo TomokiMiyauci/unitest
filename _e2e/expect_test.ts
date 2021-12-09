@@ -9,6 +9,7 @@ import {
   toBeArray,
   toBeBefore,
   toBeBeforeOrEqualTo,
+  toBeBetween,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -106,4 +107,28 @@ test("passes when input is before date", () => {
 
   expect(new Date("01/01/2018")).toBeBefore(new Date("01/01/2019"));
   expect(new Date("01/01/2019")).not.toBeBefore(new Date("01/01/2018"));
+});
+
+test("passes when input is in given date range", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeBetween,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("05/01/2019")).toBeBetween(
+    new Date("01/01/2019"),
+    new Date("10/01/2019"),
+  );
+  expect(new Date("05/01/2019")).toBeBetween(
+    new Date("05/01/2019"),
+    new Date("10/01/2019"),
+  );
+  expect(new Date("01/01/2019")).not.toBeBetween(
+    new Date("05/01/2019"),
+    new Date("10/01/2019"),
+  );
 });
