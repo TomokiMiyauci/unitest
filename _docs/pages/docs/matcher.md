@@ -681,3 +681,143 @@ test("passes when value is instance of class", () => {
   expect(new A()).not.toBeInstanceOf(Function);
 });
 ```
+
+## toBeInteger
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeInteger` when checking if a number is an integer.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeInteger,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeInteger,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an integer", () => {
+  expect(1).toBeInteger();
+  expect(1.0).toBeInteger();
+  expect(1.1).not.toBeInteger();
+});
+```
+
+## toBeLessThanOrEqual
+
+preset: `jestMatcherMap`
+
+Use `.toBeLessThanOrEqual` to compare `actual <= expected` for `number` or
+`bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than or equal to", () => {
+  expect(99).toBeLessThanOrEqual(100);
+  expect(100n).toBeLessThanOrEqual(100n);
+  expect(1).not.toBeLessThanOrEqual(0);
+});
+```
+
+## toBeLessThan
+
+preset: `jestMatcherMap`
+
+Use `.toBeLessThan` to compare `actual < expected` for `number` or `bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than", () => {
+  expect(99).toBeLessThan(100);
+  expect(99n).toBeLessThan(100n);
+  expect(1).not.toBeLessThan(0);
+});
+```
+
+## toBeNaN
+
+preset: `jestMatcherMap`
+
+Use `.toBeNaN` when checking a value is `NaN`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than", () => {
+  expect(NaN).toBeNaN();
+  expect(-NaN).toBeNaN();
+  expect(1).not.toBeNaN();
+});
+```
+
+## toBeNegative
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeNegative` when checking if a value is a negative `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeNegative,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeNegative,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a negative number", () => {
+  expect(-1).toBeNegative();
+  expect(-Infinity).not.toBeNegative();
+  expect(1).not.toBeNegative();
+  expect(NaN).not.toBeNegative();
+});
+```
+
+## toBeNil
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeNil` when checking a value is `null` or `undefined`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeNil,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeNil,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is null or undefined", () => {
+  expect(null).toBeNil();
+  expect(undefined).toBeNil();
+  expect(true).not.toBeNil();
+});
+```
