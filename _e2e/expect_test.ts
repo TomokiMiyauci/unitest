@@ -367,3 +367,9 @@ test("passes when value is an integer", () => {
   expect(1.0).toBeInteger();
   expect(1.1).not.toBeInteger();
 });
+
+test("passes when value less than or equal to", () => {
+  expect(99).toBeLessThanOrEqual(100);
+  expect(100n).toBeLessThanOrEqual(100n);
+  expect(1).not.toBeLessThanOrEqual(0);
+});
