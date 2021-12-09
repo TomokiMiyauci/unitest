@@ -868,6 +868,36 @@ test("passes when value is a number", () => {
 });
 ```
 
+## toBeObject
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeObject` when checking if a value is an `Object`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeObject,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeObject,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an object", () => {
+  expect({}).toBeObject();
+  expect({ a: "hello" }).toBeObject();
+  expect(true).not.toBeObject();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
