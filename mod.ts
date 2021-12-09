@@ -94,6 +94,8 @@ export * from "./matcher/types.ts";
 export * from "./mock/fn.ts";
 export * from "./mock/mock.ts";
 export * from "./mock/spy_on.ts";
+export * from "./mock/global_this.ts";
+
 export { defineExpect, expect } from "./expect/mod.ts";
 export type { Expected, MatcherMap } from "./expect/mod.ts";
 export { anything } from "./dummy/anything.ts";
