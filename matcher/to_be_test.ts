@@ -31,5 +31,9 @@ Deno.test({
   fn: () => {
     assertSuccess(toBe("", ""));
     assertFail(toBe("", " "));
+    assertEquals(toBe(0, 1), {
+      pass: false,
+      expected: 1,
+    });
   },
 });

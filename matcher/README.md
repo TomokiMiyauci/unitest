@@ -1199,6 +1199,21 @@ test("passes when number is within given bounds", () => {
 });
 ```
 
+## toBe
+
+preset: `jestMatcherMap`
+
+Use `.toBe` to compare primitive values.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be", () => {
+  expect(0).toBe(0);
+  expect(0).not.toBe(-0);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

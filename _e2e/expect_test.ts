@@ -596,3 +596,8 @@ test("passes when number is within given bounds", () => {
   expect(2).toBeWithin(1, 3);
   expect(3).not.toBeWithin(1, 3);
 });
+
+test("should be", () => {
+  expect(0).toBe(0);
+  expect(0).not.toBe(-0);
+});
