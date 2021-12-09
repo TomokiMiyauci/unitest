@@ -571,6 +571,36 @@ test("passes when value is frozen", () => {
 });
 ```
 
+## toBeFunction
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFunction` when checking if a value is a `Function`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFunction,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFunction,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a function", () => {
+  expect(() => {}).toBeFunction();
+  expect(function () {}).toBeFunction();
+  expect(true).not.toBeFunction();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

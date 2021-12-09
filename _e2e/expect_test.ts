@@ -20,6 +20,7 @@ import {
   toBeFalse,
   toBeFinite,
   toBeFrozen,
+  toBeFunction,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -301,4 +302,18 @@ test("passes when value is frozen", () => {
   expect(Object.freeze({})).toBeFrozen();
   expect(1).toBeFrozen();
   expect({}).not.toBeFrozen();
+});
+
+test("passes when value is a function", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFunction,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(() => {}).toBeFunction();
+  expect(function () {}).toBeFunction();
+  expect(true).not.toBeFunction();
 });
