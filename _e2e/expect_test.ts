@@ -31,6 +31,7 @@ import {
   toBeOneOf,
   toBePositive,
   toBeSealed,
+  toBeString,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -511,4 +512,18 @@ test("passes when value is sealed", () => {
   expect(Object.seal({})).toBeSealed();
   expect(1).toBeSealed();
   expect({}).not.toBeSealed();
+});
+
+test("passes when value is a string", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeString,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("").toBeString();
+  expect("hello").toBeString();
+  expect(new String("hello")).not.toBeString();
 });

@@ -1018,6 +1018,36 @@ test("passes when value is sealed", () => {
 });
 ```
 
+## toBeString
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeString` when checking if a value is a `string`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeString,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeString,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a string", () => {
+  expect("").toBeString();
+  expect("hello").toBeString();
+  expect(new String("hello")).not.toBeString();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
