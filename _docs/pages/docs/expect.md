@@ -189,6 +189,8 @@ test("passes when input is before date", () => {
 
 ## toBeBetween
 
+preset: `jestExtendedMatcherMap`
+
 Use `.toBeBetween` when checking if a date equals or occurs after `startDate`
 and equals or occurs before `endDate`.
 
@@ -222,5 +224,36 @@ test("passes when input is in given date range", () => {
     new Date("05/01/2019"),
     new Date("10/01/2019"),
   );
+});
+```
+
+## toBeBoolean
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeBoolean` when checking if a value is a `boolean`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeBoolean,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeBoolean,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a boolean", () => {
+  expect(false).toBeBoolean();
+  expect(true).toBeBoolean();
+  expect(1 === 1).toBeBoolean();
+  expect(1).not.toBeBoolean();
 });
 ```

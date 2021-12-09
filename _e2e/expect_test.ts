@@ -10,6 +10,7 @@ import {
   toBeBefore,
   toBeBeforeOrEqualTo,
   toBeBetween,
+  toBeBoolean,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -131,4 +132,19 @@ test("passes when input is in given date range", () => {
     new Date("05/01/2019"),
     new Date("10/01/2019"),
   );
+});
+
+test("passes when value is a boolean", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeBoolean,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(false).toBeBoolean();
+  expect(true).toBeBoolean();
+  expect(1 === 1).toBeBoolean();
+  expect(1).not.toBeBoolean();
 });

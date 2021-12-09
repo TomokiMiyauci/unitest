@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeBoolean } from "./to_be_boolean.ts";
 
 Deno.test({
@@ -9,5 +9,10 @@ Deno.test({
     assertSuccess(toBeBoolean(false));
     assertFail(toBeBoolean(new Boolean()));
     assertFail(toBeBoolean({}));
+
+    assertEquals(toBeBoolean(1), {
+      pass: false,
+      expected: "boolean",
+    });
   },
 });
