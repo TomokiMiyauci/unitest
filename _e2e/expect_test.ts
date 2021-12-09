@@ -601,3 +601,7 @@ test("should be", () => {
   expect(0).toBe(0);
   expect(0).not.toBe(-0);
 });
+
+test("promise", async () => {
+  await expect(Promise.resolve("test")).resolves.not.toBe("tes");
+});
