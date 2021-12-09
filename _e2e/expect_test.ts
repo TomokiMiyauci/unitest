@@ -23,6 +23,7 @@ import {
   toBeFunction,
   toBeHexColor,
   toBeInteger,
+  toBeNegative,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -384,4 +385,19 @@ test("passes when value less than", () => {
   expect(NaN).toBeNaN();
   expect(-NaN).toBeNaN();
   expect(1).not.toBeNaN();
+});
+
+test("passes when value is a negative number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeNegative,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(-1).toBeNegative();
+  expect(-Infinity).not.toBeNegative();
+  expect(1).not.toBeNegative();
+  expect(NaN).not.toBeNegative();
 });
