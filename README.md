@@ -75,7 +75,7 @@ change in the future.**
 
 ## Contributing
 
-Please see our [CONTRIBUTING.md](./CONTRIBUTING.MD).
+Please see our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
