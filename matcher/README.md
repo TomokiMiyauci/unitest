@@ -127,6 +127,8 @@ test("passes when value is an array", () => {
 
 ## toBeBeforeOrEqualTo
 
+preset: `jestExtendedMatcherMap`
+
 Use `.toBeBeforeOrEqualTo` when checking if a date equals to or occurs before
 `date`.
 
@@ -153,5 +155,34 @@ test("passes when input is equal to or before date", () => {
   expect(new Date("01/01/2019")).not.toBeBeforeOrEqualTo(
     new Date("01/01/2018"),
   );
+});
+```
+
+## toBeBefore(date)
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeBefore` when checking if a date occurs before `date`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeBefore,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeBefore,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when input is before date", () => {
+  expect(new Date("01/01/2018")).toBeBefore(new Date("01/01/2019"));
+  expect(new Date("01/01/2019")).not.toBeBefore(new Date("01/01/2018"));
 });
 ```

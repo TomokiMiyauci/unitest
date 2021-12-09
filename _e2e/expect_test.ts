@@ -7,6 +7,7 @@ import {
   toBeAfter,
   toBeAfterOrEqualTo,
   toBeArray,
+  toBeBefore,
   toBeBeforeOrEqualTo,
   toStartWith,
   toThrow,
@@ -91,4 +92,18 @@ test("passes when input is equal to or before date", () => {
   expect(new Date("01/01/2019")).not.toBeBeforeOrEqualTo(
     new Date("01/01/2018"),
   );
+});
+
+test("passes when input is before date", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeBefore,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(new Date("01/01/2018")).toBeBefore(new Date("01/01/2019"));
+  expect(new Date("01/01/2019")).not.toBeBefore(new Date("01/01/2018"));
 });
