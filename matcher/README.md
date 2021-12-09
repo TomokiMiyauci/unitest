@@ -665,6 +665,23 @@ test("passes when value is a valid hex color", () => {
 });
 ```
 
+## toBeInstanceOf
+
+preset: `jestMatcherMap`
+
+Use `.toBeInstanceOf` to check that an object is an instance of a class.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value is instance of class", () => {
+  class A {}
+  expect(new A()).toBeInstanceOf(A);
+  expect(() => {}).toBeInstanceOf(Function);
+  expect(new A()).not.toBeInstanceOf(Function);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

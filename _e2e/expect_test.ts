@@ -345,3 +345,10 @@ test("passes when value is a valid hex color", () => {
   expect("#000000").toBeHexColor();
   expect("#123ffg").not.toBeHexColor();
 });
+
+test("passes when value is instance of class", () => {
+  class A {}
+  expect(new A()).toBeInstanceOf(A);
+  expect(() => {}).toBeInstanceOf(Function);
+  expect(new A()).not.toBeInstanceOf(Function);
+});
