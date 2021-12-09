@@ -541,6 +541,36 @@ test("passes when value is a finite number", () => {
 });
 ```
 
+## toBeFrozen
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFrozen` when checking if an object is frozen.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFrozen,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFrozen,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is frozen", () => {
+  expect(Object.freeze({})).toBeFrozen();
+  expect(1).toBeFrozen();
+  expect({}).not.toBeFrozen();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

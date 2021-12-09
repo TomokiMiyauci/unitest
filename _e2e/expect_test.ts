@@ -19,6 +19,7 @@ import {
   toBeExtensible,
   toBeFalse,
   toBeFinite,
+  toBeFrozen,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -285,4 +286,19 @@ test("passes when value is a finite number", () => {
   expect(1).toBeFinite();
   expect(Infinity).not.toBeFinite();
   expect(NaN).not.toBeFinite();
+});
+
+test("passes when value is frozen", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFrozen,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(Object.freeze({})).toBeFrozen();
+  expect(1).toBeFrozen();
+  expect({}).not.toBeFrozen();
 });
