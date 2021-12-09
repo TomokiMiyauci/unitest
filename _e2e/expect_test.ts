@@ -25,6 +25,7 @@ import {
   toBeInteger,
   toBeNegative,
   toBeNil,
+  toBeNumber,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -420,4 +421,19 @@ test("passes when value is null or undefined", () => {
 test("passes when value is null", () => {
   expect(null).toBeNull();
   expect(undefined).not.toBeNull();
+});
+
+test("passes when value is a number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeNumber,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeNumber();
+  expect(NaN).toBeNumber();
+  expect(Infinity).toBeNumber();
+  expect(true).not.toBeNumber();
 });

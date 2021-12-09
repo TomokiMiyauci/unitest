@@ -837,6 +837,37 @@ test("passes when value is null", () => {
 });
 ```
 
+## toBeNumber
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeNumber` when checking if a value is a `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeNumber,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeNumber,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a number", () => {
+  expect(1).toBeNumber();
+  expect(NaN).toBeNumber();
+  expect(Infinity).toBeNumber();
+  expect(true).not.toBeNumber();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
