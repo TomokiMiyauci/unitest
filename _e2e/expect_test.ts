@@ -555,3 +555,9 @@ test("passes when value is true", () => {
   expect(true).toBeTrue();
   expect(false).not.toBeTrue();
 });
+
+test("should be truthy", () => {
+  expect(true).toBeTruthy();
+  expect(1).toBeTruthy();
+  expect(0).not.toBeTruthy();
+});
