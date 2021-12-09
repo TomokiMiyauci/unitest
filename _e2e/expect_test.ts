@@ -148,3 +148,7 @@ test("passes when value is a boolean", () => {
   expect(1 === 1).toBeBoolean();
   expect(1).not.toBeBoolean();
 });
+
+test("adding works sanely with decimals", () => {
+  expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
+});

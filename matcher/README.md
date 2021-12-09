@@ -257,3 +257,15 @@ test("passes when value is a boolean", () => {
   expect(1).not.toBeBoolean();
 });
 ```
+
+## toBeCloseTo
+
+Use `.toBeCloseTo` to compare floating point numbers for approximate equality.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("adding works sanely with decimals", () => {
+  expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
+});
+```
