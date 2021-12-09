@@ -373,3 +373,9 @@ test("passes when value less than or equal to", () => {
   expect(100n).toBeLessThanOrEqual(100n);
   expect(1).not.toBeLessThanOrEqual(0);
 });
+
+test("passes when value less than", () => {
+  expect(99).toBeLessThan(100);
+  expect(99n).toBeLessThan(100n);
+  expect(1).not.toBeLessThan(0);
+});
