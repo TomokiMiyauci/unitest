@@ -25,6 +25,17 @@ import {
   toBeInteger,
   toBeNegative,
   toBeNil,
+  toBeNumber,
+  toBeObject,
+  toBeOdd,
+  toBeOneOf,
+  toBePositive,
+  toBeSealed,
+  toBeString,
+  toBeSymbol,
+  toBeTrue,
+  toBeValidDate,
+  toBeWithin,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -415,4 +426,178 @@ test("passes when value is null or undefined", () => {
   expect(null).toBeNil();
   expect(undefined).toBeNil();
   expect(true).not.toBeNil();
+});
+
+test("passes when value is null", () => {
+  expect(null).toBeNull();
+  expect(undefined).not.toBeNull();
+});
+
+test("passes when value is a number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeNumber,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeNumber();
+  expect(NaN).toBeNumber();
+  expect(Infinity).toBeNumber();
+  expect(true).not.toBeNumber();
+});
+
+test("passes when value is an object", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeObject,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect({}).toBeObject();
+  expect({ a: "hello" }).toBeObject();
+  expect(true).not.toBeObject();
+});
+
+test("passes when value is an odd number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeOdd,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeOdd();
+  expect(2).not.toBeOdd();
+  expect(NaN).not.toBeOdd();
+});
+
+test("passes when value is in given array", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeOneOf,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeOneOf([1, 2, 3]);
+  expect(4).not.toBeOneOf([1, 2, 3]);
+});
+
+test("passes when value is a positive number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBePositive,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBePositive();
+  expect(Infinity).not.toBePositive();
+  expect(-1).not.toBePositive();
+  expect(NaN).not.toBePositive();
+});
+
+test("passes when value is sealed", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeSealed,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(Object.seal({})).toBeSealed();
+  expect(1).toBeSealed();
+  expect({}).not.toBeSealed();
+});
+
+test("passes when value is a string", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeString,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("").toBeString();
+  expect("hello").toBeString();
+  expect(new String("hello")).not.toBeString();
+});
+
+test("passes when value is a symbol", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeSymbol,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(Symbol()).toBeSymbol();
+  expect(true).not.toBeSymbol();
+});
+
+test("passes when value is true", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeTrue,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(true).toBeTrue();
+  expect(false).not.toBeTrue();
+});
+
+test("should be truthy", () => {
+  expect(true).toBeTruthy();
+  expect(1).toBeTruthy();
+  expect(0).not.toBeTruthy();
+});
+
+test("should be truthy", () => {
+  expect(undefined).toBeUndefined();
+  expect(null).not.toBeUndefined();
+});
+
+test("passes when Date is valid", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeValidDate,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(new Date("01/01/2018")).toBeValidDate();
+  expect(new Date("01/90/2018")).not.toBeValidDate();
+  expect(new Date("invalid")).not.toBeValidDate();
+});
+
+test("passes when number is within given bounds", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeWithin,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeWithin(1, 3);
+  expect(2).toBeWithin(1, 3);
+  expect(3).not.toBeWithin(1, 3);
+});
+
+test("should be", () => {
+  expect(0).toBe(0);
+  expect(0).not.toBe(-0);
 });

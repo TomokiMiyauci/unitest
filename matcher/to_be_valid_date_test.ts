@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeValidDate } from "./to_be_valid_date.ts";
 
 Deno.test({
@@ -7,5 +7,9 @@ Deno.test({
   fn: () => {
     assertSuccess(toBeValidDate(new Date("2000/1/1")));
     assertFail(toBeValidDate(new Date("invalid")));
+    assertEquals(toBeValidDate(new Date("invalid")), {
+      pass: false,
+      expected: "valid date",
+    });
   },
 });
