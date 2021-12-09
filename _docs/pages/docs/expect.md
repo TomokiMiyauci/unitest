@@ -379,6 +379,8 @@ test("passes when value is an empty object", () => {
 
 ## toBeEmpty
 
+preset: `jestExtendedMatcherMap`
+
 Use `.toBeEmpty` when checking if a String `''`, `Array` `[]`, `Object` `{}`, or
 `Iterable` is empty.
 
@@ -400,5 +402,35 @@ test("passes when given an empty", () => {
   expect([]).toBeEmpty();
   expect({}).toBeEmpty();
   expect(new Map()).toBeEmpty();
+});
+```
+
+## toBeEven
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeEven` when checking if a value is an even `Number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeEven,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeEven,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an even number", () => {
+  expect(2).toBeEven();
+  expect(1).not.toBeEven();
+  expect(NaN).not.toBeEven();
 });
 ```

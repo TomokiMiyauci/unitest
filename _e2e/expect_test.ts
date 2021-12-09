@@ -15,6 +15,7 @@ import {
   toBeDateString,
   toBeEmpty,
   toBeEmptyObject,
+  toBeEven,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -218,4 +219,19 @@ test("passes when given an empty", () => {
   expect([]).toBeEmpty();
   expect({}).toBeEmpty();
   expect(new Map()).toBeEmpty();
+});
+
+test("passes when value is an even number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeEven,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(2).toBeEven();
+  expect(1).not.toBeEven();
+  expect(NaN).not.toBeEven();
 });
