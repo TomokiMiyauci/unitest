@@ -39,5 +39,10 @@ Deno.test({
     assertSuccess(toBeCloseTo(0.1 + 0.2, 0.3));
     assertSuccess(toBeCloseTo(0.1, 0.101, 0));
     assertFail(toBeCloseTo(0.1, 0.101, 3));
+    assertEquals(toBeCloseTo(0.1, 0.101, 3), {
+      pass: false,
+      expected: 0.101,
+      expectedHint: "Expected to approximate:",
+    });
   },
 });

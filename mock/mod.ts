@@ -3,3 +3,4 @@
 export * from "./fn.ts";
 export * from "./mock.ts";
 export * from "./spy_on.ts";
+export * from "./global_this.ts";

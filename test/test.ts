@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { AnyFn } from "../_types.ts";
 import { isString } from "../deps.ts";
+import type { AnyFn } from "../_types.ts";
 
 // interface CallSite {
 //   getThis(): any;
@@ -25,12 +25,12 @@ import { isString } from "../deps.ts";
 //   }
 // }
 
-type SetupCallback<T extends Record<PropertyKey, unknown>> = {
+type SetupCallback<T extends Record<PropertyKey, object>> = {
   teardown: () => void | Promise<void>;
   localThis: T;
 };
 
-type Test<LocalThis extends Record<PropertyKey, unknown>> = {
+type Test<LocalThis extends Record<PropertyKey, object>> = {
   setup?: () => Partial<SetupCallback<LocalThis>> | void;
   fn: (t: LocalThis & Deno.TestContext) => void | Promise<void>;
 } & Omit<Deno.TestDefinition, "fn">;
@@ -50,13 +50,13 @@ function defineTest<T extends Record<string | symbol, AnyFn>>({
 /** Register a test which will be run when deno test is used on the command line and the containing module looks like a test module.
  * fn can be async if required.
  */
-function test<T extends Record<PropertyKey, unknown>>(t: Test<T>): void;
-function test<T extends Record<PropertyKey, unknown>>(
+function test<T extends Record<PropertyKey, object>>(t: Test<T>): void;
+function test<T extends Record<PropertyKey, object>>(
   name: string,
   fn: (t: T & Deno.TestContext) => void | Promise<void>,
   options?: Omit<Test<T>, "fn" | "name">,
 ): void;
-function test<T extends Record<PropertyKey, unknown>>(
+function test<T extends Record<PropertyKey, object>>(
   t: string | Test<T>,
   _fn?: (t: T & Deno.TestContext) => void | Promise<void>,
   _options?: Omit<Test<T>, "fn" | "name">,

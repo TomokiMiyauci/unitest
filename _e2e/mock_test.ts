@@ -17,9 +17,9 @@ test("plays video", () => {
 });
 
 test({
-  name: "hoge",
-  fn: ({ a }) => {
-    a;
+  name: "localThis",
+  fn: ({ value }) => {
+    value;
   },
   setup: () => {
     const reset = defineGlobalThis("fetch", () => {
@@ -31,7 +31,7 @@ test({
         reset();
       },
       localThis: {
-        a: "",
+        value: {},
       },
     };
   },
