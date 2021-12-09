@@ -1,3 +1,11 @@
+# [1.0.0-beta.53](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.52...v1.0.0-beta.53) (2021-12-09)
+
+
+### Bug Fixes
+
+* **mock:** export `defineGlobalThis` globally ([b0933c5](https://github.com/TomokiMiyauci/unitest/commit/b0933c5fc2847a01c8a42ffaace9f49908c5a7f1))
+* **test:** change localThis types ([e9d9dbf](https://github.com/TomokiMiyauci/unitest/commit/e9d9dbf8168a89ea8d80948e4eec0bfb07b3d625))
+
 # [1.0.0-beta.52](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.51...v1.0.0-beta.52) (2021-12-07)
 
 
