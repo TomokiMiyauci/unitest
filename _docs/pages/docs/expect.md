@@ -1,465 +1,95 @@
-# matcher
+# expect
 
-Unitest provide various matchers. It is fully configurable and can be customised
-by selecting the matcher you want to use.
+expect gives you access to a number of "matchers" that let you validate
+different things.
 
-## preset
+```ts
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-Unitest offers a range of presets for different matchers.
+expect("").toBe("");
+```
 
-| module                                                           | preset                   |
-| ---------------------------------------------------------------- | ------------------------ |
-| [jest](https://jestjs.io/ja/docs/expect)                         | `jestMatcherMap`         |
-| [jest-extended](https://github.com/jest-community/jest-extended) | `jestExtendedMatcherMap` |
+## Custom matcher
+
+It provides custom matcher interface.
+
+You can add custom matcher easy. The type is automatically extended.
 
 ```ts
 import {
   defineExpect,
-  jestExtendedMatcherMap,
   jestMatcherMap,
+  not,
 } from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const { toBeString } = jestExtendedMatcherMap;
 
 const expect = defineExpect({
   matcherMap: {
     ...jestMatcherMap,
-    toBeString,
-    toBeFoo: (actual: unknown) => {
+    toBe100: (actual: unknown) => {
       return {
-        pass: actual === "foo",
-        expected: "foo",
+        pass: actual === 100,
+        expected: 100,
       };
     },
   },
-});
-```
-
-## toBeAfterOrEqualTo
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeAfterOrEqualTo` when checking if a date equals to or occurs after
-`date`.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeAfterOrEqualTo,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeAfterOrEqualTo,
-  },
   modifierMap: {
     not,
   },
 });
 
-test("passes when input is equal to or after date", () => {
-  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2018"));
-  expect(new Date("01/01/2019")).toBeAfterOrEqualTo(new Date("01/01/2019"));
-  expect(new Date("01/01/2019")).not.toBeAfterOrEqualTo(new Date("01/01/2020"));
-});
+expect(1000).not.toBe100();
 ```
 
-## toBeAfter
+### Power of TypeScript
 
-preset: `jestExtendedMatcherMap`
+Take full advantage of the power of TypeScript's type analysis.
 
-Use `.toBeAfter` when checking if a date occurs after date.
+In the example above, the actual `toBe100` takes no arguments. (It's not
+variadic arguments.)
+
+The matcher takes an `actual` value as its first argument. However, in the type
+definition, the `actual` value is removed. This is accomplished by TypeScript.
+
+Let's look at a more advanced example.
+
+The type definition of a matcher `toBeGreaterThan` looks like this.
 
 ```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeAfter,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeAfter,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when input is after date", () => {
-  expect(new Date("01/01/2019")).toBeAfter(new Date("01/01/2018"));
-  expect(new Date("01/01/2018")).not.toBeAfter(new Date("01/01/2019"));
-});
+function toBeGreaterThan(
+  actual: number | bigint,
+  comparison: number | bigint,
+) {}
 ```
 
-## toBeArray
+`toBeGreaterThan` takes a `number` | `bigint` as `comparison`. Therefore, the
+`actual` value should also be `number` | `bigint`. Because `jest` separated the
+matcher implementation from its type definition, it was difficult to give
+`actual` a type other than `any`.
 
-preset: `jestExtendedMatcherMap`
+In this project, we use all the power of TypeScript.
 
-Use `.toBeArray` when checking if a value is an Array.
+The type of `actual` will filter the available matchers.
+
+For example, if `actual` has a value of type `string`, only matchers with a
+first argument of a type compatible with `string` will be available.
 
 ```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeArray,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+expect("hello").toBeUndefined();
+expect("world").toMatch(/hello/);
 
-const expect = defineExpect({
-  matcherMap: {
-    toBeArray,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is an array", () => {
-  expect([]).toBeArray();
-  expect([1]).toBeArray();
-  expect(true).not.toBeArray();
-});
+// This will result in a type error.
+// expect('world').toBeGreaterThan(0)
 ```
-
-## toBeBeforeOrEqualTo
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeBeforeOrEqualTo` when checking if a date equals to or occurs before
-`date`.
 
 ```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeBeforeOrEqualTo,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-const expect = defineExpect({
-  matcherMap: {
-    toBeBeforeOrEqualTo,
-  },
-  modifierMap: {
-    not,
-  },
-});
+expect(10).toBeUndefined();
+expect(10).toBeGreaterThan(3);
 
-test("passes when input is equal to or before date", () => {
-  expect(new Date("01/01/2018")).toBeBeforeOrEqualTo(new Date("01/01/2019"));
-  expect(new Date("01/01/2018")).toBeBeforeOrEqualTo(new Date("01/01/2018"));
-  expect(new Date("01/01/2019")).not.toBeBeforeOrEqualTo(
-    new Date("01/01/2018"),
-  );
-});
+// This will result in a type error.
+// expect(10).toMatch("10")
 ```
 
-## toBeBefore(date)
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeBefore` when checking if a date occurs before `date`.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeBefore,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeBefore,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when input is before date", () => {
-  expect(new Date("01/01/2018")).toBeBefore(new Date("01/01/2019"));
-  expect(new Date("01/01/2019")).not.toBeBefore(new Date("01/01/2018"));
-});
-```
-
-## toBeBetween
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeBetween` when checking if a date equals or occurs after `startDate`
-and equals or occurs before `endDate`.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeBetween,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeBetween,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when input is in given date range", () => {
-  expect(new Date("05/01/2019")).toBeBetween(
-    new Date("01/01/2019"),
-    new Date("10/01/2019"),
-  );
-  expect(new Date("05/01/2019")).toBeBetween(
-    new Date("05/01/2019"),
-    new Date("10/01/2019"),
-  );
-  expect(new Date("01/01/2019")).not.toBeBetween(
-    new Date("05/01/2019"),
-    new Date("10/01/2019"),
-  );
-});
-```
-
-## toBeBoolean
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeBoolean` when checking if a value is a `boolean`.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeBoolean,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeBoolean,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is a boolean", () => {
-  expect(false).toBeBoolean();
-  expect(true).toBeBoolean();
-  expect(1 === 1).toBeBoolean();
-  expect(1).not.toBeBoolean();
-});
-```
-
-## toBeCloseTo
-
-preset: `jestMatcherMap`
-
-Use `.toBeCloseTo` to compare floating point numbers for approximate equality.
-
-```ts
-import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-test("adding works sanely with decimals", () => {
-  expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
-});
-```
-
-## toBeDateString
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeDateString` when checking if a value is a valid date string.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeDateString,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeDateString,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is a valid toBeDateString", () => {
-  expect("2019-11-27T14:05:07.520Z").toBeDateString();
-  expect("11/12/21").toBeDateString();
-  expect("not a date").not.toBeDateString();
-});
-```
-
-## toBeDate
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeDate` when checking if a value is a Date.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeDate,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeDate,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is a date", () => {
-  expect(new Date("01/01/2018")).toBeDate();
-  expect("01/01/2018").not.toBeDate();
-  expect(undefined).not.toBeDate();
-});
-```
-
-## toBeDefined
-
-preset: `jestMatcherMap`
-
-Use `.toBeDefined` to check that a variable is not undefined.
-
-```ts
-import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-test("there is a new flavor idea", () => {
-  expect("defined").toBeDefined();
-  expect(undefined).not.toBeDefined();
-});
-```
-
-## toBeEmptyObject
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeEmptyObject` when checking if a value is an empty Object.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeEmptyObject,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeEmptyObject,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is an empty object", () => {
-  expect({}).toBeEmptyObject();
-  expect([]).toBeEmptyObject();
-  expect({ a: "hello" }).not.toBeEmptyObject();
-});
-```
-
-## toBeEmpty
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeEmpty` when checking if a String `''`, `Array` `[]`, `Object` `{}`, or
-`Iterable` is empty.
-
-```ts
-import {
-  defineExpect,
-  test,
-  toBeEmpty,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeEmpty,
-  },
-});
-
-test("passes when given an empty", () => {
-  expect("").toBeEmpty();
-  expect([]).toBeEmpty();
-  expect({}).toBeEmpty();
-  expect(new Map()).toBeEmpty();
-});
-```
-
-## toBeEven
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeEven` when checking if a value is an even `Number`.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeEven,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeEven,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is an even number", () => {
-  expect(2).toBeEven();
-  expect(1).not.toBeEven();
-  expect(NaN).not.toBeEven();
-});
-```
-
-## toBeExtensible
-
-preset: `jestExtendedMatcherMap`
-
-Use `.toBeExtensible` when checking if an object is extensible.
-
-```ts
-import {
-  defineExpect,
-  not,
-  test,
-  toBeExtensible,
-} from "https://deno.land/x/unitest@$VERSION/mod.ts";
-
-const expect = defineExpect({
-  matcherMap: {
-    toBeExtensible,
-  },
-  modifierMap: {
-    not,
-  },
-});
-
-test("passes when value is extensible", () => {
-  expect({ a: 1 }).toBeExtensible();
-  expect(1).not.toBeExtensible();
-});
-```
+This allows TypeScript to do some of the assertions for you.
