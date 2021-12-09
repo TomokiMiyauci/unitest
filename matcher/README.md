@@ -928,6 +928,35 @@ test("passes when value is an odd number", () => {
 });
 ```
 
+## toBeOneOf
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeOneOf` when checking if a value is a member of a given `Array`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeOneOf,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeOneOf,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is in given array", () => {
+  expect(1).toBeOneOf([1, 2, 3]);
+  expect(4).not.toBeOneOf([1, 2, 3]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

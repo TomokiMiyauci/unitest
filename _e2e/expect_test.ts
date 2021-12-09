@@ -28,6 +28,7 @@ import {
   toBeNumber,
   toBeObject,
   toBeOdd,
+  toBeOneOf,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -466,4 +467,17 @@ test("passes when value is an odd number", () => {
   expect(1).toBeOdd();
   expect(2).not.toBeOdd();
   expect(NaN).not.toBeOdd();
+});
+
+test("passes when value is in given array", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeOneOf,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeOneOf([1, 2, 3]);
+  expect(4).not.toBeOneOf([1, 2, 3]);
 });
