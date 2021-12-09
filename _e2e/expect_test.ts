@@ -36,6 +36,14 @@ import {
   toBeTrue,
   toBeValidDate,
   toBeWithin,
+  toContainAnyEntries,
+  toContainAnyKeys,
+  toContainAnyValues,
+  toContainEntries,
+  toContainEntry,
+  toContainKeys,
+  toContainValue,
+  toContainValues,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -604,4 +612,146 @@ test("should be", () => {
 
 test("promise", async () => {
   await expect(Promise.resolve("test")).resolves.not.toBe("tes");
+});
+
+test("passes when object contains at least one of the given entries", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainAnyEntries,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["a", "foo"],
+  ]);
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["b", "bar"],
+  ]);
+  expect(object).not.toContainAnyEntries([["d", "qux"]]);
+});
+
+test("passes when object contains at least one matching key", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainAnyKeys,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "hello", b: "world" };
+  expect(object).toContainAnyKeys(["a"]);
+  expect(object).toContainAnyKeys(["b", "c"]);
+  expect(object).not.toContainAnyKeys(["c"]);
+});
+
+test("passes when object contains at least one of the given values", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainAnyValues,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainAnyValues(["qux", "foo"]);
+  expect(object).toContainAnyValues(["qux", "baz"]);
+  expect(object).not.toContainAnyValues(["qux"]);
+});
+
+test("passes when object contains all of the given entries", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainEntries,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainEntries([["a", "foo"]]);
+  expect(object).toContainEntries([
+    ["c", "baz"],
+    ["a", "foo"],
+  ]);
+  expect(object).not.toContainEntries([
+    ["b", "qux"],
+    ["a", "foo"],
+  ]);
+});
+
+test("passes when object contains given entry", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainEntry,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainEntry(["a", "foo"]);
+  expect(object).toContainEntry(["c", "baz"]);
+  expect(object).not.toContainEntry(["a", "qux"]);
+});
+
+test("passes when array contains given value", () => {
+  expect({ a: "foo", b: "bar" }).toContainEqual({ a: "foo" });
+  expect({ a: "foo", b: "bar" }).not.toContainEqual({ c: "hoo" });
+});
+
+test("passes when object contains all keys", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainKeys,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainKeys(["a", "b"]);
+  expect(object).toContainKeys(["b", "c"]);
+  expect(object).not.toContainKeys(["d"]);
+});
+
+test("passes when object contains given value", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainValue,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainValue("foo");
+  expect(object).toContainValue("bar");
+  expect(object).not.toContainValue("qux");
+});
+
+test("passes when object contains all of the given values", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainValues,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainValues(["foo"]);
+  expect(object).toContainValues(["baz", "bar"]);
+  expect(object).not.toContainValues(["qux", "foo"]);
+});
+
+test("passes when array contains given value", () => {
+  expect([1, 2, 3, 4, 5]).toContain(3);
+  expect([{}, [], ""]).not.toContain(3);
 });

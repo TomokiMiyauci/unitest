@@ -5,6 +5,7 @@ import { isObject } from "../deps.ts";
 import { equal } from "../helper/equal.ts";
 import type { MatchResult } from "./types.ts";
 
+/** predict for `toContainEqual` */
 function predict(
   actual: Record<PropertyKey, unknown>,
   expected: Record<PropertyKey, unknown>,
@@ -28,6 +29,17 @@ function predict(
   });
 }
 
+/** Use `.toContainEqual` when you want to check that an item with a specific
+ * structure and values is contained in an array
+ * ```ts
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("passes when array contains given value", () => {
+ *   expect({ a: "foo", b: "bar" }).toContainEqual({ a: "foo" });
+ *   expect({ a: "foo", b: "bar" }).not.toContainEqual({ c: "hoo" });
+ * });
+ * ```
+ */
 function toContainEqual(
   actual: Record<PropertyKey, unknown>,
   expected: Record<PropertyKey, unknown>,

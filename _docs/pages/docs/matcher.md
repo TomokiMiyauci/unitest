@@ -1213,3 +1213,299 @@ test("should be", () => {
   expect(0).not.toBe(-0);
 });
 ```
+
+## toContainAnyEntries
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainAnyEntries` when checking if an object contains at least one of
+the provided entries.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainAnyEntries,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainAnyEntries,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains at least one of the given entries", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["a", "foo"],
+  ]);
+  expect(object).toContainAnyEntries([
+    ["a", "qux"],
+    ["b", "bar"],
+  ]);
+  expect(object).not.toContainAnyEntries([["d", "qux"]]);
+});
+```
+
+## toContainAnyKeys
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainAnyKeys` when checking if an object contains at least one of the
+provided keys.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainAnyKeys,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainAnyKeys,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains at least one matching key", () => {
+  const object = { a: "hello", b: "world" };
+  expect(object).toContainAnyKeys(["a"]);
+  expect(object).toContainAnyKeys(["b", "c"]);
+  expect(object).not.toContainAnyKeys(["c"]);
+});
+```
+
+## toContainAnyValues
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainAnyValues` when checking if an object contains at least one of
+the provided values.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainAnyValues,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainAnyValues,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains at least one of the given values", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainAnyValues(["qux", "foo"]);
+  expect(object).toContainAnyValues(["qux", "baz"]);
+  expect(object).not.toContainAnyValues(["qux"]);
+});
+```
+
+## toContainEntries
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainEntries` when checking if an object contains all of the provided
+entries.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainEntries,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainEntries,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains all of the given entries", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainEntries([["a", "foo"]]);
+  expect(object).toContainEntries([
+    ["c", "baz"],
+    ["a", "foo"],
+  ]);
+  expect(object).not.toContainEntries([
+    ["b", "qux"],
+    ["a", "foo"],
+  ]);
+});
+```
+
+## toContainEntry
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainEntry` when checking if an object contains the provided entry.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainEntry,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainEntry,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains given entry", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainEntry(["a", "foo"]);
+  expect(object).toContainEntry(["c", "baz"]);
+  expect(object).not.toContainEntry(["a", "qux"]);
+});
+```
+
+## toContainEqual
+
+preset: `jestMatcherMap`
+
+Use `.toContainEqual` when you want to check that an item with a specific
+structure and values is contained in an array.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when array contains given value", () => {
+  expect({ a: "foo", b: "bar" }).toContainEqual({ a: "foo" });
+  expect({ a: "foo", b: "bar" }).not.toContainEqual({ c: "hoo" });
+});
+```
+
+## toContainKeys
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainKeys` when checking if an object has all of the provided keys.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainKeys,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainKeys,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains all keys", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainKeys(["a", "b"]);
+  expect(object).toContainKeys(["b", "c"]);
+  expect(object).not.toContainKeys(["d"]);
+});
+```
+
+## toContainValue
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainValue` when checking if an object contains the provided value.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainValue,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainValue,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains given value", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainValue("foo");
+  expect(object).toContainValue("bar");
+  expect(object).not.toContainValue("qux");
+});
+```
+
+## toContainValues
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainValues` when checking if an object contains all of the provided
+values.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainValues,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainValues,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains all of the given values", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainValues(["foo"]);
+  expect(object).toContainValues(["baz", "bar"]);
+  expect(object).not.toContainValues(["qux", "foo"]);
+});
+```
+
+## toContain
+
+preset: `jestMatcherMap`
+
+Use `.toContain` when you want to check that an item is in an array.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when array contains given value", () => {
+  expect([1, 2, 3, 4, 5]).toContain(3);
+  expect([{}, [], ""]).not.toContain(3);
+});
+```
