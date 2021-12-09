@@ -561,3 +561,8 @@ test("should be truthy", () => {
   expect(1).toBeTruthy();
   expect(0).not.toBeTruthy();
 });
+
+test("should be truthy", () => {
+  expect(undefined).toBeUndefined();
+  expect(null).not.toBeUndefined();
+});
