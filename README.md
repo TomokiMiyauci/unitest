@@ -3,17 +3,18 @@
 
 <img width="160px" hight="160px" src="./_docs/public/logo.svg" />
 
-[![test](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml/badge.svg?branch=beta)](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml)
+Deno-first **uni**versal **unit** testing framework
+
 ![release](https://img.shields.io/github/v/release/TomokiMiyauci/unitest?sort=semver)
 [![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black)](https://deno.land/x/unitest)
 [![deno version](https://img.shields.io/badge/deno-^1.15.0-lightgrey?logo=deno)](https://github.com/denoland/deno)
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/unitest/mod.ts)
 
+[![test](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml/badge.svg?branch=beta)](https://github.com/TomokiMiyauci/unitest/actions/workflows/test.yaml)
 [![codecov](https://codecov.io/gh/TomokiMiyauci/unitest/branch/main/graph/badge.svg?token=nQZ8Nnx3KH)](https://codecov.io/gh/TomokiMiyauci/unitest)
 [![DeepScan grade](https://deepscan.io/api/teams/10684/projects/19438/branches/504638/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10684&pid=19438&bid=504638)
-![license](https://img.shields.io/github/license/TomokiMiyauci/unitest)
 
-Deno-first **uni**versal **unit** testing framework
+![license](https://img.shields.io/github/license/TomokiMiyauci/unitest)
 
 </div>
 
