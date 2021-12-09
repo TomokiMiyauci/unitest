@@ -1401,6 +1401,37 @@ test("passes when array contains given value", () => {
 });
 ```
 
+## toContainKeys
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toContainKeys` when checking if an object has all of the provided keys.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toContainKeys,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toContainKeys,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when object contains all keys", () => {
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainKeys(["a", "b"]);
+  expect(object).toContainKeys(["b", "c"]);
+  expect(object).not.toContainKeys(["d"]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
