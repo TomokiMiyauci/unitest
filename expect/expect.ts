@@ -4,7 +4,14 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { AssertionError, isPromise } from "../deps.ts";
-import { stringify, stringifyResult } from "../helper/format.ts";
+import { stringifyResult } from "../helper/format.ts";
+import {
+  DEFAULT_ACTUAL_HINT,
+  DEFAULT_EXPECTED_HINT,
+  expectTo,
+  promiseExpectTo,
+} from "./_utils.ts";
+import { stringifyEquality } from "../helper/equal.ts";
 
 import type {
   AnyFn,
@@ -19,13 +26,6 @@ import type {
   PostModifierFn,
   PreModifierFn,
 } from "../modifier/types.ts";
-import {
-  DEFAULT_ACTUAL_HINT,
-  DEFAULT_EXPECTED_HINT,
-  expectTo,
-  promiseExpectTo,
-} from "./_utils.ts";
-import { stringifyEquality } from "../helper/equal.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
 import type { StringifyResultArgs } from "../helper/format.ts";
@@ -50,19 +50,20 @@ type Shift<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftRightParameters<T[k], MatchResult>;
 };
 
+/** define custom expect */
 function defineExpect<
-  M extends MatcherMap,
+  MatcherObject extends MatcherMap,
   Modifier extends ModifierMap,
 >(
   { matcherMap, modifierMap }: {
-    matcherMap: M;
+    matcherMap: MatcherObject;
     modifierMap?: Modifier;
   },
 ) {
   return <T = unknown>(
     actual: T,
   ): Expected<
-    OmitBy<PropertyFilter<M, T>>,
+    OmitBy<PropertyFilter<MatcherObject, T>>,
     PickModifierByType<Modifier, "pre">,
     PickModifierByType<Modifier, "post">,
     T extends Promise<any> ? true : false
@@ -88,7 +89,7 @@ function defineExpect<
 
         const matcher = matcherMap[name] as Matcher | undefined;
         if (!matcher) {
-          throw new TypeError(`matcher not found: ${stringify(name)}`);
+          throw new TypeError(`matcher not found: ${String(name)}`);
         }
 
         const execAssert = (
@@ -128,7 +129,7 @@ function defineExpect<
           expectedHint: DEFAULT_EXPECTED_HINT,
         };
 
-        const sync = (...args: any[]) => {
+        const sync = (...args: unknown[]): void => {
           const result = expectTo({
             ...expectMap,
             matcherArgs: args,
@@ -137,7 +138,7 @@ function defineExpect<
           execAssert({ ...result, matcherArgs: args });
         };
 
-        const promise = async (...args: any[]) => {
+        const promise = async (...args: unknown[]): Promise<void> => {
           const result = await promiseExpectTo({
             ...expectMap,
             matcherArgs: args,
