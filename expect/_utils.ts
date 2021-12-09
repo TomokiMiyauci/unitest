@@ -40,7 +40,13 @@ async function promiseExpectTo(
     expected: matchResult.expected ?? matcherArgs,
   }) ?? matchResult;
 
-  return { actualHint, expectedHint, ...matchResult, ...postResult };
+  return {
+    actual: postResult.actual ?? preResult.actual,
+    actualHint,
+    expectedHint,
+    ...matchResult,
+    ...postResult,
+  };
 }
 
 function expectTo(

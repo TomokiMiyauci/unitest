@@ -1,3 +1,15 @@
+# [1.0.0-beta.54](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.53...v1.0.0-beta.54) (2021-12-09)
+
+
+### Bug Fixes
+
+* **expect:** fix display value of actual ([bbb4e8a](https://github.com/TomokiMiyauci/unitest/commit/bbb4e8a513dfb7e4cc4365985cd1bf12b2b22926))
+
+
+### Features
+
+* **expect:** improve matcher filter for resolves and rejects modifier ([44626bd](https://github.com/TomokiMiyauci/unitest/commit/44626bd2f1bc4593825a8aadd6e4610b70852e5c))
+
 # [1.0.0-beta.53](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.52...v1.0.0-beta.53) (2021-12-09)
 
 

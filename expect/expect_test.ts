@@ -75,7 +75,7 @@ Deno.test({
     assertThrowsAssertionError(() => expect("").toBeInstanceOf(String));
 
     await expect(Promise.resolve("aa")).resolves.toBe("aa");
-    await expect(Promise.reject("a")).rejects.toBe("a");
+    await expect(Promise.reject("a") as Promise<string>).rejects.toBe("a");
   },
 });
 
