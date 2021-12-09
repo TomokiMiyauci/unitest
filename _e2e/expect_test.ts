@@ -416,3 +416,8 @@ test("passes when value is null or undefined", () => {
   expect(undefined).toBeNil();
   expect(true).not.toBeNil();
 });
+
+test("passes when value is null", () => {
+  expect(null).toBeNull();
+  expect(undefined).not.toBeNull();
+});

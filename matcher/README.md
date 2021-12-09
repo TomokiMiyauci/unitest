@@ -822,6 +822,21 @@ test("passes when value is null or undefined", () => {
 });
 ```
 
+## toBeNull
+
+preset: `jestMatcherMap`
+
+Use `.toBeNull` when checking a value is `null`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value is null", () => {
+  expect(null).toBeNull();
+  expect(undefined).not.toBeNull();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
