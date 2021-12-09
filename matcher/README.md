@@ -1168,6 +1168,37 @@ test("passes when Date is valid", () => {
 });
 ```
 
+## toBeWithin
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeWithin` when checking if a `number` is in between the given bounds of:
+start (inclusive) and end (exclusive).
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeWithin,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeWithin,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when number is within given bounds", () => {
+  expect(1).toBeWithin(1, 3);
+  expect(2).toBeWithin(1, 3);
+  expect(3).not.toBeWithin(1, 3);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

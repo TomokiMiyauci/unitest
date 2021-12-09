@@ -23,5 +23,9 @@ Deno.test({
   fn: () => {
     assertSuccess(toBeWithin(0, 0, 1));
     assertFail(toBeWithin(0, 0, 0));
+    assertEquals(toBeWithin(3, 0, 3), {
+      pass: false,
+      expected: "0 <= Actual < 3",
+    });
   },
 });

@@ -35,6 +35,7 @@ import {
   toBeSymbol,
   toBeTrue,
   toBeValidDate,
+  toBeWithin,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -580,4 +581,18 @@ test("passes when Date is valid", () => {
   expect(new Date("01/01/2018")).toBeValidDate();
   expect(new Date("01/90/2018")).not.toBeValidDate();
   expect(new Date("invalid")).not.toBeValidDate();
+});
+
+test("passes when number is within given bounds", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeWithin,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeWithin(1, 3);
+  expect(2).toBeWithin(1, 3);
+  expect(3).not.toBeWithin(1, 3);
 });
