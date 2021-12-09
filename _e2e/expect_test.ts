@@ -29,6 +29,7 @@ import {
   toBeObject,
   toBeOdd,
   toBeOneOf,
+  toBePositive,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -480,4 +481,19 @@ test("passes when value is in given array", () => {
   });
   expect(1).toBeOneOf([1, 2, 3]);
   expect(4).not.toBeOneOf([1, 2, 3]);
+});
+
+test("passes when value is a positive number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBePositive,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBePositive();
+  expect(Infinity).not.toBePositive();
+  expect(-1).not.toBePositive();
+  expect(NaN).not.toBePositive();
 });

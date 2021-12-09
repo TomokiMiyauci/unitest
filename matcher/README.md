@@ -957,6 +957,37 @@ test("passes when value is in given array", () => {
 });
 ```
 
+## toBePositive
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBePositive` when checking if a value is a positive `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBePositive,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBePositive,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a positive number", () => {
+  expect(1).toBePositive();
+  expect(Infinity).not.toBePositive();
+  expect(-1).not.toBePositive();
+  expect(NaN).not.toBePositive();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
