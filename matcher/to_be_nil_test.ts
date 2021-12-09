@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeNil } from "./to_be_nil.ts";
 
 Deno.test({
@@ -10,5 +10,9 @@ Deno.test({
     assertFail(toBeNil(""));
     assertFail(toBeNil({}));
     assertFail(toBeNil(0));
+    assertEquals(toBeNil(false), {
+      pass: false,
+      expected: "null or undefined",
+    });
   },
 });

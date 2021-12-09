@@ -24,6 +24,7 @@ import {
   toBeHexColor,
   toBeInteger,
   toBeNegative,
+  toBeNil,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -400,4 +401,18 @@ test("passes when value is a negative number", () => {
   expect(-Infinity).not.toBeNegative();
   expect(1).not.toBeNegative();
   expect(NaN).not.toBeNegative();
+});
+
+test("passes when value is null or undefined", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeNil,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(null).toBeNil();
+  expect(undefined).toBeNil();
+  expect(true).not.toBeNil();
 });
