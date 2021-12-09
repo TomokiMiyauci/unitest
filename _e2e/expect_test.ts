@@ -34,6 +34,7 @@ import {
   toBeString,
   toBeSymbol,
   toBeTrue,
+  toBeValidDate,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -565,4 +566,18 @@ test("should be truthy", () => {
 test("should be truthy", () => {
   expect(undefined).toBeUndefined();
   expect(null).not.toBeUndefined();
+});
+
+test("passes when Date is valid", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeValidDate,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(new Date("01/01/2018")).toBeValidDate();
+  expect(new Date("01/90/2018")).not.toBeValidDate();
+  expect(new Date("invalid")).not.toBeValidDate();
 });

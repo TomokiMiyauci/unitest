@@ -1138,6 +1138,36 @@ test("should be truthy", () => {
 });
 ```
 
+## toBeValidDate
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeValidDate` when check that a `Date` is valid.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeValidDate,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeValidDate,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when Date is valid", () => {
+  expect(new Date("01/01/2018")).toBeValidDate();
+  expect(new Date("01/90/2018")).not.toBeValidDate();
+  expect(new Date("invalid")).not.toBeValidDate();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
