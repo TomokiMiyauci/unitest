@@ -464,6 +464,364 @@ test("passes when value is extensible", () => {
 });
 ```
 
+## toBeFalse
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFalse` when checking a value is equal (===) to false.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFalse,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFalse,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("should be false", () => {
+  expect(false).toBeFalse();
+  expect(true).not.toBeFalse();
+});
+```
+
+## toBeFalsy
+
+preset: `jestMatcherMap`
+
+Use `.toBeFalsy` when you don't care what a value is and you want to ensure a
+value is false in a boolean context.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be falsy", () => {
+  expect(false).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect(1).not.toBeFalsy();
+});
+```
+
+## toBeFinite
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFinite` when checking if a value is a `number`, not `NaN` or
+`Infinity`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFinite,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFinite,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a finite number", () => {
+  expect(1).toBeFinite();
+  expect(Infinity).not.toBeFinite();
+  expect(NaN).not.toBeFinite();
+});
+```
+
+## toBeFrozen
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFrozen` when checking if an object is frozen.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFrozen,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFrozen,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is frozen", () => {
+  expect(Object.freeze({})).toBeFrozen();
+  expect(1).toBeFrozen();
+  expect({}).not.toBeFrozen();
+});
+```
+
+## toBeFunction
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeFunction` when checking if a value is a `Function`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeFunction,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeFunction,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a function", () => {
+  expect(() => {}).toBeFunction();
+  expect(function () {}).toBeFunction();
+  expect(true).not.toBeFunction();
+});
+```
+
+## toBeGreaterThanOrEqual
+
+preset: `jestMatcherMap`
+
+Use `.toBeGreaterThanOrEqual` to compare `actual >= expected` for `number` or
+`bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value greater than or equal to", () => {
+  expect(100).toBeGreaterThanOrEqual(99);
+  expect(100n).toBeGreaterThanOrEqual(100n);
+  expect(0).not.toBeGreaterThanOrEqual(1);
+});
+```
+
+## toBeGreaterThan
+
+preset: `jestMatcherMap`
+
+Use `.toBeGreaterThan` to compare `actual > expected` for `number` or `bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value greater than", () => {
+  expect(100).toBeGreaterThan(99);
+  expect(100n).toBeGreaterThan(99n);
+  expect(1).not.toBeGreaterThan(1);
+});
+```
+
+## toBeHexColor
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeHexadecimal` when checking if a value is a valid HTML hex color.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeHexColor,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeHexColor,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a valid hex color", () => {
+  expect("#abc123").toBeHexColor();
+  expect("#FFF").toBeHexColor();
+  expect("#000000").toBeHexColor();
+  expect("#123ffg").not.toBeHexColor();
+});
+```
+
+## toBeInstanceOf
+
+preset: `jestMatcherMap`
+
+Use `.toBeInstanceOf` to check that an object is an instance of a class.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value is instance of class", () => {
+  class A {}
+  expect(new A()).toBeInstanceOf(A);
+  expect(() => {}).toBeInstanceOf(Function);
+  expect(new A()).not.toBeInstanceOf(Function);
+});
+```
+
+## toBeInteger
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeInteger` when checking if a number is an integer.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeInteger,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeInteger,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an integer", () => {
+  expect(1).toBeInteger();
+  expect(1.0).toBeInteger();
+  expect(1.1).not.toBeInteger();
+});
+```
+
+## toBeLessThanOrEqual
+
+preset: `jestMatcherMap`
+
+Use `.toBeLessThanOrEqual` to compare `actual <= expected` for `number` or
+`bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than or equal to", () => {
+  expect(99).toBeLessThanOrEqual(100);
+  expect(100n).toBeLessThanOrEqual(100n);
+  expect(1).not.toBeLessThanOrEqual(0);
+});
+```
+
+## toBeLessThan
+
+preset: `jestMatcherMap`
+
+Use `.toBeLessThan` to compare `actual < expected` for `number` or `bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than", () => {
+  expect(99).toBeLessThan(100);
+  expect(99n).toBeLessThan(100n);
+  expect(1).not.toBeLessThan(0);
+});
+```
+
+## toBeNaN
+
+preset: `jestMatcherMap`
+
+Use `.toBeNaN` when checking a value is `NaN`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value less than", () => {
+  expect(NaN).toBeNaN();
+  expect(-NaN).toBeNaN();
+  expect(1).not.toBeNaN();
+});
+```
+
+## toBeNegative
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeNegative` when checking if a value is a negative `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeNegative,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeNegative,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is a negative number", () => {
+  expect(-1).toBeNegative();
+  expect(-Infinity).not.toBeNegative();
+  expect(1).not.toBeNegative();
+  expect(NaN).not.toBeNegative();
+});
+```
+
+## toBeNil
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeNil` when checking a value is `null` or `undefined`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeNil,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeNil,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is null or undefined", () => {
+  expect(null).toBeNil();
+  expect(undefined).toBeNil();
+  expect(true).not.toBeNil();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

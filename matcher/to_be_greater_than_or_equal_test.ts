@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import { toBeGreaterThanOrEqual } from "./to_be_greater_than_or_equal.ts";
 
 Deno.test({
@@ -11,5 +11,10 @@ Deno.test({
     assertSuccess(toBeGreaterThanOrEqual(0, 0));
     assertFail(toBeGreaterThanOrEqual(1n, 2));
     assertFail(toBeGreaterThanOrEqual(NaN, NaN));
+    assertEquals(toBeGreaterThanOrEqual(0, 1), {
+      pass: false,
+      expectedHint: "Expected to be greater than or equal to:",
+      expected: 1,
+    });
   },
 });

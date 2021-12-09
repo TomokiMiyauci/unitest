@@ -17,6 +17,14 @@ import {
   toBeEmptyObject,
   toBeEven,
   toBeExtensible,
+  toBeFalse,
+  toBeFinite,
+  toBeFrozen,
+  toBeFunction,
+  toBeHexColor,
+  toBeInteger,
+  toBeNegative,
+  toBeNil,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -248,4 +256,163 @@ test("passes when value is extensible", () => {
   });
   expect({ a: 1 }).toBeExtensible();
   expect(1).not.toBeExtensible();
+});
+
+test("should be false", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFalse,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(false).toBeFalse();
+  expect(true).not.toBeFalse();
+});
+
+test("should be falsy", () => {
+  expect(false).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect(1).not.toBeFalsy();
+});
+
+test("passes when value is a finite number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFinite,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(1).toBeFinite();
+  expect(Infinity).not.toBeFinite();
+  expect(NaN).not.toBeFinite();
+});
+
+test("passes when value is frozen", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFrozen,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect(Object.freeze({})).toBeFrozen();
+  expect(1).toBeFrozen();
+  expect({}).not.toBeFrozen();
+});
+
+test("passes when value is a function", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeFunction,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(() => {}).toBeFunction();
+  expect(function () {}).toBeFunction();
+  expect(true).not.toBeFunction();
+});
+
+test("passes when value greater than or equal to", () => {
+  expect(100).toBeGreaterThanOrEqual(99);
+  expect(100n).toBeGreaterThanOrEqual(100n);
+  expect(0).not.toBeGreaterThanOrEqual(1);
+});
+
+test("passes when value greater than", () => {
+  expect(100).toBeGreaterThan(99);
+  expect(100n).toBeGreaterThan(99n);
+  expect(1).not.toBeGreaterThan(1);
+});
+
+test("passes when value is a valid hex color", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeHexColor,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("#abc123").toBeHexColor();
+  expect("#FFF").toBeHexColor();
+  expect("#000000").toBeHexColor();
+  expect("#123ffg").not.toBeHexColor();
+});
+
+test("passes when value is instance of class", () => {
+  class A {}
+  expect(new A()).toBeInstanceOf(A);
+  expect(() => {}).toBeInstanceOf(Function);
+  expect(new A()).not.toBeInstanceOf(Function);
+});
+
+test("passes when value is an integer", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeInteger,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeInteger();
+  expect(1.0).toBeInteger();
+  expect(1.1).not.toBeInteger();
+});
+
+test("passes when value less than or equal to", () => {
+  expect(99).toBeLessThanOrEqual(100);
+  expect(100n).toBeLessThanOrEqual(100n);
+  expect(1).not.toBeLessThanOrEqual(0);
+});
+
+test("passes when value less than", () => {
+  expect(99).toBeLessThan(100);
+  expect(99n).toBeLessThan(100n);
+  expect(1).not.toBeLessThan(0);
+});
+
+test("passes when value less than", () => {
+  expect(NaN).toBeNaN();
+  expect(-NaN).toBeNaN();
+  expect(1).not.toBeNaN();
+});
+
+test("passes when value is a negative number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeNegative,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(-1).toBeNegative();
+  expect(-Infinity).not.toBeNegative();
+  expect(1).not.toBeNegative();
+  expect(NaN).not.toBeNegative();
+});
+
+test("passes when value is null or undefined", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeNil,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(null).toBeNil();
+  expect(undefined).toBeNil();
+  expect(true).not.toBeNil();
 });
