@@ -43,6 +43,7 @@ import {
   toContainEntry,
   toContainKeys,
   toContainValue,
+  toContainValues,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -733,4 +734,19 @@ test("passes when object contains given value", () => {
   expect(object).toContainValue("foo");
   expect(object).toContainValue("bar");
   expect(object).not.toContainValue("qux");
+});
+
+test("passes when object contains all of the given values", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toContainValues,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const object = { a: "foo", b: "bar", c: "baz" };
+  expect(object).toContainValues(["foo"]);
+  expect(object).toContainValues(["baz", "bar"]);
+  expect(object).not.toContainValues(["qux", "foo"]);
 });
