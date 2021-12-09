@@ -512,7 +512,7 @@ test("should be falsy", () => {
 
 ## toBeFinite
 
-preset: `jestMatcherMap`
+preset: `jestExtendedMatcherMap`
 
 Use `.toBeFinite` when checking if a value is a `number`, not `NaN` or
 `Infinity`.
@@ -598,6 +598,23 @@ test("passes when value is a function", () => {
   expect(() => {}).toBeFunction();
   expect(function () {}).toBeFunction();
   expect(true).not.toBeFunction();
+});
+```
+
+## toBeGreaterThanOrEqual
+
+preset: `jestMatcherMap`
+
+Use `.toBeGreaterThanOrEqual` to compare `actual >= expected` for `number` or
+`bigint`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value greater than or equal to", () => {
+  expect(100).toBeGreaterThanOrEqual(99);
+  expect(100n).toBeGreaterThanOrEqual(100n);
+  expect(0).not.toBeGreaterThanOrEqual(1);
 });
 ```
 

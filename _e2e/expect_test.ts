@@ -317,3 +317,9 @@ test("passes when value is a function", () => {
   expect(function () {}).toBeFunction();
   expect(true).not.toBeFunction();
 });
+
+test("passes when value greater than or equal to", () => {
+  expect(100).toBeGreaterThanOrEqual(99);
+  expect(100n).toBeGreaterThanOrEqual(100n);
+  expect(0).not.toBeGreaterThanOrEqual(1);
+});
