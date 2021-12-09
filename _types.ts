@@ -1,12 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 type AnyFn<R = unknown> = (...args: any) => R;
-
-type ShiftRightParameters<T extends AnyFn, R> = IsArityX<T, 0 | 1> extends true
-  ? () => R
-  : (
-    ...args: Parameters<T> extends [infer _, ...infer Rest] ? Rest : never
-  ) => R;
+type IsNever<T> = [T] extends [never] ? true : false;
 
 type IsArityX<T extends AnyFn, X extends number> =
   Parameters<T>["length"] extends X ? true : false;
@@ -17,21 +12,23 @@ type Parameter<T extends AnyFn, X extends number> = Parameters<T> extends []
 
 type FirstParameter<T extends AnyFn> = Parameter<T, 0>;
 
-type PropertyFilter<T extends Record<string, AnyFn>, U> = {
-  [k in keyof T]: U extends FirstParameter<T[k]> ? T[k] : never;
+type PickByFirstParameter<T extends Record<string, AnyFn>, U> = {
+  [k in keyof T as (U extends FirstParameter<T[k]> ? k : never)]: T[k];
 };
 
-type OmitBy<T, U = never> = {
-  [k in keyof T as T[k] extends U ? never : k]: T[k];
+type Resolve<T> = T extends Promise<infer X> ? X : T;
+
+type IsPromise<T> = T extends Promise<any> ? true : false;
+
+type ReturnTypePromisifyMap<T extends Record<PropertyKey, AnyFn>> = {
+  [k in keyof T]: (...args: Parameters<T[k]>) => Promise<ReturnType<T[k]>>;
 };
 
-type Promisify<T extends AnyFn, Do extends boolean> = ((
-  ...args: Parameters<T>
-) => Do extends true ? Promise<ReturnType<T>> : ReturnType<T>);
+type Shift<T> = T extends [infer _, ...infer Rest] ? Rest : never;
 
-type PromisifyMap<T extends Record<PropertyKey, AnyFn>, Do extends boolean> = {
-  [k in keyof T]: Promisify<T[k], Do extends true ? true : false>;
-};
+type ShiftFnArg<T extends AnyFn> = IsNever<Shift<Parameters<T>>> extends true
+  ? () => ReturnType<T>
+  : (...args: Shift<Parameters<T>>) => ReturnType<T>;
 
 type Writable<T> = {
   -readonly [k in keyof T]: T[k];
@@ -42,10 +39,12 @@ type Primitive = string | number | bigint | symbol | boolean | null | undefined;
 export type {
   AnyFn,
   IsArityX,
-  OmitBy,
+  IsPromise,
+  PickByFirstParameter,
   Primitive,
-  PromisifyMap,
-  PropertyFilter,
-  ShiftRightParameters,
+  Resolve,
+  ReturnTypePromisifyMap,
+  Shift,
+  ShiftFnArg,
   Writable,
 };
