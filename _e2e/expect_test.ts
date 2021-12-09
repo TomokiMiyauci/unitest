@@ -27,6 +27,7 @@ import {
   toBeNil,
   toBeNumber,
   toBeObject,
+  toBeOdd,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -451,4 +452,18 @@ test("passes when value is an object", () => {
   expect({}).toBeObject();
   expect({ a: "hello" }).toBeObject();
   expect(true).not.toBeObject();
+});
+
+test("passes when value is an odd number", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeOdd,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(1).toBeOdd();
+  expect(2).not.toBeOdd();
+  expect(NaN).not.toBeOdd();
 });

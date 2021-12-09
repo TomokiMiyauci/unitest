@@ -898,6 +898,36 @@ test("passes when value is an object", () => {
 });
 ```
 
+## toBeOdd
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toBeOdd` when checking if a value is an odd `number`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeOdd,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeOdd,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is an odd number", () => {
+  expect(1).toBeOdd();
+  expect(2).not.toBeOdd();
+  expect(NaN).not.toBeOdd();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
