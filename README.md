@@ -54,7 +54,7 @@ Deno-first **uni**versal **unit** testing framework
 
 ## Requirements
 
-- deno ^1.15.0
+- deno 1.15+
 
 ## Getting Started
 

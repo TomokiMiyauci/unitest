@@ -10,7 +10,7 @@ improve Unitest in different ways:
 
 ## Development Setup
 
-You will need [Deno](https://deno.land/) 1.16+.
+You will need [Deno](https://deno.land/) 1.15+.
 
 1. Fork this repository to your own GitHub account.
 2. Clone the repository to your local device.
