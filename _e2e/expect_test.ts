@@ -881,3 +881,12 @@ test("passes when mock object returned successfully times", () => {
 
   expect(mockObject).toHaveReturnedTimes(2);
 });
+
+test("passes when mock object returned specific value", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+
+  expect(mockObject).toHaveReturnedWith(7);
+  expect(mockObject).toHaveReturnedWith(3);
+});
