@@ -22,7 +22,7 @@ function predict(
   return mockResult.type === "return" && equal(mockResult.value, expected);
 }
 
-/** Use `.toHaveNthReturnedWith` to test the specific value that a mock function
+/** Use `.toHaveNthReturnedWith` to test the specific value that a mock object
  * returned for the nth call
  * ```ts
  * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";

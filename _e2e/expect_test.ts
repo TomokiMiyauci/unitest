@@ -867,3 +867,9 @@ test("passes when mock object of last returned with", () => {
   expect(mockObject).toHaveNthReturnedWith(1, 3);
   expect(mockObject).toHaveNthReturnedWith(2, 7);
 });
+
+test("passes when check object property via keyPath", () => {
+  expect({ a: "b" }).toHaveProperty("a");
+  expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
+  expect({ a: { b: { c: "d" } } }).not.toHaveProperty(["a", "b", "c"]);
+});
