@@ -1642,7 +1642,7 @@ test("passes when mock object called 2 times", () => {
 
 preset: `jestMatcherMap`
 
-Use `.toHaveBeenCalledWith` to ensure that a mock function was called with
+Use `.toHaveBeenCalledWith` to ensure that a mock object was called with
 specific arguments.
 
 ```ts
@@ -1652,6 +1652,23 @@ test("passes when mock object called with arg", () => {
   const mockObject = fn();
   mockObject(1, 2, 3);
   expect(mockObject).toHaveBeenCalledWith(1, 2, 3);
+});
+```
+
+## toHaveBeenCalled
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenCalled` to ensure that a mock object got called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object called", () => {
+  const mockObject = fn();
+  expect(mockObject).not.toHaveBeenCalled();
+  mockObject();
+  expect(mockObject).toHaveBeenCalled();
 });
 ```
 

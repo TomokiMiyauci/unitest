@@ -823,3 +823,10 @@ test("passes when mock object called with arg", () => {
   mockObject(1, 2, 3);
   expect(mockObject).toHaveBeenCalledWith(1, 2, 3);
 });
+
+test("passes when mock object called", () => {
+  const mockObject = fn();
+  expect(mockObject).not.toHaveBeenCalled();
+  mockObject();
+  expect(mockObject).toHaveBeenCalled();
+});
