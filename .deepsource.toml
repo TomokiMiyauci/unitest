@@ -2,7 +2,10 @@ version = 1
 
 test_patterns = ["*.ts"]
 
-exclude_patterns = ["_docs/**"]
+exclude_patterns = [
+  "_docs/**",
+  "*_test.ts"
+]
 
 [[analyzers]]
 name = "javascript"
