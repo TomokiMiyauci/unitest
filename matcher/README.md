@@ -1743,6 +1743,25 @@ test("passes when object of length property equal to", () => {
 });
 ```
 
+## toHaveNthReturnedWith
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveNthReturnedWith` to test the specific value that a mock function
+returned for the nth call.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveNthReturnedWith(1, 3);
+  expect(mockObject).toHaveNthReturnedWith(2, 7);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

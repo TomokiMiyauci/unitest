@@ -859,3 +859,11 @@ test("passes when object of length property equal to", () => {
   expect("abc").toHaveLength(3);
   expect("").not.toHaveLength(5);
 });
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveNthReturnedWith(1, 3);
+  expect(mockObject).toHaveNthReturnedWith(2, 7);
+});

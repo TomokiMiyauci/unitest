@@ -9,6 +9,11 @@ function tail<T extends unknown>(val: readonly T[]): T[] {
   return val.slice(1, Infinity);
 }
 
+/** safe element accessor */
+function take<T>(value: readonly T[], index: number): T | undefined {
+  return value[index];
+}
+
 /** take last element of `array` */
 function last<T extends unknown>(value: readonly T[]): T | undefined {
   return value.slice(-1)[0];
@@ -102,5 +107,6 @@ export {
   last,
   prop,
   propPath,
+  take,
   takeLast,
 };
