@@ -1565,6 +1565,41 @@ test("passes when strings are equal ignoring case", () => {
 });
 ```
 
+## toEqualIgnoringWhitespace
+
+Use `.toEqualIgnoringWhitespace` when checking if a `string` is equal to another
+`string` ignoring white-space.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toEqualIgnoringWhitespace,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toEqualIgnoringWhitespace,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes if strings are equal ignoring white-space", () => {
+  expect("SELECT * FROM TABLE WHERE CONDITION").toEqualIgnoringWhitespace(`
+        SELECT * FROM TABLE
+        WHERE CONDITION
+    `);
+  expect(".class { cssRule: value }").not.toEqualIgnoringWhitespace(`
+        #id {
+            cssRule: value
+        }
+    `);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
