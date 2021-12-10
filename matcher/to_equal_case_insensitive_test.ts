@@ -13,7 +13,7 @@ Deno.test({
     assertEquals(toEqualCaseInsensitive("abc", "ABC"), {
       pass: true,
       expected: "ABC",
-      expectedHint: "Expected values to be equal while ignoring case:",
+      expectedHint: "Expected to be equal while ignoring case:",
     });
   },
 });

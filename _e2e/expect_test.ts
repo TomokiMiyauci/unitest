@@ -45,6 +45,7 @@ import {
   toContainValue,
   toContainValues,
   toEndWith,
+  toEqualCaseInsensitive,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -768,4 +769,18 @@ test("passes when value is ends with given string", () => {
   });
   expect("hello world").toEndWith("world");
   expect("hello world").not.toEndWith("hello");
+});
+
+test("passes when strings are equal ignoring case", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toEqualCaseInsensitive,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect("hello world").toEqualCaseInsensitive("hello world");
+  expect("hello world").toEqualCaseInsensitive("HELLO WORLD");
 });

@@ -1537,6 +1537,34 @@ test("passes when value is ends with given string", () => {
 });
 ```
 
+## toEqualCaseInsensitive
+
+Use `.toEqualCaseInsensitive` when checking if a `string` is equal to another
+ignoring the casing of both strings.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toEqualCaseInsensitive,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toEqualCaseInsensitive,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when strings are equal ignoring case", () => {
+  expect("hello world").toEqualCaseInsensitive("hello world");
+  expect("hello world").toEqualCaseInsensitive("HELLO WORLD");
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
