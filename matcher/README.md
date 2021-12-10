@@ -1510,6 +1510,33 @@ test("passes when array contains given value", () => {
 });
 ```
 
+## toEndWith
+
+Use `.toEndWith` when checking if a `string` ends with a given `string` suffix.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toEndWith,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toEndWith,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is ends with given string", () => {
+  expect("hello world").toEndWith("world");
+  expect("hello world").not.toEndWith("hello");
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

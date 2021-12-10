@@ -44,6 +44,7 @@ import {
   toContainKeys,
   toContainValue,
   toContainValues,
+  toEndWith,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -754,4 +755,17 @@ test("passes when object contains all of the given values", () => {
 test("passes when array contains given value", () => {
   expect([1, 2, 3, 4, 5]).toContain(3);
   expect([{}, [], ""]).not.toContain(3);
+});
+
+test("passes when value is ends with given string", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toEndWith,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello world").toEndWith("world");
+  expect("hello world").not.toEndWith("hello");
 });
