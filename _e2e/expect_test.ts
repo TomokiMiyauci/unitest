@@ -1038,3 +1038,17 @@ test("passes when value passes given predicate", () => {
   expect(0).not.toSatisfy(greaterThanOneButNotThree);
   expect(3).not.toSatisfy(greaterThanOneButNotThree);
 });
+
+test("passes when value is starts with given string", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toStartWith,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect("hello world").toStartWith("hello");
+  expect("hello world").not.toStartWith("world");
+});
