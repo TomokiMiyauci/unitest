@@ -15,6 +15,8 @@ Deno-first **uni**versal **unit** testing framework
 [![DeepSource](https://deepsource.io/gh/TomokiMiyauci/unitest.svg/?label=active+issues&token=1Omp7qqFQESc-ArgLDUEIpUI)](https://deepsource.io/gh/TomokiMiyauci/unitest/)
 [![DeepScan grade](https://deepscan.io/api/teams/10684/projects/19438/branches/504638/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10684&pid=19438&bid=504638)
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 ![license](https://img.shields.io/github/license/TomokiMiyauci/unitest)
 
 </div>
