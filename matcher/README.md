@@ -1775,7 +1775,7 @@ import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 test("passes when check object property via keyPath", () => {
   expect({ a: "b" }).toHaveProperty("a");
   expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
-  expect({ a: { b: { c: "d" } } }).toHaveProperty(["a", "b", "c"]);
+  expect({ a: { b: { c: "d" } } }).not.toHaveProperty(["a", "b", "c"], "e");
 });
 ```
 
