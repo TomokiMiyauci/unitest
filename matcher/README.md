@@ -1620,6 +1620,24 @@ test("passes when array contains given value", () => {
 });
 ```
 
+## toHaveBeenCalledTimes
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenCalledTimes` to ensure that a mock object got called exact
+number of times.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object called 2 times", () => {
+  const mockObject = fn();
+  mockObject();
+  mockObject();
+  expect(mockObject).toHaveBeenCalledTimes(2);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

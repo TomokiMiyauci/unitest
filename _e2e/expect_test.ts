@@ -2,6 +2,7 @@
 import {
   defineExpect,
   expect,
+  fn,
   not,
   test,
   toBeAfter,
@@ -808,4 +809,11 @@ test("passes if strings are equal ignoring white-space", () => {
 
 test("passes when array contains given value", () => {
   expect({}).toEqual({});
+});
+
+test("passes when mock object called 2 times", () => {
+  const mockObject = fn();
+  mockObject();
+  mockObject();
+  expect(mockObject).toHaveBeenCalledTimes(2);
 });
