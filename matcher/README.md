@@ -1866,6 +1866,37 @@ test("passes when given array values match the members of the set", () => {
 });
 ```
 
+## toIncludeAnyMembers
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeAnyMembers` when checking if an `array` contains any of the
+members of a given set.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeAnyMembers,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeAnyMembers,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when given array values match any of the members in the set", () => {
+  expect([1, 2, 3]).toIncludeAnyMembers([2, 1, 3]);
+  expect([1, 2, 2]).toIncludeAnyMembers([2]);
+  expect([1, 2, 2]).not.toIncludeAnyMembers([3]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
