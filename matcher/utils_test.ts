@@ -5,6 +5,7 @@ import {
   contains,
   containSome,
   hasPath,
+  last,
   prop,
   propPath,
 } from "./utils.ts";
@@ -111,6 +112,16 @@ Deno.test({
       assertEquals(prop(key, object), result)
     );
   },
+});
+
+Deno.test("last", () => {
+  const table: [...Parameters<typeof last>, ReturnType<typeof last>][] = [
+    [[], undefined],
+    [[1, 2, 3], 3],
+    [[{}, undefined, null], null],
+  ];
+
+  table.forEach(([value, result]) => assertEquals(last(value), result));
 });
 
 Deno.test({

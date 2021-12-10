@@ -1672,6 +1672,24 @@ test("passes when mock object called", () => {
 });
 ```
 
+## toHaveBeenLastCalledWith
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenLastCalledWith` to test mock object was last called with.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last called with", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  mockObject(4, 5, 6);
+  expect(mockObject).toHaveBeenLastCalledWith(4, 5, 6);
+  expect(mockObject).not.toHaveBeenLastCalledWith(1, 2, 3);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
@@ -1697,3 +1715,6 @@ test("passes when mock object called", () => {
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
     - ~~toBeHexadecimal~~ -> toBeHexColor
+
+```
+```
