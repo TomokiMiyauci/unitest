@@ -3,21 +3,41 @@
 
 import type { MatchResult } from "./types.ts";
 import { isString } from "../deps.ts";
-import { hasPath } from "./utils.ts";
+import { hasPath, propPath } from "./utils.ts";
+import { stringify } from "../helper/format.ts";
+import { equal } from "../helper/equal.ts";
 
-type PredictResult = { result: boolean; path: PropertyKey[] };
+/** construct key path as `array` */
+function constructPath(keyPath: PropertyKey | PropertyKey[]): PropertyKey[] {
+  return Array.isArray(keyPath)
+    ? keyPath
+    : isString(keyPath)
+    ? keyPath.split(".")
+    : [keyPath];
+}
 
-/** predict for `toHaveProperty` */
-function predict(
-  actual: object,
-  expected: PropertyKey | PropertyKey[],
-): PredictResult {
-  const path = Array.isArray(expected)
-    ? expected
-    : isString(expected)
-    ? expected.split(".")
-    : [expected];
-  return { result: hasPath(path, actual), path };
+/** extract property path */
+function extractPath(keyPath: PropertyKey[], value: object): PropertyKey[] {
+  const actualPath: PropertyKey[] = [];
+
+  for (const key of keyPath) {
+    if (!hasPath([...actualPath, key], value)) {
+      break;
+    }
+    actualPath.push(key);
+  }
+
+  return actualPath;
+}
+
+/** assertion hint */
+function _hint(value: unknown): string {
+  return value ? "path -> value" : "path";
+}
+
+/** assert hint message */
+function _assetHint(value: unknown, returnValue: unknown): string {
+  return value ? ` -> ${stringify(returnValue)}` : "";
 }
 
 /** Use `.toHaveProperty` to check if property at provided reference keyPath exists
@@ -28,22 +48,37 @@ function predict(
  * test("passes when check object property via keyPath", () => {
  *   expect({ a: "b" }).toHaveProperty("a");
  *   expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
- *   expect({ a: { b: { c: "d" } } }).toHaveProperty(["a", "b", "c"]);
+ *   expect({ a: { b: { c: "d" } } }).not.toHaveProperty(["a", "b", "c"], "e");
  * });
  * ```
  */
 function toHaveProperty(
   actual: object,
-  expected: PropertyKey | PropertyKey[],
+  keyPath: PropertyKey | PropertyKey[],
+  value?: unknown,
 ): MatchResult {
-  // TODO:(miyauci) args for check object value
-  const { result: pass, path } = predict(actual, expected);
-  // TODO:(miyauci) improve assertion message
+  const expectedPath = constructPath(keyPath);
+  const actualPath = extractPath(expectedPath, actual);
+  const expectedValue = propPath(expectedPath, actual);
+  const actualValue = propPath(actualPath, actual);
+
+  const hasValue = arguments.length === 3;
+
+  const pass = hasValue
+    ? equal(expectedValue, value)
+    : hasPath(expectedPath, actual);
+  const msg = _hint(hasValue);
+
+  const act = `${actualPath.join(".")}${_assetHint(hasValue, actualValue)}`;
+  const expected = `${expectedPath.join(".")}${_assetHint(hasValue, value)}`;
+
   return {
     pass,
-    expected: path.join(" -> "),
+    actualHint: `Actual ${msg}:`,
+    actual: act,
+    expectedHint: `Expected ${msg}:`,
+    expected,
   };
 }
 
-export { predict, toHaveProperty };
-export type { PredictResult };
+export { _assetHint, _hint, constructPath, extractPath, toHaveProperty };

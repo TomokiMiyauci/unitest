@@ -1,88 +1,106 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
 import {
-  assertEquals,
-  assertExpected,
-  assertFail,
-  assertSuccess,
-} from "../dev_deps.ts";
-import { predict, toHaveProperty } from "./to_have_property.ts";
-import type { PredictResult } from "./to_have_property.ts";
+  _assetHint,
+  _hint,
+  constructPath,
+  extractPath,
+  toHaveProperty,
+} from "./to_have_property.ts";
+
+Deno.test("_hint", () => {
+  assertEquals(_hint(true), "path -> value");
+  assertEquals(_hint(false), "path");
+});
+
+Deno.test("_assetHint", () => {
+  assertEquals(_assetHint(true, "hello"), ` -> "hello"`);
+  assertEquals(_assetHint(true, 1), " -> 1");
+  assertEquals(_assetHint(false, 1), "");
+  assertEquals(_assetHint(false, "hello"), "");
+});
 
 Deno.test({
-  name: "predict",
+  name: "constructPath",
   fn: () => {
     const symbol = Symbol.for("test");
-    const table: [object, PropertyKey | PropertyKey[], PredictResult][] = [[
-      {},
+    const table: [
+      ...Parameters<typeof constructPath>,
+      ReturnType<typeof constructPath>,
+    ][] = [[
       [],
-      { result: false, path: [] },
+      [],
     ], [
-      { a: undefined },
       ["a"],
-      { result: true, path: ["a"] },
-    ], [
-      { a: undefined },
       ["a"],
-      { result: true, path: ["a"] },
     ], [
-      { a: 1 },
       ["a"],
-      { result: true, path: ["a"] },
+      ["a"],
     ], [
-      { a: { b: undefined } },
+      ["a"],
+      ["a"],
+    ], [
       ["a", "b"],
-      { result: true, path: ["a", "b"] },
+      ["a", "b"],
     ], [
-      { a: { b: undefined } },
       ["a", "b", "c"],
-      { result: false, path: ["a", "b", "c"] },
+      ["a", "b", "c"],
     ], [
-      { a: { b: [] } },
       ["a", "b"],
-      { result: true, path: ["a", "b"] },
+      ["a", "b"],
     ], [
-      { 1: 1 },
       [1],
-      { result: true, path: [1] },
+      [1],
     ], [
-      { [symbol]: 1 },
       [symbol],
-      { result: true, path: [symbol] },
+      [symbol],
     ], [
-      { a: 1 },
       "a",
-      { result: true, path: ["a"] },
+      ["a"],
     ], [
-      { a: 1 },
       "b",
-      { result: false, path: ["b"] },
+      ["b"],
     ], [
-      { 1: 2 },
       1,
-      { result: true, path: [1] },
+      [1],
     ], [
-      { 1: 2 },
       "1",
-      { result: true, path: ["1"] },
+      ["1"],
     ], [
-      { "1": 2 },
       1,
-      { result: true, path: [1] },
+      [1],
     ], [
-      { [symbol]: 2 },
       symbol,
-      { result: true, path: [symbol] },
+      [symbol],
     ], [
-      { a: { b: { c: {} } } },
       "a.b.c",
-      { result: true, path: ["a", "b", "c"] },
+      ["a", "b", "c"],
     ]];
 
-    table.forEach(([actual, expected, result]) =>
-      assertEquals(predict(actual, expected), result)
+    table.forEach(([keyPath, result]) =>
+      assertEquals(constructPath(keyPath), result)
     );
   },
+});
+
+Deno.test("extractPath", () => {
+  const table: [
+    ...Parameters<typeof extractPath>,
+    ReturnType<typeof extractPath>,
+  ][] = [
+    [[], {}, []],
+    [["a"], {}, []],
+    [["a"], { a: "b" }, ["a"]],
+    [["a", "b"], { a: { b: {} } }, ["a", "b"]],
+    [["a", "b", "d"], { a: { b: {} } }, ["a", "b"]],
+    [["a", "b", "c"], { a: { b: { c: {} } } }, ["a", "b", "c"]],
+    [["a", "b", "c", "d"], { a: { b: { c: {} } } }, ["a", "b", "c"]],
+  ];
+
+  table.forEach(([keyPath, value, result]) =>
+    assertEquals(extractPath(keyPath, value), result)
+  );
 });
 
 Deno.test({
@@ -98,12 +116,28 @@ Deno.test({
     assertFail(toHaveProperty({}, []));
     assertFail(toHaveProperty({ a: { b: undefined } }, "a.b.c"));
 
-    assertExpected({
-      matcher: toHaveProperty,
-      expected: "a -> b -> c",
-    }, {
-      actual: { a: { b: { c: {} } } },
-      expectedArgs: ["a.b.c"],
+    assertEquals(toHaveProperty({ a: { b: undefined } }, "a.b.c"), {
+      pass: false,
+      actual: "a.b",
+      actualHint: "Actual path:",
+      expected: "a.b.c",
+      expectedHint: "Expected path:",
+    });
+
+    assertEquals(toHaveProperty({ a: { b: { c: "d" } } }, "a.b.c", "e"), {
+      pass: false,
+      actual: `a.b.c -> "d"`,
+      actualHint: "Actual path -> value:",
+      expected: `a.b.c -> "e"`,
+      expectedHint: "Expected path -> value:",
+    });
+
+    assertEquals(toHaveProperty({ a: { b: { c: "d" } } }, "a.b.c", undefined), {
+      pass: false,
+      actual: `a.b.c -> "d"`,
+      actualHint: "Actual path -> value:",
+      expected: `a.b.c -> undefined`,
+      expectedHint: "Expected path -> value:",
     });
   },
 });

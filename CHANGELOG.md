@@ -1,3 +1,15 @@
+# [1.0.0-beta.55](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.54...v1.0.0-beta.55) (2021-12-10)
+
+
+### Bug Fixes
+
+* **matcher:** improve `toHaveProperty` matcher assertion message ([999e4a3](https://github.com/TomokiMiyauci/unitest/commit/999e4a306b49d20db720e9969995c53b582da1b2))
+
+
+### Features
+
+* **matcher:** accept value 3rd argument `toHaveProperty` ([6893e2d](https://github.com/TomokiMiyauci/unitest/commit/6893e2de4b5e0638dd96c26828e6f162c88bb7c2))
+
 # [1.0.0-beta.54](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.53...v1.0.0-beta.54) (2021-12-09)
 
 
