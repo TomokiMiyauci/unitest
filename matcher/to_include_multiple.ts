@@ -10,12 +10,12 @@ import type { MatchResult } from "./types.ts";
  *   defineExpect,
  *   not,
  *   test,
- *   toIncludeAnyMembers,
+ *   toIncludeMultiple,
  * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
  *
  * const expect = defineExpect({
  *   matcherMap: {
- *     toIncludeAnyMembers,
+ *     toIncludeMultiple,
  *   },
  *   modifierMap: {
  *     not,
