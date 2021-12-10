@@ -91,8 +91,8 @@ function defineExpect<
     PickModifierByType<Modifier, "post">,
     IsPromise<T>
   > => {
-    let pre: [string | symbol, PreModifierFn] | undefined;
-    let post: [string | symbol, PostModifierFn] | undefined;
+    let pre: [string | symbol, PreModifierFn] | undefined = undefined;
+    let post: [string | symbol, PostModifierFn] | undefined = undefined;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {

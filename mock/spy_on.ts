@@ -34,7 +34,7 @@ function spyOn<T extends object>(object: T, key: keyof T): MockObject<any> {
   const mock = _isFunction ? fn(descriptor.value) : fn();
   const callableValue = (...args: unknown[]) => {
     mock(...args);
-    return (descriptor!.value as Function)(...args);
+    return (descriptor.value as Function)(...args);
   };
   const value = _isFunction ? callableValue : descriptor.value;
 
