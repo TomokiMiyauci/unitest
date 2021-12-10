@@ -1897,6 +1897,36 @@ test("passes when given array values match any of the members in the set", () =>
 });
 ```
 
+## toIncludeMultiple
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeMultiple` when checking if a `string` includes all of the given
+substrings.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeMultiple,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeMultiple,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value includes all substrings", () => {
+  expect("hello world").toIncludeMultiple(["world", "hello"]);
+  expect("hello world").not.toIncludeMultiple(["world", "hello", "bob"]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

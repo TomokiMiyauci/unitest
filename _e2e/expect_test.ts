@@ -50,6 +50,7 @@ import {
   toEqualIgnoringWhitespace,
   toIncludeAllMembers,
   toIncludeAnyMembers,
+  toIncludeMultiple,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -926,4 +927,17 @@ test("passes when given array values match any of the members in the set", () =>
   expect([1, 2, 3]).toIncludeAnyMembers([2, 1, 3]);
   expect([1, 2, 2]).toIncludeAnyMembers([2]);
   expect([1, 2, 2]).not.toIncludeAnyMembers([3]);
+});
+
+test("passes when value includes all substrings", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeMultiple,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello world").toIncludeMultiple(["world", "hello"]);
+  expect("hello world").not.toIncludeMultiple(["world", "hello", "bob"]);
 });
