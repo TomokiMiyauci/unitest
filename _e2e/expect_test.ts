@@ -55,6 +55,7 @@ import {
   toIncludeRepeated,
   toIncludeSameMembers,
   toSatisfyAll,
+  toSatisfyAny,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -1004,4 +1005,19 @@ test("passes when all values in array pass given predicate", () => {
   const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
   expect([1, 3, 5, 7]).toSatisfyAll(isOdd);
   expect([1, 3, 4, 5, 7]).not.toSatisfyAll(isOdd);
+});
+
+test("passes when any value in array pass given predicate", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toSatisfyAny,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
+  expect([2, 3, 6, 8]).toSatisfyAny(isOdd);
+  expect([2, 4, 8, 12]).not.toSatisfyAny(isOdd);
 });
