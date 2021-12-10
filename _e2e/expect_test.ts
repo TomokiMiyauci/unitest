@@ -48,6 +48,7 @@ import {
   toEndWith,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,
+  toIncludeAllMembers,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -896,4 +897,18 @@ test("passes when mock object returned at least once", () => {
   expect(mockObject).not.toHaveReturned();
   mockObject();
   expect(mockObject).toHaveReturned();
+});
+
+test("passes when given array values match the members of the set", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeAllMembers,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect([1, 2, 3]).toIncludeAllMembers([2, 1, 3]);
+  expect([1, 2, 2]).toIncludeAllMembers([2, 1]);
 });
