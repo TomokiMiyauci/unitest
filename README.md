@@ -5,7 +5,7 @@
 
 Deno-first **uni**versal **unit** testing framework
 
-![release](https://img.shields.io/github/v/release/TomokiMiyauci/unitest?sort=semver)
+![release](https://img.shields.io/github/v/release/TomokiMiyauci/unitest?sort=semver&logo=github)
 [![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black)](https://deno.land/x/unitest)
 [![deno version](https://img.shields.io/badge/deno-^1.15.0-lightgrey?logo=deno)](https://github.com/denoland/deno)
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/unitest/mod.ts)
