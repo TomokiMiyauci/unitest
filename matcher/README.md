@@ -2199,6 +2199,3 @@ test("passes when the function throw error", () => {
     - ~~toResolve~~ not pure
     - ~~toReject~~ not pure
     - ~~toBeHexadecimal~~ -> toBeHexColor
-
-```
-```

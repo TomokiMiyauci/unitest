@@ -879,7 +879,7 @@ test("passes when mock object of last returned with", () => {
 
 test("passes when check object property via keyPath", () => {
   expect({ a: "b" }).toHaveProperty("a");
-  expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
+  expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c.d");
   expect({ a: { b: { c: "d" } } }).toHaveProperty(["a", "b", "c"]);
 });
 

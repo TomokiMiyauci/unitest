@@ -1,12 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import {
-  assertEquals,
-  assertExpected,
-  assertFail,
-  assertSuccess,
-} from "../dev_deps.ts";
-import { predict, toHaveProperty } from "./to_have_property.ts";
+import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
+import { extractPath, predict, toHaveProperty } from "./to_have_property.ts";
 import type { PredictResult } from "./to_have_property.ts";
 
 Deno.test({
@@ -85,6 +80,25 @@ Deno.test({
   },
 });
 
+Deno.test("extractPath", () => {
+  const table: [
+    ...Parameters<typeof extractPath>,
+    ReturnType<typeof extractPath>,
+  ][] = [
+    [[], {}, []],
+    [["a"], {}, []],
+    [["a"], { a: "b" }, ["a"]],
+    [["a", "b"], { a: { b: {} } }, ["a", "b"]],
+    [["a", "b", "d"], { a: { b: {} } }, ["a", "b"]],
+    [["a", "b", "c"], { a: { b: { c: {} } } }, ["a", "b", "c"]],
+    [["a", "b", "c", "d"], { a: { b: { c: {} } } }, ["a", "b", "c"]],
+  ];
+
+  table.forEach(([keyPath, value, result]) =>
+    assertEquals(extractPath(keyPath, value), result)
+  );
+});
+
 Deno.test({
   name: "toHaveProperty",
   fn: () => {
@@ -98,12 +112,12 @@ Deno.test({
     assertFail(toHaveProperty({}, []));
     assertFail(toHaveProperty({ a: { b: undefined } }, "a.b.c"));
 
-    assertExpected({
-      matcher: toHaveProperty,
-      expected: "a -> b -> c",
-    }, {
-      actual: { a: { b: { c: {} } } },
-      expectedArgs: ["a.b.c"],
+    assertEquals(toHaveProperty({ a: { b: undefined } }, "a.b.c"), {
+      pass: false,
+      actual: "a.b",
+      actualHint: "Actual path:",
+      expected: "a.b.c",
+      expectedHint: "Expected path:",
     });
   },
 });

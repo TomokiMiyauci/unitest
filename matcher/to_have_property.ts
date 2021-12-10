@@ -20,6 +20,20 @@ function predict(
   return { result: hasPath(path, actual), path };
 }
 
+/** extract property path */
+function extractPath(keyPath: PropertyKey[], value: object): PropertyKey[] {
+  const actualPath: PropertyKey[] = [];
+
+  for (const key of keyPath) {
+    if (!hasPath([...actualPath, key], value)) {
+      break;
+    }
+    actualPath.push(key);
+  }
+
+  return actualPath;
+}
+
 /** Use `.toHaveProperty` to check if property at provided reference keyPath exists
  * for an `object`
  * ```ts
@@ -38,12 +52,16 @@ function toHaveProperty(
 ): MatchResult {
   // TODO:(miyauci) args for check object value
   const { result: pass, path } = predict(actual, expected);
-  // TODO:(miyauci) improve assertion message
+  const actualPath = extractPath(path, actual);
+
   return {
+    actualHint: "Actual path:",
+    actual: actualPath.join("."),
     pass,
-    expected: path.join(" -> "),
+    expectedHint: "Expected path:",
+    expected: path.join("."),
   };
 }
 
-export { predict, toHaveProperty };
+export { extractPath, predict, toHaveProperty };
 export type { PredictResult };
