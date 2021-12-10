@@ -890,3 +890,10 @@ test("passes when mock object returned specific value", () => {
   expect(mockObject).toHaveReturnedWith(7);
   expect(mockObject).toHaveReturnedWith(3);
 });
+
+test("passes when mock object returned at least once", () => {
+  const mockObject = fn(() => true);
+  expect(mockObject).not.toHaveReturned();
+  mockObject();
+  expect(mockObject).toHaveReturned();
+});

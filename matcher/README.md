@@ -1818,6 +1818,24 @@ test("passes when mock object returned specific value", () => {
 });
 ```
 
+## toHaveReturned
+
+preset: `jestMatcherMap`
+
+Use `.toHaveReturned` that the mock object successfully returned at least one
+time.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object returned at least once", () => {
+  const mockObject = fn(() => true);
+  expect(mockObject).not.toHaveReturned();
+  mockObject();
+  expect(mockObject).toHaveReturned();
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
