@@ -1512,6 +1512,8 @@ test("passes when array contains given value", () => {
 
 ## toEndWith
 
+preset: `jestExtendedMatcherMap`
+
 Use `.toEndWith` when checking if a `string` ends with a given `string` suffix.
 
 ```ts
@@ -1538,6 +1540,8 @@ test("passes when value is ends with given string", () => {
 ```
 
 ## toEqualCaseInsensitive
+
+preset: `jestExtendedMatcherMap`
 
 Use `.toEqualCaseInsensitive` when checking if a `string` is equal to another
 ignoring the casing of both strings.
@@ -1566,6 +1570,8 @@ test("passes when strings are equal ignoring case", () => {
 ```
 
 ## toEqualIgnoringWhitespace
+
+preset: `jestExtendedMatcherMap`
 
 Use `.toEqualIgnoringWhitespace` when checking if a `string` is equal to another
 `string` ignoring white-space.
@@ -1597,6 +1603,20 @@ test("passes if strings are equal ignoring white-space", () => {
             cssRule: value
         }
     `);
+});
+```
+
+## toEqual
+
+preset: `jestMatcherMap`
+
+Use `.toEqual` to compare recursively all properties of object instances.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when array contains given value", () => {
+  expect({}).toEqual({});
 });
 ```
 

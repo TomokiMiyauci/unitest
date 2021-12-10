@@ -805,3 +805,7 @@ test("passes if strings are equal ignoring white-space", () => {
         }
     `);
 });
+
+test("passes when array contains given value", () => {
+  expect({}).toEqual({});
+});
