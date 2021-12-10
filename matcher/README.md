@@ -1927,6 +1927,36 @@ test("passes when value includes all substrings", () => {
 });
 ```
 
+## toIncludeRepeated
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeRepeated` when checking if a `string` includes the given `string`
+substring the correct number of times.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeRepeated,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeRepeated,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value includes substring n times", () => {
+  expect("hello hello world").toIncludeRepeated("hello", 2);
+  expect("hello hello world").not.toIncludeRepeated("hello", 1);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

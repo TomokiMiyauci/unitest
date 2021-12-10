@@ -51,6 +51,7 @@ import {
   toIncludeAllMembers,
   toIncludeAnyMembers,
   toIncludeMultiple,
+  toIncludeRepeated,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -940,4 +941,17 @@ test("passes when value includes all substrings", () => {
   });
   expect("hello world").toIncludeMultiple(["world", "hello"]);
   expect("hello world").not.toIncludeMultiple(["world", "hello", "bob"]);
+});
+
+test("passes when value includes substring n times", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeRepeated,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello hello world").toIncludeRepeated("hello", 2);
+  expect("hello hello world").not.toIncludeRepeated("hello", 1);
 });
