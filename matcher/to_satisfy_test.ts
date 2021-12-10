@@ -13,5 +13,16 @@ Deno.test({
       assertEquals(actual, false);
       return false;
     }));
+
+    assertEquals(
+      toSatisfy(false, (actual) => {
+        assertEquals(actual, false);
+        return false;
+      }),
+      {
+        pass: false,
+        expected: "Expected to satisfy predicate:",
+      },
+    );
   },
 });

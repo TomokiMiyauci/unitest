@@ -54,6 +54,7 @@ import {
   toIncludeMultiple,
   toIncludeRepeated,
   toIncludeSameMembers,
+  toSatisfy,
   toSatisfyAll,
   toSatisfyAny,
   toStartWith,
@@ -1020,4 +1021,20 @@ test("passes when any value in array pass given predicate", () => {
   const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
   expect([2, 3, 6, 8]).toSatisfyAny(isOdd);
   expect([2, 4, 8, 12]).not.toSatisfyAny(isOdd);
+});
+
+test("passes when value passes given predicate", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toSatisfy,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const greaterThanOneButNotThree = (n: unknown) =>
+    typeof n === "number" && n > 1 && n !== 3;
+  expect(100).toSatisfy(greaterThanOneButNotThree);
+  expect(0).not.toSatisfy(greaterThanOneButNotThree);
+  expect(3).not.toSatisfy(greaterThanOneButNotThree);
 });
