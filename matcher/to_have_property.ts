@@ -7,6 +7,7 @@ import { hasPath, propPath } from "./utils.ts";
 import { stringify } from "../helper/format.ts";
 import { equal } from "../helper/equal.ts";
 
+/** construct key path as `array` */
 function constructPath(keyPath: PropertyKey | PropertyKey[]): PropertyKey[] {
   return Array.isArray(keyPath)
     ? keyPath
