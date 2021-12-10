@@ -54,6 +54,7 @@ import {
   toIncludeMultiple,
   toIncludeRepeated,
   toIncludeSameMembers,
+  toSatisfyAll,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -989,4 +990,18 @@ test("passes when value includes substring", () => {
 
 test("passes when value match string or regExp", () => {
   expect("hello world").toMatch(/^hello/);
+});
+
+test("passes when all values in array pass given predicate", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toSatisfyAll,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
+  expect([1, 3, 5, 7]).toSatisfyAll(isOdd);
+  expect([1, 3, 4, 5, 7]).not.toSatisfyAll(isOdd);
 });
