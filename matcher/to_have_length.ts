@@ -6,7 +6,7 @@ import type { MatchResult } from "./types.ts";
 /** Use `.toHaveLength` to check that an object has a `.length` property and it is
  * set to a certain numeric value
  * ```ts
- * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
  *
  * test("passes when object of length property equal to", () => {
  *   expect([1, 2, 3]).toHaveLength(3);

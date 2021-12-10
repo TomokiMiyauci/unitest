@@ -3,6 +3,7 @@
 import type { MatchResult } from "./types.ts";
 import type { MockObject, MockResult } from "../mock/mock.ts";
 
+/** predict for `toHaveReturnedTimes` */
 function predict(
   mockResults: readonly MockResult[],
   expected: number,
@@ -17,13 +18,25 @@ function predict(
   return count === expected;
 }
 
-/** Use to ensure that a mock function returned successfully (i.e., did not throw an error) an exact number of times.
- * Any calls to the mock function that throw an error are not counted toward the number of times the function returned.
+/** Use `.toHaveReturnedTimes` to ensure that a mock object returned successfully an
+ * exact number of times
+ * ```ts
+ * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("passes when mock object returned successfully times", () => {
+ *   const mockObject = fn((a: number, b: number) => a + b);
+ *   mockObject(1, 2);
+ *   mockObject(3, 4);
+ *
+ *   expect(mockObject).toHaveReturnedTimes(2);
+ * });
+ * ```
  */
 function toHaveReturnedTimes(
   { mock }: MockObject,
   expected: number,
 ): MatchResult {
+  // TODO:(miyauci) improve assertion message
   return {
     pass: predict(mock.results, expected),
     expected,

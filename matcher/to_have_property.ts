@@ -23,7 +23,7 @@ function predict(
 /** Use `.toHaveProperty` to check if property at provided reference keyPath exists
  * for an `object`
  * ```ts
- * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
  *
  * test("passes when check object property via keyPath", () => {
  *   expect({ a: "b" }).toHaveProperty("a");

@@ -1674,7 +1674,7 @@ test("passes when mock object called", () => {
 
 ## toHaveBeenLastCalledWith
 
-preset: `jestExtendedMatcherMap`
+preset: `jestMatcherMap`
 
 Use `.toHaveBeenLastCalledWith` to test mock object was last called with.
 
@@ -1692,7 +1692,7 @@ test("passes when mock object of last called with", () => {
 
 ## toHaveBeenNthCalledWith
 
-preset: `jestExtendedMatcherMap`
+preset: `jestMatcherMap`
 
 Use `.toHaveBeenNthCalledWith` to test mock object was nth called with.
 
@@ -1710,7 +1710,7 @@ test("passes when mock object of last called with", () => {
 
 ## toHaveLastReturnedWith
 
-preset: `jestExtendedMatcherMap`
+preset: `jestMatcherMap`
 
 Use `.toHaveLastReturnedWith` to test the specific value that a mock object last
 returned.
@@ -1728,13 +1728,13 @@ test("passes when mock object of last returned with", () => {
 
 ## toHaveLength
 
-preset: `jestExtendedMatcherMap`
+preset: `jestMatcherMap`
 
 Use `.toHaveLength` to check that an object has a `.length` property and it is
 set to a certain numeric value.
 
 ```ts
-import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("passes when object of length property equal to", () => {
   expect([1, 2, 3]).toHaveLength(3);
@@ -1745,7 +1745,7 @@ test("passes when object of length property equal to", () => {
 
 ## toHaveNthReturnedWith
 
-preset: `jestExtendedMatcherMap`
+preset: `jestMatcherMap`
 
 Use `.toHaveNthReturnedWith` to test the specific value that a mock object
 returned for the nth call.
@@ -1764,18 +1764,37 @@ test("passes when mock object of last returned with", () => {
 
 ## toHaveProperty
 
-preset: `jestExtendedMatcherMap`
+preset: `jestMatcherMap`
 
 Use `.toHaveProperty` to check if property at provided reference keyPath exists
 for an `object`.
 
 ```ts
-import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("passes when check object property via keyPath", () => {
   expect({ a: "b" }).toHaveProperty("a");
   expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
   expect({ a: { b: { c: "d" } } }).toHaveProperty(["a", "b", "c"]);
+});
+```
+
+## toHaveReturnedTimes
+
+preset: `jestMatcherMap`
+
+Use `.toHaveReturnedTimes` to ensure that a mock object returned successfully an
+exact number of times.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object returned successfully times", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+
+  expect(mockObject).toHaveReturnedTimes(2);
 });
 ```
 
