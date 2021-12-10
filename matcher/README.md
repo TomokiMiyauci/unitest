@@ -1990,6 +1990,36 @@ test("passes when arrays match in a different order", () => {
 });
 ```
 
+## toInclude
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toInclude` when checking if a `string` includes the given `string`
+substring.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toInclude,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toInclude,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value includes substring", () => {
+  expect("hello world").toInclude("ell");
+  expect("hello world").not.toInclude("bob");
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

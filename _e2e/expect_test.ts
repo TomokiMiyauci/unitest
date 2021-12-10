@@ -48,6 +48,7 @@ import {
   toEndWith,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,
+  toInclude,
   toIncludeAllMembers,
   toIncludeAnyMembers,
   toIncludeMultiple,
@@ -971,4 +972,17 @@ test("passes when arrays match in a different order", () => {
     { baz: "qux" },
     { foo: "bar" },
   ]);
+});
+
+test("passes when value includes substring", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toInclude,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello world").toInclude("ell");
+  expect("hello world").not.toInclude("bob");
 });
