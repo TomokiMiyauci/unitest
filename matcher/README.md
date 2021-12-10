@@ -2158,6 +2158,22 @@ test("passes when value is starts with given string", () => {
 });
 ```
 
+## toThrow
+
+preset: `jestMatcherMap`
+
+Use `.toThrow` to test that a function throws when it is called.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when the function throw error", () => {
+  expect(() => {
+    throw Error("test");
+  }).toThrow(/test/);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

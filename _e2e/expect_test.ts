@@ -1052,3 +1052,9 @@ test("passes when value is starts with given string", () => {
   expect("hello world").toStartWith("hello");
   expect("hello world").not.toStartWith("world");
 });
+
+test("passes when the function throw error", () => {
+  expect(() => {
+    throw Error("test");
+  }).toThrow(/test/);
+});
