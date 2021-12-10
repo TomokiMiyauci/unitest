@@ -5,8 +5,10 @@ import {
   contains,
   containSome,
   hasPath,
+  last,
   prop,
   propPath,
+  take,
 } from "./utils.ts";
 import { stringify } from "../helper/format.ts";
 
@@ -111,6 +113,28 @@ Deno.test({
       assertEquals(prop(key, object), result)
     );
   },
+});
+
+Deno.test("last", () => {
+  const table: [...Parameters<typeof last>, ReturnType<typeof last>][] = [
+    [[], undefined],
+    [[1, 2, 3], 3],
+    [[{}, undefined, null], null],
+  ];
+
+  table.forEach(([value, result]) => assertEquals(last(value), result));
+});
+
+Deno.test("take", () => {
+  const table: [...Parameters<typeof take>, ReturnType<typeof take>][] = [
+    [[], 1, undefined],
+    [[1, 2, 3], 2, 3],
+    [[1, 2, 3], 0, 1],
+  ];
+
+  table.forEach(([value, index, result]) =>
+    assertEquals(take(value, index), result)
+  );
 });
 
 Deno.test({

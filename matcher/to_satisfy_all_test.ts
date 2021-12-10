@@ -13,7 +13,7 @@ Deno.test({
 
     assertExpected({
       matcher: toSatisfyAll,
-      expected: "satisfy predicate for all values",
+      expected: "satisfy predicate for all values:",
     }, {
       actual: [],
       expectedArgs: [() => true],

@@ -30,7 +30,7 @@ Deno.test({
     assertEquals(toIncludeRepeated("", "", 0), {
       pass: false,
       expected: "",
-      expectedHint: "Expected to include repeated 0 times",
+      expectedHint: "Expected to include repeated 0 times:",
     });
   },
 });

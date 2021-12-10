@@ -4,6 +4,7 @@
 import { equal } from "../helper/equal.ts";
 import type { MatchResult } from "./types.ts";
 
+/** predict for `toIncludeSameMembers` */
 function predict(
   actual: readonly unknown[],
   expected: readonly unknown[],
@@ -25,6 +26,34 @@ function predict(
   );
 }
 
+/** Use `.toIncludeSameMembers` when checking if two arrays contain equal values, in
+ * any order
+ * ```ts
+ * import {
+ *   defineExpect,
+ *   not,
+ *   test,
+ *   toIncludeSameMembers,
+ * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * const expect = defineExpect({
+ *   matcherMap: {
+ *     toIncludeSameMembers,
+ *   },
+ *   modifierMap: {
+ *     not,
+ *   },
+ * });
+ *
+ * test("passes when arrays match in a different order", () => {
+ *   expect([1, 2, 3]).toIncludeSameMembers([3, 1, 2]);
+ *   expect([{ foo: "bar" }, { baz: "qux" }]).toIncludeSameMembers([
+ *     { baz: "qux" },
+ *     { foo: "bar" },
+ *   ]);
+ * });
+ * ```
+ */
 function toIncludeSameMembers(
   actual: readonly unknown[],
   expected: readonly unknown[],
@@ -32,7 +61,7 @@ function toIncludeSameMembers(
   return {
     pass: predict(actual, expected),
     expected,
-    expectedHint: "Expected to include all and of the same size",
+    expectedHint: "Expected to include all and of the same size:",
   };
 }
 

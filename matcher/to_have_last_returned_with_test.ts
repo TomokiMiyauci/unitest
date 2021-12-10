@@ -67,5 +67,11 @@ Deno.test({
     mock2(8);
 
     assertSuccess(toHaveLastReturnedWith(mock2, 8));
+    assertEquals(toHaveLastReturnedWith(mock2, 10), {
+      pass: false,
+      actualHint: "Actual last returned with:",
+      actual: 8,
+      expected: 10,
+    });
   },
 });

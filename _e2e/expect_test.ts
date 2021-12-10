@@ -48,6 +48,15 @@ import {
   toEndWith,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,
+  toInclude,
+  toIncludeAllMembers,
+  toIncludeAnyMembers,
+  toIncludeMultiple,
+  toIncludeRepeated,
+  toIncludeSameMembers,
+  toSatisfy,
+  toSatisfyAll,
+  toSatisfyAny,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -829,4 +838,223 @@ test("passes when mock object called", () => {
   expect(mockObject).not.toHaveBeenCalled();
   mockObject();
   expect(mockObject).toHaveBeenCalled();
+});
+
+test("passes when mock object of last called with", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  mockObject(4, 5, 6);
+  expect(mockObject).toHaveBeenLastCalledWith(4, 5, 6);
+  expect(mockObject).not.toHaveBeenLastCalledWith(1, 2, 3);
+});
+
+test("passes when mock object of last called with", () => {
+  const mockObject = fn();
+  mockObject("tomato");
+  mockObject("potato");
+  expect(mockObject).toHaveBeenNthCalledWith(1, "tomato");
+  expect(mockObject).toHaveBeenNthCalledWith(2, "potato");
+});
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveLastReturnedWith(7);
+});
+
+test("passes when object of length property equal to", () => {
+  expect([1, 2, 3]).toHaveLength(3);
+  expect("abc").toHaveLength(3);
+  expect("").not.toHaveLength(5);
+});
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveNthReturnedWith(1, 3);
+  expect(mockObject).toHaveNthReturnedWith(2, 7);
+});
+
+test("passes when check object property via keyPath", () => {
+  expect({ a: "b" }).toHaveProperty("a");
+  expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
+  expect({ a: { b: { c: "d" } } }).toHaveProperty(["a", "b", "c"]);
+});
+
+test("passes when mock object returned successfully times", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+
+  expect(mockObject).toHaveReturnedTimes(2);
+});
+
+test("passes when mock object returned specific value", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+
+  expect(mockObject).toHaveReturnedWith(7);
+  expect(mockObject).toHaveReturnedWith(3);
+});
+
+test("passes when mock object returned at least once", () => {
+  const mockObject = fn(() => true);
+  expect(mockObject).not.toHaveReturned();
+  mockObject();
+  expect(mockObject).toHaveReturned();
+});
+
+test("passes when given array values match the members of the set", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeAllMembers,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect([1, 2, 3]).toIncludeAllMembers([2, 1, 3]);
+  expect([1, 2, 2]).toIncludeAllMembers([2, 1]);
+});
+
+test("passes when given array values match any of the members in the set", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeAnyMembers,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect([1, 2, 3]).toIncludeAnyMembers([2, 1, 3]);
+  expect([1, 2, 2]).toIncludeAnyMembers([2]);
+  expect([1, 2, 2]).not.toIncludeAnyMembers([3]);
+});
+
+test("passes when value includes all substrings", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeMultiple,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello world").toIncludeMultiple(["world", "hello"]);
+  expect("hello world").not.toIncludeMultiple(["world", "hello", "bob"]);
+});
+
+test("passes when value includes substring n times", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeRepeated,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello hello world").toIncludeRepeated("hello", 2);
+  expect("hello hello world").not.toIncludeRepeated("hello", 1);
+});
+
+test("passes when arrays match in a different order", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toIncludeSameMembers,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect([1, 2, 3]).toIncludeSameMembers([3, 1, 2]);
+  expect([{ foo: "bar" }, { baz: "qux" }]).toIncludeSameMembers([
+    { baz: "qux" },
+    { foo: "bar" },
+  ]);
+});
+
+test("passes when value includes substring", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toInclude,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello world").toInclude("ell");
+  expect("hello world").not.toInclude("bob");
+});
+
+test("passes when value match string or regExp", () => {
+  expect("hello world").toMatch(/^hello/);
+});
+
+test("passes when all values in array pass given predicate", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toSatisfyAll,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
+  expect([1, 3, 5, 7]).toSatisfyAll(isOdd);
+  expect([1, 3, 4, 5, 7]).not.toSatisfyAll(isOdd);
+});
+
+test("passes when any value in array pass given predicate", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toSatisfyAny,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
+  expect([2, 3, 6, 8]).toSatisfyAny(isOdd);
+  expect([2, 4, 8, 12]).not.toSatisfyAny(isOdd);
+});
+
+test("passes when value passes given predicate", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toSatisfy,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const greaterThanOneButNotThree = (n: unknown) =>
+    typeof n === "number" && n > 1 && n !== 3;
+  expect(100).toSatisfy(greaterThanOneButNotThree);
+  expect(0).not.toSatisfy(greaterThanOneButNotThree);
+  expect(3).not.toSatisfy(greaterThanOneButNotThree);
+});
+
+test("passes when value is starts with given string", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toStartWith,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect("hello world").toStartWith("hello");
+  expect("hello world").not.toStartWith("world");
+});
+
+test("passes when the function throw error", () => {
+  expect(() => {
+    throw Error("test");
+  }).toThrow(/test/);
 });

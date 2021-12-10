@@ -1671,3 +1671,505 @@ test("passes when mock object called", () => {
   expect(mockObject).toHaveBeenCalled();
 });
 ```
+
+## toHaveBeenLastCalledWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenLastCalledWith` to test mock object was last called with.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last called with", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  mockObject(4, 5, 6);
+  expect(mockObject).toHaveBeenLastCalledWith(4, 5, 6);
+  expect(mockObject).not.toHaveBeenLastCalledWith(1, 2, 3);
+});
+```
+
+## toHaveBeenNthCalledWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenNthCalledWith` to test mock object was nth called with.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last called with", () => {
+  const mockObject = fn();
+  mockObject("tomato");
+  mockObject("potato");
+  expect(mockObject).toHaveBeenNthCalledWith(1, "tomato");
+  expect(mockObject).toHaveBeenNthCalledWith(2, "potato");
+});
+```
+
+## toHaveLastReturnedWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveLastReturnedWith` to test the specific value that a mock object last
+returned.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveLastReturnedWith(7);
+});
+```
+
+## toHaveLength
+
+preset: `jestMatcherMap`
+
+Use `.toHaveLength` to check that an object has a `.length` property and it is
+set to a certain numeric value.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when object of length property equal to", () => {
+  expect([1, 2, 3]).toHaveLength(3);
+  expect("abc").toHaveLength(3);
+  expect("").not.toHaveLength(5);
+});
+```
+
+## toHaveNthReturnedWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveNthReturnedWith` to test the specific value that a mock object
+returned for the nth call.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveNthReturnedWith(1, 3);
+  expect(mockObject).toHaveNthReturnedWith(2, 7);
+});
+```
+
+## toHaveProperty
+
+preset: `jestMatcherMap`
+
+Use `.toHaveProperty` to check if property at provided reference keyPath exists
+for an `object`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when check object property via keyPath", () => {
+  expect({ a: "b" }).toHaveProperty("a");
+  expect({ a: { b: { c: "d" } } }).toHaveProperty("a.b.c");
+  expect({ a: { b: { c: "d" } } }).toHaveProperty(["a", "b", "c"]);
+});
+```
+
+## toHaveReturnedTimes
+
+preset: `jestMatcherMap`
+
+Use `.toHaveReturnedTimes` to ensure that a mock object returned successfully an
+exact number of times.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object returned successfully times", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+
+  expect(mockObject).toHaveReturnedTimes(2);
+});
+```
+
+## toHaveReturnedWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveReturnedWith` to ensure that a mock object returned a specific
+value.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object returned specific value", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+
+  expect(mockObject).toHaveReturnedWith(7);
+  expect(mockObject).toHaveReturnedWith(3);
+});
+```
+
+## toHaveReturned
+
+preset: `jestMatcherMap`
+
+Use `.toHaveReturned` that the mock object successfully returned at least one
+time.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object returned at least once", () => {
+  const mockObject = fn(() => true);
+  expect(mockObject).not.toHaveReturned();
+  mockObject();
+  expect(mockObject).toHaveReturned();
+});
+```
+
+## toIncludeAllMembers
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeAllMembers` when checking if an `array` contains all of the same
+members of a given set.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeAllMembers,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeAllMembers,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when given array values match the members of the set", () => {
+  expect([1, 2, 3]).toIncludeAllMembers([2, 1, 3]);
+  expect([1, 2, 2]).toIncludeAllMembers([2, 1]);
+});
+```
+
+## toIncludeAnyMembers
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeAnyMembers` when checking if an `array` contains any of the
+members of a given set.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeAnyMembers,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeAnyMembers,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when given array values match any of the members in the set", () => {
+  expect([1, 2, 3]).toIncludeAnyMembers([2, 1, 3]);
+  expect([1, 2, 2]).toIncludeAnyMembers([2]);
+  expect([1, 2, 2]).not.toIncludeAnyMembers([3]);
+});
+```
+
+## toIncludeMultiple
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeMultiple` when checking if a `string` includes all of the given
+substrings.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeMultiple,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeMultiple,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value includes all substrings", () => {
+  expect("hello world").toIncludeMultiple(["world", "hello"]);
+  expect("hello world").not.toIncludeMultiple(["world", "hello", "bob"]);
+});
+```
+
+## toIncludeRepeated
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeRepeated` when checking if a `string` includes the given `string`
+substring the correct number of times.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeRepeated,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeRepeated,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value includes substring n times", () => {
+  expect("hello hello world").toIncludeRepeated("hello", 2);
+  expect("hello hello world").not.toIncludeRepeated("hello", 1);
+});
+```
+
+## toIncludeSameMembers
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeSameMembers` when checking if two arrays contain equal values, in
+any order.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeSameMembers,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeSameMembers,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when arrays match in a different order", () => {
+  expect([1, 2, 3]).toIncludeSameMembers([3, 1, 2]);
+  expect([{ foo: "bar" }, { baz: "qux" }]).toIncludeSameMembers([
+    { baz: "qux" },
+    { foo: "bar" },
+  ]);
+});
+```
+
+## toInclude
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toInclude` when checking if a `string` includes the given `string`
+substring.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toInclude,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toInclude,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value includes substring", () => {
+  expect("hello world").toInclude("ell");
+  expect("hello world").not.toInclude("bob");
+});
+```
+
+## toMatch
+
+preset: `jestMatcherMap`
+
+Use `.toMatch` to check that a `string` matches a regular expression.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value match string or regExp", () => {
+  expect("hello world").toMatch(/^hello/);
+});
+```
+
+## toSatisfyAll
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toSatisfyAll` when you want to use a custom matcher by supplying a
+predicate function that returns a `boolean` for all values in an `array`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toSatisfyAll,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toSatisfyAll,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when all values in array pass given predicate", () => {
+  const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
+  expect([1, 3, 5, 7]).toSatisfyAll(isOdd);
+  expect([1, 3, 4, 5, 7]).not.toSatisfyAll(isOdd);
+});
+```
+
+## toSatisfyAny
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toSatisfyAny` when you want to use a custom matcher by supplying a
+predicate function that returns `true` for any matching value in an `array`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toSatisfyAny,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toSatisfyAny,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when any value in array pass given predicate", () => {
+  const isOdd = (el: unknown) => typeof el === "number" && el % 2 === 1;
+  expect([2, 3, 6, 8]).toSatisfyAny(isOdd);
+  expect([2, 4, 8, 12]).not.toSatisfyAny(isOdd);
+});
+```
+
+## toSatisfy
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toSatisfy` when you want to use a custom matcher by supplying a predicate
+function that returns a `boolean`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toSatisfy,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toSatisfy,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value passes given predicate", () => {
+  const greaterThanOneButNotThree = (n: unknown) =>
+    typeof n === "number" && n > 1 && n !== 3;
+  expect(100).toSatisfy(greaterThanOneButNotThree);
+  expect(0).not.toSatisfy(greaterThanOneButNotThree);
+  expect(3).not.toSatisfy(greaterThanOneButNotThree);
+});
+```
+
+## toStartWith
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toStartWith` when checking if a String starts with a given String prefix.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toStartWith,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toStartWith,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is starts with given string", () => {
+  expect("hello world").toStartWith("hello");
+  expect("hello world").not.toStartWith("world");
+});
+```
+
+## toThrow
+
+preset: `jestMatcherMap`
+
+Use `.toThrow` to test that a function throws when it is called.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when the function throw error", () => {
+  expect(() => {
+    throw Error("test");
+  }).toThrow(/test/);
+});
+```

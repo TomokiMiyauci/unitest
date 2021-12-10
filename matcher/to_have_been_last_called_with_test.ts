@@ -57,5 +57,15 @@ Deno.test({
     mock2();
     mock2(1);
     assertSuccess(toHaveBeenLastCalledWith(mock2, 1));
+
+    assertEquals(
+      toHaveBeenLastCalledWith(mock2, 2),
+      {
+        pass: false,
+        actualHint: "Actual last called with:",
+        actual: [1],
+        expected: [2],
+      },
+    );
   },
 });

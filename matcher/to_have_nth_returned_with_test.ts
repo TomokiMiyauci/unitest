@@ -53,5 +53,12 @@ Deno.test({
 
     mock2(10);
     assertSuccess(toHaveNthReturnedWith(mock2, 2, 10));
+
+    assertEquals(toHaveNthReturnedWith(mock2, 2, 2), {
+      actual: 10,
+      actualHint: `Actual 2th returned with:`,
+      pass: false,
+      expected: 2,
+    });
   },
 });
