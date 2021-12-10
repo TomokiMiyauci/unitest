@@ -28,15 +28,14 @@ import type { MockObject } from "./mock.ts";
 function spyOn<T extends object>(object: T, key: keyof T): MockObject<any> {
   const descriptor = Object.getOwnPropertyDescriptor(object, key);
 
-  const callableValue = (...args: unknown[]) => {
-    mock(...args);
-    return (descriptor!.value as Function)(...args);
-  };
-
   if (!descriptor) return fn();
 
   const _isFunction = isFunction(descriptor.value);
   const mock = _isFunction ? fn(descriptor.value) : fn();
+  const callableValue = (...args: unknown[]) => {
+    mock(...args);
+    return (descriptor!.value as Function)(...args);
+  };
   const value = _isFunction ? callableValue : descriptor.value;
 
   Object.defineProperty(object, key, {
