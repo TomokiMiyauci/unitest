@@ -2,6 +2,8 @@ version = 1
 
 test_patterns = ["*.ts"]
 
+exclude_patterns = ["_docs/**"]
+
 [[analyzers]]
 name = "javascript"
 enabled = true

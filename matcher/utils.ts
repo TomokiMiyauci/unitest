@@ -4,6 +4,11 @@
 import { isLength0, isObject, isUndefined } from "../deps.ts";
 import { equal } from "../helper/equal.ts";
 
+/** take elements except head */
+function tail<T extends unknown>(val: readonly T[]): T[] {
+  return val.slice(1, Infinity);
+}
+
 /** safe last element accessor */
 function takeLast<T extends readonly unknown[] | string>(
   howMany: number,
@@ -61,11 +66,6 @@ function propPath(path: PropertyKey[], object: object): unknown {
     return propPath(rest, nested);
   }
   return undefined;
-}
-
-/** take elements except head */
-function tail<T extends unknown>(val: readonly T[]): T[] {
-  return val.slice(1, Infinity);
 }
 
 /** deep check field is exist or not */
