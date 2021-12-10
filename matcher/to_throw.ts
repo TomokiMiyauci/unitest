@@ -6,7 +6,7 @@ import { isError, isUndefined } from "../deps.ts";
 
 function predict(actual: AnyFn) {
   let hasError = false;
-  let e;
+  let e = undefined;
 
   try {
     actual();
