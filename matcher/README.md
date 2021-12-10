@@ -1708,6 +1708,24 @@ test("passes when mock object of last called with", () => {
 });
 ```
 
+## toHaveLastReturnedWith
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveLastReturnedWith` to test the specific value that a mock object last
+returned.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveLastReturnedWith(7);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

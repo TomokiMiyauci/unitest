@@ -846,3 +846,10 @@ test("passes when mock object of last called with", () => {
   expect(mockObject).toHaveBeenNthCalledWith(1, "tomato");
   expect(mockObject).toHaveBeenNthCalledWith(2, "potato");
 });
+
+test("passes when mock object of last returned with", () => {
+  const mockObject = fn((a: number, b: number) => a + b);
+  mockObject(1, 2);
+  mockObject(3, 4);
+  expect(mockObject).toHaveLastReturnedWith(7);
+});
