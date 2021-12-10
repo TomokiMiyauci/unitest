@@ -1638,6 +1638,23 @@ test("passes when mock object called 2 times", () => {
 });
 ```
 
+## toHaveBeenCalledWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenCalledWith` to ensure that a mock function was called with
+specific arguments.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object called with arg", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  expect(mockObject).toHaveBeenCalledWith(1, 2, 3);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)

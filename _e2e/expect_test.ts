@@ -817,3 +817,9 @@ test("passes when mock object called 2 times", () => {
   mockObject();
   expect(mockObject).toHaveBeenCalledTimes(2);
 });
+
+test("passes when mock object called with arg", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  expect(mockObject).toHaveBeenCalledWith(1, 2, 3);
+});
