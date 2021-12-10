@@ -986,3 +986,7 @@ test("passes when value includes substring", () => {
   expect("hello world").toInclude("ell");
   expect("hello world").not.toInclude("bob");
 });
+
+test("passes when value match string or regExp", () => {
+  expect("hello world").toMatch(/^hello/);
+});

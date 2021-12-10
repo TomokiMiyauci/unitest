@@ -2020,6 +2020,20 @@ test("passes when value includes substring", () => {
 });
 ```
 
+## toMatch
+
+preset: `jestMatcherMap`
+
+Use `.toMatch` to check that a `string` matches a regular expression.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when value match string or regExp", () => {
+  expect("hello world").toMatch(/^hello/);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
