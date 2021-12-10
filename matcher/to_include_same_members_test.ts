@@ -53,7 +53,7 @@ Deno.test({
     assertEquals(toIncludeSameMembers(actual, expected), {
       pass: true,
       expected,
-      expectedHint: "Expected to include all and of the same size",
+      expectedHint: "Expected to include all and of the same size:",
     });
   },
 });

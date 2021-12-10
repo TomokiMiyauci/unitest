@@ -1957,6 +1957,39 @@ test("passes when value includes substring n times", () => {
 });
 ```
 
+## toIncludeSameMembers
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toIncludeSameMembers` when checking if two arrays contain equal values, in
+any order.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toIncludeSameMembers,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toIncludeSameMembers,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when arrays match in a different order", () => {
+  expect([1, 2, 3]).toIncludeSameMembers([3, 1, 2]);
+  expect([{ foo: "bar" }, { baz: "qux" }]).toIncludeSameMembers([
+    { baz: "qux" },
+    { foo: "bar" },
+  ]);
+});
+```
+
 ## TODO
 
 - [ ] Implement expecter and jest default matcher (rest)
