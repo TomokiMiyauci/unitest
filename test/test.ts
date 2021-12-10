@@ -35,18 +35,6 @@ type Test<LocalThis extends Record<PropertyKey, object>> = {
   fn: (t: LocalThis & Deno.TestContext) => void | Promise<void>;
 } & Omit<Deno.TestDefinition, "fn">;
 
-function defineTest<T extends Record<string | symbol, AnyFn>>({
-  extendMap,
-}: {
-  extendMap?: T;
-}): typeof test & T {
-  Object.entries(extendMap ?? {}).forEach(([key, value]) => {
-    (test as any)[key] = value;
-  });
-
-  return test as never;
-}
-
 /** Register a test which will be run when deno test is used on the command line and the containing module looks like a test module.
  * fn can be async if required.
  */
@@ -62,14 +50,14 @@ function test<T extends Record<PropertyKey, object>>(
   _options?: Omit<Test<T>, "fn" | "name">,
 ): void {
   const { setup, fn, ...rest } = isString(t)
-    ? { ..._options, fn: _fn!, name: t }
+    ? { ..._options, fn: _fn, name: t }
     : t;
 
   const runner = async (context: Deno.TestContext): Promise<void> => {
     const { localThis = {} as T, teardown } = setup?.() ?? {};
 
     try {
-      await fn({ ...localThis, ...context });
+      await fn?.({ ...localThis, ...context });
     } catch (e) {
       if (!(e instanceof Error)) {
         throw Error("panic: unexpected error");
@@ -85,6 +73,19 @@ function test<T extends Record<PropertyKey, object>>(
     ...rest,
     fn: runner,
   });
+}
+
+/** define custom test register */
+function defineTest<T extends Record<string | symbol, AnyFn>>({
+  extendMap,
+}: {
+  extendMap?: T;
+}): typeof test & T {
+  Object.entries(extendMap ?? {}).forEach(([key, value]) => {
+    (test as any)[key] = value;
+  });
+
+  return test as never;
 }
 
 export { defineTest, test };

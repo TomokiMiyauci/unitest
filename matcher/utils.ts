@@ -4,6 +4,7 @@
 import { isLength0, isObject, isUndefined } from "../deps.ts";
 import { equal } from "../helper/equal.ts";
 
+/** safe last element accessor */
 function takeLast<T extends readonly unknown[] | string>(
   howMany: number,
   val: T,
@@ -11,10 +12,12 @@ function takeLast<T extends readonly unknown[] | string>(
   return (howMany <= 0 ? val.slice(0, -howMany) : val.slice(-howMany)) as T;
 }
 
+/** check element is exists in `array` */
 function contains(array: readonly unknown[], value: unknown): boolean {
   return array.some((v) => equal(v, value));
 }
 
+/** check element is exists in `array` deeply */
 function containSome(
   target: readonly unknown[],
   part: readonly unknown[],
@@ -22,6 +25,7 @@ function containSome(
   return part.some((value) => contains(target, value));
 }
 
+/** check all element contain `array` deeply */
 function containAll(
   target: readonly unknown[],
   part: readonly unknown[],
@@ -29,6 +33,7 @@ function containAll(
   return part.every((value) => contains(target, value));
 }
 
+/** check field is exist or not */
 function has(
   key: PropertyKey,
   object: object,
@@ -36,10 +41,12 @@ function has(
   return Object.hasOwnProperty.call(object, key);
 }
 
+/** safe get accessor */
 function prop(key: PropertyKey, object: object): unknown {
   return (object as never)[key];
 }
 
+/** safe get accessor deeply */
 function propPath(path: PropertyKey[], object: object): unknown {
   const key = path[0];
   if (isUndefined(key)) return undefined;
@@ -56,8 +63,12 @@ function propPath(path: PropertyKey[], object: object): unknown {
   return undefined;
 }
 
-const tail = <T extends unknown>(val: T[]): T[] => val.slice(1, Infinity);
+/** take elements except head */
+function tail<T extends unknown>(val: readonly T[]): T[] {
+  return val.slice(1, Infinity);
+}
 
+/** deep check field is exist or not */
 function hasPath(
   path: PropertyKey[],
   object: object,
