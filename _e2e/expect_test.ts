@@ -2,6 +2,7 @@
 import {
   defineExpect,
   expect,
+  fn,
   not,
   test,
   toBeAfter,
@@ -44,6 +45,9 @@ import {
   toContainKeys,
   toContainValue,
   toContainValues,
+  toEndWith,
+  toEqualCaseInsensitive,
+  toEqualIgnoringWhitespace,
   toStartWith,
   toThrow,
 } from "../mod.ts";
@@ -754,4 +758,75 @@ test("passes when object contains all of the given values", () => {
 test("passes when array contains given value", () => {
   expect([1, 2, 3, 4, 5]).toContain(3);
   expect([{}, [], ""]).not.toContain(3);
+});
+
+test("passes when value is ends with given string", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toEndWith,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("hello world").toEndWith("world");
+  expect("hello world").not.toEndWith("hello");
+});
+
+test("passes when strings are equal ignoring case", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toEqualCaseInsensitive,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  expect("hello world").toEqualCaseInsensitive("hello world");
+  expect("hello world").toEqualCaseInsensitive("HELLO WORLD");
+});
+
+test("passes if strings are equal ignoring white-space", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toEqualIgnoringWhitespace,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("SELECT * FROM TABLE WHERE CONDITION").toEqualIgnoringWhitespace(`
+        SELECT * FROM TABLE
+        WHERE CONDITION
+    `);
+  expect(".class { cssRule: value }").not.toEqualIgnoringWhitespace(`
+        #id {
+            cssRule: value
+        }
+    `);
+});
+
+test("passes when array contains given value", () => {
+  expect({}).toEqual({});
+});
+
+test("passes when mock object called 2 times", () => {
+  const mockObject = fn();
+  mockObject();
+  mockObject();
+  expect(mockObject).toHaveBeenCalledTimes(2);
+});
+
+test("passes when mock object called with arg", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  expect(mockObject).toHaveBeenCalledWith(1, 2, 3);
+});
+
+test("passes when mock object called", () => {
+  const mockObject = fn();
+  expect(mockObject).not.toHaveBeenCalled();
+  mockObject();
+  expect(mockObject).toHaveBeenCalled();
 });

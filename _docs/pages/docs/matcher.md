@@ -1509,3 +1509,165 @@ test("passes when array contains given value", () => {
   expect([{}, [], ""]).not.toContain(3);
 });
 ```
+
+## toEndWith
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toEndWith` when checking if a `string` ends with a given `string` suffix.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toEndWith,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toEndWith,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is ends with given string", () => {
+  expect("hello world").toEndWith("world");
+  expect("hello world").not.toEndWith("hello");
+});
+```
+
+## toEqualCaseInsensitive
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toEqualCaseInsensitive` when checking if a `string` is equal to another
+ignoring the casing of both strings.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toEqualCaseInsensitive,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toEqualCaseInsensitive,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when strings are equal ignoring case", () => {
+  expect("hello world").toEqualCaseInsensitive("hello world");
+  expect("hello world").toEqualCaseInsensitive("HELLO WORLD");
+});
+```
+
+## toEqualIgnoringWhitespace
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toEqualIgnoringWhitespace` when checking if a `string` is equal to another
+`string` ignoring white-space.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toEqualIgnoringWhitespace,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toEqualIgnoringWhitespace,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes if strings are equal ignoring white-space", () => {
+  expect("SELECT * FROM TABLE WHERE CONDITION").toEqualIgnoringWhitespace(`
+        SELECT * FROM TABLE
+        WHERE CONDITION
+    `);
+  expect(".class { cssRule: value }").not.toEqualIgnoringWhitespace(`
+        #id {
+            cssRule: value
+        }
+    `);
+});
+```
+
+## toEqual
+
+preset: `jestMatcherMap`
+
+Use `.toEqual` to compare recursively all properties of object instances.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when array contains given value", () => {
+  expect({}).toEqual({});
+});
+```
+
+## toHaveBeenCalledTimes
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenCalledTimes` to ensure that a mock object got called exact
+number of times.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object called 2 times", () => {
+  const mockObject = fn();
+  mockObject();
+  mockObject();
+  expect(mockObject).toHaveBeenCalledTimes(2);
+});
+```
+
+## toHaveBeenCalledWith
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenCalledWith` to ensure that a mock object was called with
+specific arguments.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object called with arg", () => {
+  const mockObject = fn();
+  mockObject(1, 2, 3);
+  expect(mockObject).toHaveBeenCalledWith(1, 2, 3);
+});
+```
+
+## toHaveBeenCalled
+
+preset: `jestMatcherMap`
+
+Use `.toHaveBeenCalled` to ensure that a mock object got called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when mock object called", () => {
+  const mockObject = fn();
+  expect(mockObject).not.toHaveBeenCalled();
+  mockObject();
+  expect(mockObject).toHaveBeenCalled();
+});
+```
