@@ -22,7 +22,6 @@ function predict(a: number | undefined, b: number | undefined): boolean {
  * import {
  *   defineExpect,
  *   fn,
- *   not,
  *   test,
  *   toHaveBeenCalledAfter,
  * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -30,9 +29,6 @@ function predict(a: number | undefined, b: number | undefined): boolean {
  * const expect = defineExpect({
  *   matcherMap: {
  *     toHaveBeenCalledAfter,
- *   },
- *   modifierMap: {
- *     not,
  *   },
  * });
  *

@@ -22,7 +22,6 @@ const expectedHint = `Expected ${sharedMessage}`;
  * import {
  *   defineExpect,
  *   fn,
- *   not,
  *   test,
  *   toHaveBeenCalledBefore,
  * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -30,9 +29,6 @@ const expectedHint = `Expected ${sharedMessage}`;
  * const expect = defineExpect({
  *   matcherMap: {
  *     toHaveBeenCalledBefore,
- *   },
- *   modifierMap: {
- *     not,
  *   },
  * });
  *

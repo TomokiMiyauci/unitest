@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
+import { assertEquals } from "../dev_deps.ts";
 import { toHaveBeenCalledOnce } from "./to_have_been_called_once.ts";
 import { fn } from "../mock/fn.ts";
 
