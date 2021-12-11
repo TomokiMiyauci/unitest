@@ -43,5 +43,12 @@ Deno.test({
     mock2("");
 
     assertSuccess(toHaveReturned(mock2));
+    assertEquals(toHaveReturned(fn()), {
+      pass: false,
+      actualHint: "Actual returned:",
+      actual: [],
+      expectedHint: "Expected returned:",
+      expected: "0 < Actual.length",
+    });
   },
 });

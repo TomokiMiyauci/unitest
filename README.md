@@ -64,6 +64,8 @@ Visit <https://unitest.vercel.app/> to get started with Unitest.
 
 ## Quick view
 
+[All available matchers](./matcher/README.md)
+
 ```ts
 import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 

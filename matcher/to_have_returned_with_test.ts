@@ -1,36 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { predict, toHaveReturnedWith } from "./to_have_returned_with.ts";
+import { toHaveReturnedWith } from "./to_have_returned_with.ts";
 import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
-import type { MockResult } from "../mock/mock.ts";
 import { fn } from "../mock/fn.ts";
-
-Deno.test({
-  name: "predict",
-  fn: () => {
-    const table: [MockResult[], unknown, boolean][] = [[[], undefined, false], [
-      [{
-        type: "return",
-        value: undefined,
-      }],
-      undefined,
-      true,
-    ], [
-      [{
-        type: "return",
-        value: 1,
-      }, {
-        type: "return",
-        value: 2,
-      }],
-      2,
-      true,
-    ]];
-
-    table.forEach(([mockResult, expected, result]) =>
-      assertEquals(predict(mockResult, expected), result)
-    );
-  },
-});
 
 Deno.test({
   name: "toHaveReturnedWith",
@@ -47,5 +18,12 @@ Deno.test({
 
     mock2();
     assertSuccess(toHaveReturnedWith(mock2, 1));
+
+    assertEquals(toHaveReturnedWith(mock2, 2), {
+      pass: false,
+      actual: [1],
+      actualHint: "Actual all returned:",
+      expected: 2,
+    });
   },
 });
