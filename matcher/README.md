@@ -2289,7 +2289,6 @@ test("passes when the function throw error", () => {
     - ~~toBeArrayOfSize~~ toHaveLength
     - toIncludeAllPartialMembers
     - toThrowWithMessage
-    - toHaveBeenCalledOnce
     - ~~toBeNaN~~ exists in jest
     - ~~toContainKey~~ same as toHaveProperty
     - toContainAllKeys
