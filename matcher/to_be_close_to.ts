@@ -3,13 +3,9 @@
 
 import type { MatchResult } from "./types.ts";
 
-function predict(actual: number, expected: number, precision: number): boolean {
-  if (!isFinite(actual) && !isFinite(expected)) return true;
-
-  const expectedDiff = Math.pow(10, -precision) / 2;
-  const receivedDiff = Math.abs(expected - actual);
-
-  return receivedDiff < expectedDiff;
+/** High precision round */
+function roundTo(num: number, digit: number): number {
+  return +(Math.round(Number(num + `e+${digit}`)) + `e-${digit}`);
 }
 
 /** Use `.toBeCloseTo` to compare floating point numbers for approximate equality
@@ -26,12 +22,15 @@ function toBeCloseTo(
   expected: number,
   precision = 2,
 ): MatchResult {
+  const actualRounded = roundTo(actual, precision);
+  const expectedRounded = roundTo(expected, precision);
   return {
-    pass: predict(actual, expected, precision),
-    expectedHint: "Expected to approximate:",
-    // TODO:(miyauci) more detail hint
-    expected,
+    actualHint: `Actual rounded ${precision} digit:`,
+    actual: actualRounded,
+    pass: actualRounded === expectedRounded,
+    expectedHint: `Expected rounded ${precision} digit:`,
+    expected: expectedRounded,
   };
 }
 
-export { predict, toBeCloseTo };
+export { roundTo, toBeCloseTo };
