@@ -1620,6 +1620,43 @@ test("passes when array contains given value", () => {
 });
 ```
 
+## toHaveBeenCalledAfter
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenCalledAfter` when checking if a mock object was called after
+another mock object.
+
+```ts
+import {
+  defineExpect,
+  fn,
+  not,
+  test,
+  toHaveBeenCalledAfter,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toHaveBeenCalledAfter,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("calls mockObject1 after mockObject2", () => {
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject2();
+  mockObject1();
+  mockObject2();
+
+  expect(mockObject1).toHaveBeenCalledAfter(mockObject2);
+});
+```
+
 ## toHaveBeenCalledBefore
 
 preset: `jestExtendedMatcherMap`

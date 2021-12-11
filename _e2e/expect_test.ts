@@ -48,6 +48,7 @@ import {
   toEndWith,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,
+  toHaveBeenCalledAfter,
   toHaveBeenCalledBefore,
   toInclude,
   toIncludeAllMembers,
@@ -1077,4 +1078,24 @@ test("calls mockObject1 before mockObject2", () => {
   mockObject1();
 
   expect(mockObject1).toHaveBeenCalledBefore(mockObject2);
+});
+
+test("calls mockObject1 after mockObject2", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toHaveBeenCalledAfter,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject2();
+  mockObject1();
+  mockObject2();
+
+  expect(mockObject1).toHaveBeenCalledAfter(mockObject2);
 });

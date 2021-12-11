@@ -1,19 +1,15 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
 import { assertEquals } from "../dev_deps.ts";
-import {
-  predict,
-  toHaveBeenCalledBefore,
-} from "./to_have_been_called_before.ts";
+import { predict, toHaveBeenCalledAfter } from "./to_have_been_called_after.ts";
 import { fn } from "../mock/fn.ts";
 
 Deno.test("predict", () => {
   const table: [...Parameters<typeof predict>, ReturnType<typeof predict>][] = [
     [undefined, undefined, false],
-    [undefined, 1, false],
-    [1, undefined, true],
-    [0, 1, true],
-    [1, 2, true],
+    [undefined, 1, true],
+    [1, undefined, false],
+    [2, 1, true],
     [1, 1, false],
   ];
 
@@ -21,10 +17,10 @@ Deno.test("predict", () => {
 });
 
 Deno.test({
-  name: "toHaveBeenCalledBefore",
+  name: "toHaveBeenCalledAfter",
   fn: () => {
     const mockObject = fn();
-    assertEquals(toHaveBeenCalledBefore(mockObject, mockObject), {
+    assertEquals(toHaveBeenCalledAfter(mockObject, mockObject), {
       pass: false,
       actualHint: "Actual older call order number:",
       actual: "none",
@@ -35,8 +31,8 @@ Deno.test({
     mockObject();
     const mockObject2 = fn();
 
-    assertEquals(toHaveBeenCalledBefore(mockObject, mockObject2), {
-      pass: true,
+    assertEquals(toHaveBeenCalledAfter(mockObject, mockObject2), {
+      pass: false,
       actualHint: "Actual older call order number:",
       actual: 1,
       expectedHint: "Expected older call order number:",
@@ -45,8 +41,8 @@ Deno.test({
 
     mockObject2();
 
-    assertEquals(toHaveBeenCalledBefore(mockObject, mockObject2), {
-      pass: true,
+    assertEquals(toHaveBeenCalledAfter(mockObject, mockObject2), {
+      pass: false,
       actualHint: "Actual older call order number:",
       actual: 1,
       expectedHint: "Expected older call order number:",
