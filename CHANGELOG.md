@@ -1,3 +1,16 @@
+# [1.0.0-beta.58](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.57...v1.0.0-beta.58) (2021-12-11)
+
+
+### Bug Fixes
+
+* **matcher:** fix typo for assertion hint ([1e53cdf](https://github.com/TomokiMiyauci/unitest/commit/1e53cdf0896adcdf16ecf45fb81323a85284c6fb))
+
+
+### Features
+
+* **matcher:** add `toHaveBeenCalledAfter` matcher ([cfbb1e5](https://github.com/TomokiMiyauci/unitest/commit/cfbb1e5483064a6c07af4e44aba0fd087bf34ba0))
+* **matcher:** add `toHaveBeenCalledOnce` matcher ([21ecb8e](https://github.com/TomokiMiyauci/unitest/commit/21ecb8e9b57eb05434a43822b1d7ebecbcff403f))
+
 # [1.0.0-beta.57](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.56...v1.0.0-beta.57) (2021-12-11)
 
 
