@@ -1,3 +1,29 @@
+# [1.0.0-beta.58](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.57...v1.0.0-beta.58) (2021-12-11)
+
+
+### Bug Fixes
+
+* **matcher:** fix typo for assertion hint ([1e53cdf](https://github.com/TomokiMiyauci/unitest/commit/1e53cdf0896adcdf16ecf45fb81323a85284c6fb))
+
+
+### Features
+
+* **matcher:** add `toHaveBeenCalledAfter` matcher ([cfbb1e5](https://github.com/TomokiMiyauci/unitest/commit/cfbb1e5483064a6c07af4e44aba0fd087bf34ba0))
+* **matcher:** add `toHaveBeenCalledOnce` matcher ([21ecb8e](https://github.com/TomokiMiyauci/unitest/commit/21ecb8e9b57eb05434a43822b1d7ebecbcff403f))
+
+# [1.0.0-beta.57](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.56...v1.0.0-beta.57) (2021-12-11)
+
+
+### Bug Fixes
+
+* **mock:** use incremental number instead of timestamp ([6731f1e](https://github.com/TomokiMiyauci/unitest/commit/6731f1e7a40305d5e55940be8732e1f5f3cf78af))
+
+
+### Features
+
+* **matcher:** add `toHaveBeenCalledBefore` matcher ([80b129e](https://github.com/TomokiMiyauci/unitest/commit/80b129e756189c64053ff5df1b9c2aa7daacb773))
+* **mock:** mock record each invacation timestamp ([c33e15c](https://github.com/TomokiMiyauci/unitest/commit/c33e15cf0e050722a7582ab268b743d3c38efa3f)), closes [#48](https://github.com/TomokiMiyauci/unitest/issues/48)
+
 # [1.0.0-beta.56](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.55...v1.0.0-beta.56) (2021-12-11)
 
 

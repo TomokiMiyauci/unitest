@@ -2,6 +2,7 @@
 // This module is browser compatible.
 
 import { Mock } from "./mock.ts";
+import { incrementalNumber } from "./utils.ts";
 import type { MockObject } from "./mock.ts";
 
 /** make mock object */
@@ -20,13 +21,14 @@ function fn(implementation?: (...args: unknown[]) => unknown): MockObject {
         type: "return",
         value,
       },
+      orderNumber: incrementalNumber(),
     });
   };
 
   Object.defineProperty(call, "mock", {
     get() {
-      const { results, calls } = mock;
-      return { results, calls };
+      const { results, calls, callOrderNumbers } = mock;
+      return { results, calls, callOrderNumbers };
     },
   });
 

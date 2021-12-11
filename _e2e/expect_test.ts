@@ -48,6 +48,9 @@ import {
   toEndWith,
   toEqualCaseInsensitive,
   toEqualIgnoringWhitespace,
+  toHaveBeenCalledAfter,
+  toHaveBeenCalledBefore,
+  toHaveBeenCalledOnce,
   toInclude,
   toIncludeAllMembers,
   toIncludeAnyMembers,
@@ -1057,4 +1060,60 @@ test("passes when the function throw error", () => {
   expect(() => {
     throw Error("test");
   }).toThrow(/test/);
+});
+
+test("calls mockObject1 before mockObject2", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toHaveBeenCalledBefore,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject1();
+  mockObject2();
+  mockObject1();
+
+  expect(mockObject1).toHaveBeenCalledBefore(mockObject2);
+});
+
+test("calls mockObject1 after mockObject2", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toHaveBeenCalledAfter,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject2();
+  mockObject1();
+  mockObject2();
+
+  expect(mockObject1).toHaveBeenCalledAfter(mockObject2);
+});
+
+test("passes only if mock object was called exactly once", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toHaveBeenCalledOnce,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const mockObject = fn();
+
+  mockObject();
+  expect(mockObject).toHaveBeenCalledOnce();
+  mockObject();
+  expect(mockObject).not.toHaveBeenCalledOnce();
 });

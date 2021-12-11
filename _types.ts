@@ -34,12 +34,17 @@ type Writable<T> = {
   -readonly [k in keyof T]: T[k];
 };
 
+/** Alias for `Tuple` */
+type IsTuple<T extends readonly unknown[]> = number extends T["length"] ? false
+  : true;
+
 type Primitive = string | number | bigint | symbol | boolean | null | undefined;
 
 export type {
   AnyFn,
   IsArityX,
   IsPromise,
+  IsTuple,
   PickByFirstParameter,
   Primitive,
   Resolve,

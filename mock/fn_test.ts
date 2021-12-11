@@ -15,12 +15,14 @@ Deno.test("non implemented fn accept any args", () => {
   assertEquals(mock.mock, {
     calls: [],
     results: [],
+    callOrderNumbers: [],
   });
 
   mock();
   assertEquals(mock.mock, {
     calls: [[]],
     results: [{ type: "return", value: undefined }],
+    callOrderNumbers: [1],
   });
 
   mock(1, 2, 3);
@@ -30,6 +32,7 @@ Deno.test("non implemented fn accept any args", () => {
       type: "return",
       value: undefined,
     }],
+    callOrderNumbers: [1, 2],
   });
 });
 
@@ -40,11 +43,13 @@ Deno.test("should define any function", () => {
   assertEquals(mock.mock, {
     calls: [[1, 2]],
     results: [{ type: "return", value: 3 }],
+    callOrderNumbers: [3],
   });
 
   mock(3, 4);
   assertEquals(mock.mock, {
     calls: [[1, 2], [3, 4]],
     results: [{ type: "return", value: 3 }, { type: "return", value: 7 }],
+    callOrderNumbers: [3, 4],
   });
 });

@@ -1,10 +1,23 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
+/** Mock implementation spec */
 interface MockSpec {
+  /** A `array` args with invocation */
   calls: readonly unknown[][];
+
+  /** A `array` return value with invocation */
   results: readonly MockResult[];
-  add(value: { args: unknown[]; result: MockResult }): void;
+
+  /** A `array` call order numbers */
+  callOrderNumbers: readonly number[];
+
+  /** add values to store */
+  add(
+    value: { args: unknown[]; result: MockResult; orderNumber: number },
+  ): void;
+
+  /** reset all values */
   clear(): void;
 }
 
@@ -17,22 +30,33 @@ interface MockResult {
 
 interface MockObject<T extends readonly unknown[] = any[]> {
   (...args: T): void;
-  mock: Pick<MockSpec, "calls" | "results">;
+  mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
 }
 
 /** mock result store */
 class Mock implements MockSpec {
   public calls: readonly unknown[][] = [];
   public results: readonly MockResult[] = [];
+  public callOrderNumbers: readonly number[] = [];
 
-  add({ args, result }: { args: unknown[]; result: MockResult }): void {
+  /** add values to store */
+  add(
+    { args, result, orderNumber }: {
+      args: unknown[];
+      result: MockResult;
+      orderNumber: number;
+    },
+  ): void {
     this.calls = [...this.calls, args];
     this.results = [...this.results, result];
+    this.callOrderNumbers = [...this.callOrderNumbers, orderNumber];
   }
 
+  /** reset all values */
   clear(): void {
     this.calls = [];
     this.results = [];
+    this.callOrderNumbers = [];
   }
 }
 

@@ -3,10 +3,18 @@
 
 import { isLength0, isObject, isUndefined } from "../deps.ts";
 import { equal } from "../helper/equal.ts";
+import type { IsTuple } from "../_types.ts";
 
 /** take elements except head */
 function tail<T extends unknown>(val: readonly T[]): T[] {
   return val.slice(1, Infinity);
+}
+
+/** safe accessor for first element */
+function head<T extends readonly unknown[]>(
+  value: T,
+): IsTuple<T> extends true ? T[0] : T[0] | undefined {
+  return value[0];
 }
 
 /** safe element accessor */
@@ -104,6 +112,7 @@ export {
   containSome,
   has,
   hasPath,
+  head,
   last,
   prop,
   propPath,

@@ -1620,6 +1620,107 @@ test("passes when array contains given value", () => {
 });
 ```
 
+## toHaveBeenCalledAfter
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenCalledAfter` when checking if a mock object was called after
+another mock object.
+
+```ts
+import {
+  defineExpect,
+  fn,
+  test,
+  toHaveBeenCalledAfter,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toHaveBeenCalledAfter,
+  },
+});
+
+test("calls mockObject1 after mockObject2", () => {
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject2();
+  mockObject1();
+  mockObject2();
+
+  expect(mockObject1).toHaveBeenCalledAfter(mockObject2);
+});
+```
+
+## toHaveBeenCalledBefore
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenCalledBefore` when checking if a mock object was called before
+another mock object.
+
+```ts
+import {
+  defineExpect,
+  fn,
+  test,
+  toHaveBeenCalledBefore,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toHaveBeenCalledBefore,
+  },
+});
+
+test("calls mockObject1 before mockObject2", () => {
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject1();
+  mockObject2();
+  mockObject1();
+
+  expect(mockObject1).toHaveBeenCalledBefore(mockObject2);
+});
+```
+
+## toHaveBeenCalledOnce
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenCalledOnce` to check if a mock object was called exactly one
+time.
+
+```ts
+import {
+  defineExpect,
+  fn,
+  not,
+  test,
+  toHaveBeenCalledOnce,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toHaveBeenCalledOnce,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes only if mock object was called exactly once", () => {
+  const mockObject = fn();
+
+  mockObject();
+  expect(mockObject).toHaveBeenCalledOnce();
+  mockObject();
+  expect(mockObject).not.toHaveBeenCalledOnce();
+});
+```
+
 ## toHaveBeenCalledTimes
 
 preset: `jestMatcherMap`
@@ -2188,9 +2289,6 @@ test("passes when the function throw error", () => {
     - ~~toBeArrayOfSize~~ toHaveLength
     - toIncludeAllPartialMembers
     - toThrowWithMessage
-    - toHaveBeenCalledBefore
-    - toHaveBeenCalledAfter
-    - toHaveBeenCalledOnce
     - ~~toBeNaN~~ exists in jest
     - ~~toContainKey~~ same as toHaveProperty
     - toContainAllKeys
