@@ -1,43 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { predict, toHaveReturnedTimes } from "./to_have_returned_times.ts";
+import { toHaveReturnedTimes } from "./to_have_returned_times.ts";
 import { assertEquals, assertFail, assertSuccess } from "../dev_deps.ts";
-import type { MockResult } from "../mock/mock.ts";
 import { fn } from "../mock/fn.ts";
-
-Deno.test({
-  name: "predict",
-  fn: () => {
-    const table: [MockResult[], number, boolean][] = [[[], 0, true], [
-      [{
-        type: "return",
-        value: undefined,
-      }],
-      1,
-      true,
-    ], [
-      [{
-        type: "return",
-        value: undefined,
-      }, {
-        type: "return",
-        value: undefined,
-      }],
-      2,
-      true,
-    ], [
-      [{
-        type: "return",
-        value: undefined,
-      }],
-      2,
-      false,
-    ]];
-
-    table.forEach(([mockResult, expected, result]) =>
-      assertEquals(predict(mockResult, expected), result)
-    );
-  },
-});
 
 Deno.test({
   name: "toHaveReturnedTimes",
@@ -51,5 +15,12 @@ Deno.test({
 
     mock();
     assertFail(toHaveReturnedTimes(mock, 3));
+
+    assertEquals(toHaveReturnedTimes(mock, 3), {
+      pass: false,
+      actual: 2,
+      actualHint: "Actual returned times:",
+      expected: 3,
+    });
   },
 });

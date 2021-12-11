@@ -1,22 +1,9 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+
+import { isTypeReturn } from "../mock/utils.ts";
 import type { MatchResult } from "./types.ts";
-import type { MockObject, MockResult } from "../mock/mock.ts";
-
-/** predict for `toHaveReturnedTimes` */
-function predict(
-  mockResults: readonly MockResult[],
-  expected: number,
-): boolean {
-  const count = mockResults.reduce((acc, { type }) => {
-    if (type === "return") {
-      acc = acc + 1;
-    }
-    return acc;
-  }, 0);
-
-  return count === expected;
-}
+import type { MockObject } from "../mock/mock.ts";
 
 /** Use `.toHaveReturnedTimes` to ensure that a mock object returned successfully an
  * exact number of times
@@ -36,11 +23,13 @@ function toHaveReturnedTimes(
   { mock }: MockObject,
   expected: number,
 ): MatchResult {
-  // TODO:(miyauci) improve assertion message
+  const actualTimes = mock.results.filter(isTypeReturn).length;
   return {
-    pass: predict(mock.results, expected),
+    actualHint: "Actual returned times:",
+    actual: actualTimes,
+    pass: actualTimes === expected,
     expected,
   };
 }
 
-export { predict, toHaveReturnedTimes };
+export { toHaveReturnedTimes };
