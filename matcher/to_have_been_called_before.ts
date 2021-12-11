@@ -51,7 +51,7 @@ function toHaveBeenCalledBefore(
   const expectedOlderTimestamp = head(expected.mock.callOrderNumbers);
   const pass = predict(actualOlderTimestamp, expectedOlderTimestamp);
 
-  const sharedMessage = "older invocation timestamp:";
+  const sharedMessage = "older call order number:";
   const none = "none";
 
   return {
