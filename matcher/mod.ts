@@ -91,3 +91,4 @@ export { toIncludeSameMembers } from "./to_include_same_members.ts";
 export { toContainEqual } from "./to_contain_equal.ts";
 export { toHaveBeenCalledBefore } from "./to_have_been_called_before.ts";
 export { toHaveBeenCalledAfter } from "./to_have_been_called_after.ts";
+export { toHaveBeenCalledOnce } from "./to_have_been_called_once.ts";

@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toHaveBeenCalledOnce } from "./to_have_been_called_once.ts";
 import { toHaveBeenCalledAfter } from "./to_have_been_called_after.ts";
 import { toHaveBeenCalledBefore } from "./to_have_been_called_before.ts";
 import { toContainEqual } from "./to_contain_equal.ts";
@@ -134,6 +135,7 @@ const jestMatcherMap = {
  * @see https://github.com/jest-community/jest-extended
  */
 const jestExtendedMatcherMap = {
+  toHaveBeenCalledOnce,
   toHaveBeenCalledAfter,
   toHaveBeenCalledBefore,
   toIncludeSameMembers,

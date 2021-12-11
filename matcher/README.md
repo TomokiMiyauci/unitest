@@ -1631,7 +1631,6 @@ another mock object.
 import {
   defineExpect,
   fn,
-  not,
   test,
   toHaveBeenCalledAfter,
 } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -1639,9 +1638,6 @@ import {
 const expect = defineExpect({
   matcherMap: {
     toHaveBeenCalledAfter,
-  },
-  modifierMap: {
-    not,
   },
 });
 
@@ -1668,7 +1664,6 @@ another mock object.
 import {
   defineExpect,
   fn,
-  not,
   test,
   toHaveBeenCalledBefore,
 } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -1676,9 +1671,6 @@ import {
 const expect = defineExpect({
   matcherMap: {
     toHaveBeenCalledBefore,
-  },
-  modifierMap: {
-    not,
   },
 });
 
@@ -1691,6 +1683,41 @@ test("calls mockObject1 before mockObject2", () => {
   mockObject1();
 
   expect(mockObject1).toHaveBeenCalledBefore(mockObject2);
+});
+```
+
+## toHaveBeenCalledOnce
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenCalledOnce` to check if a mock object was called exactly one
+time.
+
+```ts
+import {
+  defineExpect,
+  fn,
+  not,
+  test,
+  toHaveBeenCalledOnce,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toHaveBeenCalledOnce,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes only if mock object was called exactly once", () => {
+  const mockObject = fn();
+
+  mockObject();
+  expect(mockObject).toHaveBeenCalledOnce();
+  mockObject();
+  expect(mockObject).not.toHaveBeenCalledOnce();
 });
 ```
 
@@ -2262,7 +2289,6 @@ test("passes when the function throw error", () => {
     - ~~toBeArrayOfSize~~ toHaveLength
     - toIncludeAllPartialMembers
     - toThrowWithMessage
-    - toHaveBeenCalledAfter
     - toHaveBeenCalledOnce
     - ~~toBeNaN~~ exists in jest
     - ~~toContainKey~~ same as toHaveProperty

@@ -50,6 +50,7 @@ import {
   toEqualIgnoringWhitespace,
   toHaveBeenCalledAfter,
   toHaveBeenCalledBefore,
+  toHaveBeenCalledOnce,
   toInclude,
   toIncludeAllMembers,
   toIncludeAnyMembers,
@@ -1098,4 +1099,21 @@ test("calls mockObject1 after mockObject2", () => {
   mockObject2();
 
   expect(mockObject1).toHaveBeenCalledAfter(mockObject2);
+});
+
+test("passes only if mock object was called exactly once", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toHaveBeenCalledOnce,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  const mockObject = fn();
+
+  mockObject();
+  expect(mockObject).toHaveBeenCalledOnce();
+  mockObject();
+  expect(mockObject).not.toHaveBeenCalledOnce();
 });
