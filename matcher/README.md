@@ -1620,6 +1620,43 @@ test("passes when array contains given value", () => {
 });
 ```
 
+## toHaveBeenCalledBefore
+
+preset: `jestExtendedMatcherMap`
+
+Use `.toHaveBeenCalledBefore` when checking if a mock object was called before
+another mock object.
+
+```ts
+import {
+  defineExpect,
+  fn,
+  not,
+  test,
+  toHaveBeenCalledBefore,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toHaveBeenCalledBefore,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("calls mockObject1 before mockObject2", () => {
+  const mockObject1 = fn();
+  const mockObject2 = fn();
+
+  mockObject1();
+  mockObject2();
+  mockObject1();
+
+  expect(mockObject1).toHaveBeenCalledBefore(mockObject2);
+});
+```
+
 ## toHaveBeenCalledTimes
 
 preset: `jestMatcherMap`
@@ -2188,7 +2225,6 @@ test("passes when the function throw error", () => {
     - ~~toBeArrayOfSize~~ toHaveLength
     - toIncludeAllPartialMembers
     - toThrowWithMessage
-    - toHaveBeenCalledBefore
     - toHaveBeenCalledAfter
     - toHaveBeenCalledOnce
     - ~~toBeNaN~~ exists in jest

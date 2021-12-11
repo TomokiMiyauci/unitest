@@ -5,12 +5,34 @@ import {
   contains,
   containSome,
   hasPath,
+  head,
   last,
   prop,
   propPath,
   take,
 } from "./utils.ts";
 import { stringify } from "../helper/format.ts";
+
+Deno.test({
+  name: "head",
+  fn: () => {
+    const table: [
+      ...Parameters<typeof head>,
+      ReturnType<typeof head>,
+    ][] = [
+      [[], undefined],
+      [[1, 2, 3], 1],
+      [[null], null],
+      [[undefined], undefined],
+    ];
+    table.forEach(([value, result]) => {
+      assertEquals(
+        head(value),
+        result,
+      );
+    });
+  },
+});
 
 Deno.test({
   name: "contains",
