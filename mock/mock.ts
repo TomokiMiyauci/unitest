@@ -12,7 +12,7 @@ interface MockSpec {
   /** A `array` call order numbers */
   callOrderNumbers: readonly number[];
 
-  /** push values to store */
+  /** add values to store */
   add(
     value: { args: unknown[]; result: MockResult; orderNumber: number },
   ): void;
@@ -39,6 +39,7 @@ class Mock implements MockSpec {
   public results: readonly MockResult[] = [];
   public callOrderNumbers: readonly number[] = [];
 
+  /** add values to store */
   add(
     { args, result, orderNumber }: {
       args: unknown[];
@@ -51,6 +52,7 @@ class Mock implements MockSpec {
     this.callOrderNumbers = [...this.callOrderNumbers, orderNumber];
   }
 
+  /** reset all values */
   clear(): void {
     this.calls = [];
     this.results = [];
