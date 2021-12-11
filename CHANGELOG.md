@@ -1,3 +1,13 @@
+# [1.0.0-beta.56](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.55...v1.0.0-beta.56) (2021-12-11)
+
+
+### Bug Fixes
+
+* **matcher:** improve assertion message for `toBeCloseTo` ([53ff2b6](https://github.com/TomokiMiyauci/unitest/commit/53ff2b602239233c37128c78fc3bf6f9efdc6bcd)), closes [#46](https://github.com/TomokiMiyauci/unitest/issues/46)
+* **matcher:** improve assertion message for `toHaveReturned` ([0f38afc](https://github.com/TomokiMiyauci/unitest/commit/0f38afcb74052be1bb589d0bf59319d0a7efc1f5)), closes [#46](https://github.com/TomokiMiyauci/unitest/issues/46)
+* **matcher:** improve assertion message for `toHaveReturnedTimes` ([dde2ce4](https://github.com/TomokiMiyauci/unitest/commit/dde2ce4e7bd4a1bddac4186c29ce79f6e2d8f3d9)), closes [#46](https://github.com/TomokiMiyauci/unitest/issues/46)
+* **matcher:** improve assertion message for `toHaveReturnedWith` ([0c5b347](https://github.com/TomokiMiyauci/unitest/commit/0c5b3475513a0bd173c96bd08a4156e2d13ef20b)), closes [#46](https://github.com/TomokiMiyauci/unitest/issues/46)
+
 # [1.0.0-beta.55](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.54...v1.0.0-beta.55) (2021-12-10)
 
 
