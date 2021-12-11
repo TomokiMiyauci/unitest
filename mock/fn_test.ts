@@ -15,12 +15,20 @@ Deno.test("non implemented fn accept any args", () => {
   assertEquals(mock.mock, {
     calls: [],
     results: [],
+    invocationTimestamps: [],
+  });
+
+  const now = Date.now;
+
+  Object.defineProperty(Date, "now", {
+    value: () => 1000,
   });
 
   mock();
   assertEquals(mock.mock, {
     calls: [[]],
     results: [{ type: "return", value: undefined }],
+    invocationTimestamps: [1000],
   });
 
   mock(1, 2, 3);
@@ -30,21 +38,32 @@ Deno.test("non implemented fn accept any args", () => {
       type: "return",
       value: undefined,
     }],
+    invocationTimestamps: [1000, 1000],
   });
+
+  Object.defineProperty(Date, "now", { value: now });
 });
 
 Deno.test("should define any function", () => {
+  const now = Date.now;
+
+  Object.defineProperty(Date, "now", {
+    value: () => 2000,
+  });
   const mock = fn((a: number, b: number) => a + b);
 
   mock(1, 2);
   assertEquals(mock.mock, {
     calls: [[1, 2]],
     results: [{ type: "return", value: 3 }],
+    invocationTimestamps: [2000],
   });
 
   mock(3, 4);
   assertEquals(mock.mock, {
     calls: [[1, 2], [3, 4]],
     results: [{ type: "return", value: 3 }, { type: "return", value: 7 }],
+    invocationTimestamps: [2000, 2000],
   });
+  Object.defineProperty(Date, "now", { value: now });
 });

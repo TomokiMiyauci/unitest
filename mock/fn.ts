@@ -13,6 +13,7 @@ function fn(implementation?: (...args: unknown[]) => unknown): MockObject {
   const mock = new Mock();
 
   const call = (...args: unknown[]): void => {
+    const timestamp = Date.now();
     const value = implementation?.(...args);
     mock.add({
       args,
@@ -20,13 +21,14 @@ function fn(implementation?: (...args: unknown[]) => unknown): MockObject {
         type: "return",
         value,
       },
+      timestamp,
     });
   };
 
   Object.defineProperty(call, "mock", {
     get() {
-      const { results, calls } = mock;
-      return { results, calls };
+      const { results, calls, invocationTimestamps } = mock;
+      return { results, calls, invocationTimestamps };
     },
   });
 
