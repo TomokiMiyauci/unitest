@@ -3,6 +3,11 @@
 
 import { MockResult, MockResultType } from "./mock.ts";
 
+/** type guard for return type is `return` */
+function isReturn(value: MockResultType): value is "return" {
+  return value === "return";
+}
+
 /** type guard for mock result return type is `return` */
 function isTypeReturn(
   mockResult: MockResult,
@@ -13,11 +18,6 @@ function isTypeReturn(
 /** pick `value` field only */
 function pickValue({ value }: MockResult): unknown {
   return value;
-}
-
-/** type guard for return type is `return` */
-function isReturn(value: MockResultType): value is "return" {
-  return value === "return";
 }
 
 export { isReturn, isTypeReturn, pickValue };
