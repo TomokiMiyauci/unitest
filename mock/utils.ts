@@ -20,4 +20,15 @@ function pickValue({ value }: MockResult): unknown {
   return value;
 }
 
-export { isReturn, isTypeReturn, pickValue };
+let number = 0;
+
+/** Generate incremental unique number.
+ * This scope is each execution files.
+ */
+function incrementalNumber(): number {
+  number++;
+
+  return number;
+}
+
+export { incrementalNumber, isReturn, isTypeReturn, pickValue };

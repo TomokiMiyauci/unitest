@@ -9,10 +9,12 @@ interface MockSpec {
   /** A `array` return value with invocation */
   results: readonly MockResult[];
 
-  /** A `array` invocation timestamp */
-  invocationTimestamps: readonly number[];
+  /** A `array` call order numbers */
+  callOrderNumbers: readonly number[];
 
-  add(value: { args: unknown[]; result: MockResult; timestamp: number }): void;
+  add(
+    value: { args: unknown[]; result: MockResult; orderNumber: number },
+  ): void;
   clear(): void;
 }
 
@@ -25,31 +27,31 @@ interface MockResult {
 
 interface MockObject<T extends readonly unknown[] = any[]> {
   (...args: T): void;
-  mock: Pick<MockSpec, "calls" | "results" | "invocationTimestamps">;
+  mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
 }
 
 /** mock result store */
 class Mock implements MockSpec {
   public calls: readonly unknown[][] = [];
   public results: readonly MockResult[] = [];
-  public invocationTimestamps: readonly number[] = [];
+  public callOrderNumbers: readonly number[] = [];
 
   add(
-    { args, result, timestamp }: {
+    { args, result, orderNumber }: {
       args: unknown[];
       result: MockResult;
-      timestamp: number;
+      orderNumber: number;
     },
   ): void {
     this.calls = [...this.calls, args];
     this.results = [...this.results, result];
-    this.invocationTimestamps = [...this.invocationTimestamps, timestamp];
+    this.callOrderNumbers = [...this.callOrderNumbers, orderNumber];
   }
 
   clear(): void {
     this.calls = [];
     this.results = [];
-    this.invocationTimestamps = [];
+    this.callOrderNumbers = [];
   }
 }
 
