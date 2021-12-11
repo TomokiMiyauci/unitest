@@ -2,20 +2,9 @@
 // This module is browser compatible.
 
 import { equal } from "../helper/equal.ts";
+import { isTypeReturn, pickValue } from "../mock/utils.ts";
 import type { MatchResult } from "./types.ts";
-import type { MockObject, MockResult } from "../mock/mock.ts";
-
-/** predict for `toHaveReturnedWith` */
-function predict(
-  mockResults: readonly MockResult[],
-  expected: unknown,
-): boolean {
-  const result = mockResults.some(({ type, value }) =>
-    type === "return" && equal(value, expected)
-  );
-
-  return result;
-}
+import type { MockObject } from "../mock/mock.ts";
 
 /** Use `.toHaveReturnedWith` to ensure that a mock object returned a specific
  * value
@@ -36,11 +25,13 @@ function toHaveReturnedWith(
   { mock }: MockObject,
   expected: unknown,
 ): MatchResult {
-  // TODO:(miyauci) improve assertion message
+  const typeReturns = mock.results.filter(isTypeReturn);
   return {
-    pass: predict(mock.results, expected),
+    actualHint: "Actual all returned:",
+    actual: typeReturns.map(pickValue),
+    pass: typeReturns.some(({ value }) => equal(value, expected)),
     expected,
   };
 }
 
-export { predict, toHaveReturnedWith };
+export { toHaveReturnedWith };
