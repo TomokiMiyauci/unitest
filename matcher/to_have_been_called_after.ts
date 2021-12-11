@@ -3,6 +3,11 @@
 
 import { head } from "./utils.ts";
 import { isNumber } from "../deps.ts";
+import {
+  actualHint,
+  expectedHint,
+  none,
+} from "./to_have_been_called_before.ts";
 import type { MockObject } from "../mock/mock.ts";
 import type { MatchResult } from "./types.ts";
 
@@ -51,14 +56,11 @@ function toHaveBeenCalledAfter(
   const expectedOlderTimestamp = head(expected.mock.callOrderNumbers);
   const pass = predict(actualOlderTimestamp, expectedOlderTimestamp);
 
-  const sharedMessage = "older call order number:";
-  const none = "none";
-
   return {
-    actualHint: `Actual ${sharedMessage}`,
+    actualHint,
     actual: actualOlderTimestamp ?? none,
     pass,
-    expectedHint: `Expected ${sharedMessage}`,
+    expectedHint,
     expected: expectedOlderTimestamp ?? none,
   };
 }

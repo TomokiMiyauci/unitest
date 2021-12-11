@@ -11,6 +11,11 @@ function predict(a: number | undefined, b: number | undefined): boolean {
   return isNumber(a) && (!isNumber(b) || (isNumber(b) && a < b));
 }
 
+const sharedMessage = "older call order number:";
+const none = "none";
+const actualHint = `Actual ${sharedMessage}`;
+const expectedHint = `Expected ${sharedMessage}`;
+
 /** Use `.toHaveBeenCalledBefore` when checking if a mock object was called before
  * another mock object
  * ```ts
@@ -51,16 +56,13 @@ function toHaveBeenCalledBefore(
   const expectedOlderTimestamp = head(expected.mock.callOrderNumbers);
   const pass = predict(actualOlderTimestamp, expectedOlderTimestamp);
 
-  const sharedMessage = "older call order number:";
-  const none = "none";
-
   return {
-    actualHint: `Actual ${sharedMessage}`,
+    actualHint,
     actual: actualOlderTimestamp ?? none,
     pass,
-    expectedHint: `Expected ${sharedMessage}`,
+    expectedHint,
     expected: expectedOlderTimestamp ?? none,
   };
 }
 
-export { predict, toHaveBeenCalledBefore };
+export { actualHint, expectedHint, none, predict, toHaveBeenCalledBefore };
