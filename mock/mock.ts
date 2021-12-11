@@ -12,9 +12,12 @@ interface MockSpec {
   /** A `array` call order numbers */
   callOrderNumbers: readonly number[];
 
+  /** push values to store */
   add(
     value: { args: unknown[]; result: MockResult; orderNumber: number },
   ): void;
+
+  /** reset all values */
   clear(): void;
 }
 
