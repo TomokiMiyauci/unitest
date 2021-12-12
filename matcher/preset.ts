@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import { toMatchObject } from "./to_match_object.ts";
 import { toHaveBeenCalledOnce } from "./to_have_been_called_once.ts";
 import { toHaveBeenCalledAfter } from "./to_have_been_called_after.ts";
 import { toHaveBeenCalledBefore } from "./to_have_been_called_before.ts";
@@ -121,6 +122,7 @@ const jestMatcherMap = {
   toHaveLastReturnedWith,
   toHaveNthReturnedWith,
   toHaveProperty,
+  toMatchObject,
   toMatch,
   toContain,
   toContainEqual,

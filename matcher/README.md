@@ -2121,6 +2121,21 @@ test("passes when value includes substring", () => {
 });
 ```
 
+## toMatchObject
+
+preset: `jestMatcherMap`
+
+Use `.toMatchObject` to check that a `object` matches a subset of the properties
+of an `object`.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when object is part of subset", () => {
+  expect({ foo: "bar", hello: "world" }).toMatchObject({ foo: "bar" });
+});
+```
+
 ## toMatch
 
 preset: `jestMatcherMap`

@@ -9,9 +9,36 @@ import {
   last,
   prop,
   propPath,
+  symbolEntries,
   take,
 } from "./utils.ts";
 import { stringify } from "../helper/format.ts";
+
+Deno.test("symbolEntries", () => {
+  const table: [
+    ...Parameters<typeof symbolEntries>,
+    ReturnType<typeof symbolEntries>,
+  ][] = [
+    [{}, []],
+    [{ a: 1 }, []],
+    [{ a: {}, b: null }, []],
+    [{ [Symbol.for("test")]: {} }, [[Symbol.for("test"), {}]]],
+    [{ [Symbol.for("a")]: 1, [Symbol.for("b")]: 2 }, [[
+      Symbol.for("a"),
+      1,
+    ], [
+      Symbol.for("b"),
+      2,
+    ]]],
+  ];
+
+  table.forEach(([value, result]) =>
+    assertEquals(
+      symbolEntries(value),
+      result,
+    )
+  );
+});
 
 Deno.test({
   name: "head",

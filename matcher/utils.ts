@@ -106,6 +106,14 @@ function hasPath(
   return false;
 }
 
+/** Object.entries for `symbol` */
+function symbolEntries(value: object): [symbol, unknown][] {
+  return Object.getOwnPropertySymbols(value).map((symbol) => [
+    symbol,
+    prop(symbol, value),
+  ]);
+}
+
 export {
   containAll,
   contains,
@@ -116,6 +124,7 @@ export {
   last,
   prop,
   propPath,
+  symbolEntries,
   take,
   takeLast,
 };
