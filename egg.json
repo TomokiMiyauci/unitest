@@ -5,6 +5,7 @@
   "description": "Deno-first universal unit testing framework",
   "homepage": "https://github.com/TomokiMiyauci/unitest",
   "files": ["./**/*.ts", "./**/README.md"],
+  "releaseType": "prerelease",
   "ignore": [
     ".git",
     "_*/**/*",
