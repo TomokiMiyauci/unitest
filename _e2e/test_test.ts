@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { defineGlobalThis, expect, fn, test } from "../mod.ts";
+import { defineGlobalThis, each, expect, fn, test } from "../mod.ts";
 
 test("should work as jest style", () => {
   expect("jest").toBeTruthy();
@@ -91,3 +91,14 @@ test({
     );
   },
 });
+
+function double(value: number): number {
+  return value * 2;
+}
+
+each([[1, 2], [100, 200]])(
+  "double(%d) => %d",
+  (actual, expected) => {
+    expect(double(actual)).toBe(expected);
+  },
+);

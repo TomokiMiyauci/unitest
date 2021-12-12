@@ -44,9 +44,9 @@ Deno.test({
 });
 
 Deno.test({
-  name: "each is defined by default",
+  name: "each is not defined by default",
   fn: () => {
     expect(test).toBeDefined();
-    expect(test).toHaveProperty("each");
+    expect(test).not.toHaveProperty("each");
   },
 });

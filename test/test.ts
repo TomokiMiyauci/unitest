@@ -48,13 +48,6 @@ function _localThisReducer<T extends Record<PropertyKey, () => SetupReturn>>(
   return acc;
 }
 
-type SetupFn<
-  T extends Record<PropertyKey, object> = Record<PropertyKey, object>,
-> = {
-  teardown: () => void | Promise<void>;
-  localThis: T;
-};
-
 type SetupReturn<
   T extends Record<PropertyKey, object> = Record<PropertyKey, object>,
 > = Partial<{
@@ -145,4 +138,4 @@ function defineTest<T extends Record<string | symbol, AnyFn>>({
 }
 
 export { _applySetup, _localThisReducer, defineTest, test };
-export type { SetupFn, Test };
+export type { SetupReturn, Test };

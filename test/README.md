@@ -36,6 +36,7 @@ environment.
 ```ts
 import {
   defineGlobalThis,
+  expect,
   fn,
   test,
 } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -93,16 +94,16 @@ teardown is a hook that is called after the test has finished.
 We can now do table-driven tests with jest's `test.each`, and unitest has a
 similar interface.
 
-types: `test.each(table)(name, fn)`.
+types: `each(table)(name, fn)`.
 
 ```ts
-import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { each, expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 function double(value: number): number {
   return value * 2;
 }
 
-test.each([[1, 2], [100, 200]])(
+each([[1, 2], [100, 200]])(
   "double(%d) => %d",
   (actual, expected) => expect(double(actual)).toBe(expected),
 );
