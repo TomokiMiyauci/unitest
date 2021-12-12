@@ -1,3 +1,16 @@
+# [1.0.0-beta.59](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.58...v1.0.0-beta.59) (2021-12-12)
+
+
+### Bug Fixes
+
+* remove unused deps for reduce bundle size ([8269b08](https://github.com/TomokiMiyauci/unitest/commit/8269b0833e8016bd9f3ddd8325bdaa5eed2f7ab2))
+* **test:** not export `test.each` function for avoid type error ([14eb0b1](https://github.com/TomokiMiyauci/unitest/commit/14eb0b19e628511eaa2b706ddbb084f7474a5aa2))
+
+
+### Features
+
+* **test:** rename `setup` to `setupMap`, accept multiple setup ([4eed7ba](https://github.com/TomokiMiyauci/unitest/commit/4eed7ba7902adefcf488e9ea09b037f85e06fabe))
+
 # [1.0.0-beta.58](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.57...v1.0.0-beta.58) (2021-12-11)
 
 
