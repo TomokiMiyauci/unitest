@@ -1,11 +1,11 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import markdown from "https://deno.land/x/aleph/plugins/markdown.ts";
 import type { Config } from "aleph/types";
-import windicss from "./plugins/windicss.ts";
+import unocss from "./plugins/unocss.ts";
 
 export default <Config> {
   plugins: [
-    windicss,
+    unocss,
     markdown({
       highlight: {
         provider: "highlight.js",
