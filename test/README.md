@@ -24,48 +24,58 @@ test("jest like test", () => {
 });
 ```
 
-## setup
+## setupMap
 
-`test` can accept `setup` property.
+types: `Record<PropertyKey, () => SetupReturn>`
 
-setup can return an object. Certain fields affect the test environment.
+`test` can accept `setupMap` property.
+
+`setupMap` can define setup and return an object. Certain fields affect the test
+environment.
 
 ```ts
-import { test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import {
+  defineGlobalThis,
+  fn,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test({
   name: "should request actual",
-  setup: () => {
-    const myClass = new class MyClass {
-      init() {}
-      do() {}
-      reset() {}
-    }();
-    myClass.init();
-
-    return {
-      localThis: {
-        myClass,
-      },
-
-      teardown: () => {
-        myClass.reset();
-      },
-    };
+  setupMap: {
+    fetch: () => {
+      const mockObject = fn();
+      const reset = defineGlobalThis(
+        "fetch",
+        (input, init) => {
+          mockObject(input, init);
+          return Promise.resolve(new Response("test"));
+        },
+      );
+      return {
+        localThis: { mockObject },
+        teardown: reset,
+      };
+    },
   },
 
-  fn: ({ myClass }) => {
-    myClass.do(); // test it
+  fn: async ({ fetch: { mockObject } }) => {
+    await fetch("https://unitest.verce.app/");
+
+    expect(mockObject).toHaveBeenCalledWith(
+      "https://unitest.verce.app/",
+      undefined,
+    );
   },
 });
 ```
 
-As `setup` is a pure function, it can be defined externally to make it more
+As setup is a pure function, it can be defined externally to make it more
 modular.
 
 ### localThis
 
-types: `Record<PropertyKey, unknown>`
+types: `Record<PropertyKey, object>`
 
 Variables passed to `localThis` in the setup can be referenced by the `fn`
 function. This was inspired by the naming of `globalThis`.
@@ -86,13 +96,13 @@ similar interface.
 types: `test.each(table)(name, fn)`.
 
 ```ts
-import { each, expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 function double(value: number): number {
   return value * 2;
 }
 
-each([[1, 2], [100, 200]])(
+test.each([[1, 2], [100, 200]])(
   "double(%d) => %d",
   (actual, expected) => expect(double(actual)).toBe(expected),
 );
