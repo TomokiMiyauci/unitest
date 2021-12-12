@@ -1,0 +1,17 @@
+{
+  "$schema": "https://x.nest.land/eggs@0.3.10/src/schema.json",
+  "name": "unitest",
+  "entry": "./mod.ts",
+  "description": "🃏 Deno-first universal unit testing framework",
+  "homepage": "https://github.com/TomokiMiyauci/unitest",
+  "files": ["./**/*.ts", "./**/README.md"],
+  "releaseType": "prerelease",
+  "ignore": [
+    ".git",
+    "_*/**/*",
+    "node_modules/**/*",
+    "package.json",
+    "pnpm-lock.yaml"
+  ],
+  "check": false
+}

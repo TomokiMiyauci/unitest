@@ -18,25 +18,27 @@ test("plays video", () => {
 
 test({
   name: "localThis",
-  fn: async ({ value }) => {
+  fn: async ({ value: { value } }) => {
     expect(value).toEqual({});
     await fetch("https://example.com/");
     expect(value.url).toEqual("https://example.com/");
   },
-  setup: () => {
-    const value: Record<PropertyKey, unknown> = {};
-    const reset = defineGlobalThis("fetch", (input) => {
-      value.url = input;
-      return Promise.resolve(new Response(""));
-    });
+  setupMap: {
+    value: () => {
+      const value: Record<PropertyKey, unknown> = {};
+      const reset = defineGlobalThis("fetch", (input) => {
+        value.url = input;
+        return Promise.resolve(new Response(""));
+      });
 
-    return {
-      teardown: () => {
-        reset();
-      },
-      localThis: {
-        value,
-      },
-    };
+      return {
+        teardown: () => {
+          reset();
+        },
+        localThis: {
+          value,
+        },
+      };
+    },
   },
 });

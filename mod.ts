@@ -116,7 +116,8 @@ export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
 export { resolves } from "./modifier/resolves.ts";
 export * from "./modifier/preset.ts";
-export * from "./test/mod.ts";
+export { each } from "./test/each.ts";
+export { defineTest, test } from "./test/test.ts";
+export type { SetupReturn, Test } from "./test/test.ts";
 
 export { equal, equality } from "./helper/equal.ts";
-export { each } from "./test/each.ts";

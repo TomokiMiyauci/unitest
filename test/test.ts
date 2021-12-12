@@ -25,39 +25,88 @@ import type { AnyFn } from "../_types.ts";
 //   }
 // }
 
-type SetupCallback<T extends Record<PropertyKey, object>> = {
-  teardown: () => void | Promise<void>;
+/** apply setup to map */
+function _applySetup([key, value]: [string, () => SetupReturn]): {
+  name: string;
+  teardown?: (() => void | Promise<void>) | undefined;
+  localThis?: Record<PropertyKey, object> | undefined;
+} {
+  return { ...value(), name: key };
+}
+
+/** reducer for `localThis` */
+function _localThisReducer<T extends Record<PropertyKey, () => SetupReturn>>(
+  acc: PickLocalThis<T>,
+  { name, localThis }: {
+    name: string;
+    localThis?: Record<PropertyKey, object>;
+  },
+) {
+  if (localThis) {
+    (acc as Record<PropertyKey, object>)[name] = localThis;
+  }
+  return acc;
+}
+
+type SetupReturn<
+  T extends Record<PropertyKey, object> = Record<PropertyKey, object>,
+> = Partial<{
+  teardown: () => (void | Promise<void>);
   localThis: T;
+}>;
+
+type PickLocalThis<T extends Record<PropertyKey, () => SetupReturn>> = {
+  [
+    k
+      in keyof T as (ReturnType<T[k]> extends
+        { localThis: Record<PropertyKey, object> } ? k
+        : never)
+  ]: Required<
+    ReturnType<
+      T[k]
+    >
+  >["localThis"];
 };
 
-type Test<LocalThis extends Record<PropertyKey, object>> = {
-  setup?: () => Partial<SetupCallback<LocalThis>> | void;
-  fn: (t: LocalThis & Deno.TestContext) => void | Promise<void>;
+type Test<T extends Record<PropertyKey, () => SetupReturn>> = {
+  setupMap?: T;
+  fn: (
+    t:
+      & PickLocalThis<T>
+      & Deno.TestContext,
+  ) => void | Promise<void>;
 } & Omit<Deno.TestDefinition, "fn">;
 
 /** Register a test which will be run when deno test is used on the command line and the containing module looks like a test module.
  * fn can be async if required.
  */
-function test<T extends Record<PropertyKey, object>>(t: Test<T>): void;
-function test<T extends Record<PropertyKey, object>>(
+function test<T extends Record<PropertyKey, () => SetupReturn>>(
+  t: Test<T>,
+): void;
+function test<T extends Record<PropertyKey, () => SetupReturn>>(
   name: string,
-  fn: (t: T & Deno.TestContext) => void | Promise<void>,
+  fn: (t: PickLocalThis<T> & Deno.TestContext) => void | Promise<void>,
   options?: Omit<Test<T>, "fn" | "name">,
 ): void;
-function test<T extends Record<PropertyKey, object>>(
+function test<T extends Record<PropertyKey, () => SetupReturn>>(
   t: string | Test<T>,
-  _fn?: (t: T & Deno.TestContext) => void | Promise<void>,
+  _fn?: (t: PickLocalThis<T> & Deno.TestContext) => void | Promise<void>,
   _options?: Omit<Test<T>, "fn" | "name">,
 ): void {
-  const { setup, fn, ...rest } = isString(t)
+  const { setupMap, fn, ...rest } = isString(t)
     ? { ..._options, fn: _fn, name: t }
     : t;
 
-  const runner = async (context: Deno.TestContext): Promise<void> => {
-    const { localThis = {} as T, teardown } = setup?.() ?? {};
+  const setups = Object.entries(setupMap ?? {}).map(_applySetup);
+  const localThis = setups.reduce(_localThisReducer, {} as PickLocalThis<T>);
 
+  /** wrap test register */
+  const runner = async (context: Deno.TestContext): Promise<void> => {
     try {
-      await fn?.({ ...localThis, ...context });
+      await fn?.({
+        ...localThis,
+        ...context,
+      });
     } catch (e) {
       if (!(e instanceof Error)) {
         throw Error("panic: unexpected error");
@@ -65,7 +114,7 @@ function test<T extends Record<PropertyKey, object>>(
 
       throw e;
     } finally {
-      await teardown?.();
+      await Promise.all(setups.map(async ({ teardown }) => await teardown?.()));
     }
   };
 
@@ -88,5 +137,5 @@ function defineTest<T extends Record<string | symbol, AnyFn>>({
   return test as never;
 }
 
-export { defineTest, test };
-export type { SetupCallback, Test };
+export { _applySetup, _localThisReducer, defineTest, test };
+export type { SetupReturn, Test };

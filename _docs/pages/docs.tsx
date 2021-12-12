@@ -58,7 +58,7 @@ export default function Docs({ Page }: DocsProps) {
       </aside>
 
       {Page &&
-        <Page className="content md:ml-72 p-4 md:p-8" />}
+        <Page className="content max-w-screen-lg md:ml-72 p-4 md:p-8" />}
     </div>
   );
 }

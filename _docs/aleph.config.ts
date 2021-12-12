@@ -9,7 +9,7 @@ export default <Config> {
     markdown({
       highlight: {
         provider: "highlight.js",
-        theme: "github",
+        theme: "nord",
       },
     }),
   ],
