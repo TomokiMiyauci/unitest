@@ -4,3 +4,4 @@ node_modules
 *.log
 coverage
 cov_profile.lcov
+.vercel
