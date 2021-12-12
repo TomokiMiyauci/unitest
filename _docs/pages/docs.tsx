@@ -1,5 +1,4 @@
 import React, { ComponentType } from "react";
-import "../styles/docs.css";
 
 type Doc = {
   name: string;
@@ -51,7 +50,7 @@ export default function Docs({ Page }: DocsProps) {
                 >
                   <a
                     className="px-2 py-0.5 flex transition-colors duration-200 hover:bg-gray-100 rounded"
-                    data-active-className="text-teal-500"
+                    data-active-className="text-teal-500 bg-gray-100"
                     rel="nav"
                     href={`/docs/${path}`}
                   >
@@ -65,7 +64,7 @@ export default function Docs({ Page }: DocsProps) {
       </aside>
 
       {Page &&
-        <Page className="content max-w-screen-lg md:ml-72 p-4 md:p-8" />}
+        <Page className="prose max-w-screen-lg md:ml-72 p-4 md:p-8" />}
     </div>
   );
 }
