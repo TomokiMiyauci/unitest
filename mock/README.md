@@ -192,4 +192,22 @@ test("should define rejected value as default", () => {
 });
 ```
 
-This is known as `jest.fn().mockResolvedValue`.
+This is known as `jest.fn().mockRejectedValue`.
+
+## mockObject#onceRejectedValue
+
+Sets a mock function what return specific `Promise.reject` value to be called
+only once. This takes precedence over the default mock function. Follow the
+FIFO.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define rejected value as only once", async () => {
+  const mockObject = fn().onceRejectedValue(Error("test"));
+  await expect(mockObject()).rejects.toEqual(Error("test"));
+  expect(mockObject()).not.toBeDefined();
+});
+```
+
+This is known as `jest.fn().mockRejectedValueOnce`.

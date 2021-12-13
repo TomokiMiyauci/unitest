@@ -107,6 +107,21 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```
    */
   onceResolvedValue(value: R): MockObject<A, unknown>;
+
+  /** Sets a mock function what return specific `Promise.reject` value to be called
+   * only once. This takes precedence over the default mock function. Follow the
+   * FIFO.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define rejected value as only once", async () => {
+   *   const mockObject = fn().onceRejectedValue(Error("test"));
+   *   await expect(mockObject()).rejects.toEqual(Error("test"));
+   *   expect(mockObject()).not.toBeDefined();
+   * });
+   * ```
+   */
+  onceRejectedValue(value: R): MockObject<A, unknown>;
 }
 
 /** store fn internal implementation */
@@ -202,6 +217,11 @@ function fn(
     return call as MockObject;
   };
 
+  const onceRejectedValue = (value: unknown): MockObject => {
+    mockFnStore["onceImplementations"].push(() => Promise.reject(value));
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -217,6 +237,7 @@ function fn(
     onceImplementation,
     onceReturnValue,
     onceResolvedValue,
+    onceRejectedValue,
   }).reduce(
     (acc, [key, value]) => ({
       ...acc,

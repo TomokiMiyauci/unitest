@@ -2,6 +2,7 @@
 
 import { fn, MockFnStore } from "./fn.ts";
 import { isFunction } from "../deps.ts";
+import { expect } from "../expect/mod.ts";
 import { assert, assertEquals, assertExists } from "../dev_deps.ts";
 
 Deno.test("non implemented fn accept any args", () => {
@@ -231,4 +232,20 @@ Deno.test("defaultRejectedValue", async () => {
     value: Promise.resolve(Error("test")),
   }]);
   assertEquals(await mockObject().catch((e) => e), Error("test"));
+});
+
+Deno.test("onceRejectedValue", async () => {
+  assertExists(fn().onceRejectedValue);
+
+  await expect(fn().onceRejectedValue(Error("test"))()).rejects.toBeInstanceOf(
+    Error,
+  );
+
+  const mockObject = fn().onceRejectedValue(Error("test")).onceRejectedValue(
+    Error("test2"),
+  );
+
+  await expect(mockObject()).rejects.toEqual(Error("test"));
+  await expect(mockObject()).rejects.toEqual(Error("test2"));
+  await expect(mockObject()).rejects.not.toBeDefined();
 });
