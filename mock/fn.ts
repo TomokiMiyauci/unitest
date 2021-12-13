@@ -59,7 +59,19 @@ function fn(
   const onceImplementation = (
     implementation: (...args: unknown[]) => unknown,
   ): MockObject => {
-    mockFnStore["onceImplementations"].unshift(implementation);
+    mockFnStore["onceImplementations"].push(implementation);
+    return call as MockObject;
+  };
+
+  /** Sets a mock function what return specific value to be called only once.
+   * This takes precedence over the default mock function.
+   * Follow the FIFO.
+   *
+   * @param value
+   * @returns
+   */
+  const onceReturnValue = (value: unknown): MockObject => {
+    mockFnStore["onceImplementations"].push(() => value);
     return call as MockObject;
   };
 
@@ -81,6 +93,7 @@ function fn(
     defaultImplementation,
     defaultReturnValue,
     onceImplementation,
+    onceReturnValue,
   }).reduce(
     (acc, [key, value]) => ({
       ...acc,

@@ -42,6 +42,7 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   onceImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
+  onceReturnValue(value: R): MockObject<A, R>;
 }
 
 /** mock result store */

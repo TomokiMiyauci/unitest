@@ -90,6 +90,12 @@ Deno.test("onceImplementation should call only one time", () => {
   assertEquals(onceImplementation.mock.calls.length, 1);
   mockObject();
   assertEquals(onceImplementation.mock.calls.length, 1);
+
+  const mock = fn().onceImplementation(() => 1).onceImplementation(() => 2);
+
+  assertEquals(mock(), 1);
+  assertEquals(mock(), 2);
+  assertEquals(mock(), undefined);
 });
 
 Deno.test("onceImplementation should be called in preference to default implementation", () => {
@@ -162,8 +168,22 @@ Deno.test("defaultReturnValue", () => {
   const mockObject = fn();
   mockObject.defaultImplementation(() => 2).defaultReturnValue(1);
 
-  mockObject();
+  mockObject(1, 2, 3);
 
-  assertEquals(mockObject.mock.calls, [[]]);
+  assertEquals(mockObject.mock.calls, [[1, 2, 3]]);
   assertEquals(mockObject.mock.results, [{ type: "return", value: 1 }]);
+});
+
+Deno.test("onceReturnValue", () => {
+  assertExists(fn().onceReturnValue);
+  assertEquals(fn().onceReturnValue(1)(), 1);
+
+  const mockObject = fn();
+
+  mockObject.onceReturnValue(1).onceReturnValue(2).onceImplementation(() => 3);
+
+  assertEquals(mockObject(), 1);
+  assertEquals(mockObject(), 2);
+  assertEquals(mockObject(), 3);
+  assertEquals(mockObject(), undefined);
 });
