@@ -32,18 +32,6 @@ interface MockResult {
  * @typeParam A - arguments
  * @typeParam R - return type
  */
-interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
-  (...args: A): R;
-  mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
-  defaultImplementation(
-    implementation: (...args: A) => R,
-  ): MockObject<A, R>;
-  defaultReturnValue(value: R): MockObject<A, R>;
-  onceImplementation(
-    implementation: (...args: A) => R,
-  ): MockObject<A, R>;
-  onceReturnValue(value: R): MockObject<A, R>;
-}
 
 /** mock result store */
 class Mock implements MockSpec {
@@ -73,4 +61,4 @@ class Mock implements MockSpec {
 }
 
 export { Mock };
-export type { MockObject, MockResult, MockResultType, MockSpec };
+export type { MockResult, MockResultType, MockSpec };

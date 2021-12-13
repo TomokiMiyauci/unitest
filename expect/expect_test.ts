@@ -3,7 +3,7 @@ import { expect } from "./mod.ts";
 import { assertThrowsAssertionError } from "../dev_deps.ts";
 
 import { jestMatcherMap } from "../matcher/preset.ts";
-import { MockObject } from "../mock/mock.ts";
+import { MockObject } from "../mock/fn.ts";
 
 type JestMatcherMap = typeof jestMatcherMap;
 

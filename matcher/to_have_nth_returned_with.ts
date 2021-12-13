@@ -2,7 +2,8 @@
 // This module is browser compatible.
 
 import type { MatchResult } from "./types.ts";
-import type { MockObject, MockResult } from "../mock/mock.ts";
+import type { MockResult } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 import { isUndefined } from "../deps.ts";
 import { take } from "./utils.ts";
 import { equal } from "../helper/equal.ts";

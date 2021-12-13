@@ -1,7 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import type { MockObject } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 import type { MatchResult } from "./types.ts";
 
 /** Use `.toHaveBeenCalledTimes` to ensure that a mock object got called exact

@@ -2,8 +2,21 @@
 // This module is browser compatible.
 
 import { Mock } from "./mock.ts";
+import type { MockSpec } from "./mock.ts";
 import { incrementalNumber } from "./utils.ts";
-import type { MockObject } from "./mock.ts";
+
+interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
+  (...args: A): R;
+  mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
+  defaultImplementation(
+    implementation: (...args: A) => R,
+  ): MockObject<A, R>;
+  defaultReturnValue(value: R): MockObject<A, R>;
+  onceImplementation(
+    implementation: (...args: A) => R,
+  ): MockObject<A, R>;
+  onceReturnValue(value: R): MockObject<A, R>;
+}
 
 /** store fn internal implementation */
 class MockFnStore {
@@ -66,9 +79,6 @@ function fn(
   /** Sets a mock function what return specific value to be called only once.
    * This takes precedence over the default mock function.
    * Follow the FIFO.
-   *
-   * @param value
-   * @returns
    */
   const onceReturnValue = (value: unknown): MockObject => {
     mockFnStore["onceImplementations"].push(() => value);
