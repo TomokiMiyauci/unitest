@@ -36,6 +36,18 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```
    */
   defaultReturnValue(value: R): MockObject<A, R>;
+
+  /** Sets default as resolved value. The set value will be Promised and return when
+   * the mock object is called.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define return value as default", () => {
+   *   const mockObject = fn().defaultResolvedValue(1);
+   *   expect(mockObject()).toEqual(Promise.resolve(1));
+   * });
+   * ```
+   */
   defaultResolvedValue(value: R): MockObject<A, Promise<R>>;
 
   /** Sets a mock function to be called only once. This takes precedence over the

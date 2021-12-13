@@ -144,3 +144,17 @@ test("should define return value as only once", () => {
 ```
 
 This is known as `jest.fn().mockReturnValueOnce`.
+
+## mockObject#defaultResolvedValue
+
+Sets default as resolved value. The set value will be Promised and return when
+the mock object is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define return value as default", () => {
+  const mockObject = fn().defaultResolvedValue(1);
+  expect(mockObject()).toEqual(Promise.resolve(1));
+});
+```
