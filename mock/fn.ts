@@ -3,25 +3,36 @@
 
 import { Mock } from "./mock.ts";
 import { incrementalNumber } from "./utils.ts";
-import { head } from "../matcher/utils.ts";
 import type { MockObject } from "./mock.ts";
 
-/** make mock object */
+/** store fn internal implementation */
+class MockFnStore {
+  private onceImplementations: ((...args: unknown[]) => unknown)[] = [];
+  constructor(
+    private defaultImplementation?: ((...args: unknown[]) => unknown),
+  ) {}
+
+  pickImplementation(): ((...args: unknown[]) => unknown) | undefined {
+    return this.onceImplementations.shift() ?? this.defaultImplementation;
+  }
+}
+
+/** make mock object with implementation function */
 function fn<A extends readonly unknown[], R>(
   implementation: (...args: A) => R,
 ): MockObject<A, R>;
+/** make mock object */
 function fn(): MockObject;
 function fn(
   implementation?: (...args: unknown[]) => unknown,
 ): MockObject {
   const mock = new Mock();
-  let implementations:
-    ({ implementation: (...args: unknown[]) => unknown } & IsDefault)[] =
-      implementation ? [{ isDefault: true, implementation }] : [];
+  const mockFnStore = new MockFnStore(implementation);
 
   /** Calls a method of an object, substituting another object for the current object.  */
   const call = (...args: unknown[]): unknown => {
-    const value = head(implementations)?.implementation?.(...args);
+    const implementation = mockFnStore.pickImplementation();
+    const value = implementation?.(...args);
     mock.add({
       args,
       result: {
@@ -33,10 +44,22 @@ function fn(
     return value;
   };
 
+  /** Sets the default mock function. The set function will be called when the mock object is called.  */
   const setImplementation = (
     implementation: (...args: unknown[]) => unknown,
   ): MockObject => {
-    implementations = [{ implementation, isDefault: true }];
+    mockFnStore["defaultImplementation"] = implementation;
+    return call as MockObject;
+  };
+
+  /** Sets a mock function to be called only once.
+   * This takes precedence over the default mock function.
+   * If there is more than one once implementation, they will be called in the order of registration.
+   */
+  const onceImplementation = (
+    implementation: (...args: unknown[]) => unknown,
+  ): MockObject => {
+    mockFnStore["onceImplementations"].unshift(implementation);
     return call as MockObject;
   };
 
@@ -47,16 +70,17 @@ function fn(
     },
   });
 
-  Object.defineProperty(call, "setImplementation", {
-    value: setImplementation,
+  Object.defineProperties(call, {
+    setImplementation: {
+      value: setImplementation,
+    },
+    onceImplementation: {
+      value: onceImplementation,
+    },
   });
 
   return call as MockObject;
 }
 
-export { fn };
+export { fn, MockFnStore };
 export type { MockObject };
-
-type IsDefault = {
-  isDefault: boolean;
-};

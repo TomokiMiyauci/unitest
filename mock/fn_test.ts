@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { fn } from "./fn.ts";
+import { fn, MockFnStore } from "./fn.ts";
 import { isFunction } from "../deps.ts";
 import { assert, assertEquals, assertExists } from "../dev_deps.ts";
 
@@ -76,4 +76,78 @@ Deno.test("setImplementation", () => {
   mockObject();
   assertEquals(f1.mock.calls.length, 1);
   assertEquals(f2.mock.calls.length, 1);
+});
+
+Deno.test("onceImplementation should call only one time", () => {
+  assertExists(fn().onceImplementation);
+
+  const mockObject = fn();
+
+  const onceImplementation = fn();
+  mockObject.onceImplementation(onceImplementation);
+
+  assertEquals(mockObject(), undefined);
+  assertEquals(onceImplementation.mock.calls.length, 1);
+  mockObject();
+  assertEquals(onceImplementation.mock.calls.length, 1);
+});
+
+Deno.test("onceImplementation should be called in preference to default implementation", () => {
+  const defaultImplementation = fn();
+  const onceImplementation = fn();
+  const mockObject = fn(defaultImplementation).onceImplementation(
+    onceImplementation,
+  );
+
+  assertEquals(defaultImplementation.mock.calls.length, 0);
+  assertEquals(onceImplementation.mock.calls.length, 0);
+
+  mockObject();
+
+  assertEquals(defaultImplementation.mock.calls.length, 0);
+  assertEquals(onceImplementation.mock.calls.length, 1);
+
+  mockObject();
+  assertEquals(defaultImplementation.mock.calls.length, 1);
+  assertEquals(onceImplementation.mock.calls.length, 1);
+
+  mockObject();
+  assertEquals(defaultImplementation.mock.calls.length, 2);
+  assertEquals(onceImplementation.mock.calls.length, 1);
+});
+
+Deno.test("MockFnStore", () => {
+  const store = new MockFnStore();
+  assertExists(store["pickImplementation"]);
+  assertEquals(store["onceImplementations"], []);
+  assertEquals(store["defaultImplementation"], undefined);
+  assertEquals(store.pickImplementation(), undefined);
+});
+
+Deno.test("MockFnStore should return picked implementation", () => {
+  const mockObject = fn();
+  const store = new MockFnStore(mockObject);
+
+  assertEquals(
+    store["defaultImplementation"],
+    mockObject,
+  );
+  assertEquals(
+    store.pickImplementation(),
+    mockObject,
+  );
+  assertEquals(
+    store.pickImplementation(),
+    mockObject,
+  );
+  const mockObject2 = fn();
+  store["onceImplementations"].unshift(mockObject2);
+  assertEquals(
+    store.pickImplementation(),
+    mockObject2,
+  );
+  assertEquals(
+    store.pickImplementation(),
+    mockObject,
+  );
 });
