@@ -38,6 +38,7 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   defaultImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
+  defaultReturnValue(value: R): MockObject<A, R>;
   onceImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;

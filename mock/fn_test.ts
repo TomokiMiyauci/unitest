@@ -151,3 +151,19 @@ Deno.test("MockFnStore should return picked implementation", () => {
     mockObject,
   );
 });
+
+Deno.test("defaultReturnValue", () => {
+  assertExists(fn().defaultReturnValue);
+  assertEquals(fn().defaultReturnValue(1)(), 1);
+
+  assertEquals(fn().defaultImplementation(() => 2).defaultReturnValue(1)(), 1);
+  assertEquals(fn().defaultReturnValue(1).defaultImplementation(() => 2)(), 2);
+
+  const mockObject = fn();
+  mockObject.defaultImplementation(() => 2).defaultReturnValue(1);
+
+  mockObject();
+
+  assertEquals(mockObject.mock.calls, [[]]);
+  assertEquals(mockObject.mock.results, [{ type: "return", value: 1 }]);
+});

@@ -63,6 +63,13 @@ function fn(
     return call as MockObject;
   };
 
+  /** Sets the default return value. The set value will be return when the mock object is called.
+   */
+  const defaultReturnValue = (value: unknown): MockObject => {
+    mockFnStore["defaultImplementation"] = () => value;
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -70,14 +77,21 @@ function fn(
     },
   });
 
-  Object.defineProperties(call, {
-    defaultImplementation: {
-      value: defaultImplementation,
-    },
-    onceImplementation: {
-      value: onceImplementation,
-    },
-  });
+  const properties = Object.entries({
+    defaultImplementation,
+    defaultReturnValue,
+    onceImplementation,
+  }).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: {
+        value,
+      },
+    }),
+    {} as PropertyDescriptorMap,
+  );
+
+  Object.defineProperties(call, properties);
 
   return call as MockObject;
 }
