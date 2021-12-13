@@ -93,3 +93,21 @@ test("should define implementation as default", () => {
 ```
 
 This is known as `jest.fn().mockImplementation`.
+
+## mockObject#onceImplementation
+
+Sets a mock function to be called only once. This takes precedence over the
+default mock function. If there is more than one once implementation, they will
+be called in the order of registration.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define implementation as only once", () => {
+  const mockObject = fn(() => 0).onceImplementation(() => 1);
+  expect(mockObject()).toBe(1);
+  expect(mockObject()).toBe(0);
+});
+```
+
+This is known as `jest.fn().mockImplementationOnce`.

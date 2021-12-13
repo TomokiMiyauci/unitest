@@ -5,3 +5,9 @@ test("should define implementation as default", () => {
   const mockObject = fn().defaultImplementation(() => true);
   expect(mockObject()).toBe(true);
 });
+
+test("should define implementation as only once", () => {
+  const mockObject = fn(() => 0).onceImplementation(() => 1);
+  expect(mockObject()).toBe(1);
+  expect(mockObject()).toBe(0);
+});
