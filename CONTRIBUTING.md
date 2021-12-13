@@ -24,7 +24,7 @@ You will need [Deno](https://deno.land/) 1.15+.
 You can run all tests with the following command:
 
 ```bash
-deno test --ignore=node_modules
+deno test --ignore=node_modules,_docs --import-map=test_import_map.json --doc
 ```
 
 ## Project Structure
@@ -76,7 +76,7 @@ The scope should follow [Project Structure](#project-structure).
 
 example:
 
-`feat(matcher): add new modifier`
+`feat(matcher): add new matcher`
 
 ## Code of Conduct
 
