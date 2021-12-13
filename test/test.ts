@@ -28,7 +28,7 @@ import type { AnyFn } from "../_types.ts";
 /** apply setup to map */
 function _applySetup([key, value]: [string, () => SetupReturn]): {
   name: string;
-  teardown?: (() => void | Promise<void>) | undefined;
+  teardown?: (() => unknown | Promise<unknown>) | undefined;
   localThis?: Record<PropertyKey, object> | undefined;
 } {
   return { ...value(), name: key };
@@ -51,7 +51,7 @@ function _localThisReducer<T extends Record<PropertyKey, () => SetupReturn>>(
 type SetupReturn<
   T extends Record<PropertyKey, object> = Record<PropertyKey, object>,
 > = Partial<{
-  teardown: () => (void | Promise<void>);
+  teardown: () => (unknown | Promise<unknown>);
   localThis: T;
 }>;
 
@@ -85,12 +85,12 @@ function test<T extends Record<PropertyKey, () => SetupReturn>>(
 ): void;
 function test<T extends Record<PropertyKey, () => SetupReturn>>(
   name: string,
-  fn: (t: PickLocalThis<T> & Deno.TestContext) => void | Promise<void>,
+  fn: (t: PickLocalThis<T> & Deno.TestContext) => unknown | Promise<unknown>,
   options?: Omit<Test<T>, "fn" | "name">,
 ): void;
 function test<T extends Record<PropertyKey, () => SetupReturn>>(
   t: string | Test<T>,
-  _fn?: (t: PickLocalThis<T> & Deno.TestContext) => void | Promise<void>,
+  _fn?: (t: PickLocalThis<T> & Deno.TestContext) => unknown | Promise<unknown>,
   _options?: Omit<Test<T>, "fn" | "name">,
 ): void {
   const { setupMap, fn, ...rest } = isString(t)

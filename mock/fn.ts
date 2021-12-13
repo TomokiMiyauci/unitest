@@ -6,14 +6,16 @@ import { incrementalNumber } from "./utils.ts";
 import type { MockObject } from "./mock.ts";
 
 /** make mock object */
-function fn<T extends unknown[]>(
-  implementation: (...args: T) => unknown,
-): MockObject<T>;
+function fn<A extends unknown[], R>(
+  implementation: (...args: A) => R,
+): MockObject<A, R>;
 function fn(): MockObject;
-function fn(implementation?: (...args: unknown[]) => unknown): MockObject {
+function fn(
+  implementation?: (...args: unknown[]) => unknown,
+): MockObject {
   const mock = new Mock();
 
-  const call = (...args: unknown[]): void => {
+  const call = (...args: unknown[]): unknown => {
     const value = implementation?.(...args);
     mock.add({
       args,
@@ -23,6 +25,7 @@ function fn(implementation?: (...args: unknown[]) => unknown): MockObject {
       },
       orderNumber: incrementalNumber(),
     });
+    return value;
   };
 
   Object.defineProperty(call, "mock", {

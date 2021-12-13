@@ -53,3 +53,11 @@ Deno.test("should define any function", () => {
     callOrderNumbers: [3, 4],
   });
 });
+
+Deno.test("mockObject should return value", () => {
+  const mockObject = fn();
+
+  assertEquals(mockObject(), undefined);
+  const mockObject2 = fn(() => true);
+  assertEquals(mockObject2(), true);
+});
