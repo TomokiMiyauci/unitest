@@ -127,3 +127,20 @@ test("should define return value as default", () => {
 ```
 
 This is known as `jest.fn().mockReturnValue`.
+
+## mockObject#onceReturnValue
+
+Sets a mock function what return specific value to be called only once. This
+takes precedence over the default mock function. Follow the FIFO.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define return value as only once", () => {
+  const mockObject = fn(() => 1).onceReturnValue(0);
+  expect(mockObject()).toBe(0);
+  expect(mockObject()).toBe(1);
+});
+```
+
+This is known as `jest.fn().mockReturnValueOnce`.

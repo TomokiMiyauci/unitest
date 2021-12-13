@@ -16,3 +16,9 @@ test("should define return value as default", () => {
   const mockObject = fn(() => 1).defaultReturnValue(0);
   expect(mockObject()).toBe(0);
 });
+
+test("should define return value as only once", () => {
+  const mockObject = fn(() => 1).onceReturnValue(0);
+  expect(mockObject()).toBe(0);
+  expect(mockObject()).toBe(1);
+});

@@ -54,6 +54,19 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   onceImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
+
+  /** Sets a mock function what return specific value to be called only once. This
+   * takes precedence over the default mock function. Follow the FIFO.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define return value as only once", () => {
+   *   const mockObject = fn(() => 1).onceReturnValue(0);
+   *   expect(mockObject()).toBe(0);
+   *   expect(mockObject()).toBe(1);
+   * });
+   * ```
+   */
   onceReturnValue(value: R): MockObject<A, R>;
 }
 
