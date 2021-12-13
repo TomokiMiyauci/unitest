@@ -32,7 +32,15 @@ async function predict(
   };
 }
 
-/** pre modifier of reject `Promise` */
+/** Use `.resolves` to resolve `Promise` before match
+ * ```ts
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("passes when rejected value equal to", async () => {
+ *   await expect(Promise.reject("Deno") as Promise<string>).rejects.toBe("Deno");
+ * });
+ * ```
+ */
 const rejects: PreModifier = {
   type: "pre",
   fn: predict,
