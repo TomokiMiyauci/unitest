@@ -8,6 +8,18 @@ import { incrementalNumber } from "./utils.ts";
 interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   (...args: A): R;
   mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
+
+  /** Sets the mock function as default. The set function will be called when the mock
+   * object is called.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define implementation as default", () => {
+   *   const mockObject = fn().defaultImplementation(() => true);
+   *   expect(mockObject()).toBe(true);
+   * });
+   * ```
+   */
   defaultImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
@@ -58,7 +70,7 @@ function fn(
     return value;
   };
 
-  /** Sets the default mock function. The set function will be called when the mock object is called.  */
+  /** Sets the mock function as default. The set function will be called when the mock object is called.  */
   const defaultImplementation = (
     implementation: (...args: unknown[]) => unknown,
   ): MockObject => {

@@ -77,3 +77,19 @@ mockObject.mock.results; // [{ type: "return", value: "value1" }]
 mockObject("value2");
 mockObject.mock.calls; // [{ type: "return", value: "value1" }, { type: "return"}, value: "value2" ]
 ```
+
+## mockObject#defaultImplementation
+
+Sets the mock function as default. The set function will be called when the mock
+object is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define implementation as default", () => {
+  const mockObject = fn().defaultImplementation(() => true);
+  expect(mockObject()).toBe(true);
+});
+```
+
+This is known as `jest.fn().mockImplementation`.
