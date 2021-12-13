@@ -2,6 +2,8 @@ import React, { ComponentType } from "react";
 import Header from "@component/header.tsx";
 import Footer from "@component/footer.tsx";
 
+import "https://esm.sh/@unocss/reset/tailwind.css";
+
 export default function App(
   { Page, pageProps }: { Page: ComponentType<any>; pageProps: any },
 ) {

@@ -4,12 +4,12 @@
   "entry": "./mod.ts",
   "description": "🃏 Deno-first universal unit testing framework",
   "homepage": "https://github.com/TomokiMiyauci/unitest",
-  "files": ["./**/*.ts", "./**/README.md"],
-  "releaseType": "prerelease",
+  "files": ["./**/*.ts", "./**/*.md", "./_docs/assets/logo.svg"],
+  "version": "v1.0.0-beta.60",
   "ignore": [
     ".git",
-    "_*/**/*",
-    "node_modules/**/*",
+    "./_docs/**/*",
+    "./node_modules/**/*",
     "package.json",
     "pnpm-lock.yaml"
   ],

@@ -1,10 +1,29 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { equal, equality, isEquality, stringifyEquality } from "./equal.ts";
+import {
+  equal,
+  equalDate,
+  equality,
+  isEquality,
+  stringifyEquality,
+} from "./equal.ts";
 import { anything } from "../dummy/anything.ts";
 import { anyNumber } from "../dummy/any_number.ts";
 import { anyString } from "../dummy/any_string.ts";
 import { fn } from "../mock/fn.ts";
 import { assertEquals } from "../dev_deps.ts";
+
+Deno.test("equalDate", () => {
+  const table: [
+    ...Parameters<typeof equalDate>,
+    ReturnType<typeof equalDate>,
+  ][] = [
+    [new Date("2022/1/1"), new Date("2022/1/1"), true],
+    [new Date("invalid"), new Date("nan"), true],
+    [new Date("2022/1/1 00:00:01"), new Date("2022/1/1 00:00:00"), false],
+  ];
+
+  table.forEach(([a, b, result]) => assertEquals(equalDate(a, b), result));
+});
 
 Deno.test("equality", () => assertEquals(equality, Symbol.for("equality")));
 

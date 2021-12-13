@@ -1,3 +1,17 @@
+# [1.0.0-beta.61](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.60...v1.0.0-beta.61) (2021-12-12)
+
+
+### Features
+
+* **matcher:** add `toMatchObject` matcher ([ae2a7f1](https://github.com/TomokiMiyauci/unitest/commit/ae2a7f1727eebb0db9a27422633c1cc429497b2c))
+
+# [1.0.0-beta.60](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.59...v1.0.0-beta.60) (2021-12-12)
+
+
+### Bug Fixes
+
+* **expect:** skip stack trace by `captureStackTrace` ([48e9dd0](https://github.com/TomokiMiyauci/unitest/commit/48e9dd0747fe8791ee633aac53f03b383294112f))
+
 # [1.0.0-beta.59](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.58...v1.0.0-beta.59) (2021-12-12)
 
 

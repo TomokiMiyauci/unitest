@@ -158,7 +158,13 @@ function defineExpect<
             matcherArgs: args,
           });
 
-          execAssert({ ...result, matcherArgs: args });
+          try {
+            execAssert({ ...result, matcherArgs: args });
+          } catch (e) {
+            Error.captureStackTrace(e, sync);
+
+            throw e;
+          }
         };
 
         const promise = async (...args: unknown[]): Promise<void> => {
@@ -166,7 +172,13 @@ function defineExpect<
             ...expectMap,
             matcherArgs: args,
           });
-          execAssert({ ...result, matcherArgs: args });
+          try {
+            execAssert({ ...result, matcherArgs: args });
+          } catch (e) {
+            Error.captureStackTrace(e, sync);
+
+            throw e;
+          }
         };
 
         return isPromise(actual) ? promise : sync;

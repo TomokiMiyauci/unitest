@@ -28,6 +28,7 @@ export { toContainEqual } from "./matcher/to_contain_equal.ts";
 export { toHaveBeenCalledBefore } from "./matcher/to_have_been_called_before.ts";
 export { toHaveBeenCalledAfter } from "./matcher/to_have_been_called_after.ts";
 export { toHaveBeenCalledOnce } from "./matcher/to_have_been_called_once.ts";
+export { toMatchObject } from "./matcher/to_match_object.ts";
 export { toBeEmpty } from "./matcher/to_be_empty.ts";
 export { toBeHexColor } from "./matcher/to_be_hex_color.ts";
 export { toBeDateString } from "./matcher/to_be_date_string.ts";

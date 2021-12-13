@@ -1117,3 +1117,7 @@ test("passes only if mock object was called exactly once", () => {
   mockObject();
   expect(mockObject).not.toHaveBeenCalledOnce();
 });
+
+test("passes when object is part of subset", () => {
+  expect({ foo: "bar", hello: "world" }).toMatchObject({ foo: "bar" });
+});
