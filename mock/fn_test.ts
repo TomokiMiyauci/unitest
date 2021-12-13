@@ -187,3 +187,16 @@ Deno.test("onceReturnValue", () => {
   assertEquals(mockObject(), 3);
   assertEquals(mockObject(), undefined);
 });
+
+Deno.test("defaultResolvedValue", async () => {
+  assertExists(fn().defaultResolvedValue);
+  assertEquals(fn().defaultResolvedValue(1)(), Promise.resolve(1));
+
+  const mockObject = fn(() => 1).defaultResolvedValue(2);
+  assertEquals(await mockObject(), 2);
+
+  assertEquals(mockObject.mock.results, [{
+    type: "return",
+    value: Promise.resolve(2),
+  }]);
+});

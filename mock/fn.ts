@@ -12,6 +12,7 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
   defaultReturnValue(value: R): MockObject<A, R>;
+  defaultResolvedValue(value: R): MockObject<A, Promise<R>>;
   onceImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
@@ -85,10 +86,18 @@ function fn(
     return call as MockObject;
   };
 
-  /** Sets the default return value. The set value will be return when the mock object is called.
+  /** Sets default as return value. The set value will be return when the mock object is called.
    */
   const defaultReturnValue = (value: unknown): MockObject => {
     mockFnStore["defaultImplementation"] = () => value;
+    return call as MockObject;
+  };
+
+  /** Sets default as resolved value.
+   * The set value will be Promised and return when the mock object is called.
+   */
+  const defaultResolvedValue = (value: unknown): MockObject => {
+    mockFnStore["defaultImplementation"] = () => Promise.resolve(value);
     return call as MockObject;
   };
 
@@ -102,6 +111,7 @@ function fn(
   const properties = Object.entries({
     defaultImplementation,
     defaultReturnValue,
+    defaultResolvedValue,
     onceImplementation,
     onceReturnValue,
   }).reduce(
