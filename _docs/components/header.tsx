@@ -1,5 +1,4 @@
 import React from "react";
-import DropDown from "./drop_down.tsx";
 
 export default function Header() {
   return (
