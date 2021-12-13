@@ -62,8 +62,8 @@ Deno.test("mockObject should return value", () => {
   assertEquals(mockObject2(), true);
 });
 
-Deno.test("setImplementation", () => {
-  assertExists(fn().setImplementation);
+Deno.test("defaultImplementation", () => {
+  assertExists(fn().defaultImplementation);
 
   const f1 = fn();
   const mockObject = fn(f1);
@@ -72,7 +72,7 @@ Deno.test("setImplementation", () => {
 
   assertEquals(f1.mock.calls.length, 1);
   const f2 = fn();
-  mockObject.setImplementation(f2);
+  mockObject.defaultImplementation(f2);
   mockObject();
   assertEquals(f1.mock.calls.length, 1);
   assertEquals(f2.mock.calls.length, 1);

@@ -35,7 +35,7 @@ interface MockResult {
 interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   (...args: A): R;
   mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
-  setImplementation(
+  defaultImplementation(
     implementation: (...args: A) => R,
   ): MockObject<A, R>;
   onceImplementation(

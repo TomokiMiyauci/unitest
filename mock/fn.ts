@@ -45,7 +45,7 @@ function fn(
   };
 
   /** Sets the default mock function. The set function will be called when the mock object is called.  */
-  const setImplementation = (
+  const defaultImplementation = (
     implementation: (...args: unknown[]) => unknown,
   ): MockObject => {
     mockFnStore["defaultImplementation"] = implementation;
@@ -71,8 +71,8 @@ function fn(
   });
 
   Object.defineProperties(call, {
-    setImplementation: {
-      value: setImplementation,
+    defaultImplementation: {
+      value: defaultImplementation,
     },
     onceImplementation: {
       value: onceImplementation,
