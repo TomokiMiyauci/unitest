@@ -89,6 +89,7 @@ class MockFnStore {
     private defaultImplementation?: ((...args: unknown[]) => unknown),
   ) {}
 
+  /** pick implementation as FIFO */
   pickImplementation(): ((...args: unknown[]) => unknown) | undefined {
     return this.onceImplementations.shift() ?? this.defaultImplementation;
   }
