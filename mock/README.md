@@ -111,3 +111,19 @@ test("should define implementation as only once", () => {
 ```
 
 This is known as `jest.fn().mockImplementationOnce`.
+
+## mockObject#defaultReturnValue
+
+Sets default as return value. The set value will be return when the mock object
+is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define return value as default", () => {
+  const mockObject = fn(() => 1).defaultReturnValue(0);
+  expect(mockObject()).toBe(0);
+});
+```
+
+This is known as `jest.fn().mockReturnValue`.

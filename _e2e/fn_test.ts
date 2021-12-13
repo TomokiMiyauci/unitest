@@ -11,3 +11,8 @@ test("should define implementation as only once", () => {
   expect(mockObject()).toBe(1);
   expect(mockObject()).toBe(0);
 });
+
+test("should define return value as default", () => {
+  const mockObject = fn(() => 1).defaultReturnValue(0);
+  expect(mockObject()).toBe(0);
+});
