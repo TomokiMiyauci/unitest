@@ -21,7 +21,11 @@ Make a mock object similar to `fn` but also tracks calls to object[methodName].
 This function has a side effect.
 
 ```ts
-import { spyOn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import {
+  expect,
+  spyOn,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 const video = {
   play() {
@@ -73,3 +77,86 @@ mockObject.mock.results; // [{ type: "return", value: "value1" }]
 mockObject("value2");
 mockObject.mock.calls; // [{ type: "return", value: "value1" }, { type: "return"}, value: "value2" ]
 ```
+
+## mockObject#defaultImplementation
+
+Sets the mock function as default. The set function will be called when the mock
+object is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define implementation as default", () => {
+  const mockObject = fn().defaultImplementation(() => true);
+  expect(mockObject()).toBe(true);
+});
+```
+
+This is known as `jest.fn().mockImplementation`.
+
+## mockObject#onceImplementation
+
+Sets a mock function to be called only once. This takes precedence over the
+default mock function. If there is more than one once implementation, they will
+be called in the order of registration.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define implementation as only once", () => {
+  const mockObject = fn(() => 0).onceImplementation(() => 1);
+  expect(mockObject()).toBe(1);
+  expect(mockObject()).toBe(0);
+});
+```
+
+This is known as `jest.fn().mockImplementationOnce`.
+
+## mockObject#defaultReturnValue
+
+Sets default as return value. The set value will be return when the mock object
+is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define return value as default", () => {
+  const mockObject = fn(() => 1).defaultReturnValue(0);
+  expect(mockObject()).toBe(0);
+});
+```
+
+This is known as `jest.fn().mockReturnValue`.
+
+## mockObject#onceReturnValue
+
+Sets a mock function what return specific value to be called only once. This
+takes precedence over the default mock function. Follow the FIFO.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define return value as only once", () => {
+  const mockObject = fn(() => 1).onceReturnValue(0);
+  expect(mockObject()).toBe(0);
+  expect(mockObject()).toBe(1);
+});
+```
+
+This is known as `jest.fn().mockReturnValueOnce`.
+
+## mockObject#defaultResolvedValue
+
+Sets default as resolved value. The set value will be Promised and return when
+the mock object is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define return value as default", () => {
+  const mockObject = fn().defaultResolvedValue(1);
+  expect(mockObject()).toEqual(Promise.resolve(1));
+});
+```
+
+This is known as `jest.fn().mockResolvedValue`.

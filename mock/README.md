@@ -158,3 +158,5 @@ test("should define return value as default", () => {
   expect(mockObject()).toEqual(Promise.resolve(1));
 });
 ```
+
+This is known as `jest.fn().mockResolvedValue`.
