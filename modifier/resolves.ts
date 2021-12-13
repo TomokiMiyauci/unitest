@@ -7,6 +7,7 @@ import type {
 } from "./types.ts";
 import { AssertionError, isPromise } from "../deps.ts";
 
+/** predict for `resolves` */
 async function predict(
   { actual }: PreModifierContext,
 ): Promise<PreModifierResult> {
@@ -21,6 +22,7 @@ async function predict(
   };
 }
 
+/** pre modifier for resolve `Promise` */
 const resolves: PreModifier = {
   type: "pre",
   fn: predict,

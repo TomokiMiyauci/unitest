@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+
 import type {
   PreModifier,
   PreModifierContext,
@@ -8,6 +9,7 @@ import type {
 import { AssertionError, isPromise } from "../deps.ts";
 import { stringify } from "../helper/format.ts";
 
+/** predict for `rejects` */
 async function predict(
   { actual }: PreModifierContext,
 ): Promise<PreModifierResult> | never {
@@ -30,6 +32,7 @@ async function predict(
   };
 }
 
+/** pre modifier of reject `Promise` */
 const rejects: PreModifier = {
   type: "pre",
   fn: predict,
