@@ -29,15 +29,15 @@ deno test --ignore=node_modules
 
 ## Project Structure
 
+- _docs - documents and document generator
+- _e2e - End to End tests
 - [compat](./compat/README.md) - compat module for browser
-- docs - documents and document generator
-- e2e - End to End tests
 - [expect](./expect/README.md) - expect module
 - [dummy](./dummy/README.md) - dummy objects
 - helper - helper for entire module
 - [matcher](./matcher/README.md) - matcher collections
 - [mock](./mock/README.md) - mock object
-- modifier - modifier collections
+- [modifier](./mockfier/../README.md) - modifier collections
 - [test](./test/README.md) - test register
 
 ## Code Style
@@ -72,7 +72,7 @@ pnpm cz
 [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)
 is invoked to generate commit messages interactively.
 
-The scope should follow [Project Structure](#Project-Structure).
+The scope should follow [Project Structure](#project-structure).
 
 example:
 
