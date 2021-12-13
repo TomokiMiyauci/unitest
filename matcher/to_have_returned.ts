@@ -3,7 +3,8 @@
 
 import { isTypeReturn, pickValue } from "../mock/utils.ts";
 import type { MatchResult } from "./types.ts";
-import type { MockObject, MockResult } from "../mock/mock.ts";
+import type { MockResult } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 
 /** predict for `toHaveReturned` */
 function predict(mockResults: readonly MockResult[]): boolean {

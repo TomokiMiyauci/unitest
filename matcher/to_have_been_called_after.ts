@@ -8,7 +8,7 @@ import {
   expectedHint,
   none,
 } from "./to_have_been_called_before.ts";
-import type { MockObject } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 import type { MatchResult } from "./types.ts";
 
 /** predict for `toHaveBeenCalledAfter` */

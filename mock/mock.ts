@@ -28,10 +28,10 @@ interface MockResult {
   value: unknown;
 }
 
-interface MockObject<T extends readonly unknown[] = any[]> {
-  (...args: T): void;
-  mock: Pick<MockSpec, "calls" | "results" | "callOrderNumbers">;
-}
+/** Mock object
+ * @typeParam A - arguments
+ * @typeParam R - return type
+ */
 
 /** mock result store */
 class Mock implements MockSpec {
@@ -61,4 +61,4 @@ class Mock implements MockSpec {
 }
 
 export { Mock };
-export type { MockObject, MockResult, MockResultType, MockSpec };
+export type { MockResult, MockResultType, MockSpec };

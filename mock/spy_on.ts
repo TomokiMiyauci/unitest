@@ -3,7 +3,7 @@
 
 import { fn } from "../mod.ts";
 import { isFunction } from "../deps.ts";
-import type { MockObject } from "./mock.ts";
+import type { MockObject } from "./fn.ts";
 
 /** tracks calls to object method name
  * This function has a side effect.

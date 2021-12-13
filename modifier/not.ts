@@ -18,7 +18,15 @@ function predict(
   };
 }
 
-/** post modifier of reversing the result */
+/** Use `.not` to reverse the test result
+ * ```ts
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("passes when not equal to", () => {
+ *   expect("Deno").not.toBe("Node");
+ * });
+ * ```
+ */
 const not: PostModifier = {
   type: "post",
   fn: predict,

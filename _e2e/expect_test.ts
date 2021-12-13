@@ -1121,3 +1121,15 @@ test("passes only if mock object was called exactly once", () => {
 test("passes when object is part of subset", () => {
   expect({ foo: "bar", hello: "world" }).toMatchObject({ foo: "bar" });
 });
+
+test("passes when not equal to", () => {
+  expect("Deno").not.toBe("Node");
+});
+
+test("passes when resolved value equal to", async () => {
+  await expect(Promise.resolve("Deno")).resolves.toBe("Deno");
+});
+
+test("passes when rejected value equal to", async () => {
+  await expect(Promise.reject("Deno") as Promise<string>).rejects.toBe("Deno");
+});

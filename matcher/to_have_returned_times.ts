@@ -3,7 +3,7 @@
 
 import { isTypeReturn } from "../mock/utils.ts";
 import type { MatchResult } from "./types.ts";
-import type { MockObject } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 
 /** Use `.toHaveReturnedTimes` to ensure that a mock object returned successfully an
  * exact number of times

@@ -3,7 +3,8 @@
 import { equal } from "../helper/equal.ts";
 import type { MatchResult } from "./types.ts";
 import { last } from "./utils.ts";
-import type { MockObject, MockResult } from "../mock/mock.ts";
+import type { MockResult } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 
 /** predict for `toHaveLastReturnedWith` */
 function predict(

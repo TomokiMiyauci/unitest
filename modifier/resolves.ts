@@ -22,7 +22,15 @@ async function predict(
   };
 }
 
-/** pre modifier for resolve `Promise` */
+/** Use `.resolves` to resolve `Promise` before match
+ * ```ts
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("passes when resolved value equal to", async () => {
+ *   await expect(Promise.resolve("Deno")).resolves.toBe("Deno");
+ * });
+ * ```
+ */
 const resolves: PreModifier = {
   type: "pre",
   fn: predict,

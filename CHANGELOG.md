@@ -1,3 +1,26 @@
+# [1.0.0-beta.63](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.62...v1.0.0-beta.63) (2021-12-13)
+
+
+### Bug Fixes
+
+* **mock:** rename `setImplementation` to `defaultImplementation` ([d3a70ed](https://github.com/TomokiMiyauci/unitest/commit/d3a70ed66ea761f3f9d930451b27ad1cc2068b73))
+
+
+### Features
+
+* **mock:** add `defaultResolvedValue` mock object method ([1f4e13c](https://github.com/TomokiMiyauci/unitest/commit/1f4e13cbb9887c40bc1ffd00e85a716c49e033e3))
+* **mock:** add `defaultReturnValue` to mock object ([52f6336](https://github.com/TomokiMiyauci/unitest/commit/52f63363b0a6b319c790717ea55fda71d0248787))
+* **mock:** add `onceImplementation` function to mock object ([bada13e](https://github.com/TomokiMiyauci/unitest/commit/bada13ed95b377d3ce1ae377385710cf98791481))
+* **mock:** add `onceReturnValue` mock method ([53c1e9f](https://github.com/TomokiMiyauci/unitest/commit/53c1e9fc319a71d7ecadf12f34eb54e4c934f64b))
+* **mock:** add `setImplementation` method to mock object ([e93b4f1](https://github.com/TomokiMiyauci/unitest/commit/e93b4f1aecfb63d5979f81c60bb4599e6000ac8d))
+
+# [1.0.0-beta.62](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.61...v1.0.0-beta.62) (2021-12-13)
+
+
+### Bug Fixes
+
+* **mock:** mock object return value, change interface ([048ba13](https://github.com/TomokiMiyauci/unitest/commit/048ba136e92f62bf053dd9cab39610c3e345da85))
+
 # [1.0.0-beta.61](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.60...v1.0.0-beta.61) (2021-12-12)
 
 

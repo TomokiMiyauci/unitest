@@ -4,7 +4,7 @@
 import { equal } from "../helper/equal.ts";
 import { isTypeReturn, pickValue } from "../mock/utils.ts";
 import type { MatchResult } from "./types.ts";
-import type { MockObject } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 
 /** Use `.toHaveReturnedWith` to ensure that a mock object returned a specific
  * value

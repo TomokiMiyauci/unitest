@@ -3,7 +3,7 @@
 
 import { head } from "./utils.ts";
 import { isNumber } from "../deps.ts";
-import type { MockObject } from "../mock/mock.ts";
+import type { MockObject } from "../mock/fn.ts";
 import type { MatchResult } from "./types.ts";
 
 /** predict for `toHaveBeenCalledBefore` */
