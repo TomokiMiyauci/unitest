@@ -1,3 +1,10 @@
+# [1.0.0-beta.62](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.61...v1.0.0-beta.62) (2021-12-13)
+
+
+### Bug Fixes
+
+* **mock:** mock object return value, change interface ([048ba13](https://github.com/TomokiMiyauci/unitest/commit/048ba136e92f62bf053dd9cab39610c3e345da85))
+
 # [1.0.0-beta.61](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.60...v1.0.0-beta.61) (2021-12-12)
 
 
