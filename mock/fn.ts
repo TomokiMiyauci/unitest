@@ -50,6 +50,19 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    */
   defaultResolvedValue(value: R): MockObject<A, Promise<R>>;
 
+  /** Sets default as rejected value. The set value will be Promised and return when
+   * the mock object is called.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define rejected value as default", () => {
+   *   const mockObject = fn().defaultRejectedValue(Error("error"));
+   *   expect(mockObject()).rejects.toEqual(Error("error"));
+   * });
+   * ```
+   */
+  defaultRejectedValue(value: R): MockObject<A, Promise<R>>;
+
   /** Sets a mock function to be called only once. This takes precedence over the
    * default mock function. If there is more than one once implementation, they will
    * be called in the order of registration.
@@ -184,6 +197,11 @@ function fn(
     return call as MockObject;
   };
 
+  const defaultRejectedValue = (value: unknown): MockObject => {
+    mockFnStore["defaultImplementation"] = () => Promise.reject(value);
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -195,6 +213,7 @@ function fn(
     defaultImplementation,
     defaultReturnValue,
     defaultResolvedValue,
+    defaultRejectedValue,
     onceImplementation,
     onceReturnValue,
     onceResolvedValue,

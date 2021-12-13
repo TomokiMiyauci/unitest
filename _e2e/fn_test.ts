@@ -33,3 +33,8 @@ test("should define resolved value as only once", () => {
   expect(mockObject()).toEqual(Promise.resolve(2));
   expect(mockObject()).toBe(1);
 });
+
+test("should define rejected value as default", () => {
+  const mockObject = fn().defaultRejectedValue(Error("error"));
+  expect(mockObject()).rejects.toEqual(Error("error"));
+});

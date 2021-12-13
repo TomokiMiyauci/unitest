@@ -177,3 +177,19 @@ test("should define resolved value as only once", () => {
 ```
 
 This is known as `jest.fn().mockResolvedValueOnce`.
+
+## mockObject#defaultRejectedValue
+
+Sets default as rejected value. The set value will be Promised and return when
+the mock object is called.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define rejected value as default", () => {
+  const mockObject = fn().defaultRejectedValue(Error("error"));
+  expect(mockObject()).rejects.toEqual(Error("error"));
+});
+```
+
+This is known as `jest.fn().mockResolvedValue`.
