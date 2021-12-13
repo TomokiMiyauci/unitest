@@ -42,7 +42,7 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```ts
    * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
    *
-   * test("should define return value as default", () => {
+   * test("should define resolved value as default", () => {
    *   const mockObject = fn().defaultResolvedValue(1);
    *   expect(mockObject()).toEqual(Promise.resolve(1));
    * });
@@ -80,6 +80,20 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```
    */
   onceReturnValue(value: R): MockObject<A, R>;
+
+  /** Sets a mock function what return specific `Promise` value to be called only
+   * once. This takes precedence over the default mock function. Follow the FIFO.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define resolved value as only once", () => {
+   *   const mockObject = fn().onceResolvedValue(2).defaultReturnValue(1);
+   *   expect(mockObject()).toEqual(Promise.resolve(2));
+   *   expect(mockObject()).toBe(1);
+   * });
+   * ```
+   */
+  onceResolvedValue(value: R): MockObject<A, unknown>;
 }
 
 /** store fn internal implementation */
@@ -165,6 +179,11 @@ function fn(
     return call as MockObject;
   };
 
+  const onceResolvedValue = (value: unknown): MockObject => {
+    mockFnStore["onceImplementations"].push(() => Promise.resolve(value));
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -178,6 +197,7 @@ function fn(
     defaultResolvedValue,
     onceImplementation,
     onceReturnValue,
+    onceResolvedValue,
   }).reduce(
     (acc, [key, value]) => ({
       ...acc,

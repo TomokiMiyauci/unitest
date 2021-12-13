@@ -153,10 +153,27 @@ the mock object is called.
 ```ts
 import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
-test("should define return value as default", () => {
+test("should define resolved value as default", () => {
   const mockObject = fn().defaultResolvedValue(1);
   expect(mockObject()).toEqual(Promise.resolve(1));
 });
 ```
 
 This is known as `jest.fn().mockResolvedValue`.
+
+## mockObject#onceResolvedValue
+
+Sets a mock function what return specific `Promise` value to be called only
+once. This takes precedence over the default mock function. Follow the FIFO.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should define resolved value as only once", () => {
+  const mockObject = fn().onceResolvedValue(2).defaultReturnValue(1);
+  expect(mockObject()).toEqual(Promise.resolve(2));
+  expect(mockObject()).toBe(1);
+});
+```
+
+This is known as `jest.fn().mockResolvedValueOnce`.

@@ -23,7 +23,13 @@ test("should define return value as only once", () => {
   expect(mockObject()).toBe(1);
 });
 
-test("should define return value as default", () => {
+test("should define resolved value as default", () => {
   const mockObject = fn().defaultResolvedValue(1);
   expect(mockObject()).toEqual(Promise.resolve(1));
+});
+
+test("should define resolved value as only once", () => {
+  const mockObject = fn().onceResolvedValue(2).defaultReturnValue(1);
+  expect(mockObject()).toEqual(Promise.resolve(2));
+  expect(mockObject()).toBe(1);
 });

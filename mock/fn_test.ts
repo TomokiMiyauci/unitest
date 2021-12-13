@@ -200,3 +200,21 @@ Deno.test("defaultResolvedValue", async () => {
     value: Promise.resolve(2),
   }]);
 });
+
+Deno.test("onceResolvedValue", async () => {
+  assertExists(fn().onceResolvedValue);
+
+  const mockObject = fn(() => 1).onceResolvedValue(2);
+
+  assertEquals(mockObject(), Promise.resolve(2));
+  assertEquals(mockObject(), 1);
+
+  const mock = fn().onceResolvedValue(100);
+
+  assertEquals(await mock(), 100);
+
+  assertEquals(mock.mock.results, [{
+    type: "return",
+    value: Promise.resolve(100),
+  }]);
+});
