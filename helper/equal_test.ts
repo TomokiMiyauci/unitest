@@ -256,6 +256,17 @@ Deno.test("equal", () => {
       false,
     ],
     [
+      new WeakMap(),
+      [],
+      false,
+    ],
+    [
+      [],
+      new WeakMap(),
+      false,
+    ],
+
+    [
       new WeakSet(),
       new WeakSet(),
       false,

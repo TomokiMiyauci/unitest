@@ -122,3 +122,4 @@ export { defineTest, test } from "./test/test.ts";
 export type { SetupReturn, Test } from "./test/test.ts";
 
 export { equal, equality } from "./helper/equal.ts";
+export * from "./fake_timer/fake_timer.ts";
