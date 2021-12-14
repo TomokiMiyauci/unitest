@@ -42,13 +42,26 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```ts
    * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
    *
-   * test("should define return value as default", () => {
+   * test("should define resolved value as default", () => {
    *   const mockObject = fn().defaultResolvedValue(1);
    *   expect(mockObject()).toEqual(Promise.resolve(1));
    * });
    * ```
    */
   defaultResolvedValue(value: R): MockObject<A, Promise<R>>;
+
+  /** Sets default as rejected value. The set value will be Promised and return when
+   * the mock object is called.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define rejected value as default", () => {
+   *   const mockObject = fn().defaultRejectedValue(Error("error"));
+   *   expect(mockObject()).rejects.toEqual(Error("error"));
+   * });
+   * ```
+   */
+  defaultRejectedValue(value: R): MockObject<A, Promise<R>>;
 
   /** Sets a mock function to be called only once. This takes precedence over the
    * default mock function. If there is more than one once implementation, they will
@@ -80,6 +93,74 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```
    */
   onceReturnValue(value: R): MockObject<A, R>;
+
+  /** Sets a mock function what return specific `Promise` value to be called only
+   * once. This takes precedence over the default mock function. Follow the FIFO.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define resolved value as only once", () => {
+   *   const mockObject = fn().onceResolvedValue(2).defaultReturnValue(1);
+   *   expect(mockObject()).toEqual(Promise.resolve(2));
+   *   expect(mockObject()).toBe(1);
+   * });
+   * ```
+   */
+  onceResolvedValue(value: R): MockObject<A, unknown>;
+
+  /** Sets a mock function what return specific `Promise.reject` value to be called
+   * only once. This takes precedence over the default mock function. Follow the
+   * FIFO.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should define rejected value as only once", async () => {
+   *   const mockObject = fn().onceRejectedValue(Error("test"));
+   *   await expect(mockObject()).rejects.toEqual(Error("test"));
+   *   expect(mockObject()).not.toBeDefined();
+   * });
+   * ```
+   */
+  onceRejectedValue(value: R): MockObject<A, unknown>;
+
+  /** Resets stored in the `mockObject.mock`. Often this is useful when you want to
+   * clean up a mocks usage data between two assertions.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should clear mock", () => {
+   *   const mockObject = fn(() => 1);
+   *   mockObject();
+   *
+   *   expect(mockObject).toHaveReturnedWith(1);
+   *   mockObject.mockClear();
+   *   expect(mockObject).not.toHaveReturnedWith(1);
+   * });
+   * ```
+   */
+  mockClear(): MockObject<A, R>;
+
+  /** Resets stored in the `mockObject.mock` and also removes any mocked return values
+   * or implementations. This is useful when you want to completely reset a mock back
+   * to its initial state.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should clear mock and all registered once implementations and default", () => {
+   *   const mockObject = fn(() => 1);
+   *   mockObject();
+   *
+   *   expect(mockObject).toHaveReturnedWith(1);
+   *
+   *   mockObject.reset();
+   *   expect(mockObject).not.toHaveBeenCalled();
+   *
+   *   mockObject();
+   *   expect(mockObject).toHaveReturnedWith(undefined);
+   * });
+   * ```
+   */
+  reset(): MockObject<A, R>;
 }
 
 /** store fn internal implementation */
@@ -92,6 +173,12 @@ class MockFnStore {
   /** pick implementation as FIFO */
   pickImplementation(): ((...args: unknown[]) => unknown) | undefined {
     return this.onceImplementations.shift() ?? this.defaultImplementation;
+  }
+
+  /** initialize all value */
+  clear(): void {
+    this.defaultImplementation = undefined;
+    this.onceImplementations = [];
   }
 }
 
@@ -165,6 +252,49 @@ function fn(
     return call as MockObject;
   };
 
+  /** Sets a mock function what return specific `Promise` value to be called only
+   * once. This takes precedence over the default mock function. Follow the FIFO.
+   */
+  const onceResolvedValue = (value: unknown): MockObject => {
+    mockFnStore["onceImplementations"].push(() => Promise.resolve(value));
+    return call as MockObject;
+  };
+
+  /** Sets default as rejected value. The set value will be Promised and return when
+   * the mock object is called.
+   */
+  const defaultRejectedValue = (value: unknown): MockObject => {
+    mockFnStore["defaultImplementation"] = () => Promise.reject(value);
+    return call as MockObject;
+  };
+
+  /** Sets a mock function what return specific `Promise.reject` value to be called
+   * only once. This takes precedence over the default mock function. Follow the
+   * FIFO.
+   */
+  const onceRejectedValue = (value: unknown): MockObject => {
+    mockFnStore["onceImplementations"].push(() => Promise.reject(value));
+    return call as MockObject;
+  };
+
+  /** Resets stored in the `mockObject.mock`. Often this is useful when you want to
+   * clean up a mocks usage data between two assertions.
+   */
+  const mockClear = (): MockObject => {
+    mock.clear();
+    return call as MockObject;
+  };
+
+  /** Resets stored in the `mockObject.mock` and also removes any mocked return values
+   * or implementations. This is useful when you want to completely reset a mock back
+   * to its initial state.
+   */
+  const reset = (): MockObject => {
+    mock.clear();
+    mockFnStore.clear();
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -176,8 +306,13 @@ function fn(
     defaultImplementation,
     defaultReturnValue,
     defaultResolvedValue,
+    defaultRejectedValue,
     onceImplementation,
     onceReturnValue,
+    onceResolvedValue,
+    onceRejectedValue,
+    mockClear,
+    reset,
   }).reduce(
     (acc, [key, value]) => ({
       ...acc,

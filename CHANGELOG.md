@@ -1,3 +1,20 @@
+# [1.0.0-beta.65](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.64...v1.0.0-beta.65) (2021-12-14)
+
+
+### Features
+
+* **mock:** add `mockClear` mock object method ([fb1333c](https://github.com/TomokiMiyauci/unitest/commit/fb1333c2b6b4ce4651b87281997c246e1effe969))
+* **mock:** add `reset` mock object method ([b696bbd](https://github.com/TomokiMiyauci/unitest/commit/b696bbdc41879f0f6007122cd189f1a22e11fba0))
+
+# [1.0.0-beta.64](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.63...v1.0.0-beta.64) (2021-12-13)
+
+
+### Features
+
+* **mock:** add `defaultRejectedValue` mock object method ([5222755](https://github.com/TomokiMiyauci/unitest/commit/5222755d11f34798a1e64937affa48858ce9b099))
+* **mock:** add `onceRejectedValue` mock object method ([0cd6fe6](https://github.com/TomokiMiyauci/unitest/commit/0cd6fe6f06e32a968d7aac169619d03868e67523))
+* **mock:** add `onceResolvedValue` to mock object method ([5b639fd](https://github.com/TomokiMiyauci/unitest/commit/5b639fd346f6aec49583a431fd7a2dace75cd83e))
+
 # [1.0.0-beta.63](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.62...v1.0.0-beta.63) (2021-12-13)
 
 
