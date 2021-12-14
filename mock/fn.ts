@@ -175,6 +175,7 @@ class MockFnStore {
     return this.onceImplementations.shift() ?? this.defaultImplementation;
   }
 
+  /** initialize all value */
   clear(): void {
     this.defaultImplementation = undefined;
     this.onceImplementations = [];
