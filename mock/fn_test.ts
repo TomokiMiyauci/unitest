@@ -249,3 +249,27 @@ Deno.test("onceRejectedValue", async () => {
   await expect(mockObject()).rejects.toEqual(Error("test2"));
   await expect(mockObject()).rejects.not.toBeDefined();
 });
+
+Deno.test("mockClear", () => {
+  assertExists(fn().mockClear);
+
+  const mockObject = fn(() => 1);
+  mockObject();
+
+  assertEquals(mockObject.mock.calls.length, 1);
+  assertEquals(mockObject.mock.results.length, 1);
+  assertEquals(mockObject.mock.results, [{ type: "return", value: 1 }]);
+  assertEquals(mockObject.mock.callOrderNumbers.length, 1);
+
+  mockObject.mockClear();
+  assertEquals(mockObject.mock.calls.length, 0);
+  assertEquals(mockObject.mock.results.length, 0);
+  assertEquals(mockObject.mock.callOrderNumbers.length, 0);
+
+  mockObject();
+
+  assertEquals(mockObject.mock.calls.length, 1);
+  assertEquals(mockObject.mock.results.length, 1);
+  assertEquals(mockObject.mock.results, [{ type: "return", value: 1 }]);
+  assertEquals(mockObject.mock.callOrderNumbers.length, 1);
+});

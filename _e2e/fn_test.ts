@@ -44,3 +44,12 @@ test("should define rejected value as only once", async () => {
   await expect(mockObject()).rejects.toEqual(Error("test"));
   expect(mockObject()).not.toBeDefined();
 });
+
+test("should clear mock", () => {
+  const mockObject = fn(() => 1);
+  mockObject();
+
+  expect(mockObject).toHaveReturnedWith(1);
+  mockObject.mockClear();
+  expect(mockObject).not.toHaveReturnedWith(1);
+});

@@ -122,6 +122,23 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```
    */
   onceRejectedValue(value: R): MockObject<A, unknown>;
+
+  /** Resets stored in the `mockObject.mock`. Often this is useful when you want to
+   * clean up a mocks usage data between two assertions.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should clear mock", () => {
+   *   const mockObject = fn(() => 1);
+   *   mockObject();
+   *
+   *   expect(mockObject).toHaveReturnedWith(1);
+   *   mockObject.mockClear();
+   *   expect(mockObject).not.toHaveReturnedWith(1);
+   * });
+   * ```
+   */
+  mockClear(): MockObject<A, R>;
 }
 
 /** store fn internal implementation */
@@ -222,6 +239,14 @@ function fn(
     return call as MockObject;
   };
 
+  /** Resets stored in the `mockObject.mock`. Often this is useful when you want to
+   * clean up a mocks usage data between two assertions.
+   */
+  const mockClear = (): MockObject => {
+    mock.clear();
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -238,6 +263,7 @@ function fn(
     onceReturnValue,
     onceResolvedValue,
     onceRejectedValue,
+    mockClear,
   }).reduce(
     (acc, [key, value]) => ({
       ...acc,
