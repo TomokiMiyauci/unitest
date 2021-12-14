@@ -1,3 +1,11 @@
+# [1.0.0-beta.66](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.65...v1.0.0-beta.66) (2021-12-14)
+
+
+### Features
+
+* **fake timer:** add `useFakeTimer` function and implement fake timer object ([173b5f3](https://github.com/TomokiMiyauci/unitest/commit/173b5f31c35e3627c0e8a9311c2474b908382e35))
+* **mock:** add `isMockObject` that check if mock object or not ([87c2ea4](https://github.com/TomokiMiyauci/unitest/commit/87c2ea4cb4d7557b8df3874fe1cb0ce353682efa))
+
 # [1.0.0-beta.65](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.64...v1.0.0-beta.65) (2021-12-14)
 
 
