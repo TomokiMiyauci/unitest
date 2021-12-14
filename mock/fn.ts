@@ -251,16 +251,26 @@ function fn(
     return call as MockObject;
   };
 
+  /** Sets a mock function what return specific `Promise` value to be called only
+   * once. This takes precedence over the default mock function. Follow the FIFO.
+   */
   const onceResolvedValue = (value: unknown): MockObject => {
     mockFnStore["onceImplementations"].push(() => Promise.resolve(value));
     return call as MockObject;
   };
 
+  /** Sets default as rejected value. The set value will be Promised and return when
+   * the mock object is called.
+   */
   const defaultRejectedValue = (value: unknown): MockObject => {
     mockFnStore["defaultImplementation"] = () => Promise.reject(value);
     return call as MockObject;
   };
 
+  /** Sets a mock function what return specific `Promise.reject` value to be called
+   * only once. This takes precedence over the default mock function. Follow the
+   * FIFO.
+   */
   const onceRejectedValue = (value: unknown): MockObject => {
     mockFnStore["onceImplementations"].push(() => Promise.reject(value));
     return call as MockObject;
