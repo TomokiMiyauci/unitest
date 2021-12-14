@@ -1,3 +1,11 @@
+# [1.0.0-beta.65](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.64...v1.0.0-beta.65) (2021-12-14)
+
+
+### Features
+
+* **mock:** add `mockClear` mock object method ([fb1333c](https://github.com/TomokiMiyauci/unitest/commit/fb1333c2b6b4ce4651b87281997c246e1effe969))
+* **mock:** add `reset` mock object method ([b696bbd](https://github.com/TomokiMiyauci/unitest/commit/b696bbdc41879f0f6007122cd189f1a22e11fba0))
+
 # [1.0.0-beta.64](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.63...v1.0.0-beta.64) (2021-12-13)
 
 
