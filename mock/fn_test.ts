@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { fn, isMockObject, MockFnStore } from "./fn.ts";
+import { fn, isMockObject } from "./fn.ts";
 import { isFunction } from "../deps.ts";
 import { expect } from "../expect/mod.ts";
 import { assert, assertEquals, assertExists } from "../dev_deps.ts";
@@ -121,52 +121,6 @@ Deno.test("onceImplementation should be called in preference to default implemen
   mockObject();
   assertEquals(defaultImplementation.mock.calls.length, 2);
   assertEquals(onceImplementation.mock.calls.length, 1);
-});
-
-Deno.test("MockFnStore", () => {
-  const store = new MockFnStore();
-  assertExists(store["pickImplementation"]);
-  assertEquals(store["onceImplementations"], []);
-  assertEquals(store["defaultImplementation"], undefined);
-  assertEquals(store.pickImplementation(), undefined);
-});
-
-Deno.test("MockFnStore should return picked implementation", () => {
-  const mockObject = fn();
-  const store = new MockFnStore(mockObject);
-
-  assertEquals(
-    store["defaultImplementation"],
-    mockObject,
-  );
-  assertEquals(
-    store.pickImplementation(),
-    mockObject,
-  );
-  assertEquals(
-    store.pickImplementation(),
-    mockObject,
-  );
-  const mockObject2 = fn();
-  store["onceImplementations"].unshift(mockObject2);
-  assertEquals(
-    store.pickImplementation(),
-    mockObject2,
-  );
-  assertEquals(
-    store.pickImplementation(),
-    mockObject,
-  );
-
-  store.clear();
-  assertEquals(
-    store["defaultImplementation"],
-    undefined,
-  );
-  assertEquals(
-    store["onceImplementations"],
-    [],
-  );
 });
 
 Deno.test("defaultReturnValue", () => {
