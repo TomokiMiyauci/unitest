@@ -1,6 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { isObject } from "../deps.ts";
+import { prop } from "../matcher/utils.ts";
 import { Mock } from "./mock.ts";
 import type { MockSpec } from "./mock.ts";
 import { incrementalNumber } from "./utils.ts";
@@ -328,5 +330,32 @@ function fn(
   return call as MockObject;
 }
 
-export { fn, MockFnStore };
+/** Whatever argument is `MockObject` or not.
+ * ```ts
+ * import {
+ *   expect,
+ *   fn,
+ *   isMockObject,
+ *   test,
+ * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("should be mock object", () => {
+ *   const mockObject = fn();
+ *   expect(isMockObject(mockObject)).toBeTruthy();
+ *   expect(isMockObject({})).toBeFalsy();
+ * });
+ * ```
+ */
+function isMockObject<A extends readonly unknown[] = any[], R = unknown>(
+  value: object,
+): value is MockObject<A, R> {
+  const mock = prop("mock", value);
+  if (!isObject(mock)) return false;
+
+  return ["results", "calls", "callOrderNumbers"].every((key) =>
+    Array.isArray(prop(key, mock))
+  );
+}
+
+export { fn, isMockObject, MockFnStore };
 export type { MockObject };

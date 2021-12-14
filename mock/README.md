@@ -42,6 +42,25 @@ test("plays video", () => {
 });
 ```
 
+## isMockObject
+
+Whatever argument is `MockObject` or not.
+
+```ts
+import {
+  expect,
+  fn,
+  isMockObject,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be mock object", () => {
+  const mockObject = fn();
+  expect(isMockObject(mockObject)).toBeTruthy();
+  expect(isMockObject({})).toBeFalsy();
+});
+```
+
 ## mockObject.mock.calls
 
 An array containing the call arguments of all calls that have been made to this

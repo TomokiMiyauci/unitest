@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { fn, MockFnStore } from "./fn.ts";
+import { fn, isMockObject, MockFnStore } from "./fn.ts";
 import { isFunction } from "../deps.ts";
 import { expect } from "../expect/mod.ts";
 import { assert, assertEquals, assertExists } from "../dev_deps.ts";
@@ -313,4 +313,43 @@ Deno.test("reset should clear once implementation and default", () => {
 
   assertEquals(mockObject(), undefined);
   assertEquals(mockObject(), undefined);
+});
+
+Deno.test("isMockObject", () => {
+  const table: [
+    ...Parameters<typeof isMockObject>,
+    ReturnType<typeof isMockObject>,
+  ][] = [
+    [{}, false],
+    [[], false],
+    [{ mock: {} }, false],
+    [{
+      mock: {
+        results: [],
+        callOrderNumbers: [],
+      },
+    }, false],
+    [{
+      mock: {
+        callOrderNumbers: [],
+      },
+    }, false],
+    [{
+      mock: {
+        calls: [],
+        results: [],
+        callOrderNumbers: [],
+      },
+    }, true],
+    [{
+      mock: {
+        calls: [[1]],
+        results: [{ type: "return", value: 1 }],
+        callOrderNumbers: [1],
+      },
+    }, true],
+    [fn(), true],
+  ];
+
+  table.forEach(([value, result]) => assertEquals(isMockObject(value), result));
 });
