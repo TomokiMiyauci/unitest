@@ -211,3 +211,46 @@ test("should define rejected value as only once", async () => {
 ```
 
 This is known as `jest.fn().mockRejectedValueOnce`.
+
+## mockObject#mockClear
+
+Resets stored in the `mockObject.mock`. Often this is useful when you want to
+clean up a mocks usage data between two assertions.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should clear mock", () => {
+  const mockObject = fn(() => 1);
+  mockObject();
+
+  expect(mockObject).toHaveReturnedWith(1);
+  mockObject.mockClear();
+  expect(mockObject).not.toHaveReturnedWith(1);
+});
+```
+
+## mockObject#reset
+
+Resets stored in the `mockObject.mock` and also removes any mocked return values
+or implementations. This is useful when you want to completely reset a mock back
+to its initial state.
+
+```ts
+import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should clear mock and all registered once implementations and default", () => {
+  const mockObject = fn(() => 1);
+  mockObject();
+
+  expect(mockObject).toHaveReturnedWith(1);
+
+  mockObject.reset();
+  expect(mockObject).not.toHaveBeenCalled();
+
+  mockObject();
+  expect(mockObject).toHaveReturnedWith(undefined);
+});
+```
+
+This is known as `jest.fn().mockReset`.
