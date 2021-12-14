@@ -53,3 +53,16 @@ test("should clear mock", () => {
   mockObject.mockClear();
   expect(mockObject).not.toHaveReturnedWith(1);
 });
+
+test("should clear mock and all registered once implementations and default", () => {
+  const mockObject = fn(() => 1);
+  mockObject();
+
+  expect(mockObject).toHaveReturnedWith(1);
+
+  mockObject.reset();
+  expect(mockObject).not.toHaveBeenCalled();
+
+  mockObject();
+  expect(mockObject).toHaveReturnedWith(undefined);
+});

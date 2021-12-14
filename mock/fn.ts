@@ -139,6 +139,28 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    * ```
    */
   mockClear(): MockObject<A, R>;
+
+  /** Resets stored in the `mockObject.mock` and also removes any mocked return values
+   * or implementations. This is useful when you want to completely reset a mock back
+   * to its initial state.
+   * ```ts
+   * import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+   *
+   * test("should clear mock and all registered once implementations and default", () => {
+   *   const mockObject = fn(() => 1);
+   *   mockObject();
+   *
+   *   expect(mockObject).toHaveReturnedWith(1);
+   *
+   *   mockObject.reset();
+   *   expect(mockObject).not.toHaveBeenCalled();
+   *
+   *   mockObject();
+   *   expect(mockObject).toHaveReturnedWith(undefined);
+   * });
+   * ```
+   */
+  reset(): MockObject<A, R>;
 }
 
 /** store fn internal implementation */
@@ -151,6 +173,11 @@ class MockFnStore {
   /** pick implementation as FIFO */
   pickImplementation(): ((...args: unknown[]) => unknown) | undefined {
     return this.onceImplementations.shift() ?? this.defaultImplementation;
+  }
+
+  clear(): void {
+    this.defaultImplementation = undefined;
+    this.onceImplementations = [];
   }
 }
 
@@ -247,6 +274,16 @@ function fn(
     return call as MockObject;
   };
 
+  /** Resets stored in the `mockObject.mock` and also removes any mocked return values
+   * or implementations. This is useful when you want to completely reset a mock back
+   * to its initial state.
+   */
+  const reset = (): MockObject => {
+    mock.clear();
+    mockFnStore.clear();
+    return call as MockObject;
+  };
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;
@@ -264,6 +301,7 @@ function fn(
     onceResolvedValue,
     onceRejectedValue,
     mockClear,
+    reset,
   }).reduce(
     (acc, [key, value]) => ({
       ...acc,

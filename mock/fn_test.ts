@@ -157,6 +157,16 @@ Deno.test("MockFnStore should return picked implementation", () => {
     store.pickImplementation(),
     mockObject,
   );
+
+  store.clear();
+  assertEquals(
+    store["defaultImplementation"],
+    undefined,
+  );
+  assertEquals(
+    store["onceImplementations"],
+    [],
+  );
 });
 
 Deno.test("defaultReturnValue", () => {
@@ -272,4 +282,35 @@ Deno.test("mockClear", () => {
   assertEquals(mockObject.mock.results.length, 1);
   assertEquals(mockObject.mock.results, [{ type: "return", value: 1 }]);
   assertEquals(mockObject.mock.callOrderNumbers.length, 1);
+});
+
+Deno.test("reset", () => {
+  assertExists(fn().reset);
+
+  const mockObject = fn(() => 1);
+  mockObject();
+
+  assertEquals(mockObject.mock.calls.length, 1);
+  assertEquals(mockObject.mock.results.length, 1);
+  assertEquals(mockObject.mock.results, [{ type: "return", value: 1 }]);
+  assertEquals(mockObject.mock.callOrderNumbers.length, 1);
+
+  mockObject.reset();
+  assertEquals(mockObject.mock.calls.length, 0);
+  assertEquals(mockObject.mock.results.length, 0);
+  assertEquals(mockObject.mock.callOrderNumbers.length, 0);
+
+  mockObject();
+
+  assertEquals(mockObject.mock.calls.length, 1);
+  assertEquals(mockObject.mock.results.length, 1);
+  assertEquals(mockObject.mock.results, [{ type: "return", value: undefined }]);
+  assertEquals(mockObject.mock.callOrderNumbers.length, 1);
+});
+
+Deno.test("reset should clear once implementation and default", () => {
+  const mockObject = fn(() => 1).onceReturnValue(2).reset();
+
+  assertEquals(mockObject(), undefined);
+  assertEquals(mockObject(), undefined);
 });
