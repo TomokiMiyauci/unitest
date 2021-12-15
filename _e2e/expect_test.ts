@@ -17,6 +17,7 @@ import {
   toBeDateString,
   toBeEmpty,
   toBeEmptyObject,
+  toBeError,
   toBeEven,
   toBeExtensible,
   toBeFalse,
@@ -1147,4 +1148,20 @@ test("passes when value is not null", () => {
   expect(0).toBeAnything();
   expect(null).not.toBeAnything();
   expect(undefined).not.toBeAnything();
+});
+
+test("passes when given an error", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeError,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(Error()).toBeError();
+  expect({}).not.toBeError();
+  expect(TypeError()).toBeError(TypeError);
+  expect(TypeError()).not.toBeError(Error);
+  expect(TypeError("test with unitest")).toBeError(TypeError, "unitest");
 });

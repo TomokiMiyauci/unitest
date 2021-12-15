@@ -15,6 +15,7 @@ Unitest offers a range of presets for different matchers.
 We also offer other original matchers.
 
 - toBeAnything
+- toBeError
 
 ```ts
 import {
@@ -453,6 +454,37 @@ test("passes when given an empty", () => {
   expect([]).toBeEmpty();
   expect({}).toBeEmpty();
   expect(new Map()).toBeEmpty();
+});
+```
+
+## toBeError
+
+Use `.toBeError` when checking if a value is `Error` object or `Error` extended
+object.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeError,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeError,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when given an error", () => {
+  expect(Error()).toBeError();
+  expect({}).not.toBeError();
+  expect(TypeError()).toBeError(TypeError);
+  expect(TypeError()).not.toBeError(Error);
+  expect(TypeError("test with unitest")).toBeError(TypeError, "unitest");
 });
 ```
 
