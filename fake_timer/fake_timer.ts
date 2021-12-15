@@ -1,8 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { withGlobal } from "http://esm.sh/@sinonjs/fake-timers";
-import type { InstalledClock } from "http://esm.sh/@sinonjs/fake-timers";
+import { withGlobal } from "https://cdn.skypack.dev/@sinonjs/fake-timers@8.1.0?dts";
+import type { InstalledClock } from "https://cdn.skypack.dev/@sinonjs/fake-timers@8.1.0?dts";
 
 /** Spec for fake timer object */
 interface FakeTimerSpec {

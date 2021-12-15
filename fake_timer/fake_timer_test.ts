@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { FakeTimer, useFakeTimer } from "./fake_timer.ts";
-import { withGlobal } from "http://esm.sh/@sinonjs/fake-timers";
+import { withGlobal } from "https://cdn.skypack.dev/@sinonjs/fake-timers@8.1.0?dts";
 import { fn } from "../mock/fn.ts";
 
 import { assertEquals, assertExists } from "../dev_deps.ts";
