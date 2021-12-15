@@ -1,3 +1,10 @@
+# [1.0.0-beta.67](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.66...v1.0.0-beta.67) (2021-12-15)
+
+
+### Features
+
+* **matcher:** add `toBeError` matcher ([8f2016a](https://github.com/TomokiMiyauci/unitest/commit/8f2016a6376c026752901af87559668008f75e6e))
+
 # [1.0.0-beta.66](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.65...v1.0.0-beta.66) (2021-12-14)
 
 
