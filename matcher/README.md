@@ -35,6 +35,25 @@ const expect = defineExpect({
 });
 ```
 
+## jest-extended difference
+
+Some matchers have been renamed or are no implementation. Matchers that differ
+from jest-extended are as follows:
+
+| matcher           | diff                               |
+| ----------------- | ---------------------------------- |
+| `toBeArrayOfSize` | use `toHaveLength` instead         |
+| `toBeNaN`         | use jest `toBeNaN`                 |
+| `toBeHexadecimal` | rename to `toBeHexColor`           |
+| `toContainKey`    | use `toHaveProperty` instead       |
+| `toResolve`       | no implementation because not pure |
+| `toReject`        | no implementation because not pure |
+
+## where snapshot matcher?
+
+We decided not to implement snapshot test in `expect().matcher()` because of its
+side effects. see [snapshot](../snapshot/README.md) for more information.
+
 ## toBeAfterOrEqualTo
 
 preset: `jestExtendedMatcherMap`
@@ -2292,23 +2311,10 @@ test("passes when the function throw error", () => {
 
 ## TODO
 
-- [ ] Implement expecter and jest default matcher (rest)
-  - toMatchObject
-  - toMatchSnapshot
-  - toMatchInlineSnapshot
-  - toStrictEqual
-  - toThrowErrorMatchingSnapshot
-  - toThrowErrorMatchingInlineSnapshot
-- [ ] Implement third party matcher (rest)
-  - jest-extended
-    - ~~toBeArrayOfSize~~ toHaveLength
-    - toIncludeAllPartialMembers
-    - toThrowWithMessage
-    - ~~toBeNaN~~ exists in jest
-    - ~~toContainKey~~ same as toHaveProperty
-    - toContainAllKeys
-    - toContainAllValues
-    - toContainAllEntries
-    - ~~toResolve~~ not pure
-    - ~~toReject~~ not pure
-    - ~~toBeHexadecimal~~ -> toBeHexColor
+- toStrictEqual
+- jest-extended
+  - toIncludeAllPartialMembers
+  - toThrowWithMessage
+  - toContainAllKeys
+  - toContainAllValues
+  - toContainAllEntries
