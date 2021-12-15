@@ -45,14 +45,15 @@ const expect = defineExpect({
 Some matchers have been renamed or are no implementation. Matchers that differ
 from jest-extended are as follows:
 
-| matcher           | diff                               |
-| ----------------- | ---------------------------------- |
-| `toBeArrayOfSize` | use `toHaveLength` instead         |
-| `toBeNaN`         | use jest `toBeNaN`                 |
-| `toBeHexadecimal` | rename to `toBeHexColor`           |
-| `toContainKey`    | use `toHaveProperty` instead       |
-| `toResolve`       | no implementation because not pure |
-| `toReject`        | no implementation because not pure |
+| matcher              | diff                               |
+| -------------------- | ---------------------------------- |
+| `toBeArrayOfSize`    | use `toHaveLength` instead         |
+| `toBeNaN`            | use jest `toBeNaN`                 |
+| `toBeHexadecimal`    | rename to `toBeHexColor`           |
+| `toContainKey`       | use `toHaveProperty` instead       |
+| `toResolve`          | no implementation because not pure |
+| `toReject`           | no implementation because not pure |
+| `toThrowWithMessage` | use jest `toThrow` instead         |
 
 ## where snapshot matcher?
 
@@ -2378,7 +2379,6 @@ test("passes when the function throw error", () => {
 - toStrictEqual
 - jest-extended
   - toIncludeAllPartialMembers
-  - toThrowWithMessage
   - toContainAllKeys
   - toContainAllValues
   - toContainAllEntries
