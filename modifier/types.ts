@@ -2,17 +2,17 @@
 // This module is browser compatible.
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 
-type PreModifierContext = {
-  actual: unknown;
+type PreModifierContext<T = unknown> = {
+  actual: T;
   matcherArgs: readonly unknown[];
   matcher: Matcher;
 };
 
 type PreModifierResult = { actual: unknown };
 
-type PostModifierContext<T = unknown> =
+type PostModifierContext =
   & {
-    actual: T;
+    actual: unknown;
     matcherArgs: readonly unknown[];
     matcher: Matcher;
   }
@@ -24,7 +24,11 @@ type PostModifierFn = (
 ) => PostModifierResult;
 
 type PreModifierFn = (
-  modifierContext: PreModifierContext,
+  modifierContext: {
+    actual: any;
+    matcherArgs: readonly unknown[];
+    matcher: Matcher;
+  },
 ) => PreModifierResult | Promise<PreModifierResult> | never;
 
 type PostModifier = {
@@ -37,22 +41,17 @@ type PreModifier = {
   fn: PreModifierFn;
 };
 
-type ModifierMap = {
-  [k: string | symbol]: PreModifier | PostModifier;
+type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;
+
+type ExtractOf<T extends ModifierMap, U> = {
+  [k in keyof T as (T[k] extends U ? k : never)]: T[k];
 };
 
 type valueOf<T> = T[keyof T];
 
-type PickModifierByType<
-  M extends ModifierMap,
-  Type extends valueOf<M>["type"],
-> = {
-  [k in keyof M as (M[k]["type"] extends Type ? k : never)]: M[k];
-};
-
 export type {
+  ExtractOf,
   ModifierMap,
-  PickModifierByType,
   PostModifier,
   PostModifierContext,
   PostModifierFn,

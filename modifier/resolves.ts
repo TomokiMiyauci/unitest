@@ -1,20 +1,11 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type {
-  PreModifier,
-  PreModifierContext,
-  PreModifierResult,
-} from "./types.ts";
-import { AssertionError, isPromise } from "../deps.ts";
+import type { PreModifierContext, PreModifierResult } from "./types.ts";
 
 /** predict for `resolves` */
 async function predict(
-  { actual }: PreModifierContext,
+  { actual }: PreModifierContext<Promise<unknown>>,
 ): Promise<PreModifierResult> {
-  if (!isPromise(actual)) {
-    throw new AssertionError("expected value must be a Promise");
-  }
-
   const resolvedActual = await actual;
 
   return {
@@ -31,8 +22,8 @@ async function predict(
  * });
  * ```
  */
-const resolves: PreModifier = {
-  type: "pre",
+const resolves = {
+  type: "pre" as const,
   fn: predict,
 };
 

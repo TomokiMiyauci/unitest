@@ -41,7 +41,7 @@ test("should define rejected value as default", async () => {
 
 test("should define rejected value as only once", async () => {
   const mockObject = fn().onceRejectedValue(Error("test"));
-  await expect(mockObject()).rejects.toEqual(Error("test"));
+  await expect(mockObject() as Promise<never>).rejects.toEqual(Error("test"));
   expect(mockObject()).not.toBeDefined();
 });
 

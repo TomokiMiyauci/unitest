@@ -201,17 +201,20 @@ Deno.test("defaultRejectedValue", async () => {
 Deno.test("onceRejectedValue", async () => {
   assertExists(fn().onceRejectedValue);
 
-  await expect(fn().onceRejectedValue(Error("test"))()).rejects.toBeInstanceOf(
-    Error,
-  );
+  await expect(fn().onceRejectedValue(Error("test"))() as Promise<never>)
+    .rejects.toBeInstanceOf(
+      Error,
+    );
 
   const mockObject = fn().onceRejectedValue(Error("test")).onceRejectedValue(
     Error("test2"),
   );
 
-  await expect(mockObject()).rejects.toEqual(Error("test"));
-  await expect(mockObject()).rejects.toEqual(Error("test2"));
-  await expect(mockObject()).rejects.not.toBeDefined();
+  await expect(mockObject() as Promise<never>).rejects.toEqual(Error("test"));
+  await expect(mockObject() as Promise<never>).rejects.toEqual(
+    Error("test2"),
+  );
+  await expect(mockObject() as Promise<never>).rejects.not.toBeDefined();
 });
 
 Deno.test("mockClear", () => {

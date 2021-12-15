@@ -15,62 +15,23 @@ import { stringifyEquality } from "../helper/equal.ts";
 
 import type {
   AnyFn,
-  IsPromise,
-  PickByFirstParameter,
+  FirstParameter,
+  OverwriteOf,
+  PickOf,
   Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
 } from "../_types.ts";
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type {
-  PickModifierByType,
+  ExtractOf,
   PostModifierFn,
+  PreModifier,
   PreModifierFn,
 } from "../modifier/types.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
 import type { StringifyResultArgs } from "../helper/format.ts";
-
-type ReservedWord = "resolves" | "rejects";
-
-type PickOf<T, U> = {
-  [k in keyof T as (T[k] extends U ? k : never)]: T[k];
-};
-
-type Expected<
-  T extends MatcherMap,
-  U,
-  Pre extends PickModifierByType<ModifierMap, "pre">,
-  Post extends PickModifierByType<ModifierMap, "post">,
-  IsPromise extends boolean,
-> =
-  & {
-    [k in keyof Pre]: IsPromise extends true ? k extends ReservedWord ? 
-      & ReturnTypePromisifyMap<
-        Omit<ShiftFnArgMap<PickByFirstParameter<T, Resolve<U>>>, k>
-      >
-      & {
-        [k in keyof Post]: IsPromise extends true
-          ? ReturnTypePromisifyMap<ShiftFnArgMap<T>>
-          : ShiftFnArgMap<T>;
-      }
-    : ReturnTypePromisifyMap<
-      Omit<ShiftFnArgMap<PickByFirstParameter<T, U>>, k>
-    >
-      : 
-        & Omit<ShiftFnArgMap<T>, k>
-        & {
-          [k in keyof Post]: IsPromise extends true
-            ? ReturnTypePromisifyMap<ShiftFnArgMap<T>>
-            : ShiftFnArgMap<T>;
-        };
-  }
-  & {
-    [k in keyof Post]: IsPromise extends true
-      ? ReturnTypePromisifyMap<Omit<ShiftFnArgMap<T>, k>>
-      : Omit<ShiftFnArgMap<T>, k>;
-  }
-  & MatcherFilter<U, T>;
 
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
@@ -79,6 +40,38 @@ type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
 type MatcherFilter<T, U extends Record<string, Matcher>> = ShiftFnArgMap<
   PickOf<U, (actual: T, ...args: any[]) => unknown>
 >;
+
+type FilterPreModifier<
+  A,
+  T extends ExtractOf<ModifierMap, { type: "pre" }>,
+> = {
+  [
+    k
+      in keyof T as (T[k] extends PreModifier
+        ? A extends FirstParameter<T[k]["fn"]>["actual"] ? k : never
+        : never)
+  ]: T[k];
+};
+
+type Expected<
+  Actual,
+  Matcher extends MatcherMap,
+  Pre extends ExtractOf<ModifierMap, { type: "pre" }>,
+  Post extends ExtractOf<ModifierMap, { type: "post" }>,
+> =
+  & OverwriteOf<
+    FilterPreModifier<Actual, Pre>,
+    & ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
+    & OverwriteOf<
+      Post,
+      ReturnTypePromisifyMap<MatcherFilter<Actual, Matcher>>
+    >
+  >
+  & OverwriteOf<
+    Post,
+    MatcherFilter<Actual, Matcher>
+  >
+  & MatcherFilter<Actual, Matcher>;
 
 /** define custom expect */
 function defineExpect<
@@ -93,11 +86,10 @@ function defineExpect<
   return <T = unknown>(
     actual: T,
   ): Expected<
-    MatcherObject,
     T,
-    PickModifierByType<Modifier, "pre">,
-    PickModifierByType<Modifier, "post">,
-    IsPromise<T>
+    MatcherObject,
+    ExtractOf<Modifier, { type: "pre" }>,
+    ExtractOf<Modifier, { type: "post" }>
   > => {
     let pre: [string | symbol, PreModifierFn] | undefined = undefined;
     let post: [string | symbol, PostModifierFn] | undefined = undefined;

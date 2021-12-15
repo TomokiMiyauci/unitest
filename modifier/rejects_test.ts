@@ -36,17 +36,6 @@ Deno.test({
       AssertionError,
       `Promise did not reject. resolved to 1`,
     );
-
-    assertRejects(
-      () =>
-        predict({
-          actual: "test",
-          matcherArgs: [],
-          matcher: {} as any,
-        }),
-      AssertionError,
-      `expected value must be a Promise`,
-    );
   },
 });
 

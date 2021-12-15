@@ -40,12 +40,23 @@ type IsTuple<T extends readonly unknown[]> = number extends T["length"] ? false
 
 type Primitive = string | number | bigint | symbol | boolean | null | undefined;
 
+type PickOf<T, U> = {
+  [k in keyof T as (T[k] extends U ? k : never)]: T[k];
+};
+
+type OverwriteOf<T, U> = {
+  [k in keyof T]: U;
+};
+
 export type {
   AnyFn,
+  FirstParameter,
   IsArityX,
   IsPromise,
   IsTuple,
+  OverwriteOf,
   PickByFirstParameter,
+  PickOf,
   Primitive,
   Resolve,
   ReturnTypePromisifyMap,
