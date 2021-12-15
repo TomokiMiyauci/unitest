@@ -1,3 +1,10 @@
+# [1.0.0-beta.68](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.67...v1.0.0-beta.68) (2021-12-15)
+
+
+### Bug Fixes
+
+* **expect:** improve generic expected types, restrict pre modifier interface ([c8ebebe](https://github.com/TomokiMiyauci/unitest/commit/c8ebebef545d5e9b32d0b5b23505b2914a4f6138))
+
 # [1.0.0-beta.67](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.66...v1.0.0-beta.67) (2021-12-15)
 
 
