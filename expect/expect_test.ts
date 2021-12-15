@@ -65,9 +65,6 @@ Deno.test({
     expect(null).toBeNull();
     assertThrowsAssertionError(() => expect(undefined).toBeNull());
 
-    expect("").toBeAnything();
-    assertThrowsAssertionError(() => expect(undefined).toBeAnything());
-
     expect(NaN)["toBeNaN"].apply(NaN);
     assertThrowsAssertionError(() => expect(1).toBeNaN());
 

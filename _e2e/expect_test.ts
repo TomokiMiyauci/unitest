@@ -7,6 +7,7 @@ import {
   test,
   toBeAfter,
   toBeAfterOrEqualTo,
+  toBeAnything,
   toBeArray,
   toBeBefore,
   toBeBeforeOrEqualTo,
@@ -1132,4 +1133,18 @@ test("passes when resolved value equal to", async () => {
 
 test("passes when rejected value equal to", async () => {
   await expect(Promise.reject("Deno") as Promise<string>).rejects.toBe("Deno");
+});
+
+test("passes when value is not null", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeAnything,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(0).toBeAnything();
+  expect(null).not.toBeAnything();
+  expect(undefined).not.toBeAnything();
 });

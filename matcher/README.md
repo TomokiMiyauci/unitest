@@ -12,6 +12,10 @@ Unitest offers a range of presets for different matchers.
 | [jest](https://jestjs.io/ja/docs/expect)                         | `jestMatcherMap`         |
 | [jest-extended](https://github.com/jest-community/jest-extended) | `jestExtendedMatcherMap` |
 
+We also offer other original matchers.
+
+- toBeAnything
+
 ```ts
 import {
   defineExpect,
@@ -141,6 +145,34 @@ test("passes when value is an array", () => {
   expect([]).toBeArray();
   expect([1]).toBeArray();
   expect(true).not.toBeArray();
+});
+```
+
+## toBeAnything
+
+Use `.toBeAnything` when checking if a value is not `null` and `undefined`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeAnything,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeAnything,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is not null", () => {
+  expect(0).toBeAnything();
+  expect(null).not.toBeAnything();
+  expect(undefined).not.toBeAnything();
 });
 ```
 
