@@ -33,6 +33,10 @@ import type { StringifyResultArgs } from "../helper/format.ts";
 
 type ReservedWord = "resolves" | "rejects";
 
+type PickOf<T, U> = {
+  [k in keyof T as (T[k] extends U ? k : never)]: T[k];
+};
+
 type Expected<
   T extends MatcherMap,
   U,
@@ -66,11 +70,15 @@ type Expected<
       ? ReturnTypePromisifyMap<Omit<ShiftFnArgMap<T>, k>>
       : Omit<ShiftFnArgMap<T>, k>;
   }
-  & ShiftFnArgMap<PickByFirstParameter<T, U>>;
+  & MatcherFilter<U, T>;
 
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
 };
+
+type MatcherFilter<T, U extends Record<string, Matcher>> = ShiftFnArgMap<
+  PickOf<U, (actual: T, ...args: any[]) => unknown>
+>;
 
 /** define custom expect */
 function defineExpect<

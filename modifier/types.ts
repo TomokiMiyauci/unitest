@@ -10,9 +10,9 @@ type PreModifierContext = {
 
 type PreModifierResult = { actual: unknown };
 
-type PostModifierContext =
+type PostModifierContext<T = unknown> =
   & {
-    actual: unknown;
+    actual: T;
     matcherArgs: readonly unknown[];
     matcher: Matcher;
   }
@@ -37,11 +37,15 @@ type PreModifier = {
   fn: PreModifierFn;
 };
 
-type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;
+type ModifierMap = {
+  [k: string | symbol]: PreModifier | PostModifier;
+};
+
+type valueOf<T> = T[keyof T];
 
 type PickModifierByType<
   M extends ModifierMap,
-  Type extends (PreModifier | PostModifier)["type"],
+  Type extends valueOf<M>["type"],
 > = {
   [k in keyof M as (M[k]["type"] extends Type ? k : never)]: M[k];
 };
