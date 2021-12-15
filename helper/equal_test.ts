@@ -220,6 +220,7 @@ Deno.test("equal", () => {
       [1, 4, 2, 3],
       false,
     ],
+    [[, 1], [undefined, 1], false],
     [
       new Uint8Array([1, 2, 3, 4]),
       new Uint8Array([1, 2, 3, 4]),
