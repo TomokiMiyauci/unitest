@@ -1,3 +1,16 @@
+# [1.0.0-beta.69](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.68...v1.0.0-beta.69) (2021-12-16)
+
+
+### Bug Fixes
+
+* **expect:** return promise when modifier return promise, not actual value is promise ([7dd20c7](https://github.com/TomokiMiyauci/unitest/commit/7dd20c7fbcbfa75d03d04c5806109987051256f9))
+
+
+### Features
+
+* **expect:** add `extendExpect` function ([ed2ecc7](https://github.com/TomokiMiyauci/unitest/commit/ed2ecc7952422e4a4935b1a1869b18f4d54ea1c2))
+* **expect:** add `getDefinition` method, split expect return types ([d50f0ff](https://github.com/TomokiMiyauci/unitest/commit/d50f0ff1814c9c84a73f36c217e72f9e2a383cc4))
+
 # [1.0.0-beta.68](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.67...v1.0.0-beta.68) (2021-12-15)
 
 
