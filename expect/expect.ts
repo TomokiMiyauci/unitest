@@ -14,6 +14,7 @@ import {
 import type {
   AnyFn,
   FirstParameter,
+  IsPromise,
   OverwriteOf,
   PickOf,
   Resolve,
@@ -42,13 +43,17 @@ type MatcherFilter<T, U extends Record<string, Matcher>> = ShiftFnArgMap<
 type FilterPreModifier<
   A,
   T extends ExtractOf<ModifierMap, { type: "pre" }>,
+  Promise,
+  Sync,
 > = {
   [
     k
       in keyof T as (T[k] extends PreModifier
         ? A extends FirstParameter<T[k]["fn"]> ? k : never
         : never)
-  ]: T[k];
+  ]: T[k] extends PreModifier
+    ? IsPromise<ReturnType<T[k]["fn"]>> extends true ? Promise : Sync
+    : never;
 };
 
 type Definition<
@@ -84,12 +89,18 @@ type Expected<
   Pre extends ExtractOf<ModifierMap, { type: "pre" }>,
   Post extends ExtractOf<ModifierMap, { type: "post" }>,
 > =
-  & OverwriteOf<
-    FilterPreModifier<Actual, Pre>,
+  & FilterPreModifier<
+    Actual,
+    Pre,
     & ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
     & OverwriteOf<
       Post,
-      ReturnTypePromisifyMap<MatcherFilter<Actual, Matcher>>
+      ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
+    >,
+    & MatcherFilter<Actual, Matcher>
+    & OverwriteOf<
+      Post,
+      MatcherFilter<Actual, Matcher>
     >
   >
   & OverwriteOf<

@@ -1197,7 +1197,7 @@ test("should be string", () => {
   newExpect("unitest").toBeString();
 });
 
-test("passes when trimmed string to be", async () => {
+test("passes when trimmed string to be", () => {
   const expect = defineExpect({
     matcherMap: {
       toBe,
@@ -1206,5 +1206,5 @@ test("passes when trimmed string to be", async () => {
       trim,
     },
   });
-  await expect("  hello world  ").trim.toBe("hello world");
+  expect("  hello world  ").trim.toBe("hello world");
 });
