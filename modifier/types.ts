@@ -38,9 +38,9 @@ type PostModifier = {
   fn: PostModifierFn;
 };
 
-type PreModifier = {
+type PreModifier<T = any> = {
   type: "pre";
-  fn: PreModifierFn;
+  fn: PreModifierFn<T>;
 };
 
 type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;

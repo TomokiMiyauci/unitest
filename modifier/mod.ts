@@ -3,4 +3,5 @@
 export { not } from "./not.ts";
 export { rejects } from "./rejects.ts";
 export { resolves } from "./resolves.ts";
+export { trim } from "./trim.ts";
 export * from "./preset.ts";

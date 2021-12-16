@@ -58,7 +58,7 @@ test("passes when resolved value equal to", async () => {
 
 `resolves` does asynchronous processing, so `await` is required.
 
-## rejects
+### rejects
 
 Use `.rejects` to reject `Promise` before match.
 
@@ -75,6 +75,33 @@ test("passes when rejected value equal to", async () => {
 `Promise.reject` is of type `Promise<never>` by default.
 
 The matcher filter is performed on the `never` type.
+
+### trim
+
+Use `.trim` to removes the leading and trailing white space and line terminator
+characters from a `actual`.
+
+```ts
+import {
+  defineExpect,
+  test,
+  toBe,
+  trim,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    trim,
+  },
+});
+
+test("passes when trimmed string to be", async () => {
+  await expect("  hello world  ").trim.toBe("hello world");
+});
+```
 
 ## post modifier
 

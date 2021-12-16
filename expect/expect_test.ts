@@ -5,6 +5,7 @@ import {
   assertExists,
   assertThrowsAssertionError,
 } from "../dev_deps.ts";
+import { trim } from "../modifier/trim.ts";
 
 import { jestExtendedMatcherMap, jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
@@ -125,14 +126,7 @@ Deno.test("extendExpect", () => {
 
   const ex3 = extendExpect(expect, {
     modifierMap: {
-      trim: {
-        type: "pre",
-        fn: (actual: string) => {
-          return {
-            actual: actual.trim(),
-          };
-        },
-      },
+      trim,
     },
   });
 
