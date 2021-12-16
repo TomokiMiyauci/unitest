@@ -261,5 +261,57 @@ const expect = defineExpect({
   modifierMap: jestModifierMap,
 });
 
-export { defineExpect, expect };
+/** Return new `expect` based on another `expect`. All definitions are deep merged.
+ * Duplicate fields will be replaced by the new definition.
+ * ```ts
+ * import {
+ *   expect,
+ *   extendExpect,
+ *   test,
+ *   toBeString,
+ * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * const newExpect = extendExpect(expect, {
+ *   matcherMap: {
+ *     toBeString,
+ *   },
+ * });
+ *
+ * test("should be string", () => {
+ *   expect("unitest").toBeString();
+ * });
+ * ```
+ */
+function extendExpect<
+  Matcher extends MatcherMap,
+  Modifier extends ModifierMap,
+  NewMatcher extends MatcherMap,
+  NewModifier extends ModifierMap,
+>(
+  expect: Expect<Matcher, Modifier>,
+  {
+    modifierMap: newModifierMap = {} as NewModifier,
+    matcherMap: newMatcherMap = {} as NewMatcher,
+  }: Partial<Definition<NewMatcher, NewModifier>>,
+) {
+  const { modifierMap = {}, matcherMap } = expect.getDefinition();
+
+  return defineExpect<
+    Matcher & NewMatcher,
+    NewModifier extends ModifierMap ? Modifier & NewModifier : Modifier
+  >({
+    matcherMap: {
+      ...matcherMap,
+      ...newMatcherMap,
+    },
+    modifierMap: {
+      ...modifierMap,
+      ...newModifierMap as NewModifier extends ModifierMap
+        ? Modifier & NewModifier
+        : Modifier,
+    },
+  });
+}
+
+export { defineExpect, expect, extendExpect };
 export type { Expected, MatcherMap };

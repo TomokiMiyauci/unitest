@@ -132,3 +132,27 @@ expect(10).toBeGreaterThan(3);
 ```
 
 This allows TypeScript to do some of the assertions for you.
+
+## extendExpect
+
+Return new `expect` based on another `expect`. All definitions are deep merged.
+Duplicate fields will be replaced by the new definition.
+
+```ts
+import {
+  expect,
+  extendExpect,
+  test,
+  toBeString,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const newExpect = extendExpect(expect, {
+  matcherMap: {
+    toBeString,
+  },
+});
+
+test("should be string", () => {
+  expect("unitest").toBeString();
+});
+```

@@ -2,6 +2,7 @@
 import {
   defineExpect,
   expect,
+  extendExpect,
   fn,
   jestExtendedMatcherMap,
   not,
@@ -1184,4 +1185,13 @@ test("unitest is similar jest but not the same", () => {
     },
   });
   expect("unitest").not.toBe("jest");
+});
+
+test("should be string", () => {
+  const newExpect = extendExpect(expect, {
+    matcherMap: {
+      toBeString,
+    },
+  });
+  newExpect("unitest").toBeString();
 });

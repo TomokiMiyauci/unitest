@@ -1,12 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { defineExpect, expect } from "./mod.ts";
+import { defineExpect, expect, extendExpect } from "./mod.ts";
 import {
   assertEquals,
   assertExists,
   assertThrowsAssertionError,
 } from "../dev_deps.ts";
+import { not } from "../modifier/not.ts";
 
-import { jestMatcherMap } from "../matcher/preset.ts";
+import { jestExtendedMatcherMap, jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { MockObject } from "../mock/fn.ts";
 
@@ -103,6 +104,40 @@ Deno.test("getDefinition", () => {
       modifierMap: jestModifierMap,
     },
   );
+});
+
+Deno.test("extendExpect", () => {
+  const ex = extendExpect(expect, {
+    matcherMap: jestExtendedMatcherMap,
+  });
+
+  ex("unitest").toEndWith("test");
+
+  const ex2 = extendExpect(ex, {
+    matcherMap: {
+      toFoo: (actual: unknown) => ({
+        pass: actual === "foo",
+        expected: "foo",
+      }),
+    },
+  });
+
+  ex2("foo")["toFoo"]();
+
+  const ex3 = extendExpect(expect, {
+    modifierMap: {
+      trim: {
+        type: "pre",
+        fn: ({ actual }: { actual: string }) => {
+          return {
+            actual: actual.trim(),
+          };
+        },
+      },
+    },
+  });
+
+  ex3(" test ").trim.toBe("test");
 });
 
 export type { TypeMatcher };
