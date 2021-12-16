@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
+import type { Rename } from "../_types.ts";
 type Matcher = (
   actual: any,
   ...expected: any[]
@@ -22,9 +23,11 @@ type MatchResult = {
   expectedHint?: string;
 };
 
+type RenamedMatchResult = Rename<MatchResult, "actual", "actualResult">;
+
 type MatcherMap = Record<
   string | symbol,
   Matcher
 >;
 
-export type { Matcher, MatcherMap, MatchResult };
+export type { Matcher, MatcherMap, MatchResult, RenamedMatchResult };

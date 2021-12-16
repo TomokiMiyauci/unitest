@@ -2,6 +2,10 @@
 import { not, predict } from "./not.ts";
 import { assertEquals } from "../dev_deps.ts";
 import { NOT } from "../dev_deps.ts";
+import {
+  DEFAULT_ACTUAL_HINT,
+  DEFAULT_EXPECTED_HINT,
+} from "../expect/_utils.ts";
 
 Deno.test({
   name: "predict",
@@ -13,7 +17,9 @@ Deno.test({
         expected: 1,
         matcher: {} as any,
         actual: {} as any,
-        expectedHint: "Expected:",
+        expectedHint: DEFAULT_EXPECTED_HINT,
+        actualHint: DEFAULT_ACTUAL_HINT,
+        actualResult: "",
       }),
       {
         pass: false,
@@ -29,6 +35,8 @@ Deno.test({
         matcher: {} as any,
         actual: {} as any,
         expectedHint: "Expected value is:",
+        actualHint: DEFAULT_ACTUAL_HINT,
+        actualResult: "",
       }),
       {
         pass: true,

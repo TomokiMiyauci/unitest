@@ -48,6 +48,10 @@ type OverwriteOf<T, U> = {
   [k in keyof T]: U;
 };
 
+type Rename<T, From extends PropertyKey, To extends PropertyKey> = {
+  [k in keyof T as (k extends From ? To : k)]: T[k];
+};
+
 export type {
   AnyFn,
   FirstParameter,
@@ -58,6 +62,7 @@ export type {
   PickByFirstParameter,
   PickOf,
   Primitive,
+  Rename,
   Resolve,
   ReturnTypePromisifyMap,
   Shift,

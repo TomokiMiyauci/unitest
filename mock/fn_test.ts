@@ -214,7 +214,7 @@ Deno.test("onceRejectedValue", async () => {
   await expect(mockObject() as Promise<never>).rejects.toEqual(
     Error("test2"),
   );
-  await expect(mockObject() as Promise<never>).rejects.not.toBeDefined();
+  expect(mockObject()).not.toBeDefined();
 });
 
 Deno.test("mockClear", () => {

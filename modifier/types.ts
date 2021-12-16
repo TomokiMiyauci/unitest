@@ -1,6 +1,10 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type { Matcher, MatchResult } from "../matcher/types.ts";
+import type {
+  Matcher,
+  MatchResult,
+  RenamedMatchResult,
+} from "../matcher/types.ts";
 
 type PreModifierContext<T = unknown> = {
   actual: T;
@@ -16,7 +20,9 @@ type PostModifierContext =
     matcherArgs: readonly unknown[];
     matcher: Matcher;
   }
-  & Pick<MatchResult, "pass" | "expected" | "expectedHint" | "actualHint">;
+  & Required<
+    RenamedMatchResult
+  >;
 type PostModifierResult = Partial<MatchResult>;
 
 type PostModifierFn = (
@@ -46,8 +52,6 @@ type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;
 type ExtractOf<T extends ModifierMap, U> = {
   [k in keyof T as (T[k] extends U ? k : never)]: T[k];
 };
-
-type valueOf<T> = T[keyof T];
 
 export type {
   ExtractOf,

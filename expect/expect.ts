@@ -3,15 +3,13 @@
 
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
-import { AssertionError, isPromise } from "../deps.ts";
-import { stringifyResult } from "../helper/format.ts";
+import { isPromise } from "../deps.ts";
 import {
+  assert,
   DEFAULT_ACTUAL_HINT,
   DEFAULT_EXPECTED_HINT,
-  expectTo,
-  promiseExpectTo,
+  mergeContext,
 } from "./_utils.ts";
-import { stringifyEquality } from "../helper/equal.ts";
 
 import type {
   AnyFn,
@@ -22,16 +20,16 @@ import type {
   ReturnTypePromisifyMap,
   ShiftFnArg,
 } from "../_types.ts";
-import type { Matcher, MatchResult } from "../matcher/types.ts";
+import type { Matcher } from "../matcher/types.ts";
 import type {
   ExtractOf,
   PostModifierFn,
   PreModifier,
   PreModifierFn,
+  PreModifierResult,
 } from "../modifier/types.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
-import type { StringifyResultArgs } from "../helper/format.ts";
 
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
@@ -164,73 +162,79 @@ function defineExpect<
           throw new TypeError(`matcher not found: ${String(name)}`);
         }
 
-        const execAssert = (
-          {
-            pass,
-            matcherArgs,
-            expectedHint,
-            actualHint,
-            actual: actualValue,
-            expected: expectedValue,
-          }:
-            & MatchResult
-            & Pick<StringifyResultArgs, "matcherArgs">,
-        ): void => {
-          if (!pass) {
-            const failMessage = stringifyResult({
+        return (...args: readonly unknown[]) => {
+          /** exec sync match */
+          const sync = (
+            actual: unknown,
+            maybePreResult?: PreModifierResult,
+          ) => {
+            const matcherArgs = {
+              actual: maybePreResult?.actual ?? actual,
+              matcherArgs: args,
+            };
+            const matchResult = matcher(
+              matcherArgs.actual,
+              ...matcherArgs.matcherArgs,
+            );
+
+            const mayBePostModifier = post?.[1];
+            const postModifierArgs = {
               actual,
-              matcherArgs,
-              matcher: String(name),
-              actualValue,
-              expectedValue: stringifyEquality(expectedValue),
-              expectedHint,
-              actualHint,
-              preModifier: pre?.[0],
-              postModifier: post?.[0],
+              actualResult: matchResult.actual,
+              actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
+              matcherArgs: args,
+              matcher,
+              expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
+              pass: matchResult.pass,
+              expected: matchResult.expected,
+            };
+            const maybePostResult = mayBePostModifier?.(postModifierArgs);
+
+            const result = mergeContext({
+              expectContext: {
+                actual,
+                matcherArgs: args,
+                matcher,
+                actualHint: DEFAULT_ACTUAL_HINT,
+                expectedHint: DEFAULT_EXPECTED_HINT,
+              },
+              preModifierContext: maybePreResult
+                ? { args: preModifierArgs, returns: maybePreResult }
+                : undefined,
+              postModifierContext: maybePostResult
+                ? {
+                  args: postModifierArgs,
+                  returns: maybePostResult,
+                }
+                : undefined,
+              matcherContext: {
+                args: matcherArgs,
+                returns: matchResult,
+              },
             });
-            throw new AssertionError(failMessage);
-          }
-        };
+            return assert({
+              ...result,
+              matcherName: String(name),
+              preModifierName: pre?.[0],
+              postModifierName: post?.[0],
+            });
+          };
 
-        const expectMap = {
-          matcher,
-          actual,
-          preModifier: pre?.[1],
-          postModifier: post?.[1],
-          actualHint: DEFAULT_ACTUAL_HINT,
-          expectedHint: DEFAULT_EXPECTED_HINT,
-        };
-
-        const sync = (...args: unknown[]): void => {
-          const result = expectTo({
-            ...expectMap,
+          const maybePreModifier = pre?.[1];
+          const preModifierArgs = {
+            actual,
             matcherArgs: args,
-          });
+            matcher,
+          };
+          const maybePreResult = maybePreModifier?.(preModifierArgs);
 
-          try {
-            execAssert({ ...result, matcherArgs: args });
-          } catch (e) {
-            Error.captureStackTrace(e, sync);
-
-            throw e;
+          if (isPromise(maybePreResult)) {
+            return maybePreResult.then(
+              (preResult) => sync(actual, preResult),
+            );
           }
+          return sync(actual, maybePreResult);
         };
-
-        const promise = async (...args: unknown[]): Promise<void> => {
-          const result = await promiseExpectTo({
-            ...expectMap,
-            matcherArgs: args,
-          });
-          try {
-            execAssert({ ...result, matcherArgs: args });
-          } catch (e) {
-            Error.captureStackTrace(e, sync);
-
-            throw e;
-          }
-        };
-
-        return isPromise(actual) ? promise : sync;
       },
     });
 

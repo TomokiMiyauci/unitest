@@ -45,35 +45,35 @@ function stringifyExpect({
 
 type StringifyResultArgs = {
   actual: unknown;
-  matcher: string;
-  matcherArgs?: readonly unknown[];
+  matcherName: string;
+  matcherArgs: readonly unknown[];
 
-  actualValue: unknown;
-  expectedValue: unknown;
-  expectedHint?: string;
-  actualHint?: string;
-  preModifier?: string | symbol;
-  postModifier?: string | symbol;
+  actualResult: unknown;
+  expected: unknown;
+  expectedHint: string;
+  actualHint: string;
+  preModifierName?: string | symbol;
+  postModifierName?: string | symbol;
 };
 
 type StringifyAssertArgs = {
-  actualValue: unknown;
-  expectedValue: unknown;
+  actualResult: unknown;
+  expected: unknown;
   expectedHint?: string;
   actualHint?: string;
 };
 
 function stringifyAssert({
-  actualValue,
-  expectedValue,
+  actualResult,
+  expected,
   expectedHint,
   actualHint,
 }: Required<StringifyAssertArgs>): string {
   return nestText(
     `${actualHint}
-${nestText(green(stringify(actualValue)), 2)}
+${nestText(green(stringify(actualResult)), 2)}
 ${expectedHint}
-${nestText(red(stringify(expectedValue)), 2)}
+${nestText(red(stringify(expected)), 2)}
 `,
     4,
   );
@@ -83,30 +83,32 @@ function stringifyResult(
   {
     actual,
     matcherArgs,
-    matcher,
-    actualValue,
-    expectedValue,
-    expectedHint = "Expected:",
-    actualHint = "Actual:",
-    preModifier,
-    postModifier,
+    matcherName,
+    actualResult,
+    expected,
+    expectedHint,
+    actualHint,
+    preModifierName,
+    postModifierName,
   }: StringifyResultArgs,
 ): string {
   return `${
     stringifyExpect({
       actual: stringify(actual),
       matcherArgs: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
-      matcher: yellow(matcher),
-      preModifier: isUndefined(preModifier) ? "" : String(preModifier),
-      postModifier: isUndefined(postModifier) ? "" : String(postModifier),
+      matcher: yellow(matcherName),
+      preModifier: isUndefined(preModifierName) ? "" : String(preModifierName),
+      postModifier: isUndefined(postModifierName)
+        ? ""
+        : String(postModifierName),
     })
   }
 
 ${
     stringifyAssert({
-      actualValue,
+      actualResult,
       actualHint,
-      expectedValue,
+      expected,
       expectedHint,
     })
   }`;
