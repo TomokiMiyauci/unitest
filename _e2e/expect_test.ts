@@ -3,8 +3,10 @@ import {
   defineExpect,
   expect,
   fn,
+  jestExtendedMatcherMap,
   not,
   test,
+  toBe,
   toBeAfter,
   toBeAfterOrEqualTo,
   toBeAnything,
@@ -1164,4 +1166,22 @@ test("passes when given an error", () => {
   expect(TypeError()).toBeError(TypeError);
   expect(TypeError()).not.toBeError(Error);
   expect(TypeError("test with unitest")).toBeError(TypeError, "unitest");
+});
+
+test("expect should have default jest matchers", async () => {
+  await expect(Promise.resolve("test")).resolves.toBe("test");
+  expect({}).toEqual({});
+});
+
+test("unitest is similar jest but not the same", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+      ...jestExtendedMatcherMap,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("unitest").not.toBe("jest");
 });

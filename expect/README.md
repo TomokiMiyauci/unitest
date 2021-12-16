@@ -3,10 +3,49 @@
 expect gives you access to a number of "matchers" that let you validate
 different things.
 
-```ts
-import { expect } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+`expect` consists of a built-in matcher for `jest` and is ready to use out of
+the box.
 
-expect("").toBe("");
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("expect should have default jest matchers", async () => {
+  await expect(Promise.resolve("test")).resolves.toBe("test");
+  expect({}).toEqual({});
+});
+```
+
+## defineExpect
+
+Creates a fully customized expect. By default, there are no matchers or
+modifiers. You can choose and configure only the matchers you want. This allows
+you to optimise the bundle size.
+
+- [All matcher presets](../matcher/README.md)
+- [All modifier presets](../modifier/README.md)
+
+```ts
+import {
+  defineExpect,
+  jestExtendedMatcherMap,
+  not,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+    ...jestExtendedMatcherMap,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("unitest is similar jest but not the same", () => {
+  expect("unitest").not.toBe("jest");
+});
 ```
 
 ## Custom matcher

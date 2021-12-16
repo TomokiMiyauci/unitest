@@ -53,6 +53,33 @@ type FilterPreModifier<
   ]: T[k];
 };
 
+type Definition<
+  Matcher extends MatcherMap,
+  Modifier extends ModifierMap,
+> = {
+  matcherMap: Matcher;
+  modifierMap?: Modifier;
+};
+
+interface Expect<
+  Matcher extends MatcherMap,
+  Modifier extends ModifierMap,
+> {
+  /** The expect function is used every time you want to test a value.
+   * `expect` returns a `MatchResult` if the test is correct.
+   * Otherwise, it throws an error with a message stating the cause of the test failure.
+   */
+  <T>(actual: T): Expected<
+    T,
+    Matcher,
+    ExtractOf<Modifier, { type: "pre" }>,
+    ExtractOf<Modifier, { type: "post" }>
+  >;
+
+  /** get definition object */
+  getDefinition(): Definition<Matcher, Modifier>;
+}
+
 type Expected<
   Actual,
   Matcher extends MatcherMap,
@@ -73,24 +100,46 @@ type Expected<
   >
   & MatcherFilter<Actual, Matcher>;
 
-/** define custom expect */
+/** Creates a fully customized expect. By default, there are no matchers or
+ * modifiers. You can choose and configure only the matchers you want. This allows
+ * you to optimise the bundle size.
+ * ```ts
+ * import {
+ *   defineExpect,
+ *   jestExtendedMatcherMap,
+ *   not,
+ *   test,
+ *   toBe,
+ * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * const expect = defineExpect({
+ *   matcherMap: {
+ *     toBe,
+ *     ...jestExtendedMatcherMap,
+ *   },
+ *   modifierMap: {
+ *     not,
+ *   },
+ * });
+ *
+ * test("unitest is similar jest but not the same", () => {
+ *   expect("unitest").not.toBe("jest");
+ * });
+ * ```
+ */
 function defineExpect<
   MatcherObject extends MatcherMap,
   Modifier extends ModifierMap,
 >(
-  { matcherMap, modifierMap }: {
-    matcherMap: MatcherObject;
-    modifierMap?: Modifier;
-  },
-) {
-  return <T = unknown>(
-    actual: T,
-  ): Expected<
-    T,
-    MatcherObject,
-    ExtractOf<Modifier, { type: "pre" }>,
-    ExtractOf<Modifier, { type: "post" }>
-  > => {
+  { matcherMap, modifierMap }: Definition<MatcherObject, Modifier>,
+): Expect<
+  MatcherObject,
+  Modifier
+> {
+  /** clojure expect */
+  const _expect = (
+    actual: unknown,
+  ) => {
     let pre: [string | symbol, PreModifierFn] | undefined = undefined;
     let post: [string | symbol, PostModifierFn] | undefined = undefined;
 
@@ -187,18 +236,30 @@ function defineExpect<
 
     return self;
   };
+
+  _expect["getDefinition"] = () => ({
+    matcherMap,
+    modifierMap,
+  });
+
+  return _expect;
 }
 
-/** The expect function is used every time you want to test a value.
- * `expect` returns a `MatchResult` if the test is correct.
- * Otherwise, it throws an error with a message stating the cause of the test failure.
+/** Consists of a built-in matcher for `jest` and is ready to use out of
+ * the box.
+ * ```ts
+ * import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("expect should have default jest matchers", async () => {
+ *   await expect(Promise.resolve("test")).resolves.toBe("test");
+ *   expect({}).toEqual({});
+ * });
+ * ```
  */
-function expect<T>(actual: T) {
-  return defineExpect({
-    matcherMap: jestMatcherMap,
-    modifierMap: jestModifierMap,
-  })(actual);
-}
+const expect = defineExpect({
+  matcherMap: jestMatcherMap,
+  modifierMap: jestModifierMap,
+});
 
 export { defineExpect, expect };
 export type { Expected, MatcherMap };
