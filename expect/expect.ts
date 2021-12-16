@@ -282,7 +282,7 @@ const expect = defineExpect({
  * });
  *
  * test("should be string", () => {
- *   expect("unitest").toBeString();
+ *   newExpect("unitest").toBeString();
  * });
  * ```
  */

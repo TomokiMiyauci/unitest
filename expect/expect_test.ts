@@ -5,7 +5,6 @@ import {
   assertExists,
   assertThrowsAssertionError,
 } from "../dev_deps.ts";
-import { not } from "../modifier/not.ts";
 
 import { jestExtendedMatcherMap, jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";

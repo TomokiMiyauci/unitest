@@ -153,6 +153,6 @@ const newExpect = extendExpect(expect, {
 });
 
 test("should be string", () => {
-  expect("unitest").toBeString();
+  newExpect("unitest").toBeString();
 });
 ```
