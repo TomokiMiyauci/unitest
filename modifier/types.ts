@@ -43,7 +43,7 @@ type PreModifier<T = any> = {
   fn: PreModifierFn<T>;
 };
 
-type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;
+type ModifierMap = Record<PropertyKey, PreModifier | PostModifier>;
 
 type ExtractOf<T extends ModifierMap, U> = {
   [k in keyof T as (T[k] extends U ? k : never)]: T[k];

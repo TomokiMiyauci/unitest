@@ -125,7 +125,7 @@ function test<T extends Record<PropertyKey, () => SetupReturn>>(
 }
 
 /** define custom test register */
-function defineTest<T extends Record<string | symbol, AnyFn>>({
+function defineTest<T extends Record<PropertyKey, AnyFn>>({
   extendMap,
 }: {
   extendMap?: T;

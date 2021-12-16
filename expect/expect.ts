@@ -149,8 +149,8 @@ function defineExpect<
   const _expect = (
     actual: unknown,
   ) => {
-    let pre: [string | symbol, PreModifierFn] | undefined = undefined;
-    let post: [string | symbol, PostModifierFn] | undefined = undefined;
+    let pre: [PropertyKey, PreModifierFn] | undefined = undefined;
+    let post: [PropertyKey, PostModifierFn] | undefined = undefined;
 
     const self: any = new Proxy({}, {
       get: (_, name) => {

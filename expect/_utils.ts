@@ -27,8 +27,8 @@ function assert(
   result: Result & {
     pass: boolean;
     matcherName: string;
-    preModifierName?: string | symbol;
-    postModifierName?: string | symbol;
+    preModifierName?: PropertyKey;
+    postModifierName?: PropertyKey;
   },
 ): Result | never {
   if (result.pass) {
@@ -62,7 +62,7 @@ type ExpectContext = {
 };
 
 /** merge expect context */
-export function mergeContext(
+function mergeContext(
   { expectContext, preModifierContext, postModifierContext, matcherContext }:
     ExpectContext,
 ): Result & { pass: boolean } {
@@ -81,4 +81,4 @@ export function mergeContext(
 const DEFAULT_EXPECTED_HINT = "Expected:";
 const DEFAULT_ACTUAL_HINT = "Actual:";
 
-export { assert, DEFAULT_ACTUAL_HINT, DEFAULT_EXPECTED_HINT };
+export { assert, DEFAULT_ACTUAL_HINT, DEFAULT_EXPECTED_HINT, mergeContext };

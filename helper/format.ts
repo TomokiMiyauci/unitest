@@ -52,8 +52,8 @@ type StringifyResultArgs = {
   expected: unknown;
   expectedHint: string;
   actualHint: string;
-  preModifierName?: string | symbol;
-  postModifierName?: string | symbol;
+  preModifierName?: PropertyKey;
+  postModifierName?: PropertyKey;
 };
 
 type StringifyAssertArgs = {
