@@ -34,6 +34,7 @@ interface FakeTimerSpec {
   runAllTimers(): FakeTimerSpec;
 }
 
+/** custom fake timer */
 class FakeTimer implements FakeTimerSpec {
   private clock: InstalledClock;
   constructor(clock: InstalledClock) {

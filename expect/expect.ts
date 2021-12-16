@@ -163,6 +163,17 @@ function defineExpect<
         }
 
         return (...args: readonly unknown[]) => {
+          const preModifierArgs = {
+            actual,
+            matcherArgs: args,
+            matcher,
+          };
+          const expectContext = {
+            ...preModifierArgs,
+            actualHint: DEFAULT_ACTUAL_HINT,
+            expectedHint: DEFAULT_EXPECTED_HINT,
+          };
+
           /** exec sync match */
           const sync = (
             actual: unknown,
@@ -179,10 +190,9 @@ function defineExpect<
 
             const mayBePostModifier = post?.[1];
             const postModifierArgs = {
-              actual,
+              ...matcherArgs,
               actualResult: matchResult.actual,
               actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
-              matcherArgs: args,
               matcher,
               expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
               pass: matchResult.pass,
@@ -191,26 +201,20 @@ function defineExpect<
             const maybePostResult = mayBePostModifier?.(postModifierArgs);
 
             const result = mergeContext({
-              expectContext: {
-                actual,
-                matcherArgs: args,
-                matcher,
-                actualHint: DEFAULT_ACTUAL_HINT,
-                expectedHint: DEFAULT_EXPECTED_HINT,
-              },
+              expectContext,
               preModifierContext: maybePreResult
                 ? { args: preModifierArgs, returns: maybePreResult }
                 : undefined,
+              matcherContext: {
+                args: matcherArgs,
+                returns: matchResult,
+              },
               postModifierContext: maybePostResult
                 ? {
                   args: postModifierArgs,
                   returns: maybePostResult,
                 }
                 : undefined,
-              matcherContext: {
-                args: matcherArgs,
-                returns: matchResult,
-              },
             });
             return assert({
               ...result,
@@ -221,11 +225,6 @@ function defineExpect<
           };
 
           const maybePreModifier = pre?.[1];
-          const preModifierArgs = {
-            actual,
-            matcherArgs: args,
-            matcher,
-          };
           const maybePreResult = maybePreModifier?.(preModifierArgs);
 
           if (isPromise(maybePreResult)) {
