@@ -93,3 +93,4 @@ export { toHaveBeenCalledBefore } from "./to_have_been_called_before.ts";
 export { toHaveBeenCalledAfter } from "./to_have_been_called_after.ts";
 export { toHaveBeenCalledOnce } from "./to_have_been_called_once.ts";
 export { toMatchObject } from "./to_match_object.ts";
+export { toBeError } from "./to_be_error.ts";

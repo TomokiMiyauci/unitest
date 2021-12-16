@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 
-import { fn, MockFnStore } from "./fn.ts";
+import { fn, isMockObject } from "./fn.ts";
 import { isFunction } from "../deps.ts";
 import { expect } from "../expect/mod.ts";
 import { assert, assertEquals, assertExists } from "../dev_deps.ts";
@@ -123,52 +123,6 @@ Deno.test("onceImplementation should be called in preference to default implemen
   assertEquals(onceImplementation.mock.calls.length, 1);
 });
 
-Deno.test("MockFnStore", () => {
-  const store = new MockFnStore();
-  assertExists(store["pickImplementation"]);
-  assertEquals(store["onceImplementations"], []);
-  assertEquals(store["defaultImplementation"], undefined);
-  assertEquals(store.pickImplementation(), undefined);
-});
-
-Deno.test("MockFnStore should return picked implementation", () => {
-  const mockObject = fn();
-  const store = new MockFnStore(mockObject);
-
-  assertEquals(
-    store["defaultImplementation"],
-    mockObject,
-  );
-  assertEquals(
-    store.pickImplementation(),
-    mockObject,
-  );
-  assertEquals(
-    store.pickImplementation(),
-    mockObject,
-  );
-  const mockObject2 = fn();
-  store["onceImplementations"].unshift(mockObject2);
-  assertEquals(
-    store.pickImplementation(),
-    mockObject2,
-  );
-  assertEquals(
-    store.pickImplementation(),
-    mockObject,
-  );
-
-  store.clear();
-  assertEquals(
-    store["defaultImplementation"],
-    undefined,
-  );
-  assertEquals(
-    store["onceImplementations"],
-    [],
-  );
-});
-
 Deno.test("defaultReturnValue", () => {
   assertExists(fn().defaultReturnValue);
   assertEquals(fn().defaultReturnValue(1)(), 1);
@@ -247,17 +201,20 @@ Deno.test("defaultRejectedValue", async () => {
 Deno.test("onceRejectedValue", async () => {
   assertExists(fn().onceRejectedValue);
 
-  await expect(fn().onceRejectedValue(Error("test"))()).rejects.toBeInstanceOf(
-    Error,
-  );
+  await expect(fn().onceRejectedValue(Error("test"))() as Promise<never>)
+    .rejects.toBeInstanceOf(
+      Error,
+    );
 
   const mockObject = fn().onceRejectedValue(Error("test")).onceRejectedValue(
     Error("test2"),
   );
 
-  await expect(mockObject()).rejects.toEqual(Error("test"));
-  await expect(mockObject()).rejects.toEqual(Error("test2"));
-  await expect(mockObject()).rejects.not.toBeDefined();
+  await expect(mockObject() as Promise<never>).rejects.toEqual(Error("test"));
+  await expect(mockObject() as Promise<never>).rejects.toEqual(
+    Error("test2"),
+  );
+  expect(mockObject()).not.toBeDefined();
 });
 
 Deno.test("mockClear", () => {
@@ -313,4 +270,43 @@ Deno.test("reset should clear once implementation and default", () => {
 
   assertEquals(mockObject(), undefined);
   assertEquals(mockObject(), undefined);
+});
+
+Deno.test("isMockObject", () => {
+  const table: [
+    ...Parameters<typeof isMockObject>,
+    ReturnType<typeof isMockObject>,
+  ][] = [
+    [{}, false],
+    [[], false],
+    [{ mock: {} }, false],
+    [{
+      mock: {
+        results: [],
+        callOrderNumbers: [],
+      },
+    }, false],
+    [{
+      mock: {
+        callOrderNumbers: [],
+      },
+    }, false],
+    [{
+      mock: {
+        calls: [],
+        results: [],
+        callOrderNumbers: [],
+      },
+    }, true],
+    [{
+      mock: {
+        calls: [[1]],
+        results: [{ type: "return", value: 1 }],
+        callOrderNumbers: [1],
+      },
+    }, true],
+    [fn(), true],
+  ];
+
+  table.forEach(([value, result]) => assertEquals(isMockObject(value), result));
 });

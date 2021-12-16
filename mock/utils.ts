@@ -31,4 +31,38 @@ function incrementalNumber(): number {
   return number;
 }
 
-export { incrementalNumber, isReturn, isTypeReturn, pickValue };
+/** queue spec */
+interface QueueSpec<T> {
+  /** add queue */
+  enqueue(value: T): void;
+
+  /** take queue */
+  dequeue(): T | undefined;
+}
+
+/** tiny FIFO queue */
+class Queue<T> implements QueueSpec<T> {
+  #value: T[] = [];
+  constructor(value?: T[]) {
+    if (value) {
+      this.#value = value;
+    }
+  }
+
+  /** add queue to last */
+  enqueue(value: T): void {
+    this.#value.push(value);
+  }
+
+  /** take first queue */
+  dequeue(): T | undefined {
+    return this.#value.shift();
+  }
+
+  /** delete all queue */
+  clear(): void {
+    this.#value = [];
+  }
+}
+
+export { incrementalNumber, isReturn, isTypeReturn, pickValue, Queue };

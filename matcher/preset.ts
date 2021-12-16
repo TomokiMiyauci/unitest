@@ -65,7 +65,6 @@ import { toBeTruthy } from "./to_be_truthy.ts";
 import { toBeUndefined } from "./to_be_undefined.ts";
 import { toBeDefined } from "./to_be_defined.ts";
 import { toBeNull } from "./to_be_null.ts";
-import { toBeAnything } from "./to_be_anything.ts";
 import { toBeNaN } from "./to_be_nan.ts";
 import { toBeInstanceOf } from "./to_be_instance_of.ts";
 import { toBeGreaterThan } from "./to_be_greater_than.ts";
@@ -127,9 +126,6 @@ const jestMatcherMap = {
   toContain,
   toContainEqual,
   toThrow,
-
-  // alternative jest matcher
-  toBeAnything,
 };
 
 /**

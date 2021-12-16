@@ -2,11 +2,15 @@
 import {
   defineExpect,
   expect,
+  extendExpect,
   fn,
+  jestExtendedMatcherMap,
   not,
   test,
+  toBe,
   toBeAfter,
   toBeAfterOrEqualTo,
+  toBeAnything,
   toBeArray,
   toBeBefore,
   toBeBeforeOrEqualTo,
@@ -16,6 +20,7 @@ import {
   toBeDateString,
   toBeEmpty,
   toBeEmptyObject,
+  toBeError,
   toBeEven,
   toBeExtensible,
   toBeFalse,
@@ -1132,4 +1137,61 @@ test("passes when resolved value equal to", async () => {
 
 test("passes when rejected value equal to", async () => {
   await expect(Promise.reject("Deno") as Promise<string>).rejects.toBe("Deno");
+});
+
+test("passes when value is not null", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeAnything,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(0).toBeAnything();
+  expect(null).not.toBeAnything();
+  expect(undefined).not.toBeAnything();
+});
+
+test("passes when given an error", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBeError,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect(Error()).toBeError();
+  expect({}).not.toBeError();
+  expect(TypeError()).toBeError(TypeError);
+  expect(TypeError()).not.toBeError(Error);
+  expect(TypeError("test with unitest")).toBeError(TypeError, "unitest");
+});
+
+test("expect should have default jest matchers", async () => {
+  await expect(Promise.resolve("test")).resolves.toBe("test");
+  expect({}).toEqual({});
+});
+
+test("unitest is similar jest but not the same", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+      ...jestExtendedMatcherMap,
+    },
+    modifierMap: {
+      not,
+    },
+  });
+  expect("unitest").not.toBe("jest");
+});
+
+test("should be string", () => {
+  const newExpect = extendExpect(expect, {
+    matcherMap: {
+      toBeString,
+    },
+  });
+  newExpect("unitest").toBeString();
 });

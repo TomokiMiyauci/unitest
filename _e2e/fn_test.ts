@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { expect, fn, test } from "../mod.ts";
+import { expect, fn, isMockObject, test } from "../mod.ts";
 
 test("should define implementation as default", () => {
   const mockObject = fn().defaultImplementation(() => true);
@@ -41,7 +41,7 @@ test("should define rejected value as default", async () => {
 
 test("should define rejected value as only once", async () => {
   const mockObject = fn().onceRejectedValue(Error("test"));
-  await expect(mockObject()).rejects.toEqual(Error("test"));
+  await expect(mockObject() as Promise<never>).rejects.toEqual(Error("test"));
   expect(mockObject()).not.toBeDefined();
 });
 
@@ -65,4 +65,10 @@ test("should clear mock and all registered once implementations and default", ()
 
   mockObject();
   expect(mockObject).toHaveReturnedWith(undefined);
+});
+
+test("should be mock object", () => {
+  const mockObject = fn();
+  expect(isMockObject(mockObject)).toBeTruthy();
+  expect(isMockObject({})).toBeFalsy();
 });

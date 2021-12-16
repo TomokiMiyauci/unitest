@@ -1,84 +1,84 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import type { Matcher, MatchResult } from "../matcher/types.ts";
+import { stringifyResult } from "../helper/format.ts";
+import { AssertionError } from "../deps.ts";
 
-import type { PostModifierFn, PreModifierFn } from "../modifier/types.ts";
+import type { Matcher, RenamedMatchResult } from "../matcher/types.ts";
+import type {
+  PostModifierContext,
+  PostModifierResult,
+  PreModifierContext,
+  PreModifierResult,
+} from "../modifier/types.ts";
 
-type ExpectedToArgs = {
+type Result = {
   actual: unknown;
   matcherArgs: readonly unknown[];
-  matcher: Matcher;
-  preModifier?: PreModifierFn;
-  postModifier?: PostModifierFn;
-} & Required<Pick<MatchResult, "actualHint" | "expectedHint">>;
+  actualResult: unknown;
+  actualHint: string;
+  expected: unknown;
+  expectedHint: string;
+};
 
-async function promiseExpectTo(
-  {
-    actual,
-    matcher,
-    matcherArgs,
-    preModifier,
-    actualHint,
-    expectedHint,
-    postModifier,
-  }: ExpectedToArgs,
-): Promise<MatchResult> {
-  const preResult = await preModifier?.({
-    actual,
-    matcherArgs,
-    matcher,
-  }) ?? { actual };
+/** assert match result, if fail it throw `AssertionError`
+ */
+function assert(
+  result: Result & {
+    pass: boolean;
+    matcherName: string;
+    preModifierName?: string | symbol;
+    postModifierName?: string | symbol;
+  },
+): Result | never {
+  if (result.pass) {
+    return result;
+  }
+  const failMessage = stringifyResult(result);
 
-  const matchResult = matcher(preResult.actual ?? actual, ...matcherArgs);
-
-  const postResult = postModifier?.({
-    actual: matchResult.actual,
-    matcherArgs,
-    matcher,
-    pass: matchResult.pass,
-    expected: matchResult.expected ?? matcherArgs,
-  }) ?? matchResult;
-
-  return {
-    actual: postResult.actual ?? preResult.actual,
-    actualHint,
-    expectedHint,
-    ...matchResult,
-    ...postResult,
-  };
+  throw new AssertionError(failMessage);
 }
 
-function expectTo(
-  { matcher, actual, matcherArgs, expectedHint, actualHint, postModifier }:
-    ExpectedToArgs,
-): MatchResult {
-  const matchResult = matcher(actual, ...matcherArgs);
+type ExpectContext = {
+  expectContext: {
+    actual: Result["actual"];
+    matcher: Matcher;
+    matcherArgs: readonly unknown[];
+    actualHint: string;
+    expectedHint: string;
+  };
+  preModifierContext?: {
+    args: PreModifierContext;
+    returns: PreModifierResult;
+  };
+  postModifierContext?: {
+    args: PostModifierContext;
+    returns: PostModifierResult;
+  };
+  matcherContext: {
+    args: Pick<Result, "actual" | "matcherArgs">;
+    returns: RenamedMatchResult;
+  };
+};
 
-  const postResult = postModifier?.({
-    actual: matchResult.actual ?? actual,
-    matcherArgs,
-    matcher,
-    expectedHint: matchResult.expectedHint ?? expectedHint,
-    pass: matchResult.pass,
-    expected: matchResult.expected ?? matcherArgs,
-  }) ?? matchResult;
-
+/** merge expect context */
+export function mergeContext(
+  { expectContext, preModifierContext, postModifierContext, matcherContext }:
+    ExpectContext,
+): Result & { pass: boolean } {
   return {
-    actual,
-    expectedHint,
-    actualHint,
-    ...matchResult,
-    ...postResult,
+    actualResult: expectContext.actual,
+    ...expectContext,
+    ...preModifierContext?.args,
+    ...preModifierContext?.returns,
+    ...matcherContext.args,
+    ...matcherContext.returns,
+    ...postModifierContext?.args,
+    ...postModifierContext?.returns,
   };
 }
 
 const DEFAULT_EXPECTED_HINT = "Expected:";
 const DEFAULT_ACTUAL_HINT = "Actual:";
 
-export {
-  DEFAULT_ACTUAL_HINT,
-  DEFAULT_EXPECTED_HINT,
-  expectTo,
-  promiseExpectTo,
-};
+export { assert, DEFAULT_ACTUAL_HINT, DEFAULT_EXPECTED_HINT };

@@ -1,3 +1,38 @@
+# [1.0.0-beta.69](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.68...v1.0.0-beta.69) (2021-12-16)
+
+
+### Bug Fixes
+
+* **expect:** return promise when modifier return promise, not actual value is promise ([7dd20c7](https://github.com/TomokiMiyauci/unitest/commit/7dd20c7fbcbfa75d03d04c5806109987051256f9))
+
+
+### Features
+
+* **expect:** add `extendExpect` function ([ed2ecc7](https://github.com/TomokiMiyauci/unitest/commit/ed2ecc7952422e4a4935b1a1869b18f4d54ea1c2))
+* **expect:** add `getDefinition` method, split expect return types ([d50f0ff](https://github.com/TomokiMiyauci/unitest/commit/d50f0ff1814c9c84a73f36c217e72f9e2a383cc4))
+
+# [1.0.0-beta.68](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.67...v1.0.0-beta.68) (2021-12-15)
+
+
+### Bug Fixes
+
+* **expect:** improve generic expected types, restrict pre modifier interface ([c8ebebe](https://github.com/TomokiMiyauci/unitest/commit/c8ebebef545d5e9b32d0b5b23505b2914a4f6138))
+
+# [1.0.0-beta.67](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.66...v1.0.0-beta.67) (2021-12-15)
+
+
+### Features
+
+* **matcher:** add `toBeError` matcher ([8f2016a](https://github.com/TomokiMiyauci/unitest/commit/8f2016a6376c026752901af87559668008f75e6e))
+
+# [1.0.0-beta.66](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.65...v1.0.0-beta.66) (2021-12-14)
+
+
+### Features
+
+* **fake timer:** add `useFakeTimer` function and implement fake timer object ([173b5f3](https://github.com/TomokiMiyauci/unitest/commit/173b5f31c35e3627c0e8a9311c2474b908382e35))
+* **mock:** add `isMockObject` that check if mock object or not ([87c2ea4](https://github.com/TomokiMiyauci/unitest/commit/87c2ea4cb4d7557b8df3874fe1cb0ce353682efa))
+
 # [1.0.0-beta.65](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.64...v1.0.0-beta.65) (2021-12-14)
 
 

@@ -42,6 +42,25 @@ test("plays video", () => {
 });
 ```
 
+## isMockObject
+
+Whatever argument is `MockObject` or not.
+
+```ts
+import {
+  expect,
+  fn,
+  isMockObject,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be mock object", () => {
+  const mockObject = fn();
+  expect(isMockObject(mockObject)).toBeTruthy();
+  expect(isMockObject({})).toBeFalsy();
+});
+```
+
 ## mockObject.mock.calls
 
 An array containing the call arguments of all calls that have been made to this
@@ -188,7 +207,7 @@ import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("should define rejected value as default", () => {
   const mockObject = fn().defaultRejectedValue(Error("error"));
-  expect(mockObject()).rejects.toEqual(Error("error"));
+  expect(mockObject() as Promise<never>).rejects.toEqual(Error("error"));
 });
 ```
 
@@ -205,7 +224,7 @@ import { expect, fn, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("should define rejected value as only once", async () => {
   const mockObject = fn().onceRejectedValue(Error("test"));
-  await expect(mockObject()).rejects.toEqual(Error("test"));
+  await expect(mockObject() as Promise<never>).rejects.toEqual(Error("test"));
   expect(mockObject()).not.toBeDefined();
 });
 ```

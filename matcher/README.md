@@ -12,6 +12,11 @@ Unitest offers a range of presets for different matchers.
 | [jest](https://jestjs.io/ja/docs/expect)                         | `jestMatcherMap`         |
 | [jest-extended](https://github.com/jest-community/jest-extended) | `jestExtendedMatcherMap` |
 
+We also offer other original matchers.
+
+- toBeAnything
+- toBeError
+
 ```ts
 import {
   defineExpect,
@@ -34,6 +39,26 @@ const expect = defineExpect({
   },
 });
 ```
+
+## jest-extended difference
+
+Some matchers have been renamed or are no implementation. Matchers that differ
+from jest-extended are as follows:
+
+| matcher              | diff                               |
+| -------------------- | ---------------------------------- |
+| `toBeArrayOfSize`    | use `toHaveLength` instead         |
+| `toBeNaN`            | use jest `toBeNaN`                 |
+| `toBeHexadecimal`    | rename to `toBeHexColor`           |
+| `toContainKey`       | use `toHaveProperty` instead       |
+| `toResolve`          | no implementation because not pure |
+| `toReject`           | no implementation because not pure |
+| `toThrowWithMessage` | use jest `toThrow` instead         |
+
+## where snapshot matcher?
+
+We decided not to implement snapshot test in `expect().matcher()` because of its
+side effects. see [snapshot](../snapshot/README.md) for more information.
 
 ## toBeAfterOrEqualTo
 
@@ -122,6 +147,34 @@ test("passes when value is an array", () => {
   expect([]).toBeArray();
   expect([1]).toBeArray();
   expect(true).not.toBeArray();
+});
+```
+
+## toBeAnything
+
+Use `.toBeAnything` when checking if a value is not `null` and `undefined`.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeAnything,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeAnything,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when value is not null", () => {
+  expect(0).toBeAnything();
+  expect(null).not.toBeAnything();
+  expect(undefined).not.toBeAnything();
 });
 ```
 
@@ -402,6 +455,37 @@ test("passes when given an empty", () => {
   expect([]).toBeEmpty();
   expect({}).toBeEmpty();
   expect(new Map()).toBeEmpty();
+});
+```
+
+## toBeError
+
+Use `.toBeError` when checking if a value is `Error` object or `Error` extended
+object.
+
+```ts
+import {
+  defineExpect,
+  not,
+  test,
+  toBeError,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBeError,
+  },
+  modifierMap: {
+    not,
+  },
+});
+
+test("passes when given an error", () => {
+  expect(Error()).toBeError();
+  expect({}).not.toBeError();
+  expect(TypeError()).toBeError(TypeError);
+  expect(TypeError()).not.toBeError(Error);
+  expect(TypeError("test with unitest")).toBeError(TypeError, "unitest");
 });
 ```
 
@@ -2292,23 +2376,9 @@ test("passes when the function throw error", () => {
 
 ## TODO
 
-- [ ] Implement expecter and jest default matcher (rest)
-  - toMatchObject
-  - toMatchSnapshot
-  - toMatchInlineSnapshot
-  - toStrictEqual
-  - toThrowErrorMatchingSnapshot
-  - toThrowErrorMatchingInlineSnapshot
-- [ ] Implement third party matcher (rest)
-  - jest-extended
-    - ~~toBeArrayOfSize~~ toHaveLength
-    - toIncludeAllPartialMembers
-    - toThrowWithMessage
-    - ~~toBeNaN~~ exists in jest
-    - ~~toContainKey~~ same as toHaveProperty
-    - toContainAllKeys
-    - toContainAllValues
-    - toContainAllEntries
-    - ~~toResolve~~ not pure
-    - ~~toReject~~ not pure
-    - ~~toBeHexadecimal~~ -> toBeHexColor
+- toStrictEqual
+- jest-extended
+  - toIncludeAllPartialMembers
+  - toContainAllKeys
+  - toContainAllValues
+  - toContainAllEntries

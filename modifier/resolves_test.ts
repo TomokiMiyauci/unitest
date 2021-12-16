@@ -1,7 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { predict, resolves } from "./resolves.ts";
-import { assertEquals, assertRejects } from "../dev_deps.ts";
-import { AssertionError } from "../deps.ts";
+import { assertEquals } from "../dev_deps.ts";
 
 Deno.test({
   name: "predict",
@@ -13,18 +12,6 @@ Deno.test({
         matcher: {} as any,
       }),
       { actual: "test" },
-    );
-
-    assertRejects(
-      () => {
-        return predict({
-          actual: "test",
-          matcherArgs: [],
-          matcher: {} as any,
-        });
-      },
-      AssertionError,
-      "expected value must be a Promise",
     );
   },
 });

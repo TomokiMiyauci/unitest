@@ -1,8 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { expect } from "./mod.ts";
-import { assertThrowsAssertionError } from "../dev_deps.ts";
+import { defineExpect, expect, extendExpect } from "./mod.ts";
+import {
+  assertEquals,
+  assertExists,
+  assertThrowsAssertionError,
+} from "../dev_deps.ts";
 
-import { jestMatcherMap } from "../matcher/preset.ts";
+import { jestExtendedMatcherMap, jestMatcherMap } from "../matcher/preset.ts";
+import { jestModifierMap } from "../modifier/preset.ts";
 import { MockObject } from "../mock/fn.ts";
 
 type JestMatcherMap = typeof jestMatcherMap;
@@ -65,9 +70,6 @@ Deno.test({
     expect(null).toBeNull();
     assertThrowsAssertionError(() => expect(undefined).toBeNull());
 
-    expect("").toBeAnything();
-    assertThrowsAssertionError(() => expect(undefined).toBeAnything());
-
     expect(NaN)["toBeNaN"].apply(NaN);
     assertThrowsAssertionError(() => expect(1).toBeNaN());
 
@@ -77,6 +79,64 @@ Deno.test({
     await expect(Promise.resolve("aa")).resolves.toBe("aa");
     await expect(Promise.reject("a") as Promise<string>).rejects.toBe("a");
   },
+});
+
+Deno.test("getDefinition", () => {
+  assertExists(expect.getDefinition);
+  assertExists(defineExpect({ matcherMap: {} }).getDefinition);
+
+  assertEquals(defineExpect({ matcherMap: {} }).getDefinition(), {
+    matcherMap: {},
+    modifierMap: undefined,
+  });
+
+  assertEquals(defineExpect({ matcherMap: jestMatcherMap }).getDefinition(), {
+    matcherMap: jestMatcherMap,
+    modifierMap: undefined,
+  });
+
+  assertEquals(
+    defineExpect({ matcherMap: jestMatcherMap, modifierMap: jestModifierMap })
+      .getDefinition(),
+    {
+      matcherMap: jestMatcherMap,
+      modifierMap: jestModifierMap,
+    },
+  );
+});
+
+Deno.test("extendExpect", () => {
+  const ex = extendExpect(expect, {
+    matcherMap: jestExtendedMatcherMap,
+  });
+
+  ex("unitest").toEndWith("test");
+
+  const ex2 = extendExpect(ex, {
+    matcherMap: {
+      toFoo: (actual: unknown) => ({
+        pass: actual === "foo",
+        expected: "foo",
+      }),
+    },
+  });
+
+  ex2("foo")["toFoo"]();
+
+  const ex3 = extendExpect(expect, {
+    modifierMap: {
+      trim: {
+        type: "pre",
+        fn: ({ actual }: { actual: string }) => {
+          return {
+            actual: actual.trim(),
+          };
+        },
+      },
+    },
+  });
+
+  ex3(" test ").trim.toBe("test");
 });
 
 export type { TypeMatcher };

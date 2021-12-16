@@ -46,7 +46,7 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Test
-        run: deno test --ignore=node_modules,_docs --import-map=test_import_map.json --doc --coverage=coverage
+        run: deno test --ignore=node_modules,_docs,_examples --import-map=test_import_map.json --doc --coverage=coverage
 
       - name: Generate coverage
         run: deno coverage coverage --lcov > cov_profile.lcov

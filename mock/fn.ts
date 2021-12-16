@@ -1,9 +1,11 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { isObject } from "../deps.ts";
+import { prop } from "../matcher/utils.ts";
 import { Mock } from "./mock.ts";
 import type { MockSpec } from "./mock.ts";
-import { incrementalNumber } from "./utils.ts";
+import { incrementalNumber, Queue } from "./utils.ts";
 
 interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   (...args: A): R;
@@ -57,7 +59,7 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    *
    * test("should define rejected value as default", () => {
    *   const mockObject = fn().defaultRejectedValue(Error("error"));
-   *   expect(mockObject()).rejects.toEqual(Error("error"));
+   *   expect(mockObject() as Promise<never>).rejects.toEqual(Error("error"));
    * });
    * ```
    */
@@ -116,7 +118,7 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
    *
    * test("should define rejected value as only once", async () => {
    *   const mockObject = fn().onceRejectedValue(Error("test"));
-   *   await expect(mockObject()).rejects.toEqual(Error("test"));
+   *   await expect(mockObject() as Promise<never>).rejects.toEqual(Error("test"));
    *   expect(mockObject()).not.toBeDefined();
    * });
    * ```
@@ -163,25 +165,6 @@ interface MockObject<A extends readonly unknown[] = any[], R = unknown> {
   reset(): MockObject<A, R>;
 }
 
-/** store fn internal implementation */
-class MockFnStore {
-  private onceImplementations: ((...args: unknown[]) => unknown)[] = [];
-  constructor(
-    private defaultImplementation?: ((...args: unknown[]) => unknown),
-  ) {}
-
-  /** pick implementation as FIFO */
-  pickImplementation(): ((...args: unknown[]) => unknown) | undefined {
-    return this.onceImplementations.shift() ?? this.defaultImplementation;
-  }
-
-  /** initialize all value */
-  clear(): void {
-    this.defaultImplementation = undefined;
-    this.onceImplementations = [];
-  }
-}
-
 /** make mock object with implementation function */
 function fn<A extends readonly unknown[], R>(
   implementation: (...args: A) => R,
@@ -192,11 +175,14 @@ function fn(
   implementation?: (...args: unknown[]) => unknown,
 ): MockObject {
   const mock = new Mock();
-  const mockFnStore = new MockFnStore(implementation);
+  const onceStore = new Queue<((...args: unknown[]) => unknown)>();
+
+  let _defaultImplementation: ((...args: unknown[]) => unknown) | undefined =
+    implementation;
 
   /** Calls a method of an object, substituting another object for the current object.  */
   const call = (...args: unknown[]): unknown => {
-    const implementation = mockFnStore.pickImplementation();
+    const implementation = onceStore.dequeue() ?? _defaultImplementation;
     const value = implementation?.(...args);
     mock.add({
       args,
@@ -212,9 +198,8 @@ function fn(
   /** Sets the mock function as default. The set function will be called when the mock object is called.  */
   const defaultImplementation = (
     implementation: (...args: unknown[]) => unknown,
-  ): MockObject => {
-    mockFnStore["defaultImplementation"] = implementation;
-    return call as MockObject;
+  ): void => {
+    _defaultImplementation = implementation;
   };
 
   /** Sets a mock function to be called only once.
@@ -223,76 +208,68 @@ function fn(
    */
   const onceImplementation = (
     implementation: (...args: unknown[]) => unknown,
-  ): MockObject => {
-    mockFnStore["onceImplementations"].push(implementation);
-    return call as MockObject;
+  ): void => {
+    onceStore.enqueue(implementation);
   };
 
   /** Sets a mock function what return specific value to be called only once.
    * This takes precedence over the default mock function.
    * Follow the FIFO.
    */
-  const onceReturnValue = (value: unknown): MockObject => {
-    mockFnStore["onceImplementations"].push(() => value);
-    return call as MockObject;
+  const onceReturnValue = (value: unknown): void => {
+    onceStore.enqueue(() => value);
   };
 
   /** Sets default as return value. The set value will be return when the mock object is called.
    */
-  const defaultReturnValue = (value: unknown): MockObject => {
-    mockFnStore["defaultImplementation"] = () => value;
-    return call as MockObject;
+  const defaultReturnValue = (value: unknown): void => {
+    _defaultImplementation = () => value;
   };
 
   /** Sets default as resolved value.
    * The set value will be Promised and return when the mock object is called.
    */
-  const defaultResolvedValue = (value: unknown): MockObject => {
-    mockFnStore["defaultImplementation"] = () => Promise.resolve(value);
-    return call as MockObject;
+  const defaultResolvedValue = (value: unknown): void => {
+    _defaultImplementation = () => Promise.resolve(value);
   };
 
   /** Sets a mock function what return specific `Promise` value to be called only
    * once. This takes precedence over the default mock function. Follow the FIFO.
    */
-  const onceResolvedValue = (value: unknown): MockObject => {
-    mockFnStore["onceImplementations"].push(() => Promise.resolve(value));
-    return call as MockObject;
+  const onceResolvedValue = (value: unknown): void => {
+    onceStore.enqueue(() => Promise.resolve(value));
   };
 
   /** Sets default as rejected value. The set value will be Promised and return when
    * the mock object is called.
    */
-  const defaultRejectedValue = (value: unknown): MockObject => {
-    mockFnStore["defaultImplementation"] = () => Promise.reject(value);
-    return call as MockObject;
+  const defaultRejectedValue = (value: unknown): void => {
+    _defaultImplementation = () => Promise.reject(value);
   };
 
   /** Sets a mock function what return specific `Promise.reject` value to be called
    * only once. This takes precedence over the default mock function. Follow the
    * FIFO.
    */
-  const onceRejectedValue = (value: unknown): MockObject => {
-    mockFnStore["onceImplementations"].push(() => Promise.reject(value));
-    return call as MockObject;
+  const onceRejectedValue = (value: unknown): void => {
+    onceStore.enqueue(() => Promise.reject(value));
   };
 
   /** Resets stored in the `mockObject.mock`. Often this is useful when you want to
    * clean up a mocks usage data between two assertions.
    */
-  const mockClear = (): MockObject => {
+  const mockClear = (): void => {
     mock.clear();
-    return call as MockObject;
   };
 
   /** Resets stored in the `mockObject.mock` and also removes any mocked return values
    * or implementations. This is useful when you want to completely reset a mock back
    * to its initial state.
    */
-  const reset = (): MockObject => {
+  const reset = (): void => {
     mock.clear();
-    mockFnStore.clear();
-    return call as MockObject;
+    _defaultImplementation = undefined;
+    onceStore.clear();
   };
 
   Object.defineProperty(call, "mock", {
@@ -317,7 +294,10 @@ function fn(
     (acc, [key, value]) => ({
       ...acc,
       [key]: {
-        value,
+        value: (v: any) => {
+          value(v);
+          return call;
+        },
       },
     }),
     {} as PropertyDescriptorMap,
@@ -328,5 +308,32 @@ function fn(
   return call as MockObject;
 }
 
-export { fn, MockFnStore };
+/** Whatever argument is `MockObject` or not.
+ * ```ts
+ * import {
+ *   expect,
+ *   fn,
+ *   isMockObject,
+ *   test,
+ * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+ *
+ * test("should be mock object", () => {
+ *   const mockObject = fn();
+ *   expect(isMockObject(mockObject)).toBeTruthy();
+ *   expect(isMockObject({})).toBeFalsy();
+ * });
+ * ```
+ */
+function isMockObject<A extends readonly unknown[] = any[], R = unknown>(
+  value: object,
+): value is MockObject<A, R> {
+  const mock = prop("mock", value);
+  if (!isObject(mock)) return false;
+
+  return ["results", "calls", "callOrderNumbers"].every((key) =>
+    Array.isArray(prop(key, mock))
+  );
+}
+
+export { fn, isMockObject };
 export type { MockObject };
