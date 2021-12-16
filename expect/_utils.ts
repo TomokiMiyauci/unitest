@@ -48,7 +48,7 @@ type ExpectContext = {
     expectedHint: string;
   };
   preModifierContext?: {
-    args: PreModifierContext;
+    args: PreModifierContext & { actual: unknown };
     returns: PreModifierResult;
   };
   postModifierContext?: {

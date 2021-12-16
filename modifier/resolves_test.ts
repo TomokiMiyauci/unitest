@@ -6,11 +6,9 @@ Deno.test({
   name: "predict",
   fn: async () => {
     assertEquals(
-      await predict({
-        actual: Promise.resolve("test"),
-        matcherArgs: [],
-        matcher: {} as any,
-      }),
+      await predict(
+        Promise.resolve("test"),
+      ),
       { actual: "test" },
     );
   },

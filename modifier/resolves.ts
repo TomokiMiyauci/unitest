@@ -1,10 +1,10 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type { PreModifierContext, PreModifierResult } from "./types.ts";
+import type { PreModifierResult } from "./types.ts";
 
 /** predict for `resolves` */
 async function predict(
-  { actual }: PreModifierContext<Promise<unknown>>,
+  actual: Promise<unknown>,
 ): Promise<PreModifierResult> {
   const resolvedActual = await actual;
 

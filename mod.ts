@@ -117,6 +117,7 @@ export { anyArray } from "./dummy/any_array.ts";
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
 export { resolves } from "./modifier/resolves.ts";
+export * from "./modifier/types.ts";
 export * from "./modifier/preset.ts";
 export { each } from "./test/each.ts";
 export { defineTest, test } from "./test/test.ts";

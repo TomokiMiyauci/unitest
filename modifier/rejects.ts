@@ -1,13 +1,13 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import type { PreModifierContext, PreModifierResult } from "./types.ts";
+import type { PreModifierResult } from "./types.ts";
 import { AssertionError } from "../deps.ts";
 import { stringify } from "../helper/format.ts";
 
 /** predict for `rejects` */
 async function predict(
-  { actual }: PreModifierContext<Promise<unknown>>,
+  actual: Promise<unknown>,
 ): Promise<PreModifierResult> | never {
   const resolvedActual = await actual.then((v) => [false, v] as const).catch((
     v,

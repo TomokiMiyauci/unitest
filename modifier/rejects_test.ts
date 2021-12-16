@@ -7,32 +7,26 @@ Deno.test({
   name: "predict",
   fn: async () => {
     assertEquals(
-      await predict({
-        actual: Promise.reject("test"),
-        matcherArgs: [],
-        matcher: {} as any,
-      }),
+      await predict(
+        Promise.reject("test"),
+      ),
       { actual: "test" },
     );
 
     assertRejects(
       () =>
-        predict({
-          actual: Promise.resolve("test"),
-          matcherArgs: [],
-          matcher: {} as any,
-        }),
+        predict(
+          Promise.resolve("test"),
+        ),
       AssertionError,
       `Promise did not reject. resolved to "test"`,
     );
 
     assertRejects(
       () =>
-        predict({
-          actual: Promise.resolve(1),
-          matcherArgs: [],
-          matcher: {} as any,
-        }),
+        predict(
+          Promise.resolve(1),
+        ),
       AssertionError,
       `Promise did not reject. resolved to 1`,
     );

@@ -46,7 +46,7 @@ type FilterPreModifier<
   [
     k
       in keyof T as (T[k] extends PreModifier
-        ? A extends FirstParameter<T[k]["fn"]>["actual"] ? k : never
+        ? A extends FirstParameter<T[k]["fn"]> ? k : never
         : never)
   ]: T[k];
 };
@@ -163,13 +163,13 @@ function defineExpect<
         }
 
         return (...args: readonly unknown[]) => {
-          const preModifierArgs = {
-            actual,
+          const preModifierContext = {
             matcherArgs: args,
             matcher,
           };
           const expectContext = {
-            ...preModifierArgs,
+            ...preModifierContext,
+            actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
@@ -203,7 +203,10 @@ function defineExpect<
             const result = mergeContext({
               expectContext,
               preModifierContext: maybePreResult
-                ? { args: preModifierArgs, returns: maybePreResult }
+                ? {
+                  args: { actual, ...preModifierContext },
+                  returns: maybePreResult,
+                }
                 : undefined,
               matcherContext: {
                 args: matcherArgs,
@@ -225,7 +228,7 @@ function defineExpect<
           };
 
           const maybePreModifier = pre?.[1];
-          const maybePreResult = maybePreModifier?.(preModifierArgs);
+          const maybePreResult = maybePreModifier?.(actual, preModifierContext);
 
           if (isPromise(maybePreResult)) {
             return maybePreResult.then(

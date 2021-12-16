@@ -127,7 +127,7 @@ Deno.test("extendExpect", () => {
     modifierMap: {
       trim: {
         type: "pre",
-        fn: ({ actual }: { actual: string }) => {
+        fn: (actual: string) => {
           return {
             actual: actual.trim(),
           };
