@@ -162,7 +162,6 @@ Use `.debug` to output debug info to console with `console.debug`.
 ```ts
 import {
   debug,
-  debug,
   defineExpect,
   jestExtendedMatcherMap,
   test,
