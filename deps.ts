@@ -47,4 +47,4 @@ export {
 // deno standard module of sprintf is print error when specifier has not used
 // see https://deno.land/std@0.115.1/fmt/printf.ts#L743
 // TODO:(miayuci) re-implementation
-export { sprintf } from "https://esm.sh/sprintf-js";
+export { sprintf } from "https://cdn.skypack.dev/sprintf-js@1.1.2?dts";
