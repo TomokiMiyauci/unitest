@@ -4,6 +4,7 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { isPromise } from "../deps.ts";
+import { head } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
@@ -150,7 +151,7 @@ function defineExpect<
     actual: unknown,
   ) => {
     let pre: [PropertyKey, PreModifierFn] | undefined = undefined;
-    let post: [PropertyKey, PostModifierFn] | undefined = undefined;
+    const post: [PropertyKey, PostModifierFn][] = [];
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
@@ -160,7 +161,7 @@ function defineExpect<
           const modifier = modifierMap[name];
 
           if (modifier.type === "post") {
-            post = [name, modifier.fn];
+            post.push([name, modifier.fn]);
             return self;
           } else {
             pre = [name, modifier.fn];
@@ -198,18 +199,19 @@ function defineExpect<
               matcherArgs.actual,
               ...matcherArgs.matcherArgs,
             );
+            const { actual: actualResult, ...rest } = matchResult;
 
-            const mayBePostModifier = post?.[1];
+            const mayBePostModifier = head(post);
             const postModifierArgs = {
               ...matcherArgs,
-              actualResult: matchResult.actual,
+              actualResult,
               actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
               matcher,
               expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
               pass: matchResult.pass,
               expected: matchResult.expected,
             };
-            const maybePostResult = mayBePostModifier?.(postModifierArgs);
+            const maybePostResult = mayBePostModifier?.[1](postModifierArgs);
 
             const result = mergeContext({
               expectContext,
@@ -221,7 +223,7 @@ function defineExpect<
                 : undefined,
               matcherContext: {
                 args: matcherArgs,
-                returns: matchResult,
+                returns: { actualResult, ...rest },
               },
               postModifierContext: maybePostResult
                 ? {
@@ -234,7 +236,7 @@ function defineExpect<
               ...result,
               matcherName: String(name),
               preModifierName: pre?.[0],
-              postModifierName: post?.[0],
+              postModifierName: mayBePostModifier?.[0],
             });
           };
 
