@@ -6,8 +6,7 @@ import type {
   RenamedMatchResult,
 } from "../matcher/types.ts";
 
-type PreModifierContext<T = unknown> = {
-  actual: T;
+type PreModifierContext = {
   matcherArgs: readonly unknown[];
   matcher: Matcher;
 };
@@ -29,12 +28,9 @@ type PostModifierFn = (
   modifierContext: PostModifierContext,
 ) => PostModifierResult;
 
-type PreModifierFn = (
-  modifierContext: {
-    actual: any;
-    matcherArgs: readonly unknown[];
-    matcher: Matcher;
-  },
+type PreModifierFn<T = any> = (
+  actual: T,
+  preModifierContext: PreModifierContext,
 ) => PreModifierResult | Promise<PreModifierResult> | never;
 
 type PostModifier = {
@@ -42,12 +38,12 @@ type PostModifier = {
   fn: PostModifierFn;
 };
 
-type PreModifier = {
+type PreModifier<T = any> = {
   type: "pre";
-  fn: PreModifierFn;
+  fn: PreModifierFn<T>;
 };
 
-type ModifierMap = Record<string | symbol, PreModifier | PostModifier>;
+type ModifierMap = Record<PropertyKey, PreModifier | PostModifier>;
 
 type ExtractOf<T extends ModifierMap, U> = {
   [k in keyof T as (T[k] extends U ? k : never)]: T[k];

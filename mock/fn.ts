@@ -272,6 +272,11 @@ function fn(
     onceStore.clear();
   };
 
+  // rename display name
+  Object.defineProperty(call, "name", {
+    get: () => "Mock Object",
+  });
+
   Object.defineProperty(call, "mock", {
     get() {
       const { results, calls, callOrderNumbers } = mock;

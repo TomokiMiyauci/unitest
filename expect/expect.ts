@@ -4,6 +4,7 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { isPromise } from "../deps.ts";
+import { head } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
@@ -14,6 +15,7 @@ import {
 import type {
   AnyFn,
   FirstParameter,
+  IsPromise,
   OverwriteOf,
   PickOf,
   Resolve,
@@ -42,13 +44,17 @@ type MatcherFilter<T, U extends Record<string, Matcher>> = ShiftFnArgMap<
 type FilterPreModifier<
   A,
   T extends ExtractOf<ModifierMap, { type: "pre" }>,
+  Promise,
+  Sync,
 > = {
   [
     k
       in keyof T as (T[k] extends PreModifier
-        ? A extends FirstParameter<T[k]["fn"]>["actual"] ? k : never
+        ? A extends FirstParameter<T[k]["fn"]> ? k : never
         : never)
-  ]: T[k];
+  ]: T[k] extends PreModifier
+    ? IsPromise<ReturnType<T[k]["fn"]>> extends true ? Promise : Sync
+    : never;
 };
 
 type Definition<
@@ -84,12 +90,18 @@ type Expected<
   Pre extends ExtractOf<ModifierMap, { type: "pre" }>,
   Post extends ExtractOf<ModifierMap, { type: "post" }>,
 > =
-  & OverwriteOf<
-    FilterPreModifier<Actual, Pre>,
+  & FilterPreModifier<
+    Actual,
+    Pre,
     & ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
     & OverwriteOf<
       Post,
-      ReturnTypePromisifyMap<MatcherFilter<Actual, Matcher>>
+      ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
+    >,
+    & MatcherFilter<Actual, Matcher>
+    & OverwriteOf<
+      Post,
+      MatcherFilter<Actual, Matcher>
     >
   >
   & OverwriteOf<
@@ -138,8 +150,8 @@ function defineExpect<
   const _expect = (
     actual: unknown,
   ) => {
-    let pre: [string | symbol, PreModifierFn] | undefined = undefined;
-    let post: [string | symbol, PostModifierFn] | undefined = undefined;
+    let pre: [PropertyKey, PreModifierFn] | undefined = undefined;
+    const post: [PropertyKey, PostModifierFn][] = [];
 
     const self: any = new Proxy({}, {
       get: (_, name) => {
@@ -149,7 +161,7 @@ function defineExpect<
           const modifier = modifierMap[name];
 
           if (modifier.type === "post") {
-            post = [name, modifier.fn];
+            post.push([name, modifier.fn]);
             return self;
           } else {
             pre = [name, modifier.fn];
@@ -163,13 +175,13 @@ function defineExpect<
         }
 
         return (...args: readonly unknown[]) => {
-          const preModifierArgs = {
-            actual,
+          const preModifierContext = {
             matcherArgs: args,
             matcher,
           };
           const expectContext = {
-            ...preModifierArgs,
+            ...preModifierContext,
+            actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
@@ -187,27 +199,31 @@ function defineExpect<
               matcherArgs.actual,
               ...matcherArgs.matcherArgs,
             );
+            const { actual: actualResult, ...rest } = matchResult;
 
-            const mayBePostModifier = post?.[1];
+            const mayBePostModifier = head(post);
             const postModifierArgs = {
               ...matcherArgs,
-              actualResult: matchResult.actual,
+              actualResult,
               actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
               matcher,
               expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
               pass: matchResult.pass,
               expected: matchResult.expected,
             };
-            const maybePostResult = mayBePostModifier?.(postModifierArgs);
+            const maybePostResult = mayBePostModifier?.[1](postModifierArgs);
 
             const result = mergeContext({
               expectContext,
               preModifierContext: maybePreResult
-                ? { args: preModifierArgs, returns: maybePreResult }
+                ? {
+                  args: { actual, ...preModifierContext },
+                  returns: maybePreResult,
+                }
                 : undefined,
               matcherContext: {
                 args: matcherArgs,
-                returns: matchResult,
+                returns: { actualResult, ...rest },
               },
               postModifierContext: maybePostResult
                 ? {
@@ -220,12 +236,12 @@ function defineExpect<
               ...result,
               matcherName: String(name),
               preModifierName: pre?.[0],
-              postModifierName: post?.[0],
+              postModifierName: mayBePostModifier?.[0],
             });
           };
 
           const maybePreModifier = pre?.[1];
-          const maybePreResult = maybePreModifier?.(preModifierArgs);
+          const maybePreResult = maybePreModifier?.(actual, preModifierContext);
 
           if (isPromise(maybePreResult)) {
             return maybePreResult.then(

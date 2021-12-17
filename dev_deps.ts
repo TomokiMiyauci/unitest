@@ -1,16 +1,16 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import { assertThrows } from "https://deno.land/std@0.115.1/testing/asserts.ts";
+import { assertThrows } from "https://deno.land/std@0.118.0/testing/asserts.ts";
 export {
   assert,
   assertExists,
   assertNotEquals,
   assertRejects,
   assertThrows,
-} from "https://deno.land/std@0.117.0/testing/asserts.ts";
+} from "https://deno.land/std@0.118.0/testing/asserts.ts";
 import { AssertionError, blue } from "./deps.ts";
 
-import { assertEquals } from "https://deno.land/std@0.117.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.118.0/testing/asserts.ts";
 import type { Matcher, MatchResult } from "./matcher/types.ts";
 
 function assertSuccess({ pass }: MatchResult): void {

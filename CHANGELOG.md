@@ -1,3 +1,30 @@
+# [1.0.0-beta.71](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.70...v1.0.0-beta.71) (2021-12-17)
+
+
+### Bug Fixes
+
+* change types to accept `PropertyKey` ([a170b17](https://github.com/TomokiMiyauci/unitest/commit/a170b171c54141f562a5ca87a0be736596a98bbc))
+* **expect:** fix matcher actual result value ([3a6567b](https://github.com/TomokiMiyauci/unitest/commit/3a6567b21b60c03579dd512af6db69857cc94055))
+* **mock:** change display name ([ca07221](https://github.com/TomokiMiyauci/unitest/commit/ca072218996b8d6c0540408e0fa979123e77c660))
+
+
+### Features
+
+* **modifier:** add `debug` post modifier ([fbcada6](https://github.com/TomokiMiyauci/unitest/commit/fbcada6cbe944be2fbbf745ce7e1ba969c312b4d))
+
+# [1.0.0-beta.70](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.69...v1.0.0-beta.70) (2021-12-16)
+
+
+### Bug Fixes
+
+* **expect:** change type infer when pre modifier used ([bd2fd5d](https://github.com/TomokiMiyauci/unitest/commit/bd2fd5d78cce15e7bfb6a5d09c798b608a5ad7eb))
+* **modifier:** change pre modifier interface ([1af4a90](https://github.com/TomokiMiyauci/unitest/commit/1af4a90300b130fd41e195d152beea0552bd8f5f))
+
+
+### Features
+
+* **modifier:** add `trim` pre modifier ([e6f2391](https://github.com/TomokiMiyauci/unitest/commit/e6f239159ea1ecf91623f693b44e76b16222e9a2))
+
 # [1.0.0-beta.69](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.68...v1.0.0-beta.69) (2021-12-16)
 
 

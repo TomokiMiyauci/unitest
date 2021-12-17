@@ -3,23 +3,66 @@
 The modifier can hijack the values passed to the matcher and the results of the
 matcher.
 
-## not
+In jest, modifiers are built into the `expect` implementation, so they cannot be
+extended or removed.
 
-type: `post`
+In unitest `expect` is fully configurable and modifiers can be added or removed
+at will. TypeScript will then perform type inference and present the available
+modifiers.
 
-Use `.not` to reverse the test result.
+**Due to the type inference problem, there is currently a restriction that only
+one pre modifier and one post modifier can be used each. This problem may be
+solved in the future.**
+
+This means that the following are prohibited as types:
+
+**bad**
+
+`expect(actual)[pre modifier][pre modifier][matcher](expected)`
+
+**good**
+
+`expect(actual)[pre modifier][post modifier][matcher](expected)`
+
+`expect(actual)[pre modifier][matcher](expected)`
+
+`expect(actual)[post modifier][matcher](expected)`
+
+## what is modifier
+
+A modifier inject that is used before and after the matcher. There are currently
+two types of modifiers.
+
+The syntax of `expect` with the modifier is as follows:
+
+`expect(actual)[?[pre|post]modifier][matcher](expected)`
+
+## pre modifier
+
+Pre modifier is an object that is executed before a match. It interrupts the
+value passed to the matcher and can change its value.
+
+It has the following interface:
 
 ```ts
-import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import type { PreModifierContext } from "https://deno.land/x/unitest@$VERSION/modifier/types.ts";
 
-test("passes when not equal to", () => {
-  expect("Deno").not.toBe("Node");
-});
+type PreModifier = {
+  type: "pre";
+  fn: (actual: unknown, context: PreModifierContext) => { actual: unknown };
+};
 ```
 
-## resolves
+The first argument is `actual`, which is received by the `expect` function. The
+second argument is the context in `expect`, such as the matcher itself or the
+arguments passed to the matcher.
 
-type: `pre`
+Also, pre modifier is currently the only one that is allowed to perform
+asynchronous processing in the context of `expect`.
+
+Typical pre modifiers are `resolves` and `rejects`.
+
+### resolves
 
 Use `.resolves` to resolve `Promise` before match.
 
@@ -31,9 +74,9 @@ test("passes when resolved value equal to", async () => {
 });
 ```
 
-## rejects
+`resolves` does asynchronous processing, so `await` is required.
 
-type: `pre`
+### rejects
 
 Use `.rejects` to reject `Promise` before match.
 
@@ -45,6 +88,95 @@ test("passes when rejected value equal to", async () => {
 });
 ```
 
+`rejects` does asynchronous processing, so `await` is required.
+
 `Promise.reject` is of type `Promise<never>` by default.
 
 The matcher filter is performed on the `never` type.
+
+### trim
+
+Use `.trim` to removes the leading and trailing white space and line terminator
+characters from a `actual`.
+
+```ts
+import {
+  defineExpect,
+  test,
+  toBe,
+  trim,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    trim,
+  },
+});
+
+test("passes when trimmed string to be", async () => {
+  await expect("  hello world  ").trim.toBe("hello world");
+});
+```
+
+## post modifier
+
+Post modifier is an object that is executed after a match. It interrupts the
+result of match and can change its value.
+
+It has the following interface:
+
+```ts
+import type {
+  PostModifierContext,
+  PostModifierResult,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+type PostModifier = {
+  type: "post";
+  fn: (context: PostModifierContext) => PostModifierResult;
+};
+```
+
+It is expected to be used to reverse the result of a match like `not`, or to
+output debug information.
+
+### not
+
+Use `.not` to reverse the test result.
+
+```ts
+import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("passes when not equal to", () => {
+  expect("Deno").not.toBe("Node");
+});
+```
+
+### debug
+
+Use `.debug` to output debug info to console with `console.debug`.
+
+```ts
+import {
+  debug,
+  defineExpect,
+  jestExtendedMatcherMap,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should output debug info", () => {
+  const expect = defineExpect({
+    matcherMap: jestExtendedMatcherMap,
+    modifierMap: {
+      debug,
+    },
+  });
+  expect("Deno").debug.toBeString();
+
+  // Output to console:
+  // DEBUG { Context }
+});
+```

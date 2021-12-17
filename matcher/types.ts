@@ -26,7 +26,7 @@ type MatchResult = {
 type RenamedMatchResult = Rename<MatchResult, "actual", "actualResult">;
 
 type MatcherMap = Record<
-  string | symbol,
+  PropertyKey,
   Matcher
 >;
 

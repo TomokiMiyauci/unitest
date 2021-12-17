@@ -67,6 +67,7 @@ import {
   toSatisfyAny,
   toStartWith,
   toThrow,
+  trim,
 } from "../mod.ts";
 
 test({
@@ -1194,4 +1195,16 @@ test("should be string", () => {
     },
   });
   newExpect("unitest").toBeString();
+});
+
+test("passes when trimmed string to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      trim,
+    },
+  });
+  expect("  hello world  ").trim.toBe("hello world");
 });

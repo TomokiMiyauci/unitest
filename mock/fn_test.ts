@@ -310,3 +310,7 @@ Deno.test("isMockObject", () => {
 
   table.forEach(([value, result]) => assertEquals(isMockObject(value), result));
 });
+
+Deno.test("name", () => {
+  assertEquals(fn().name, "Mock Object");
+});
