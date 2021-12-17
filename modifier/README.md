@@ -10,6 +10,24 @@ In unitest `expect` is fully configurable and modifiers can be added or removed
 at will. TypeScript will then perform type inference and present the available
 modifiers.
 
+**Due to the type inference problem, there is currently a restriction that only
+one pre modifier and one post modifier can be used each. This problem may be
+solved in the future.**
+
+This means that the following are prohibited as types:
+
+**bad**
+
+`expect(actual)[pre modifier][pre modifier][matcher](expected)`
+
+**good**
+
+`expect(actual)[pre modifier][post modifier][matcher](expected)`
+
+`expect(actual)[pre modifier][matcher](expected)`
+
+`expect(actual)[post modifier][matcher](expected)`
+
 ## what is modifier
 
 A modifier inject that is used before and after the matcher. There are currently
@@ -134,5 +152,32 @@ import { expect, test } from "https://deno.land/x/unitest@$VERSION/mod.ts";
 
 test("passes when not equal to", () => {
   expect("Deno").not.toBe("Node");
+});
+```
+
+### debug
+
+Use `.debug` to output debug info to console with `console.debug`.
+
+```ts
+import {
+  debug,
+  debug,
+  defineExpect,
+  jestExtendedMatcherMap,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should output debug info", () => {
+  const expect = defineExpect({
+    matcherMap: jestExtendedMatcherMap,
+    modifierMap: {
+      debug,
+    },
+  });
+  expect("Deno").debug.toBeString();
+
+  // Output to console:
+  // DEBUG { Context }
 });
 ```
