@@ -42,7 +42,7 @@ export default <Plugin> {
       const url = specifier.replace(/\.(j|t)sx$/i, "") + ".unocss.css";
 
       const { css } = await gen.generate(code);
-      const cssModule = await aleph.addModule(url, css, true);
+      const cssModule = await aleph.addModule(url, css, false);
 
       return {
         code: `import "${
