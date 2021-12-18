@@ -1,3 +1,10 @@
+# [1.0.0-beta.72](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.71...v1.0.0-beta.72) (2021-12-18)
+
+
+### Features
+
+* **expect:** support multiple post modifier with strict type definition ([70c0866](https://github.com/TomokiMiyauci/unitest/commit/70c0866ff79304ef40a45852176e176060fb3c13)), closes [#55](https://github.com/TomokiMiyauci/unitest/issues/55)
+
 # [1.0.0-beta.71](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.70...v1.0.0-beta.71) (2021-12-17)
 
 
