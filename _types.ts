@@ -52,12 +52,20 @@ type Rename<T, From extends PropertyKey, To extends PropertyKey> = {
   [k in keyof T as (k extends From ? To : k)]: T[k];
 };
 
+type ArrayOfLength<N extends number, C extends any[] = []> = C["length"] extends
+  N ? C : ArrayOfLength<N, [...C, any]>;
+
+type Minus<N extends number> = ArrayOfLength<N> extends [any, ...infer Rest]
+  ? Rest["length"]
+  : never;
+
 export type {
   AnyFn,
   FirstParameter,
   IsArityX,
   IsPromise,
   IsTuple,
+  Minus,
   OverwriteOf,
   PickByFirstParameter,
   PickOf,
