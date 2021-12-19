@@ -16,7 +16,7 @@ export default function Header() {
 
       <div className="space-x-4">
         <a
-          className="hover:text-emerald-500 transition-colors duration-300"
+          className="hover:text-emerald-500 align-middle transition-colors duration-300"
           href="/docs/get-started"
         >
           Document
@@ -36,7 +36,7 @@ export default function Header() {
           href="https://github.com/TomokiMiyauci/unitest"
           target="_blank"
         >
-          GitHub
+          <span className="i-mdi-github w-8 h-8" />
         </a>
       </div>
     </header>

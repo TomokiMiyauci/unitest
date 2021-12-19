@@ -10,24 +10,6 @@ In unitest `expect` is fully configurable and modifiers can be added or removed
 at will. TypeScript will then perform type inference and present the available
 modifiers.
 
-**Due to the type inference problem, there is currently a restriction that only
-one pre modifier and one post modifier can be used each. This problem may be
-solved in the future.**
-
-This means that the following are prohibited as types:
-
-**bad**
-
-`expect(actual)[pre modifier][pre modifier][matcher](expected)`
-
-**good**
-
-`expect(actual)[pre modifier][post modifier][matcher](expected)`
-
-`expect(actual)[pre modifier][matcher](expected)`
-
-`expect(actual)[post modifier][matcher](expected)`
-
 ## what is modifier
 
 A modifier inject that is used before and after the matcher. There are currently

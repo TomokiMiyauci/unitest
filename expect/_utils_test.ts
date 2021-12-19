@@ -15,6 +15,7 @@ Deno.test("assert", () => {
         matcherArgs: [],
         actualResult: "test",
         matcherName: "toBe",
+        postModifierNames: [],
       }),
   );
 });

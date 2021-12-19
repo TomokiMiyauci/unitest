@@ -1171,7 +1171,7 @@ test("passes when given an error", () => {
 });
 
 test("expect should have default jest matchers", async () => {
-  await expect(Promise.resolve("test")).resolves.toBe("test");
+  await expect(Promise.resolve("test"))["resolves"]["toBe"];
   expect({}).toEqual({});
 });
 

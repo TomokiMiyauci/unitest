@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        deno: [v1.x, 1.15.0]
+        deno: [1.16.0, 1.15.0]
 
     steps:
       - name: Checkout
@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        deno: [v1.x ,1.15.0]
+        deno: [1.16.0 ,1.15.0]
 
     steps:
       - name: Checkout
@@ -49,11 +49,11 @@ jobs:
         run: deno test --ignore=node_modules,_docs,_examples --import-map=test_import_map.json --doc --coverage=coverage
 
       - name: Generate coverage
-        if: ${{ matrix.deno == 'v1.x' }}
+        if: ${{ matrix.deno == '1.16.0' }}
         run: deno coverage coverage --lcov > cov_profile.lcov
 
       - uses: codecov/codecov-action@v2
-        if: ${{ matrix.deno == 'v1.x' }}
+        if: ${{ matrix.deno == '1.16.0' }}
         with:
           files: cov_profile.lcov
 

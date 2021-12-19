@@ -3,6 +3,7 @@ import type { Plugin } from "https://deno.land/x/aleph@v0.3.0-beta.19/types.d.ts
 import { createGenerator } from "https://esm.sh/@unocss/core";
 import { presetTypography } from "https://cdn.skypack.dev/unocss-preset-typography?dts";
 import presetWind from "https://esm.sh/@unocss/preset-wind";
+import presetIcons from "https://cdn.skypack.dev/@unocss/preset-icons";
 
 export default <Plugin> {
   name: "unocss",
@@ -20,6 +21,18 @@ export default <Plugin> {
             },
           },
         }),
+        presetIcons({
+          extraProperties: {
+            "display": "inline-block",
+            "vertical-align": "middle",
+          },
+          collections: {
+            mdi: () =>
+              import("https://cdn.esm.sh/@iconify-json/mdi@1.0.12/icons.json", {
+                assert: { type: "json" },
+              }).then((i) => i.default),
+          },
+        }),
       ],
     });
 
@@ -29,7 +42,7 @@ export default <Plugin> {
       const url = specifier.replace(/\.(j|t)sx$/i, "") + ".unocss.css";
 
       const { css } = await gen.generate(code);
-      const cssModule = await aleph.addModule(url, css);
+      const cssModule = await aleph.addModule(url, css, false);
 
       return {
         code: `import "${

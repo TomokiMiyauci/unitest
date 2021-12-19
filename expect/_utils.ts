@@ -28,7 +28,7 @@ function assert(
     pass: boolean;
     matcherName: string;
     preModifierName?: PropertyKey;
-    postModifierName?: PropertyKey;
+    postModifierNames: PropertyKey[];
   },
 ): Result | never {
   if (result.pass) {

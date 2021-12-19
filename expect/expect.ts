@@ -3,8 +3,8 @@
 
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
-import { isPromise } from "../deps.ts";
-import { head } from "../matcher/utils.ts";
+import { isLength0, isPromise } from "../deps.ts";
+import { head, last } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
@@ -16,9 +16,7 @@ import type {
   AnyFn,
   FirstParameter,
   IsPromise,
-  OverwriteOf,
   PickOf,
-  Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
 } from "../_types.ts";
@@ -36,26 +34,9 @@ import type { MatcherMap } from "../matcher/types.ts";
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
 };
-
-type MatcherFilter<T, U extends Record<string, Matcher>> = ShiftFnArgMap<
+type MatcherFilter<T, U extends Record<PropertyKey, Matcher>> = ShiftFnArgMap<
   PickOf<U, (actual: T, ...args: any[]) => unknown>
 >;
-
-type FilterPreModifier<
-  A,
-  T extends ExtractOf<ModifierMap, { type: "pre" }>,
-  Promise,
-  Sync,
-> = {
-  [
-    k
-      in keyof T as (T[k] extends PreModifier
-        ? A extends FirstParameter<T[k]["fn"]> ? k : never
-        : never)
-  ]: T[k] extends PreModifier
-    ? IsPromise<ReturnType<T[k]["fn"]>> extends true ? Promise : Sync
-    : never;
-};
 
 type Definition<
   Matcher extends MatcherMap,
@@ -84,31 +65,59 @@ interface Expect<
   getDefinition(): Definition<Matcher, Modifier>;
 }
 
+type Chainable<
+  T,
+  U,
+  X extends PropertyKey[] = [],
+> =
+  & {
+    [k in keyof T]: Omit<Chainable<T, U, [...X, k]>, X[number] | k>;
+  }
+  & U;
+
+type Chain<
+  T,
+  U extends Record<PropertyKey, Matcher>,
+  Post,
+  Actual,
+  X extends PropertyKey[] = [],
+  P extends boolean = false,
+> =
+  & {
+    [
+      k
+        in keyof T as (T[k] extends PreModifier
+          ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
+          : never)
+    ]: Omit<
+      Chain<
+        T,
+        U,
+        Post,
+        T[k] extends PreModifier
+          ? ReturnType<T[k]["fn"]> extends Promise<{ actual: infer X }> ? X
+          : ReturnType<T[k]["fn"]> extends { actual: infer X } ? X
+          : Actual
+          : Actual,
+        [...X, k],
+        T[k] extends PreModifier ? IsPromise<ReturnType<T[k]["fn"]>>
+          : false
+      >,
+      X[number] | k
+    >;
+  }
+  & (P extends true
+    ? Chainable<Post, ReturnTypePromisifyMap<MatcherFilter<Actual, U>>>
+    : Chainable<Post, MatcherFilter<Actual, U>>);
+
 type Expected<
   Actual,
   Matcher extends MatcherMap,
-  Pre extends ExtractOf<ModifierMap, { type: "pre" }>,
+  Pre,
   Post extends ExtractOf<ModifierMap, { type: "post" }>,
 > =
-  & FilterPreModifier<
-    Actual,
-    Pre,
-    & ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
-    & OverwriteOf<
-      Post,
-      ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
-    >,
-    & MatcherFilter<Actual, Matcher>
-    & OverwriteOf<
-      Post,
-      MatcherFilter<Actual, Matcher>
-    >
-  >
-  & OverwriteOf<
-    Post,
-    MatcherFilter<Actual, Matcher>
-  >
-  & MatcherFilter<Actual, Matcher>;
+  & Chain<Pre, Matcher, Post, Actual>
+  & Chainable<Post, MatcherFilter<Actual, Matcher>>;
 
 /** Creates a fully customized expect. By default, there are no matchers or
  * modifiers. You can choose and configure only the matchers you want. This allows
@@ -201,7 +210,6 @@ function defineExpect<
             );
             const { actual: actualResult, ...rest } = matchResult;
 
-            const mayBePostModifier = head(post);
             const postModifierArgs = {
               ...matcherArgs,
               actualResult,
@@ -211,7 +219,12 @@ function defineExpect<
               pass: matchResult.pass,
               expected: matchResult.expected,
             };
-            const maybePostResult = mayBePostModifier?.[1](postModifierArgs);
+            const postModifiers = post.map(last);
+
+            const postResult = postModifiers.reduce(
+              (acc, cur) => ({ ...acc, ...cur(acc) }),
+              postModifierArgs,
+            );
 
             const result = mergeContext({
               expectContext,
@@ -225,10 +238,10 @@ function defineExpect<
                 args: matcherArgs,
                 returns: { actualResult, ...rest },
               },
-              postModifierContext: maybePostResult
+              postModifierContext: !isLength0(post)
                 ? {
                   args: postModifierArgs,
-                  returns: maybePostResult,
+                  returns: postResult,
                 }
                 : undefined,
             });
@@ -236,7 +249,7 @@ function defineExpect<
               ...result,
               matcherName: String(name),
               preModifierName: pre?.[0],
-              postModifierName: mayBePostModifier?.[0],
+              postModifierNames: post.map(head),
             });
           };
 

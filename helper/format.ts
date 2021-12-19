@@ -53,7 +53,7 @@ type StringifyResultArgs = {
   expectedHint: string;
   actualHint: string;
   preModifierName?: PropertyKey;
-  postModifierName?: PropertyKey;
+  postModifierNames: PropertyKey[];
 };
 
 type StringifyAssertArgs = {
@@ -89,7 +89,7 @@ function stringifyResult(
     expectedHint,
     actualHint,
     preModifierName,
-    postModifierName,
+    postModifierNames,
   }: StringifyResultArgs,
 ): string {
   return `${
@@ -98,9 +98,7 @@ function stringifyResult(
       matcherArgs: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
       matcher: yellow(matcherName),
       preModifier: isUndefined(preModifierName) ? "" : String(preModifierName),
-      postModifier: isUndefined(postModifierName)
-        ? ""
-        : String(postModifierName),
+      postModifier: postModifierNames.join("."),
     })
   }
 

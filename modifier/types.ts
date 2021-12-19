@@ -11,7 +11,7 @@ type PreModifierContext = {
   matcher: Matcher;
 };
 
-type PreModifierResult = { actual: unknown };
+type PreModifierResult<T = unknown> = { actual: T };
 
 type PostModifierContext =
   & {
@@ -28,10 +28,10 @@ type PostModifierFn = (
   modifierContext: PostModifierContext,
 ) => PostModifierResult;
 
-type PreModifierFn<T = any> = (
+type PreModifierFn<T = any, R = unknown> = (
   actual: T,
   preModifierContext: PreModifierContext,
-) => PreModifierResult | Promise<PreModifierResult> | never;
+) => PreModifierResult<R> | Promise<PreModifierResult<R>>;
 
 type PostModifier = {
   type: "post";
@@ -43,7 +43,7 @@ type PreModifier<T = any> = {
   fn: PreModifierFn<T>;
 };
 
-type ModifierMap = Record<PropertyKey, PreModifier | PostModifier>;
+type ModifierMap<T = any> = Record<PropertyKey, PreModifier<T> | PostModifier>;
 
 type ExtractOf<T extends ModifierMap, U> = {
   [k in keyof T as (T[k] extends U ? k : never)]: T[k];
