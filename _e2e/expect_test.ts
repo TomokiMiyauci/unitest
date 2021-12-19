@@ -1209,7 +1209,7 @@ test("passes when trimmed string to be", () => {
       trim,
     },
   });
-  expect("  hello world  ").toBe("");
+  expect("  hello world  ").trim.toBe("hello world");
 });
 
 const expect = defineExpect({
