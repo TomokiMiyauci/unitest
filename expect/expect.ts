@@ -16,9 +16,7 @@ import type {
   AnyFn,
   FirstParameter,
   IsPromise,
-  OverwriteOf,
   PickOf,
-  Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
 } from "../_types.ts";
@@ -36,26 +34,9 @@ import type { MatcherMap } from "../matcher/types.ts";
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
 };
-
-type MatcherFilter<T, U extends Record<string, Matcher>> = ShiftFnArgMap<
+type MatcherFilter<T, U extends Record<PropertyKey, Matcher>> = ShiftFnArgMap<
   PickOf<U, (actual: T, ...args: any[]) => unknown>
 >;
-
-type FilterPreModifier<
-  A,
-  T extends ExtractOf<ModifierMap, { type: "pre" }>,
-  Promise,
-  Sync,
-> = {
-  [
-    k
-      in keyof T as (T[k] extends PreModifier
-        ? A extends FirstParameter<T[k]["fn"]> ? k : never
-        : never)
-  ]: T[k] extends PreModifier
-    ? IsPromise<ReturnType<T[k]["fn"]>> extends true ? Promise : Sync
-    : never;
-};
 
 type Definition<
   Matcher extends MatcherMap,
@@ -94,27 +75,49 @@ type Chainable<
   }
   & U;
 
+type Chain<
+  T,
+  U extends Record<PropertyKey, Matcher>,
+  Post,
+  Actual,
+  X extends PropertyKey[] = [],
+  P extends boolean = false,
+> =
+  & {
+    [
+      k
+        in keyof T as (T[k] extends PreModifier
+          ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
+          : never)
+    ]: Omit<
+      Chain<
+        T,
+        U,
+        Post,
+        T[k] extends PreModifier
+          ? ReturnType<T[k]["fn"]> extends Promise<{ actual: infer X }> ? X
+          : ReturnType<T[k]["fn"]> extends { actual: infer X } ? X
+          : Actual
+          : Actual,
+        [...X, k],
+        T[k] extends PreModifier ? IsPromise<ReturnType<T[k]["fn"]>>
+          : false
+      >,
+      X[number] | k
+    >;
+  }
+  & (P extends true
+    ? Chainable<Post, ReturnTypePromisifyMap<MatcherFilter<Actual, U>>>
+    : Chainable<Post, MatcherFilter<Actual, U>>);
+
 type Expected<
   Actual,
   Matcher extends MatcherMap,
-  Pre extends ExtractOf<ModifierMap, { type: "pre" }>,
+  Pre,
   Post extends ExtractOf<ModifierMap, { type: "post" }>,
 > =
-  & Chainable<Post, MatcherFilter<Actual, Matcher>>
-  & FilterPreModifier<
-    Actual,
-    Pre,
-    & ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
-    & OverwriteOf<
-      Post,
-      ReturnTypePromisifyMap<MatcherFilter<Resolve<Actual>, Matcher>>
-    >,
-    & MatcherFilter<Actual, Matcher>
-    & OverwriteOf<
-      Post,
-      MatcherFilter<Actual, Matcher>
-    >
-  >;
+  & Chain<Pre, Matcher, Post, Actual>
+  & Chainable<Post, MatcherFilter<Actual, Matcher>>;
 
 /** Creates a fully customized expect. By default, there are no matchers or
  * modifiers. You can choose and configure only the matchers you want. This allows
