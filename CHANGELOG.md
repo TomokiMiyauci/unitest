@@ -1,3 +1,10 @@
+# [1.0.0-beta.73](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.72...v1.0.0-beta.73) (2021-12-19)
+
+
+### Features
+
+* **expect:** improve types for accept multiple pre modifiers ([ff66bda](https://github.com/TomokiMiyauci/unitest/commit/ff66bdacdd59beaf7c697859895fd9eeb919fb76)), closes [#55](https://github.com/TomokiMiyauci/unitest/issues/55)
+
 # [1.0.0-beta.72](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.71...v1.0.0-beta.72) (2021-12-18)
 
 
