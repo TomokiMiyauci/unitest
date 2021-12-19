@@ -38,13 +38,21 @@ type PostModifier = {
   fn: PostModifierFn;
 };
 
-type PreModifier<T = any> = {
+type PreModifier<
+  Actual,
+  ReturnActual,
+> = {
   type: "pre";
-  fn: PreModifierFn<T>;
-  awaited?: boolean;
+  fn: PreModifierFn<Actual, ReturnActual>;
 };
 
-type ModifierMap<T = any> = Record<PropertyKey, PreModifier<T> | PostModifier>;
+type ModifierMap<
+  T = any,
+  ReturnActual = unknown,
+> = Record<
+  PropertyKey,
+  PreModifier<T, ReturnActual> | PostModifier
+>;
 
 type ExtractOf<T extends ModifierMap, U> = {
   [k in keyof T as (T[k] extends U ? k : never)]: T[k];

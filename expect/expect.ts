@@ -87,17 +87,15 @@ type Chain<
   & {
     [
       k
-        in keyof T as (T[k] extends PreModifier
+        in keyof T as (T[k] extends PreModifier<any, unknown>
           ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
           : never)
-    ]: T[k] extends PreModifier ? Omit<
+    ]: T[k] extends PreModifier<any, unknown> ? Omit<
       Chain<
         T,
         U,
         Post,
-        T[k]["awaited"] extends true | undefined
-          ? Resolve<ReturnType<T[k]["fn"]>>["actual"]
-          : never,
+        Resolve<ReturnType<T[k]["fn"]>>["actual"],
         Promised extends true ? true : IsPromise<ReturnType<T[k]["fn"]>>,
         [...X, k]
       >,

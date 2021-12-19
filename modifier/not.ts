@@ -27,9 +27,9 @@ function predict(
  * });
  * ```
  */
-const not = {
+const not: PostModifier = {
   type: "post",
   fn: predict,
-} as PostModifier;
+};
 
 export { not, predict };

@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import type { PreModifierResult } from "./types.ts";
+import type { PreModifier } from "./types.ts";
 
 /** Use `.trim` to removes the leading and trailing white space and line terminator
  * characters from a `actual`.
@@ -25,9 +25,9 @@ import type { PreModifierResult } from "./types.ts";
  * });
  * ```
  */
-const trim = {
-  type: "pre" as const,
-  fn: (actual: string): PreModifierResult<string> => {
+const trim: PreModifier<string, string> = {
+  type: "pre",
+  fn: (actual) => {
     return {
       actual: actual.trim(),
     };
