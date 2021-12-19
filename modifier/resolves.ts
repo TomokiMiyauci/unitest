@@ -26,6 +26,7 @@ async function predict(
 const resolves = {
   type: "pre" as const,
   fn: predict,
+  awaited: true,
 };
 
 export { predict, resolves };

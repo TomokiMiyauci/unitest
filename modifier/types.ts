@@ -41,6 +41,7 @@ type PostModifier = {
 type PreModifier<T = any> = {
   type: "pre";
   fn: PreModifierFn<T>;
+  awaited?: boolean;
 };
 
 type ModifierMap<T = any> = Record<PropertyKey, PreModifier<T> | PostModifier>;

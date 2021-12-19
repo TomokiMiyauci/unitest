@@ -17,6 +17,7 @@ import type {
   FirstParameter,
   IsPromise,
   PickOf,
+  Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
 } from "../_types.ts";
@@ -80,8 +81,8 @@ type Chain<
   U extends Record<PropertyKey, Matcher>,
   Post,
   Actual,
+  Promised extends boolean = false,
   X extends PropertyKey[] = [],
-  P extends boolean = false,
 > =
   & {
     [
@@ -89,24 +90,22 @@ type Chain<
         in keyof T as (T[k] extends PreModifier
           ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
           : never)
-    ]: Omit<
+    ]: T[k] extends PreModifier ? Omit<
       Chain<
         T,
         U,
         Post,
-        T[k] extends PreModifier
-          ? ReturnType<T[k]["fn"]> extends Promise<{ actual: infer X }> ? X
-          : ReturnType<T[k]["fn"]> extends { actual: infer X } ? X
-          : Actual
-          : Actual,
-        [...X, k],
-        T[k] extends PreModifier ? IsPromise<ReturnType<T[k]["fn"]>>
-          : false
+        T[k]["awaited"] extends true | undefined
+          ? Resolve<ReturnType<T[k]["fn"]>>["actual"]
+          : never,
+        Promised extends true ? true : IsPromise<ReturnType<T[k]["fn"]>>,
+        [...X, k]
       >,
       X[number] | k
-    >;
+    >
+      : never;
   }
-  & (P extends true
+  & (Promised extends true
     ? Chainable<Post, ReturnTypePromisifyMap<MatcherFilter<Actual, U>>>
     : Chainable<Post, MatcherFilter<Actual, U>>);
 
