@@ -3,11 +3,12 @@
 
 import { AssertionError } from "../deps.ts";
 import { stringify } from "../helper/format.ts";
+import type { PreModifierResult } from "./types.ts";
 
 /** predict for `rejects` */
 async function predict(
   actual: Promise<unknown>,
-): Promise<{ actual: unknown }> {
+): Promise<PreModifierResult<unknown>> {
   const resolvedActual = await actual.then((v) => [false, v] as const).catch((
     v,
   ) => [true, v as unknown] as const);

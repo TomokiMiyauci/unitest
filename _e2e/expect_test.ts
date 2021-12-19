@@ -1,14 +1,11 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
-  debug,
   defineExpect,
+  expect,
   extendExpect,
   fn,
   jestExtendedMatcherMap,
-  jestMatcherMap,
   not,
-  rejects,
-  resolves,
   test,
   toBe,
   toBeAfter,
@@ -1210,17 +1207,4 @@ test("passes when trimmed string to be", () => {
     },
   });
   expect("  hello world  ").trim.toBe("hello world");
-});
-
-const expect = defineExpect({
-  matcherMap: {
-    ...jestMatcherMap,
-  },
-  modifierMap: {
-    not,
-    trim,
-    resolves,
-    rejects,
-    debug,
-  },
 });
