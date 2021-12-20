@@ -26,6 +26,25 @@ function pickName<T>({ name }: { name: T }): T {
   return name;
 }
 
+/** merge expect context */
+function mergeContext(
+  { expectContext, preModifierContexts, postModifierContexts, matcherContext }:
+    ExpectContext,
+): PartialByKeys<Result, "resultActual"> & { pass: boolean } {
+  return {
+    ...expectContext,
+    ...preModifierContexts.reduce(
+      returnReducer,
+      {} as PreModifierResult,
+    ),
+    ...matcherContext.returns,
+    ...postModifierContexts.reduce(
+      returnReducer,
+      {} as PreModifierResult,
+    ),
+  };
+}
+
 /** assert match result, if fail it throw `AssertionError`
  */
 function assert(
@@ -94,25 +113,6 @@ function returnReducer(
   return {
     ...acc,
     ...returns,
-  };
-}
-
-/** merge expect context */
-function mergeContext(
-  { expectContext, preModifierContexts, postModifierContexts, matcherContext }:
-    ExpectContext,
-): PartialByKeys<Result, "resultActual"> & { pass: boolean } {
-  return {
-    ...expectContext,
-    ...preModifierContexts.reduce(
-      returnReducer,
-      {} as PreModifierResult,
-    ),
-    ...matcherContext.returns,
-    ...postModifierContexts.reduce(
-      returnReducer,
-      {} as PreModifierResult,
-    ),
   };
 }
 
