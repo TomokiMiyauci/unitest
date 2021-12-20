@@ -31,7 +31,10 @@ import type { PreModifierContext } from "https://deno.land/x/unitest@$VERSION/mo
 
 type PreModifier = {
   type: "pre";
-  fn: (actual: unknown, context: PreModifierContext) => { actual: unknown };
+  fn: (
+    actual: unknown,
+    context: PreModifierContext,
+  ) => { actual: unknown } | Promise<{ actual: unknown }>;
 };
 ```
 
@@ -127,6 +130,34 @@ const expect = defineExpect({
 
 test("passes when stringified value to be", () => {
   expect(null).string.toBe("null");
+});
+```
+
+### number
+
+Use `.number` to convert any `actual` to `number`. Internally, the `Number`
+constructor is used.
+
+```ts
+import {
+  defineExpect,
+  number,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    number,
+  },
+});
+
+test("passes when numberized value to be", () => {
+  expect("").number.toBe(0);
+  expect("test").number.toBe(NaN);
 });
 ```
 

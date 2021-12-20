@@ -6,4 +6,5 @@ export { resolves } from "./resolves.ts";
 export { trim } from "./trim.ts";
 export { debug } from "./debug.ts";
 export * from "./string.ts";
+export * from "./number.ts";
 export * from "./preset.ts";

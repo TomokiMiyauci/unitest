@@ -7,6 +7,7 @@ import {
   fn,
   jestExtendedMatcherMap,
   not,
+  number,
   resolves,
   string,
   test,
@@ -1228,4 +1229,18 @@ test("passes when stringified value to be", async () => {
   await expect(Promise.resolve("test ")).resolves.string.trim.toBe(
     "test",
   );
+});
+
+test("passes when numberized value to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      number,
+    },
+  });
+
+  expect("").number.toBe(0);
+  expect("test").number.toBe(NaN);
 });
