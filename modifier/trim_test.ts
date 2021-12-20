@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { trim } from "./trim.ts";
 import { assertEquals } from "../dev_deps.ts";
+import type { PreModifierContext } from "./types.ts";
 
 Deno.test("trim", () => {
   assertEquals(trim.type, "pre");
@@ -16,5 +17,7 @@ Deno.test("trim", () => {
     [" test", { actual: "test" }],
   ];
 
-  table.forEach(([actual, result]) => assertEquals(trim.fn(actual), result));
+  table.forEach(([actual, result]) =>
+    assertEquals(trim.fn(actual, {} as PreModifierContext), result)
+  );
 });

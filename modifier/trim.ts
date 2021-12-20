@@ -20,8 +20,8 @@ import type { PreModifier } from "./types.ts";
  *   },
  * });
  *
- * test("passes when trimmed string to be", async () => {
- *   await expect("  hello world  ").trim.toBe("hello world");
+ * test("passes when trimmed string to be", () => {
+ *   expect("  hello world  ").trim.toBe("hello world");
  * });
  * ```
  */

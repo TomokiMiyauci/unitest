@@ -55,12 +55,16 @@ type PostModifier = {
 
 type ModifierMap<
   T = any,
-  ReturnActual = unknown,
+  Return extends
+    | PreModifierResult<unknown>
+    | Promise<PreModifierResult<unknown>> =
+      | PreModifierResult<unknown>
+      | Promise<PreModifierResult<unknown>>,
 > = Record<
   PropertyKey,
   PreModifier<
     T,
-    PreModifierResult<unknown> | Promise<PreModifierResult<unknown>>
+    Return
   > | PostModifier
 >;
 
