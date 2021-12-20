@@ -45,7 +45,7 @@ function stringifyExpect({
 
 type StringifyResultArgs = {
   actual: unknown;
-  matcherName: string;
+  matcherName: PropertyKey;
   matcherArgs: readonly unknown[];
 
   resultActual: unknown;
@@ -96,7 +96,7 @@ function stringifyResult(
     stringifyExpect({
       actual: stringify(actual),
       matcherArgs: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
-      matcher: yellow(matcherName),
+      matcher: yellow(String(matcherName)),
       preModifier: preModifierNames.join("."),
       postModifier: postModifierNames.join("."),
     })

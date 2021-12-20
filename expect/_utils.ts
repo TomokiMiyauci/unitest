@@ -10,6 +10,7 @@ import type {
   PostModifierResult,
   PreModifierResult,
 } from "../modifier/types.ts";
+import type { PartialByKeys } from "../_types.ts";
 
 type Result = {
   actual: unknown;
@@ -20,20 +21,36 @@ type Result = {
   expectedHint: string;
 };
 
+/** helper for pick field of `name` */
+function pickName<T>({ name }: { name: T }): T {
+  return name;
+}
+
 /** assert match result, if fail it throw `AssertionError`
  */
 function assert(
-  result: Result & {
-    pass: boolean;
-    matcherName: string;
-    preModifierNames: PropertyKey[];
-    postModifierNames: PropertyKey[];
-  },
+  context: ExpectContext,
 ): Result | never {
-  if (result.pass) {
+  const { pass, resultActual, ...rest } = mergeContext(context);
+  const result: Result = {
+    ...rest,
+    resultActual: resultActual ? resultActual : rest.actual,
+    actual: context.expectContext.actual,
+  };
+
+  if (pass) {
     return result;
   }
-  const failMessage = stringifyResult(result);
+
+  const preModifierNames = context.preModifierContexts.map(pickName);
+  const postModifierNames = context.postModifierContexts.map(pickName);
+  const matcherName = context.matcherContext.name;
+  const failMessage = stringifyResult({
+    ...result,
+    preModifierNames,
+    postModifierNames,
+    matcherName,
+  });
 
   throw new AssertionError(failMessage);
 }
@@ -51,7 +68,6 @@ type PreModifierContext = {
 type ExpectContext = {
   expectContext: {
     actual: Result["actual"];
-    resultActual: unknown;
     matcher: Matcher;
     matcherArgs: readonly unknown[];
     actualHint: string;
@@ -64,7 +80,7 @@ type ExpectContext = {
     returns: PostModifierResult;
   }[];
   matcherContext: {
-    name: string;
+    name: PropertyKey;
     args: Pick<Result, "actual" | "matcherArgs">;
     returns: MatchResult;
   };
@@ -85,7 +101,7 @@ function returnReducer(
 function mergeContext(
   { expectContext, preModifierContexts, postModifierContexts, matcherContext }:
     ExpectContext,
-): Result & { pass: boolean } {
+): PartialByKeys<Result, "resultActual"> & { pass: boolean } {
   return {
     ...expectContext,
     ...preModifierContexts.reduce(

@@ -59,6 +59,10 @@ type Minus<N extends number> = ArrayOfLength<N> extends [any, ...infer Rest]
   ? Rest["length"]
   : never;
 
+type PartialByKeys<T, K extends PropertyKey = keyof T> = {
+  [P in keyof (Omit<T, K> & Partial<Pick<T, keyof T & K>>)]: T[P];
+};
+
 export type {
   AnyFn,
   FirstParameter,
@@ -67,6 +71,7 @@ export type {
   IsTuple,
   Minus,
   OverwriteOf,
+  PartialByKeys,
   PickByFirstParameter,
   PickOf,
   Primitive,

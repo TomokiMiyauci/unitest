@@ -4,12 +4,11 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { isPromise } from "../deps.ts";
-import { head, last } from "../matcher/utils.ts";
+import { last } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
   DEFAULT_EXPECTED_HINT,
-  mergeContext,
   PreModifierContext,
 } from "./_utils.ts";
 
@@ -195,7 +194,6 @@ function defineExpect<
           const expectContext = {
             ...preModifierArgs,
             actual,
-            resultActual: actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
@@ -281,35 +279,28 @@ function defineExpect<
               expected: matchResult.expected,
             };
             const postModifierContexts = post.reduce(
-              (acc, [name, fn]) => {
+              (acc, [key, fn]) => {
+                const name = String(key);
                 const args = {
                   ...postModifierArgs,
                   ...last(acc)?.returns,
-                  name: String(name),
+                  name,
                 };
                 const returns = fn(args);
-                return [...acc, { name: String(name), args, returns }];
+                return [...acc, { name, args, returns }];
               },
               [] as ExpectContext["postModifierContexts"],
             );
 
-            const matcherName = String(name);
-
-            const result = mergeContext({
+            return assert({
               expectContext,
               preModifierContexts,
               matcherContext: {
-                name: matcherName,
+                name,
                 args: matcherArgs,
                 returns: matchResult,
               },
               postModifierContexts,
-            });
-            return assert({
-              ...result,
-              matcherName,
-              preModifierNames: pre.map(head),
-              postModifierNames: post.map(head),
             });
           };
 

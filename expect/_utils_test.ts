@@ -4,19 +4,31 @@ import { assertEquals, assertThrowsAssertionError } from "../dev_deps.ts";
 import { assert, mergeContext } from "./_utils.ts";
 
 Deno.test("assert", () => {
+  const matcher = () => ({ pass: false, expected: "test" });
+
   assertThrowsAssertionError(
     () =>
       assert({
-        pass: false,
-        actual: "test",
-        actualHint: "Actual:",
-        expected: "tes",
-        expectedHint: "Expected:",
-        matcherArgs: [],
-        resultActual: "test",
-        matcherName: "toBe",
-        postModifierNames: [],
-        preModifierNames: [],
+        expectContext: {
+          actual: "test",
+          actualHint: "Actual:",
+          expectedHint: "Expected:",
+          matcher,
+          matcherArgs: [],
+        },
+        matcherContext: {
+          name: "toBe",
+          args: {
+            actual: "test",
+            matcherArgs: [],
+          },
+          returns: {
+            "expected": "test",
+            "pass": false,
+          },
+        },
+        preModifierContexts: [],
+        postModifierContexts: [],
       }),
   );
 });
@@ -27,7 +39,6 @@ Deno.test("mergeContext", () => {
     mergeContext({
       expectContext: {
         actual: "test",
-        resultActual: "test",
         actualHint: "Actual:",
         expectedHint: "Expected:",
         matcher,
@@ -54,7 +65,6 @@ Deno.test("mergeContext", () => {
       expectedHint: "Expected:",
       matcherArgs: [],
       expected: "test",
-      resultActual: "test",
       pass: false,
     },
   );
@@ -63,7 +73,6 @@ Deno.test("mergeContext", () => {
     mergeContext({
       expectContext: {
         actual: Promise.resolve("test"),
-        resultActual: Promise.resolve("test"),
         actualHint: "Actual:",
         expectedHint: "Expected:",
         matcher,
@@ -100,7 +109,6 @@ Deno.test("mergeContext", () => {
       expectedHint: "Expected:",
       matcherArgs: ["test"],
       expected: "test",
-      resultActual: Promise.resolve("test"),
       pass: true,
     },
   );
