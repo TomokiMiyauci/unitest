@@ -1,3 +1,17 @@
+# [1.0.0-beta.75](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.74...v1.0.0-beta.75) (2021-12-20)
+
+
+### Bug Fixes
+
+* **expect:** change context member and fix assertion message ([599940f](https://github.com/TomokiMiyauci/unitest/commit/599940fb3ba295530d08c58d82511460a70b5a52))
+* **matcher:** change `MatchResult` interface ([1e6bac4](https://github.com/TomokiMiyauci/unitest/commit/1e6bac43cfedce9102d64d12a28821690943de26))
+* **modifier:** rename `stringify` pre modifier to `string` ([1d61e93](https://github.com/TomokiMiyauci/unitest/commit/1d61e931d4da266a1a2bff18d278db3d1a4b16cf))
+
+
+### Features
+
+* **modifier:** add `number` pre modifier ([8ce5f1e](https://github.com/TomokiMiyauci/unitest/commit/8ce5f1e49b417fc816f32272366e2e8c85ec82b0))
+
 # [1.0.0-beta.74](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.73...v1.0.0-beta.74) (2021-12-20)
 
 
