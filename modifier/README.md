@@ -98,8 +98,35 @@ const expect = defineExpect({
   },
 });
 
-test("passes when trimmed string to be", async () => {
-  await expect("  hello world  ").trim.toBe("hello world");
+test("passes when trimmed string to be", () => {
+  expect("  hello world  ").trim.toBe("hello world");
+});
+```
+
+### stringify
+
+Use `.stringify` to convert any `actual` to `string`. Internally, the String
+constructor is used.
+
+```ts
+import {
+  defineExpect,
+  stringify,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    stringify,
+  },
+});
+
+test("passes when stringified value to be", () => {
+  expect(null).stringify.toBe("null");
 });
 ```
 
