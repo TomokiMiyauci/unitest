@@ -8,7 +8,7 @@ import {
   jestExtendedMatcherMap,
   not,
   resolves,
-  stringify,
+  string,
   test,
   toBe,
   toBeAfter,
@@ -1217,15 +1217,15 @@ test("passes when stringified value to be", async () => {
       toBe,
     },
     modifierMap: {
-      stringify,
+      string,
       resolves,
       debug,
       not,
       trim,
     },
   });
-  expect(null).stringify.toBe("null");
-  await expect(Promise.resolve("test ")).resolves.stringify.trim.toBe(
+  expect(null).string.toBe("null");
+  await expect(Promise.resolve("test ")).resolves.string.trim.toBe(
     "test",
   );
 });

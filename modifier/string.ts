@@ -3,12 +3,12 @@
 
 import type { PreModifier } from "./types.ts";
 
-/** Use `.stringify` to convert any `actual` to `string`. Internally, the String
+/** Use `.string` to convert any `actual` to `string`. Internally, the String
  * constructor is used.
  * ```ts
  * import {
  *   defineExpect,
- *   stringify,
+ *   string,
  *   test,
  *   toBe,
  * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -18,18 +18,18 @@ import type { PreModifier } from "./types.ts";
  *     toBe,
  *   },
  *   modifierMap: {
- *     stringify,
+ *     string,
  *   },
  * });
  *
  * test("passes when stringified value to be", () => {
- *   expect(null).stringify.toBe("null");
+ *   expect(null).string.toBe("null");
  * });
  * ```
  */
-const stringify: PreModifier<unknown, { actual: string }> = {
+const string: PreModifier<unknown, { actual: string }> = {
   type: "pre",
   fn: (actual) => ({ actual: String(actual) }),
 };
 
-export { stringify };
+export { string };

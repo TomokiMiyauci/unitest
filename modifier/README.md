@@ -103,15 +103,15 @@ test("passes when trimmed string to be", () => {
 });
 ```
 
-### stringify
+### string
 
-Use `.stringify` to convert any `actual` to `string`. Internally, the String
+Use `.string` to convert any `actual` to `string`. Internally, the String
 constructor is used.
 
 ```ts
 import {
   defineExpect,
-  stringify,
+  string,
   test,
   toBe,
 } from "https://deno.land/x/unitest@$VERSION/mod.ts";
@@ -121,12 +121,12 @@ const expect = defineExpect({
     toBe,
   },
   modifierMap: {
-    stringify,
+    string,
   },
 });
 
 test("passes when stringified value to be", () => {
-  expect(null).stringify.toBe("null");
+  expect(null).string.toBe("null");
 });
 ```
 
