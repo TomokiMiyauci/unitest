@@ -3,7 +3,7 @@
 
 import type { PreModifier } from "./types.ts";
 
-/** Use `.string` to convert any `actual` to `string`. Internally, the String
+/** Use `.string` to convert any `actual` to `string`. Internally, the `String`
  * constructor is used.
  * ```ts
  * import {

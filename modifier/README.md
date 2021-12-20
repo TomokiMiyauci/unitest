@@ -108,7 +108,7 @@ test("passes when trimmed string to be", () => {
 
 ### string
 
-Use `.string` to convert any `actual` to `string`. Internally, the String
+Use `.string` to convert any `actual` to `string`. Internally, the `String`
 constructor is used.
 
 ```ts
