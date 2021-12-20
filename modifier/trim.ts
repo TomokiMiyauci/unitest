@@ -25,7 +25,7 @@ import type { PreModifier } from "./types.ts";
  * });
  * ```
  */
-const trim: PreModifier<string, string> = {
+const trim: PreModifier<string, { actual: string }> = {
   type: "pre",
   fn: (actual) => {
     return {

@@ -28,22 +28,29 @@ type PostModifierFn = (
   modifierContext: PostModifierContext,
 ) => PostModifierResult;
 
-type PreModifierFn<T = any, R = unknown> = (
+type PreModifierFn<
+  T = any,
+  R extends PreModifierResult<unknown> | Promise<PreModifierResult<unknown>> =
+    | PreModifierResult<unknown>
+    | Promise<PreModifierResult<unknown>>,
+> = (
   actual: T,
   preModifierContext: PreModifierContext,
-) => PreModifierResult<R> | Promise<PreModifierResult<R>>;
+) => R;
+
+type PreModifier<
+  Actual,
+  ReturnActual extends
+    | PreModifierResult<unknown>
+    | Promise<PreModifierResult<unknown>>,
+> = {
+  type: "pre";
+  fn: PreModifierFn<Actual, ReturnActual>;
+};
 
 type PostModifier = {
   type: "post";
   fn: PostModifierFn;
-};
-
-type PreModifier<
-  Actual,
-  ReturnActual,
-> = {
-  type: "pre";
-  fn: PreModifierFn<Actual, ReturnActual>;
 };
 
 type ModifierMap<
@@ -51,7 +58,10 @@ type ModifierMap<
   ReturnActual = unknown,
 > = Record<
   PropertyKey,
-  PreModifier<T, ReturnActual> | PostModifier
+  PreModifier<
+    T,
+    PreModifierResult<unknown> | Promise<PreModifierResult<unknown>>
+  > | PostModifier
 >;
 
 type ExtractOf<T extends ModifierMap, U> = {

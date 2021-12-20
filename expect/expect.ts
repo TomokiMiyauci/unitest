@@ -86,11 +86,15 @@ type Chain<
 > =
   & {
     [
-      k
-        in keyof T as (T[k] extends PreModifier<any, unknown>
-          ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
-          : never)
-    ]: T[k] extends PreModifier<any, unknown> ? Omit<
+      k in keyof T as (T[k] extends PreModifier<
+        any,
+        PreModifierResult<unknown> | Promise<PreModifierResult<unknown>>
+      > ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
+        : never)
+    ]: T[k] extends PreModifier<
+      any,
+      PreModifierResult<unknown> | Promise<PreModifierResult<unknown>>
+    > ? Omit<
       Chain<
         T,
         U,
@@ -105,7 +109,8 @@ type Chain<
   }
   & (Promised extends true
     ? Chainable<Post, ReturnTypePromisifyMap<MatcherFilter<Actual, U>>>
-    : Chainable<Post, MatcherFilter<Actual, U>>);
+    : Chainable<Post, MatcherFilter<Actual, U>>)
+  & { get: Promised };
 
 type Expected<
   Actual,

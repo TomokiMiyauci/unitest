@@ -23,7 +23,7 @@ async function predict(
  * });
  * ```
  */
-const resolves: PreModifier<Promise<unknown>, unknown> = {
+const resolves: PreModifier<Promise<unknown>, Promise<{ actual: unknown }>> = {
   type: "pre",
   fn: predict,
 };

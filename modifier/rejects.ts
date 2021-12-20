@@ -33,7 +33,7 @@ async function predict(
  * });
  * ```
  */
-const rejects: PreModifier<Promise<unknown>, unknown> = {
+const rejects: PreModifier<Promise<unknown>, Promise<{ actual: unknown }>> = {
   type: "pre",
   fn: predict,
 };
