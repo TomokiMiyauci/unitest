@@ -26,6 +26,17 @@ function pickName<T>({ name }: { name: T }): T {
   return name;
 }
 
+/** helper for reducer */
+function returnReducer(
+  acc: Record<PropertyKey, unknown>,
+  { returns }: { returns: Record<PropertyKey, unknown> },
+) {
+  return {
+    ...acc,
+    ...returns,
+  };
+}
+
 /** merge expect context */
 function mergeContext(
   { expectContext, preModifierContexts, postModifierContexts, matcherContext }:
@@ -104,17 +115,6 @@ type ExpectContext = {
     returns: MatchResult;
   };
 };
-
-/** helper for reducer */
-function returnReducer(
-  acc: Record<PropertyKey, unknown>,
-  { returns }: { returns: Record<PropertyKey, unknown> },
-) {
-  return {
-    ...acc,
-    ...returns,
-  };
-}
 
 const DEFAULT_EXPECTED_HINT = "Expected:";
 const DEFAULT_ACTUAL_HINT = "Actual:";
