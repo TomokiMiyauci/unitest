@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
+  debug,
   defineExpect,
   expect,
   extendExpect,
@@ -1210,7 +1211,7 @@ test("passes when trimmed string to be", () => {
   expect("  hello world  ").trim.toBe("hello world");
 });
 
-test("passes when stringified value to be", () => {
+test("passes when stringified value to be", async () => {
   const expect = defineExpect({
     matcherMap: {
       toBe,
@@ -1218,7 +1219,9 @@ test("passes when stringified value to be", () => {
     modifierMap: {
       stringify,
       resolves,
+      debug,
     },
   });
   expect(null).stringify.toBe("null");
+  await expect(Promise.resolve("test")).resolves.toBe("test");
 });

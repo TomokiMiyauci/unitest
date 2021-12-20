@@ -4,7 +4,7 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { isLength0, isPromise } from "../deps.ts";
-import { head, last } from "../matcher/utils.ts";
+import { head, last, rename } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
@@ -17,6 +17,7 @@ import type {
   FirstParameter,
   IsPromise,
   PickOf,
+  Rename,
   Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
@@ -200,21 +201,25 @@ function defineExpect<
           /** exec sync match */
           const sync = (
             actual: unknown,
-            maybePreResult?: PreModifierResult,
+            maybePreResult?: Rename<
+              PreModifierResult,
+              "actual",
+              "actualResult"
+            >,
           ) => {
             const matcherArgs = {
-              actual: maybePreResult?.actual ?? actual,
+              actual: maybePreResult?.actualResult ?? actual,
               matcherArgs: args,
             };
-            const matchResult = matcher(
+            const _matchResult = matcher(
               matcherArgs.actual,
               ...matcherArgs.matcherArgs,
             );
-            const { actual: actualResult, ...rest } = matchResult;
+            const matchResult = rename(_matchResult, "actual", "actualResult");
 
             const postModifierArgs = {
               ...matcherArgs,
-              actualResult,
+              actualResult: matchResult.actualResult,
               actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
               matcher,
               expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
@@ -222,7 +227,6 @@ function defineExpect<
               expected: matchResult.expected,
             };
             const postModifiers = post.map(last);
-
             const postResult = postModifiers.reduce(
               (acc, cur) => ({ ...acc, ...cur(acc) }),
               postModifierArgs,
@@ -233,12 +237,12 @@ function defineExpect<
               preModifierContext: maybePreResult
                 ? {
                   args: { actual, ...preModifierContext },
-                  returns: maybePreResult,
+                  returns: ({ actualResult: maybePreResult.actualResult }),
                 }
                 : undefined,
               matcherContext: {
                 args: matcherArgs,
-                returns: { actualResult, ...rest },
+                returns: matchResult,
               },
               postModifierContext: !isLength0(post)
                 ? {
@@ -260,10 +264,16 @@ function defineExpect<
 
           if (isPromise(maybePreResult)) {
             return maybePreResult.then(
-              (preResult) => sync(actual, preResult),
+              (preResult) =>
+                sync(actual, rename(preResult, "actual", "actualResult")),
             );
           }
-          return sync(actual, maybePreResult);
+          return sync(
+            actual,
+            maybePreResult
+              ? rename(maybePreResult, "actual", "actualResult")
+              : undefined,
+          );
         };
       },
     });

@@ -116,6 +116,27 @@ function symbolEntries(value: object): [symbol, unknown][] {
   ]);
 }
 
+/** rename field name when `from` is exists, otherwise return as is. */
+
+function rename<
+  T extends Record<PropertyKey, unknown>,
+  U extends keyof T,
+  K extends PropertyKey,
+>(
+  value: T,
+  from: U,
+  to: K,
+): (Omit<T, U> & { [k in keyof T as k extends U ? K : never]: T[U] }) {
+  if (from in value) {
+    const { [from]: _, ...rest } = value;
+    return {
+      ...rest,
+      [to as K]: value[from],
+    } as never;
+  }
+  return value as never;
+}
+
 export {
   containAll,
   contains,
@@ -126,6 +147,7 @@ export {
   last,
   prop,
   propPath,
+  rename,
   symbolEntries,
   take,
   takeLast,

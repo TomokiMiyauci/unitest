@@ -9,6 +9,7 @@ import {
   last,
   prop,
   propPath,
+  rename,
   symbolEntries,
   take,
 } from "./utils.ts";
@@ -224,4 +225,21 @@ Deno.test({
       assertEquals(hasPath(path, object), result)
     );
   },
+});
+
+Deno.test("rename", () => {
+  const table: [...Parameters<typeof rename>, ReturnType<typeof rename>][] = [
+    [{}, "", "a", {}],
+    [{ a: 1 }, "a", "b", { b: 1 }],
+    [{ a: 1 }, "b", "c", { a: 1 }],
+    [{ a: 1, b: 2, c: 3 }, "c", "d", { a: 1, b: 2, d: 3 }],
+    [{ a: "a" }, "a", "a", { a: "a" }],
+    [{ a: undefined }, "a", "a", { a: undefined }],
+    [{ a: undefined }, "a", "b", { b: undefined }],
+    [{ a: { b: "c" } }, "a", "b", { b: { b: "c" } }],
+  ];
+
+  table.forEach(([value, from, to, result]) =>
+    assertEquals(rename(value, from, to), result)
+  );
 });

@@ -53,4 +53,46 @@ Deno.test("mergeContext", () => {
       pass: false,
     },
   );
+
+  assertEquals(
+    mergeContext({
+      expectContext: {
+        actual: Promise.resolve("test"),
+        actualHint: "Actual:",
+        expectedHint: "Expected:",
+        matcher,
+        matcherArgs: ["test"],
+      },
+      preModifierContext: {
+        args: {
+          actual: Promise.resolve("test"),
+          matcherArgs: ["test"],
+          matcher,
+        },
+        returns: {
+          actualResult: "test",
+        },
+      },
+      matcherContext: {
+        args: {
+          actual: "test",
+          matcherArgs: ["test"],
+        },
+        returns: {
+          "expected": "test",
+          "pass": true,
+        },
+      },
+    }),
+    {
+      actual: Promise.resolve("test"),
+      matcher,
+      actualHint: "Actual:",
+      expectedHint: "Expected:",
+      matcherArgs: ["test"],
+      expected: "test",
+      actualResult: "test",
+      pass: true,
+    },
+  );
 });

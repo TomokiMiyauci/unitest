@@ -5,10 +5,11 @@ import { stringifyResult } from "../helper/format.ts";
 import { AssertionError } from "../deps.ts";
 
 import type { Matcher, RenamedMatchResult } from "../matcher/types.ts";
+import type { Rename } from "../_types.ts";
 import type {
   PostModifierContext,
   PostModifierResult,
-  PreModifierContext,
+  PreModifierFn,
   PreModifierResult,
 } from "../modifier/types.ts";
 
@@ -48,8 +49,8 @@ type ExpectContext = {
     expectedHint: string;
   };
   preModifierContext?: {
-    args: PreModifierContext & { actual: unknown };
-    returns: PreModifierResult;
+    args: Parameters<PreModifierFn>[0] & Parameters<PreModifierFn>[1];
+    returns: Rename<PreModifierResult, "actual", "actualResult">;
   };
   postModifierContext?: {
     args: PostModifierContext;
@@ -69,11 +70,8 @@ function mergeContext(
   return {
     actualResult: expectContext.actual,
     ...expectContext,
-    ...preModifierContext?.args,
     ...preModifierContext?.returns,
-    ...matcherContext.args,
     ...matcherContext.returns,
-    ...postModifierContext?.args,
     ...postModifierContext?.returns,
   };
 }
