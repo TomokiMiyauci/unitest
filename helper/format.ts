@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import { green, isUndefined, red, yellow } from "../deps.ts";
+import { green, red, yellow } from "../deps.ts";
 
 function isDeno(): boolean {
   return "Deno" in globalThis;
@@ -52,7 +52,7 @@ type StringifyResultArgs = {
   expected: unknown;
   expectedHint: string;
   actualHint: string;
-  preModifierName?: PropertyKey;
+  preModifierNames: PropertyKey[];
   postModifierNames: PropertyKey[];
 };
 
@@ -88,7 +88,7 @@ function stringifyResult(
     expected,
     expectedHint,
     actualHint,
-    preModifierName,
+    preModifierNames,
     postModifierNames,
   }: StringifyResultArgs,
 ): string {
@@ -97,7 +97,7 @@ function stringifyResult(
       actual: stringify(actual),
       matcherArgs: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
       matcher: yellow(matcherName),
-      preModifier: isUndefined(preModifierName) ? "" : String(preModifierName),
+      preModifier: preModifierNames.join("."),
       postModifier: postModifierNames.join("."),
     })
   }

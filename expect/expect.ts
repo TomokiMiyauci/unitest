@@ -3,13 +3,14 @@
 
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
-import { isLength0, isPromise } from "../deps.ts";
+import { isPromise } from "../deps.ts";
 import { head, last, rename } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
   DEFAULT_EXPECTED_HINT,
   mergeContext,
+  PreModifierContext,
 } from "./_utils.ts";
 
 import type {
@@ -17,7 +18,6 @@ import type {
   FirstParameter,
   IsPromise,
   PickOf,
-  Rename,
   Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
@@ -32,6 +32,7 @@ import type {
 } from "../modifier/types.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
+import type { ExpectContext } from "./_utils.ts";
 
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
@@ -162,7 +163,7 @@ function defineExpect<
   const _expect = (
     actual: unknown,
   ) => {
-    let pre: [PropertyKey, PreModifierFn] | undefined = undefined;
+    const pre: [PropertyKey, PreModifierFn][] = [];
     const post: [PropertyKey, PostModifierFn][] = [];
 
     const self: any = new Proxy({}, {
@@ -176,7 +177,7 @@ function defineExpect<
             post.push([name, modifier.fn]);
             return self;
           } else {
-            pre = [name, modifier.fn];
+            pre.push([name, modifier.fn]);
             return self;
           }
         }
@@ -187,28 +188,90 @@ function defineExpect<
         }
 
         return (...args: readonly unknown[]) => {
-          const preModifierContext = {
+          const preModifierArgs = {
             matcherArgs: args,
             matcher,
           };
           const expectContext = {
-            ...preModifierContext,
+            ...preModifierArgs,
             actual,
+            actualResult: actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
 
+          let usePromise = false;
+
+          const preModifierContexts = pre.reduce(
+            (acc, [key, fn]) => {
+              const name = String(key);
+              const lastResult = last(acc);
+
+              if (isPromise(lastResult)) {
+                return [
+                  ...acc,
+                  lastResult.then(async ({ returns }) => ({
+                    name,
+                    args: {
+                      actual: returns.actualResult,
+                      ...preModifierArgs,
+                    },
+                    returns: rename(
+                      await fn(
+                        returns.actualResult,
+                        preModifierArgs,
+                      ),
+                      "actual",
+                      "actualResult",
+                    ),
+                  })),
+                ];
+              } else {
+                const _actual = lastResult?.returns.actualResult ?? actual;
+                const value = fn(
+                  _actual,
+                  preModifierArgs,
+                );
+
+                if (isPromise(value)) {
+                  usePromise = true;
+                  return [
+                    ...acc,
+                    value.then((_context) => {
+                      return {
+                        name,
+                        args: {
+                          actual: _actual,
+                          ...preModifierArgs,
+                        },
+                        returns: rename(_context, "actual", "actualResult"),
+                      };
+                    }),
+                  ];
+                }
+                return [...acc, {
+                  name,
+                  args: {
+                    actual: _actual,
+                    ...preModifierArgs,
+                  },
+                  returns: rename(value, "actual", "actualResult"),
+                }];
+              }
+            },
+            [] as (
+              | PreModifierContext
+              | Promise<PreModifierContext>
+            )[],
+          );
+
           /** exec sync match */
           const sync = (
             actual: unknown,
-            maybePreResult?: Rename<
-              PreModifierResult,
-              "actual",
-              "actualResult"
-            >,
+            preModifierContexts: ExpectContext["preModifierContexts"],
           ) => {
             const matcherArgs = {
-              actual: maybePreResult?.actualResult ?? actual,
+              actual: last(preModifierContexts)?.returns.actualResult ?? actual,
               matcherArgs: args,
             };
             const _matchResult = matcher(
@@ -226,53 +289,45 @@ function defineExpect<
               pass: matchResult.pass,
               expected: matchResult.expected,
             };
-            const postModifiers = post.map(last);
-            const postResult = postModifiers.reduce(
-              (acc, cur) => ({ ...acc, ...cur(acc) }),
-              postModifierArgs,
+            const postModifierContexts = post.reduce(
+              (acc, [name, fn]) => {
+                const args = {
+                  ...postModifierArgs,
+                  ...last(acc)?.returns,
+                  name: String(name),
+                };
+                const returns = fn(args);
+                return [...acc, { name: String(name), args, returns }];
+              },
+              [] as ExpectContext["postModifierContexts"],
             );
 
             const result = mergeContext({
               expectContext,
-              preModifierContext: maybePreResult
-                ? {
-                  args: { actual, ...preModifierContext },
-                  returns: ({ actualResult: maybePreResult.actualResult }),
-                }
-                : undefined,
+              preModifierContexts,
               matcherContext: {
+                name: String(name),
                 args: matcherArgs,
                 returns: matchResult,
               },
-              postModifierContext: !isLength0(post)
-                ? {
-                  args: postModifierArgs,
-                  returns: postResult,
-                }
-                : undefined,
+              postModifierContexts,
             });
             return assert({
               ...result,
               matcherName: String(name),
-              preModifierName: pre?.[0],
+              preModifierNames: pre.map(head),
               postModifierNames: post.map(head),
             });
           };
 
-          const maybePreModifier = pre?.[1];
-          const maybePreResult = maybePreModifier?.(actual, preModifierContext);
-
-          if (isPromise(maybePreResult)) {
-            return maybePreResult.then(
-              (preResult) =>
-                sync(actual, rename(preResult, "actual", "actualResult")),
+          if (usePromise) {
+            return Promise.all(preModifierContexts).then((_contexts) =>
+              sync(actual, _contexts)
             );
           }
           return sync(
             actual,
-            maybePreResult
-              ? rename(maybePreResult, "actual", "actualResult")
-              : undefined,
+            preModifierContexts as PreModifierContext[],
           );
         };
       },

@@ -1220,8 +1220,10 @@ test("passes when stringified value to be", async () => {
       stringify,
       resolves,
       debug,
+      not,
+      trim,
     },
   });
   expect(null).stringify.toBe("null");
-  await expect(Promise.resolve("test")).resolves.toBe("test");
+  await expect(Promise.resolve("test ")).resolves.stringify.trim.toBe("test");
 });
