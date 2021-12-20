@@ -35,7 +35,7 @@ function toHaveLastReturnedWith(
 ): MatchResult {
   return {
     actualHint: "Actual last returned with:",
-    actual: last(mock.results)?.value,
+    resultActual: last(mock.results)?.value,
     pass: predict(mock.results, expected),
     expected,
   };

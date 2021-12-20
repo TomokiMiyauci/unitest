@@ -45,7 +45,7 @@ function toContainEntries(
 
   return {
     pass: containAll(entries, expected),
-    actual: entries,
+    resultActual: entries,
     actualHint: "Actual entries:",
     expected,
     expectedHint: "Expected to contain all:",

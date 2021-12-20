@@ -34,7 +34,7 @@ function toContainValue(actual: object, expected: unknown): MatchResult {
   const actualValue = Object.values(actual);
   return {
     pass: contains(actualValue, expected),
-    actual: actualValue,
+    resultActual: actualValue,
     actualHint: "Actual values:",
     expectedHint: "Expected to contain:",
     expected,

@@ -1,6 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type { Rename } from "../_types.ts";
 type Matcher = (
   actual: any,
   ...expected: any[]
@@ -14,7 +13,7 @@ type MatchResult = {
   expected: unknown;
 
   /** overwrite actual value when display error */
-  actual?: unknown;
+  resultActual?: unknown;
 
   /** hint for actual value when display error */
   actualHint?: string;
@@ -23,11 +22,9 @@ type MatchResult = {
   expectedHint?: string;
 };
 
-type RenamedMatchResult = Rename<MatchResult, "actual", "actualResult">;
-
 type MatcherMap = Record<
   PropertyKey,
   Matcher
 >;
 
-export type { Matcher, MatcherMap, MatchResult, RenamedMatchResult };
+export type { Matcher, MatcherMap, MatchResult };

@@ -44,7 +44,7 @@ Deno.test({
     assertFail(toHaveBeenNthCalledWith(mock, 0, 5));
     assertEquals(toHaveBeenNthCalledWith(mock, 1, 5), {
       pass: false,
-      actual: [1],
+      resultActual: [1],
       actualHint: "Actual 1th called with:",
       expected: [5],
     });

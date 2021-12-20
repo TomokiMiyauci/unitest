@@ -18,7 +18,7 @@ Deno.test({
 
     assertEquals(toHaveReturnedTimes(mock, 3), {
       pass: false,
-      actual: 2,
+      resultActual: 2,
       actualHint: "Actual returned times:",
       expected: 3,
     });

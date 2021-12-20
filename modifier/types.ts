@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type { Matcher, RenamedMatchResult } from "../matcher/types.ts";
+import type { Matcher, MatchResult } from "../matcher/types.ts";
 
 type PreModifierContext = {
   matcherArgs: readonly unknown[];
@@ -16,9 +16,9 @@ type PostModifierContext =
     matcher: Matcher;
   }
   & Required<
-    RenamedMatchResult
+    MatchResult
   >;
-type PostModifierResult = Partial<RenamedMatchResult>;
+type PostModifierResult = Partial<MatchResult>;
 
 type PostModifierFn = (
   modifierContext: PostModifierContext,

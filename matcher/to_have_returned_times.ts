@@ -26,7 +26,7 @@ function toHaveReturnedTimes(
   const actualTimes = mock.results.filter(isTypeReturn).length;
   return {
     actualHint: "Actual returned times:",
-    actual: actualTimes,
+    resultActual: actualTimes,
     pass: actualTimes === expected,
     expected,
   };

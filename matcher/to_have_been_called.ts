@@ -19,7 +19,7 @@ import { isLength0 } from "../deps.ts";
 function toHaveBeenCalled({ mock }: MockObject): MatchResult {
   return {
     actualHint: "Actual calls:",
-    actual: mock.calls.length,
+    resultActual: mock.calls.length,
     pass: !isLength0(mock.calls),
     expected: "0 < Actual",
   };

@@ -34,7 +34,7 @@ function toHaveBeenNthCalledWith(
 ): MatchResult {
   return {
     actualHint: `Actual ${nthCall}th called with:`,
-    actual: mock.calls[nthCall - 1],
+    resultActual: mock.calls[nthCall - 1],
     pass: predict(mock.calls, nthCall, ...expected),
     expected,
   };

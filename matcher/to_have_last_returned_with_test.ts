@@ -70,7 +70,7 @@ Deno.test({
     assertEquals(toHaveLastReturnedWith(mock2, 10), {
       pass: false,
       actualHint: "Actual last returned with:",
-      actual: 8,
+      resultActual: 8,
       expected: 10,
     });
   },

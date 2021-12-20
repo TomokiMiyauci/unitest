@@ -26,7 +26,7 @@ function toBeCloseTo(
   const expectedRounded = roundTo(expected, precision);
   return {
     actualHint: `Actual rounded ${precision} digit:`,
-    actual: actualRounded,
+    resultActual: actualRounded,
     pass: actualRounded === expectedRounded,
     expectedHint: `Expected rounded ${precision} digit:`,
     expected: expectedRounded,

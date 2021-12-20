@@ -69,13 +69,15 @@ function toHaveProperty(
     : hasPath(expectedPath, actual);
   const msg = _hint(hasValue);
 
-  const act = `${actualPath.join(".")}${_assetHint(hasValue, actualValue)}`;
+  const resultActual = `${actualPath.join(".")}${
+    _assetHint(hasValue, actualValue)
+  }`;
   const expected = `${expectedPath.join(".")}${_assetHint(hasValue, value)}`;
 
   return {
     pass,
     actualHint: `Actual ${msg}:`,
-    actual: act,
+    resultActual,
     expectedHint: `Expected ${msg}:`,
     expected,
   };

@@ -21,7 +21,7 @@ Deno.test({
 
     assertEquals(toHaveReturnedWith(mock2, 2), {
       pass: false,
-      actual: [1],
+      resultActual: [1],
       actualHint: "Actual all returned:",
       expected: 2,
     });

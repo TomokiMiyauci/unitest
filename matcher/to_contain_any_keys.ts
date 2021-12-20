@@ -45,7 +45,7 @@ function toContainAnyKeys(
     expected,
     expectedHint: "Expected to contain any of keys:",
     actualHint: "Actual keys:",
-    actual: [
+    resultActual: [
       ...Object.keys(actual),
       ...Object.getOwnPropertySymbols(actual),
     ],

@@ -4,7 +4,7 @@
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { isPromise } from "../deps.ts";
-import { head, last, rename } from "../matcher/utils.ts";
+import { head, last } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
@@ -195,7 +195,7 @@ function defineExpect<
           const expectContext = {
             ...preModifierArgs,
             actual,
-            actualResult: actual,
+            resultActual: actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
@@ -213,50 +213,42 @@ function defineExpect<
                   lastResult.then(async ({ returns }) => ({
                     name,
                     args: {
-                      actual: returns.actualResult,
+                      actual: returns.actual,
                       ...preModifierArgs,
                     },
-                    returns: rename(
-                      await fn(
-                        returns.actualResult,
-                        preModifierArgs,
-                      ),
-                      "actual",
-                      "actualResult",
+                    returns: await fn(
+                      returns.actual,
+                      preModifierArgs,
                     ),
                   })),
                 ];
               } else {
-                const _actual = lastResult?.returns.actualResult ?? actual;
+                const _actual = lastResult?.returns.actual ?? actual;
                 const value = fn(
                   _actual,
                   preModifierArgs,
                 );
 
-                if (isPromise(value)) {
-                  usePromise = true;
-                  return [
-                    ...acc,
-                    value.then((_context) => {
-                      return {
-                        name,
-                        args: {
-                          actual: _actual,
-                          ...preModifierArgs,
-                        },
-                        returns: rename(_context, "actual", "actualResult"),
-                      };
-                    }),
-                  ];
-                }
-                return [...acc, {
+                /** utility for make shared value */
+                const makeShared = (
+                  returns: PreModifierResult<unknown>,
+                ): PreModifierContext => ({
                   name,
                   args: {
                     actual: _actual,
                     ...preModifierArgs,
                   },
-                  returns: rename(value, "actual", "actualResult"),
-                }];
+                  returns,
+                });
+
+                if (isPromise(value)) {
+                  usePromise = true;
+                  return [
+                    ...acc,
+                    value.then(makeShared),
+                  ];
+                }
+                return [...acc, makeShared(value)];
               }
             },
             [] as (
@@ -271,18 +263,17 @@ function defineExpect<
             preModifierContexts: ExpectContext["preModifierContexts"],
           ) => {
             const matcherArgs = {
-              actual: last(preModifierContexts)?.returns.actualResult ?? actual,
+              actual: last(preModifierContexts)?.returns.actual ?? actual,
               matcherArgs: args,
             };
-            const _matchResult = matcher(
+            const matchResult = matcher(
               matcherArgs.actual,
               ...matcherArgs.matcherArgs,
             );
-            const matchResult = rename(_matchResult, "actual", "actualResult");
 
             const postModifierArgs = {
               ...matcherArgs,
-              actualResult: matchResult.actualResult,
+              resultActual: matchResult.resultActual,
               actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
               matcher,
               expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
@@ -302,11 +293,13 @@ function defineExpect<
               [] as ExpectContext["postModifierContexts"],
             );
 
+            const matcherName = String(name);
+
             const result = mergeContext({
               expectContext,
               preModifierContexts,
               matcherContext: {
-                name: String(name),
+                name: matcherName,
                 args: matcherArgs,
                 returns: matchResult,
               },
@@ -314,7 +307,7 @@ function defineExpect<
             });
             return assert({
               ...result,
-              matcherName: String(name),
+              matcherName,
               preModifierNames: pre.map(head),
               postModifierNames: post.map(head),
             });

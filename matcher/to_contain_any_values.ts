@@ -39,7 +39,7 @@ function toContainAnyValues(
 
   return {
     pass: containSome(actualValue, expected),
-    actual: actualValue,
+    resultActual: actualValue,
     actualHint: "Actual values:",
     expected,
     expectedHint: "Expected to contain any of values:",

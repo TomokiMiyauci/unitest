@@ -10,7 +10,7 @@ Deno.test({
     assertFail(toHaveLength({}, 0));
     assertEquals(toHaveLength([], 2), {
       pass: false,
-      actual: 0,
+      resultActual: 0,
       actualHint: "Actual length:",
       expected: 2,
     });

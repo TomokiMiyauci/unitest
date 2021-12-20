@@ -4,8 +4,7 @@
 import { stringifyResult } from "../helper/format.ts";
 import { AssertionError } from "../deps.ts";
 
-import type { Matcher, RenamedMatchResult } from "../matcher/types.ts";
-import type { Rename } from "../_types.ts";
+import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type {
   PostModifierContext,
   PostModifierResult,
@@ -15,7 +14,7 @@ import type {
 type Result = {
   actual: unknown;
   matcherArgs: readonly unknown[];
-  actualResult: unknown;
+  resultActual: unknown;
   actualHint: string;
   expected: unknown;
   expectedHint: string;
@@ -46,13 +45,13 @@ type PreModifierContext = {
     matcherArgs: readonly unknown[];
     matcher: Matcher;
   };
-  returns: Rename<PreModifierResult, "actual", "actualResult">;
+  returns: PreModifierResult;
 };
 
 type ExpectContext = {
   expectContext: {
     actual: Result["actual"];
-    actualResult: unknown;
+    resultActual: unknown;
     matcher: Matcher;
     matcherArgs: readonly unknown[];
     actualHint: string;
@@ -67,7 +66,7 @@ type ExpectContext = {
   matcherContext: {
     name: string;
     args: Pick<Result, "actual" | "matcherArgs">;
-    returns: RenamedMatchResult;
+    returns: MatchResult;
   };
 };
 
@@ -91,12 +90,12 @@ function mergeContext(
     ...expectContext,
     ...preModifierContexts.reduce(
       returnReducer,
-      {} as PostModifierResult,
+      {} as PreModifierResult,
     ),
     ...matcherContext.returns,
     ...postModifierContexts.reduce(
       returnReducer,
-      {} as Rename<PreModifierResult, "actual", "actualResult">,
+      {} as PreModifierResult,
     ),
   };
 }

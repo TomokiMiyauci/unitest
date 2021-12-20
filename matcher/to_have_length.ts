@@ -20,7 +20,7 @@ function toHaveLength(
   expected: number,
 ): MatchResult {
   return {
-    actual: length,
+    resultActual: length,
     actualHint: "Actual length:",
     pass: length === expected,
     expected,

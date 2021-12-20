@@ -48,7 +48,7 @@ type StringifyResultArgs = {
   matcherName: string;
   matcherArgs: readonly unknown[];
 
-  actualResult: unknown;
+  resultActual: unknown;
   expected: unknown;
   expectedHint: string;
   actualHint: string;
@@ -57,21 +57,21 @@ type StringifyResultArgs = {
 };
 
 type StringifyAssertArgs = {
-  actualResult: unknown;
+  resultActual: unknown;
   expected: unknown;
   expectedHint?: string;
   actualHint?: string;
 };
 
 function stringifyAssert({
-  actualResult,
+  resultActual,
   expected,
   expectedHint,
   actualHint,
 }: Required<StringifyAssertArgs>): string {
   return nestText(
     `${actualHint}
-${nestText(green(stringify(actualResult)), 2)}
+${nestText(green(stringify(resultActual)), 2)}
 ${expectedHint}
 ${nestText(red(stringify(expected)), 2)}
 `,
@@ -84,7 +84,7 @@ function stringifyResult(
     actual,
     matcherArgs,
     matcherName,
-    actualResult,
+    resultActual,
     expected,
     expectedHint,
     actualHint,
@@ -104,7 +104,7 @@ function stringifyResult(
 
 ${
     stringifyAssert({
-      actualResult,
+      resultActual,
       actualHint,
       expected,
       expectedHint,

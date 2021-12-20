@@ -15,7 +15,7 @@ Deno.test({
     assertEquals(toHaveBeenCalled(mock2), {
       actualHint: "Actual calls:",
       pass: false,
-      actual: 0,
+      resultActual: 0,
       expected: "0 < Actual",
     });
   },

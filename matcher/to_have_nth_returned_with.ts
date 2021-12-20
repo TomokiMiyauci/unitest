@@ -44,7 +44,7 @@ function toHaveNthReturnedWith(
 ): MatchResult {
   return {
     actualHint: `Actual ${nthCall}th returned with:`,
-    actual: take(mock.results, nthCall - 1)?.value,
+    resultActual: take(mock.results, nthCall - 1)?.value,
     pass: predict(mock.results, nthCall, expected),
     expected,
   };

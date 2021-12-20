@@ -13,7 +13,7 @@ Deno.test("assert", () => {
         expected: "tes",
         expectedHint: "Expected:",
         matcherArgs: [],
-        actualResult: "test",
+        resultActual: "test",
         matcherName: "toBe",
         postModifierNames: [],
         preModifierNames: [],
@@ -27,7 +27,7 @@ Deno.test("mergeContext", () => {
     mergeContext({
       expectContext: {
         actual: "test",
-        actualResult: "test",
+        resultActual: "test",
         actualHint: "Actual:",
         expectedHint: "Expected:",
         matcher,
@@ -54,7 +54,7 @@ Deno.test("mergeContext", () => {
       expectedHint: "Expected:",
       matcherArgs: [],
       expected: "test",
-      actualResult: "test",
+      resultActual: "test",
       pass: false,
     },
   );
@@ -63,7 +63,7 @@ Deno.test("mergeContext", () => {
     mergeContext({
       expectContext: {
         actual: Promise.resolve("test"),
-        actualResult: Promise.resolve("test"),
+        resultActual: Promise.resolve("test"),
         actualHint: "Actual:",
         expectedHint: "Expected:",
         matcher,
@@ -77,8 +77,8 @@ Deno.test("mergeContext", () => {
           matcherArgs: ["test"],
         },
         returns: {
-          "expected": "test",
-          "pass": true,
+          expected: "test",
+          pass: true,
         },
       },
       preModifierContexts: [{
@@ -89,18 +89,18 @@ Deno.test("mergeContext", () => {
           matcherArgs: ["test"],
         },
         returns: {
-          actualResult: "test",
+          actual: "test",
         },
       }],
     }),
     {
-      actual: Promise.resolve("test"),
+      actual: "test",
       matcher,
       actualHint: "Actual:",
       expectedHint: "Expected:",
       matcherArgs: ["test"],
       expected: "test",
-      actualResult: "test",
+      resultActual: Promise.resolve("test"),
       pass: true,
     },
   );

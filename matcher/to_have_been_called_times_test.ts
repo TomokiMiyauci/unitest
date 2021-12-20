@@ -25,7 +25,7 @@ Deno.test({
 
     assertEquals(toHaveBeenCalledTimes(fn(), 1), {
       pass: false,
-      actual: 0,
+      resultActual: 0,
       actualHint: "Actual called times:",
       expected: 1,
       expectedHint: "Expected called times:",

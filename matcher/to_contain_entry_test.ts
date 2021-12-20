@@ -32,7 +32,7 @@ Deno.test({
       pass: false,
       expected: ["abc", "def"],
       expectedHint: "Expected to contain:",
-      actual: [["a", 1], ["b", 2], ["c", 3]],
+      resultActual: [["a", 1], ["b", 2], ["c", 3]],
       actualHint: "Actual entry:",
     });
   },

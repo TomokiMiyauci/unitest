@@ -37,7 +37,7 @@ Deno.test({
       expected: ["b", "c", "d"],
       expectedHint: "Expected to contain any of keys:",
       actualHint: "Actual keys:",
-      actual: Object.keys({ a: 1 }),
+      resultActual: Object.keys({ a: 1 }),
     });
 
     assertEquals(
@@ -47,7 +47,7 @@ Deno.test({
         expected: ["b", "c", "d"],
         expectedHint: "Expected to contain any of keys:",
         actualHint: "Actual keys:",
-        actual: ["a", Symbol.for("test")],
+        resultActual: ["a", Symbol.for("test")],
       },
     );
   },

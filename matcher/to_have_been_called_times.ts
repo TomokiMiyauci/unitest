@@ -24,7 +24,7 @@ function toHaveBeenCalledTimes(
   const length = mock.calls.length;
   return {
     actualHint: "Actual called times:",
-    actual: length,
+    resultActual: length,
     pass: length === expected,
     expectedHint: "Expected called times:",
     expected,
