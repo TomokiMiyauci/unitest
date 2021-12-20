@@ -1,3 +1,17 @@
+# [1.0.0-beta.74](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.73...v1.0.0-beta.74) (2021-12-20)
+
+
+### Bug Fixes
+
+* **expect:** fix display assertion result ([78f8de9](https://github.com/TomokiMiyauci/unitest/commit/78f8de974a96726e61cd9095cdb5790ee5ed1e4d))
+* **expect:** improve type infer of pre modifier return types ([301d542](https://github.com/TomokiMiyauci/unitest/commit/301d54215ce84f7a93cf55b371baf369b404f169))
+
+
+### Features
+
+* **expect:** be accept multiple pre modifier ([2f3603d](https://github.com/TomokiMiyauci/unitest/commit/2f3603d26c7fbd11c7caa58894d90a82d9a2d1ef))
+* **modifier:** add `stringify` pre modifier ([f135b57](https://github.com/TomokiMiyauci/unitest/commit/f135b577d9e553a63de636bcaa7edb3fb4905c17))
+
 # [1.0.0-beta.73](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.72...v1.0.0-beta.73) (2021-12-19)
 
 
