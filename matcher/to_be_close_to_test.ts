@@ -89,14 +89,14 @@ Deno.test({
     assertEquals(toBeCloseTo(0.1, 0.101, 3), {
       pass: false,
       actualHint: `Actual rounded 3 digit:`,
-      actual: 0.1,
+      resultActual: 0.1,
       expected: 0.101,
       expectedHint: `Expected rounded 3 digit:`,
     });
     assertEquals(toBeCloseTo(0.500001, 0.500003, 5), {
       pass: true,
       actualHint: `Actual rounded 5 digit:`,
-      actual: 0.5,
+      resultActual: 0.5,
       expected: 0.5,
       expectedHint: `Expected rounded 5 digit:`,
     });

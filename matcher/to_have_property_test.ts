@@ -118,7 +118,7 @@ Deno.test({
 
     assertEquals(toHaveProperty({ a: { b: undefined } }, "a.b.c"), {
       pass: false,
-      actual: "a.b",
+      resultActual: "a.b",
       actualHint: "Actual path:",
       expected: "a.b.c",
       expectedHint: "Expected path:",
@@ -126,7 +126,7 @@ Deno.test({
 
     assertEquals(toHaveProperty({ a: { b: { c: "d" } } }, "a.b.c", "e"), {
       pass: false,
-      actual: `a.b.c -> "d"`,
+      resultActual: `a.b.c -> "d"`,
       actualHint: "Actual path -> value:",
       expected: `a.b.c -> "e"`,
       expectedHint: "Expected path -> value:",
@@ -134,7 +134,7 @@ Deno.test({
 
     assertEquals(toHaveProperty({ a: { b: { c: "d" } } }, "a.b.c", undefined), {
       pass: false,
-      actual: `a.b.c -> "d"`,
+      resultActual: `a.b.c -> "d"`,
       actualHint: "Actual path -> value:",
       expected: `a.b.c -> undefined`,
       expectedHint: "Expected path -> value:",

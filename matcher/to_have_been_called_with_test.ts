@@ -25,7 +25,7 @@ Deno.test({
       pass: false,
       actualHint: "Actual args:",
       expectedHint: "Expected arg:",
-      actual: mock.mock.calls,
+      resultActual: mock.mock.calls,
       expected: [4],
     });
   },

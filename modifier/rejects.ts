@@ -3,7 +3,7 @@
 
 import { AssertionError } from "../deps.ts";
 import { stringify } from "../helper/format.ts";
-import type { PreModifierResult } from "./types.ts";
+import type { PreModifier, PreModifierResult } from "./types.ts";
 
 /** predict for `rejects` */
 async function predict(
@@ -33,8 +33,8 @@ async function predict(
  * });
  * ```
  */
-const rejects = {
-  type: "pre" as const,
+const rejects: PreModifier<Promise<unknown>, Promise<{ actual: unknown }>> = {
+  type: "pre",
   fn: predict,
 };
 

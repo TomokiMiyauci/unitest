@@ -28,7 +28,7 @@ function toHaveReturnedWith(
   const typeReturns = mock.results.filter(isTypeReturn);
   return {
     actualHint: "Actual all returned:",
-    actual: typeReturns.map(pickValue),
+    resultActual: typeReturns.map(pickValue),
     pass: typeReturns.some(({ value }) => equal(value, expected)),
     expected,
   };

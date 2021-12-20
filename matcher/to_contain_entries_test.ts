@@ -20,7 +20,7 @@ Deno.test({
 
     assertEquals(toContainEntries({ a: 1 }, [["a", 1], ["b", 2], ["c", "3"]]), {
       pass: false,
-      actual: [["a", 1]],
+      resultActual: [["a", 1]],
       actualHint: "Actual entries:",
       expected: [["a", 1], ["b", 2], ["c", "3"]],
       expectedHint: "Expected to contain all:",

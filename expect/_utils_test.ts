@@ -4,18 +4,31 @@ import { assertEquals, assertThrowsAssertionError } from "../dev_deps.ts";
 import { assert, mergeContext } from "./_utils.ts";
 
 Deno.test("assert", () => {
+  const matcher = () => ({ pass: false, expected: "test" });
+
   assertThrowsAssertionError(
     () =>
       assert({
-        pass: false,
-        actual: "test",
-        actualHint: "Actual:",
-        expected: "tes",
-        expectedHint: "Expected:",
-        matcherArgs: [],
-        actualResult: "test",
-        matcherName: "toBe",
-        postModifierNames: [],
+        expectContext: {
+          actual: "test",
+          actualHint: "Actual:",
+          expectedHint: "Expected:",
+          matcher,
+          matcherArgs: [],
+        },
+        matcherContext: {
+          name: "toBe",
+          args: {
+            actual: "test",
+            matcherArgs: [],
+          },
+          returns: {
+            "expected": "test",
+            "pass": false,
+          },
+        },
+        preModifierContexts: [],
+        postModifierContexts: [],
       }),
   );
 });
@@ -32,6 +45,7 @@ Deno.test("mergeContext", () => {
         matcherArgs: [],
       },
       matcherContext: {
+        name: "toBe",
         args: {
           actual: "test",
           matcherArgs: [],
@@ -41,6 +55,8 @@ Deno.test("mergeContext", () => {
           "pass": false,
         },
       },
+      preModifierContexts: [],
+      postModifierContexts: [],
     }),
     {
       actual: "test",
@@ -49,8 +65,51 @@ Deno.test("mergeContext", () => {
       expectedHint: "Expected:",
       matcherArgs: [],
       expected: "test",
-      actualResult: "test",
       pass: false,
+    },
+  );
+
+  assertEquals(
+    mergeContext({
+      expectContext: {
+        actual: Promise.resolve("test"),
+        actualHint: "Actual:",
+        expectedHint: "Expected:",
+        matcher,
+        matcherArgs: ["test"],
+      },
+      postModifierContexts: [],
+      matcherContext: {
+        name: "toBe",
+        args: {
+          actual: "test",
+          matcherArgs: ["test"],
+        },
+        returns: {
+          expected: "test",
+          pass: true,
+        },
+      },
+      preModifierContexts: [{
+        name: "resolves",
+        args: {
+          actual: Promise.resolve("test"),
+          matcher: matcher,
+          matcherArgs: ["test"],
+        },
+        returns: {
+          actual: "test",
+        },
+      }],
+    }),
+    {
+      actual: "test",
+      matcher,
+      actualHint: "Actual:",
+      expectedHint: "Expected:",
+      matcherArgs: ["test"],
+      expected: "test",
+      pass: true,
     },
   );
 });

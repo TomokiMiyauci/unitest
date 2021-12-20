@@ -46,7 +46,7 @@ function toContainEntry(
 ): MatchResult {
   return {
     pass: predict(actual, expected),
-    actual: Object.entries(actual),
+    resultActual: Object.entries(actual),
     actualHint: "Actual entry:",
     expectedHint: "Expected to contain:",
     expected,

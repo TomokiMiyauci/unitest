@@ -11,7 +11,7 @@ Deno.test({
 
     assertEquals(toContainAnyValues({ a: 1, b: 2, c: 3 }, [4, 5, 6]), {
       pass: false,
-      actual: [1, 2, 3],
+      resultActual: [1, 2, 3],
       actualHint: "Actual values:",
       expected: [4, 5, 6],
       expectedHint: "Expected to contain any of values:",

@@ -3,13 +3,13 @@
 
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
-import { isLength0, isPromise } from "../deps.ts";
-import { head, last } from "../matcher/utils.ts";
+import { isPromise } from "../deps.ts";
+import { last } from "../matcher/utils.ts";
 import {
   assert,
   DEFAULT_ACTUAL_HINT,
   DEFAULT_EXPECTED_HINT,
-  mergeContext,
+  PreModifierContext,
 } from "./_utils.ts";
 
 import type {
@@ -17,6 +17,7 @@ import type {
   FirstParameter,
   IsPromise,
   PickOf,
+  Resolve,
   ReturnTypePromisifyMap,
   ShiftFnArg,
 } from "../_types.ts";
@@ -30,6 +31,7 @@ import type {
 } from "../modifier/types.ts";
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
+import type { ExpectContext } from "./_utils.ts";
 
 type ShiftFnArgMap<T extends Record<PropertyKey, AnyFn>> = {
   [k in keyof T]: ShiftFnArg<T[k]>;
@@ -80,35 +82,36 @@ type Chain<
   U extends Record<PropertyKey, Matcher>,
   Post,
   Actual,
+  Promised extends boolean = false,
   X extends PropertyKey[] = [],
-  P extends boolean = false,
 > =
   & {
     [
-      k
-        in keyof T as (T[k] extends PreModifier
-          ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
-          : never)
-    ]: Omit<
+      k in keyof T as (T[k] extends PreModifier<
+        any,
+        PreModifierResult<unknown> | Promise<PreModifierResult<unknown>>
+      > ? Actual extends FirstParameter<T[k]["fn"]> ? k : never
+        : never)
+    ]: T[k] extends PreModifier<
+      any,
+      PreModifierResult<unknown> | Promise<PreModifierResult<unknown>>
+    > ? Omit<
       Chain<
         T,
         U,
         Post,
-        T[k] extends PreModifier
-          ? ReturnType<T[k]["fn"]> extends Promise<{ actual: infer X }> ? X
-          : ReturnType<T[k]["fn"]> extends { actual: infer X } ? X
-          : Actual
-          : Actual,
-        [...X, k],
-        T[k] extends PreModifier ? IsPromise<ReturnType<T[k]["fn"]>>
-          : false
+        Resolve<ReturnType<T[k]["fn"]>>["actual"],
+        Promised extends true ? true : IsPromise<ReturnType<T[k]["fn"]>>,
+        [...X, k]
       >,
       X[number] | k
-    >;
+    >
+      : never;
   }
-  & (P extends true
+  & (Promised extends true
     ? Chainable<Post, ReturnTypePromisifyMap<MatcherFilter<Actual, U>>>
-    : Chainable<Post, MatcherFilter<Actual, U>>);
+    : Chainable<Post, MatcherFilter<Actual, U>>)
+  & { get: Promised };
 
 type Expected<
   Actual,
@@ -159,7 +162,7 @@ function defineExpect<
   const _expect = (
     actual: unknown,
   ) => {
-    let pre: [PropertyKey, PreModifierFn] | undefined = undefined;
+    const pre: [PropertyKey, PreModifierFn][] = [];
     const post: [PropertyKey, PostModifierFn][] = [];
 
     const self: any = new Proxy({}, {
@@ -173,7 +176,7 @@ function defineExpect<
             post.push([name, modifier.fn]);
             return self;
           } else {
-            pre = [name, modifier.fn];
+            pre.push([name, modifier.fn]);
             return self;
           }
         }
@@ -184,84 +187,132 @@ function defineExpect<
         }
 
         return (...args: readonly unknown[]) => {
-          const preModifierContext = {
+          const preModifierArgs = {
             matcherArgs: args,
             matcher,
           };
           const expectContext = {
-            ...preModifierContext,
+            ...preModifierArgs,
             actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
 
+          let usePromise = false;
+
+          const preModifierContexts = pre.reduce(
+            (acc, [key, fn]) => {
+              const name = String(key);
+              const lastResult = last(acc);
+
+              if (isPromise(lastResult)) {
+                return [
+                  ...acc,
+                  lastResult.then(async ({ returns }) => ({
+                    name,
+                    args: {
+                      actual: returns.actual,
+                      ...preModifierArgs,
+                    },
+                    returns: await fn(
+                      returns.actual,
+                      preModifierArgs,
+                    ),
+                  })),
+                ];
+              } else {
+                const _actual = lastResult?.returns.actual ?? actual;
+                const value = fn(
+                  _actual,
+                  preModifierArgs,
+                );
+
+                /** utility for make shared value */
+                const makeShared = (
+                  returns: PreModifierResult<unknown>,
+                ): PreModifierContext => ({
+                  name,
+                  args: {
+                    actual: _actual,
+                    ...preModifierArgs,
+                  },
+                  returns,
+                });
+
+                if (isPromise(value)) {
+                  usePromise = true;
+                  return [
+                    ...acc,
+                    value.then(makeShared),
+                  ];
+                }
+                return [...acc, makeShared(value)];
+              }
+            },
+            [] as (
+              | PreModifierContext
+              | Promise<PreModifierContext>
+            )[],
+          );
+
           /** exec sync match */
           const sync = (
             actual: unknown,
-            maybePreResult?: PreModifierResult,
+            preModifierContexts: ExpectContext["preModifierContexts"],
           ) => {
             const matcherArgs = {
-              actual: maybePreResult?.actual ?? actual,
+              actual: last(preModifierContexts)?.returns.actual ?? actual,
               matcherArgs: args,
             };
             const matchResult = matcher(
               matcherArgs.actual,
               ...matcherArgs.matcherArgs,
             );
-            const { actual: actualResult, ...rest } = matchResult;
 
             const postModifierArgs = {
               ...matcherArgs,
-              actualResult,
+              resultActual: matchResult.resultActual,
               actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
               matcher,
               expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
               pass: matchResult.pass,
               expected: matchResult.expected,
             };
-            const postModifiers = post.map(last);
-
-            const postResult = postModifiers.reduce(
-              (acc, cur) => ({ ...acc, ...cur(acc) }),
-              postModifierArgs,
+            const postModifierContexts = post.reduce(
+              (acc, [key, fn]) => {
+                const name = String(key);
+                const args = {
+                  ...postModifierArgs,
+                  ...last(acc)?.returns,
+                  name,
+                };
+                const returns = fn(args);
+                return [...acc, { name, args, returns }];
+              },
+              [] as ExpectContext["postModifierContexts"],
             );
 
-            const result = mergeContext({
-              expectContext,
-              preModifierContext: maybePreResult
-                ? {
-                  args: { actual, ...preModifierContext },
-                  returns: maybePreResult,
-                }
-                : undefined,
-              matcherContext: {
-                args: matcherArgs,
-                returns: { actualResult, ...rest },
-              },
-              postModifierContext: !isLength0(post)
-                ? {
-                  args: postModifierArgs,
-                  returns: postResult,
-                }
-                : undefined,
-            });
             return assert({
-              ...result,
-              matcherName: String(name),
-              preModifierName: pre?.[0],
-              postModifierNames: post.map(head),
+              expectContext,
+              preModifierContexts,
+              matcherContext: {
+                name,
+                args: matcherArgs,
+                returns: matchResult,
+              },
+              postModifierContexts,
             });
           };
 
-          const maybePreModifier = pre?.[1];
-          const maybePreResult = maybePreModifier?.(actual, preModifierContext);
-
-          if (isPromise(maybePreResult)) {
-            return maybePreResult.then(
-              (preResult) => sync(actual, preResult),
+          if (usePromise) {
+            return Promise.all(preModifierContexts).then((_contexts) =>
+              sync(actual, _contexts)
             );
           }
-          return sync(actual, maybePreResult);
+          return sync(
+            actual,
+            preModifierContexts as PreModifierContext[],
+          );
         };
       },
     });

@@ -11,7 +11,7 @@ Deno.test("debug", () => {
   const context: PostModifierContext = {
     actual: "test",
     actualHint: "Actual:",
-    actualResult: undefined,
+    resultActual: undefined,
     expected: "string",
     expectedHint: "Expected:",
     matcher: () => ({ pass: false, expected: "string" }),

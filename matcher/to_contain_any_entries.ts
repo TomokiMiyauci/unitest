@@ -44,7 +44,7 @@ function toContainAnyEntries(
   const entries = Object.entries(actual);
   return {
     pass: containSome(entries, expected),
-    actual: Object.entries(actual),
+    resultActual: Object.entries(actual),
     actualHint: "Actual entries:",
     expected,
     expectedHint: "Expected to contain any of:",

@@ -27,7 +27,7 @@ Deno.test({
     assertEquals(toHaveBeenCalledBefore(mockObject, mockObject), {
       pass: false,
       actualHint: "Actual older call order number:",
-      actual: "none",
+      resultActual: "none",
       expectedHint: "Expected older call order number:",
       expected: "none",
     });
@@ -38,7 +38,7 @@ Deno.test({
     assertEquals(toHaveBeenCalledBefore(mockObject, mockObject2), {
       pass: true,
       actualHint: "Actual older call order number:",
-      actual: 1,
+      resultActual: 1,
       expectedHint: "Expected older call order number:",
       expected: "none",
     });
@@ -48,7 +48,7 @@ Deno.test({
     assertEquals(toHaveBeenCalledBefore(mockObject, mockObject2), {
       pass: true,
       actualHint: "Actual older call order number:",
-      actual: 1,
+      resultActual: 1,
       expectedHint: "Expected older call order number:",
       expected: 2,
     });

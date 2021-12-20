@@ -12,7 +12,7 @@ Deno.test({
 
     assertEquals(toContainValue({ a: 1, b: 2 }, undefined), {
       pass: false,
-      actual: [1, 2],
+      resultActual: [1, 2],
       actualHint: "Actual values:",
       expected: undefined,
       expectedHint: "Expected to contain:",

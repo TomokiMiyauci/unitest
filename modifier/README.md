@@ -31,7 +31,10 @@ import type { PreModifierContext } from "https://deno.land/x/unitest@$VERSION/mo
 
 type PreModifier = {
   type: "pre";
-  fn: (actual: unknown, context: PreModifierContext) => { actual: unknown };
+  fn: (
+    actual: unknown,
+    context: PreModifierContext,
+  ) => { actual: unknown } | Promise<{ actual: unknown }>;
 };
 ```
 
@@ -98,8 +101,63 @@ const expect = defineExpect({
   },
 });
 
-test("passes when trimmed string to be", async () => {
-  await expect("  hello world  ").trim.toBe("hello world");
+test("passes when trimmed string to be", () => {
+  expect("  hello world  ").trim.toBe("hello world");
+});
+```
+
+### string
+
+Use `.string` to convert any `actual` to `string`. Internally, the `String`
+constructor is used.
+
+```ts
+import {
+  defineExpect,
+  string,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    string,
+  },
+});
+
+test("passes when stringified value to be", () => {
+  expect(null).string.toBe("null");
+});
+```
+
+### number
+
+Use `.number` to convert any `actual` to `number`. Internally, the `Number`
+constructor is used.
+
+```ts
+import {
+  defineExpect,
+  number,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    number,
+  },
+});
+
+test("passes when numberized value to be", () => {
+  expect("").number.toBe(0);
+  expect("test").number.toBe(NaN);
 });
 ```
 

@@ -11,7 +11,7 @@ Deno.test({
 
     assertEquals(toHaveBeenCalledOnce(mockObject), {
       pass: false,
-      actual: 0,
+      resultActual: 0,
       actualHint: "Actual called times:",
       expectedHint: "Expected called times:",
       expected: 1,
@@ -19,7 +19,7 @@ Deno.test({
     mockObject();
     assertEquals(toHaveBeenCalledOnce(mockObject), {
       pass: true,
-      actual: 1,
+      resultActual: 1,
       actualHint: "Actual called times:",
       expectedHint: "Expected called times:",
       expected: 1,
@@ -27,7 +27,7 @@ Deno.test({
     mockObject();
     assertEquals(toHaveBeenCalledOnce(mockObject), {
       pass: false,
-      actual: 2,
+      resultActual: 2,
       actualHint: "Actual called times:",
       expectedHint: "Expected called times:",
       expected: 1,

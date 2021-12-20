@@ -1,11 +1,15 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
+  debug,
   defineExpect,
   expect,
   extendExpect,
   fn,
   jestExtendedMatcherMap,
   not,
+  number,
+  resolves,
+  string,
   test,
   toBe,
   toBeAfter,
@@ -1170,8 +1174,7 @@ test("passes when given an error", () => {
   expect(TypeError("test with unitest")).toBeError(TypeError, "unitest");
 });
 
-test("expect should have default jest matchers", async () => {
-  await expect(Promise.resolve("test"))["resolves"]["toBe"];
+test("expect should have default jest matchers", () => {
   expect({}).toEqual({});
 });
 
@@ -1207,4 +1210,37 @@ test("passes when trimmed string to be", () => {
     },
   });
   expect("  hello world  ").trim.toBe("hello world");
+});
+
+test("passes when stringified value to be", async () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      string,
+      resolves,
+      debug,
+      not,
+      trim,
+    },
+  });
+  expect(null).string.toBe("null");
+  await expect(Promise.resolve("test ")).resolves.string.trim.toBe(
+    "test",
+  );
+});
+
+test("passes when numberized value to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      number,
+    },
+  });
+
+  expect("").number.toBe(0);
+  expect("test").number.toBe(NaN);
 });

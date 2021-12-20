@@ -1,10 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import type {
-  Matcher,
-  MatchResult,
-  RenamedMatchResult,
-} from "../matcher/types.ts";
+import type { Matcher, MatchResult } from "../matcher/types.ts";
 
 type PreModifierContext = {
   matcherArgs: readonly unknown[];
@@ -20,7 +16,7 @@ type PostModifierContext =
     matcher: Matcher;
   }
   & Required<
-    RenamedMatchResult
+    MatchResult
   >;
 type PostModifierResult = Partial<MatchResult>;
 
@@ -28,22 +24,45 @@ type PostModifierFn = (
   modifierContext: PostModifierContext,
 ) => PostModifierResult;
 
-type PreModifierFn<T = any, R = unknown> = (
+type PreModifierFn<
+  T = any,
+  R extends PreModifierResult<unknown> | Promise<PreModifierResult<unknown>> =
+    | PreModifierResult<unknown>
+    | Promise<PreModifierResult<unknown>>,
+> = (
   actual: T,
   preModifierContext: PreModifierContext,
-) => PreModifierResult<R> | Promise<PreModifierResult<R>>;
+) => R;
+
+type PreModifier<
+  Actual,
+  ReturnActual extends
+    | PreModifierResult<unknown>
+    | Promise<PreModifierResult<unknown>>,
+> = {
+  type: "pre";
+  fn: PreModifierFn<Actual, ReturnActual>;
+};
 
 type PostModifier = {
   type: "post";
   fn: PostModifierFn;
 };
 
-type PreModifier<T = any> = {
-  type: "pre";
-  fn: PreModifierFn<T>;
-};
-
-type ModifierMap<T = any> = Record<PropertyKey, PreModifier<T> | PostModifier>;
+type ModifierMap<
+  T = any,
+  Return extends
+    | PreModifierResult<unknown>
+    | Promise<PreModifierResult<unknown>> =
+      | PreModifierResult<unknown>
+      | Promise<PreModifierResult<unknown>>,
+> = Record<
+  PropertyKey,
+  PreModifier<
+    T,
+    Return
+  > | PostModifier
+>;
 
 type ExtractOf<T extends ModifierMap, U> = {
   [k in keyof T as (T[k] extends U ? k : never)]: T[k];

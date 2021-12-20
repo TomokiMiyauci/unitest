@@ -54,7 +54,7 @@ function toHaveBeenCalledBefore(
 
   return {
     actualHint,
-    actual: actualOlderTimestamp ?? none,
+    resultActual: actualOlderTimestamp ?? none,
     pass,
     expectedHint,
     expected: expectedOlderTimestamp ?? none,

@@ -34,7 +34,7 @@ Deno.test({
       ]]),
       {
         pass: false,
-        actual: [
+        resultActual: [
           ["a", 1],
           ["b", ""],
           ["c", null],

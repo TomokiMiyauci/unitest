@@ -35,7 +35,7 @@ function toHaveBeenLastCalledWith(
   return {
     pass: predict(mock.calls, ...expected),
     actualHint: "Actual last called with:",
-    actual: last(mock.calls),
+    resultActual: last(mock.calls),
     expected,
   };
 }

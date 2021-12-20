@@ -53,7 +53,7 @@ function toBeError(
   if (isUndefined(messageIncludes)) {
     const msg = "error name:";
     return {
-      actual: actual.name,
+      resultActual: actual.name,
       actualHint: `Actual ${msg}`,
       pass: actual.name === ErrorClass.name,
       expected: ErrorClass.name,
@@ -63,7 +63,7 @@ function toBeError(
 
   return {
     pass: actual.message.includes(messageIncludes),
-    actual: actual.message,
+    resultActual: actual.message,
     actualHint: "Actual error message:",
     expected: messageIncludes,
     expectedHint: "Expected to includes:",

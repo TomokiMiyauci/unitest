@@ -30,7 +30,7 @@ Deno.test({
 
     assertEquals(toEqualIgnoringWhitespace(" a b c ", " e f g "), {
       pass: false,
-      actual: "abc",
+      resultActual: "abc",
       expected: "efg",
       expectedHint: "Expected except white-space:",
       actualHint: "Actual except white-space:",

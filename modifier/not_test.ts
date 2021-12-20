@@ -19,7 +19,7 @@ Deno.test({
         actual: {} as any,
         expectedHint: DEFAULT_EXPECTED_HINT,
         actualHint: DEFAULT_ACTUAL_HINT,
-        actualResult: "",
+        resultActual: "",
       }),
       {
         pass: false,
@@ -36,7 +36,7 @@ Deno.test({
         actual: {} as any,
         expectedHint: "Expected value is:",
         actualHint: DEFAULT_ACTUAL_HINT,
-        actualResult: "",
+        resultActual: "",
       }),
       {
         pass: true,

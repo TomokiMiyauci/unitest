@@ -26,7 +26,7 @@ function predict(mockResults: readonly MockResult[]): boolean {
  */
 function toHaveReturned({ mock }: MockObject): MatchResult {
   return {
-    actual: mock.results.filter(isTypeReturn).map(pickValue),
+    resultActual: mock.results.filter(isTypeReturn).map(pickValue),
     actualHint: "Actual returned:",
     pass: predict(mock.results),
     expectedHint: "Expected returned:",

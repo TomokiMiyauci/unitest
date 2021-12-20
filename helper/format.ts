@@ -1,6 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import { green, isUndefined, red, yellow } from "../deps.ts";
+import { green, red, yellow } from "../deps.ts";
 
 function isDeno(): boolean {
   return "Deno" in globalThis;
@@ -45,33 +45,33 @@ function stringifyExpect({
 
 type StringifyResultArgs = {
   actual: unknown;
-  matcherName: string;
+  matcherName: PropertyKey;
   matcherArgs: readonly unknown[];
 
-  actualResult: unknown;
+  resultActual: unknown;
   expected: unknown;
   expectedHint: string;
   actualHint: string;
-  preModifierName?: PropertyKey;
+  preModifierNames: PropertyKey[];
   postModifierNames: PropertyKey[];
 };
 
 type StringifyAssertArgs = {
-  actualResult: unknown;
+  resultActual: unknown;
   expected: unknown;
   expectedHint?: string;
   actualHint?: string;
 };
 
 function stringifyAssert({
-  actualResult,
+  resultActual,
   expected,
   expectedHint,
   actualHint,
 }: Required<StringifyAssertArgs>): string {
   return nestText(
     `${actualHint}
-${nestText(green(stringify(actualResult)), 2)}
+${nestText(green(stringify(resultActual)), 2)}
 ${expectedHint}
 ${nestText(red(stringify(expected)), 2)}
 `,
@@ -84,11 +84,11 @@ function stringifyResult(
     actual,
     matcherArgs,
     matcherName,
-    actualResult,
+    resultActual,
     expected,
     expectedHint,
     actualHint,
-    preModifierName,
+    preModifierNames,
     postModifierNames,
   }: StringifyResultArgs,
 ): string {
@@ -96,15 +96,15 @@ function stringifyResult(
     stringifyExpect({
       actual: stringify(actual),
       matcherArgs: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
-      matcher: yellow(matcherName),
-      preModifier: isUndefined(preModifierName) ? "" : String(preModifierName),
+      matcher: yellow(String(matcherName)),
+      preModifier: preModifierNames.join("."),
       postModifier: postModifierNames.join("."),
     })
   }
 
 ${
     stringifyAssert({
-      actualResult,
+      resultActual,
       actualHint,
       expected,
       expectedHint,

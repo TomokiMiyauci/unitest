@@ -46,7 +46,7 @@ Deno.test({
     assertEquals(toHaveReturned(fn()), {
       pass: false,
       actualHint: "Actual returned:",
-      actual: [],
+      resultActual: [],
       expectedHint: "Expected returned:",
       expected: "0 < Actual.length",
     });

@@ -1,3 +1,31 @@
+# [1.0.0-beta.75](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.74...v1.0.0-beta.75) (2021-12-20)
+
+
+### Bug Fixes
+
+* **expect:** change context member and fix assertion message ([599940f](https://github.com/TomokiMiyauci/unitest/commit/599940fb3ba295530d08c58d82511460a70b5a52))
+* **matcher:** change `MatchResult` interface ([1e6bac4](https://github.com/TomokiMiyauci/unitest/commit/1e6bac43cfedce9102d64d12a28821690943de26))
+* **modifier:** rename `stringify` pre modifier to `string` ([1d61e93](https://github.com/TomokiMiyauci/unitest/commit/1d61e931d4da266a1a2bff18d278db3d1a4b16cf))
+
+
+### Features
+
+* **modifier:** add `number` pre modifier ([8ce5f1e](https://github.com/TomokiMiyauci/unitest/commit/8ce5f1e49b417fc816f32272366e2e8c85ec82b0))
+
+# [1.0.0-beta.74](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.73...v1.0.0-beta.74) (2021-12-20)
+
+
+### Bug Fixes
+
+* **expect:** fix display assertion result ([78f8de9](https://github.com/TomokiMiyauci/unitest/commit/78f8de974a96726e61cd9095cdb5790ee5ed1e4d))
+* **expect:** improve type infer of pre modifier return types ([301d542](https://github.com/TomokiMiyauci/unitest/commit/301d54215ce84f7a93cf55b371baf369b404f169))
+
+
+### Features
+
+* **expect:** be accept multiple pre modifier ([2f3603d](https://github.com/TomokiMiyauci/unitest/commit/2f3603d26c7fbd11c7caa58894d90a82d9a2d1ef))
+* **modifier:** add `stringify` pre modifier ([f135b57](https://github.com/TomokiMiyauci/unitest/commit/f135b577d9e553a63de636bcaa7edb3fb4905c17))
+
 # [1.0.0-beta.73](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.72...v1.0.0-beta.73) (2021-12-19)
 
 

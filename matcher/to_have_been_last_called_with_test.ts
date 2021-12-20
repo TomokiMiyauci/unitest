@@ -63,7 +63,7 @@ Deno.test({
       {
         pass: false,
         actualHint: "Actual last called with:",
-        actual: [1],
+        resultActual: [1],
         expected: [2],
       },
     );

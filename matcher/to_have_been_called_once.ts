@@ -38,7 +38,7 @@ function toHaveBeenCalledOnce(
   { mock: { calls: { length } } }: MockObject,
 ): MatchResult {
   return {
-    actual: length,
+    resultActual: length,
     actualHint: "Actual called times:",
     pass: length === 1,
     expectedHint: "Expected called times:",

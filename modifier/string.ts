@@ -3,14 +3,14 @@
 
 import type { PreModifier } from "./types.ts";
 
-/** Use `.trim` to removes the leading and trailing white space and line terminator
- * characters from a `actual`.
+/** Use `.string` to convert any `actual` to `string`. Internally, the `String`
+ * constructor is used.
  * ```ts
  * import {
  *   defineExpect,
+ *   string,
  *   test,
  *   toBe,
- *   trim,
  * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
  *
  * const expect = defineExpect({
@@ -18,22 +18,18 @@ import type { PreModifier } from "./types.ts";
  *     toBe,
  *   },
  *   modifierMap: {
- *     trim,
+ *     string,
  *   },
  * });
  *
- * test("passes when trimmed string to be", () => {
- *   expect("  hello world  ").trim.toBe("hello world");
+ * test("passes when stringified value to be", () => {
+ *   expect(null).string.toBe("null");
  * });
  * ```
  */
-const trim: PreModifier<string, { actual: string }> = {
+const string: PreModifier<unknown, { actual: string }> = {
   type: "pre",
-  fn: (actual) => {
-    return {
-      actual: actual.trim(),
-    };
-  },
+  fn: (actual) => ({ actual: String(actual) }),
 };
 
-export { trim };
+export { string };

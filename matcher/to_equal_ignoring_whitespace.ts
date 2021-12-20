@@ -46,13 +46,13 @@ function toEqualIgnoringWhitespace(
   expected: string,
 ): MatchResult {
   const HINT = "except white-space";
-  const _actual = noWhiteSpace(actual);
+  const resultActual = noWhiteSpace(actual);
   const _expected = noWhiteSpace(expected);
 
   return {
-    pass: predict(_actual, _expected),
+    pass: predict(resultActual, _expected),
     expected: _expected,
-    actual: _actual,
+    resultActual,
     expectedHint: `Expected ${HINT}:`,
     actualHint: `Actual ${HINT}:`,
   };

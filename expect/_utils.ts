@@ -4,40 +4,96 @@
 import { stringifyResult } from "../helper/format.ts";
 import { AssertionError } from "../deps.ts";
 
-import type { Matcher, RenamedMatchResult } from "../matcher/types.ts";
+import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type {
   PostModifierContext,
   PostModifierResult,
-  PreModifierContext,
   PreModifierResult,
 } from "../modifier/types.ts";
+import type { PartialByKeys } from "../_types.ts";
 
 type Result = {
   actual: unknown;
   matcherArgs: readonly unknown[];
-  actualResult: unknown;
+  resultActual: unknown;
   actualHint: string;
   expected: unknown;
   expectedHint: string;
 };
 
+/** helper for pick field of `name` */
+function pickName<T>({ name }: { name: T }): T {
+  return name;
+}
+
+/** helper for reducer */
+function returnReducer(
+  acc: Record<PropertyKey, unknown>,
+  { returns }: { returns: Record<PropertyKey, unknown> },
+) {
+  return {
+    ...acc,
+    ...returns,
+  };
+}
+
+/** merge expect context */
+function mergeContext(
+  { expectContext, preModifierContexts, postModifierContexts, matcherContext }:
+    ExpectContext,
+): PartialByKeys<Result, "resultActual"> & { pass: boolean } {
+  return {
+    ...expectContext,
+    ...preModifierContexts.reduce(
+      returnReducer,
+      {} as PreModifierResult,
+    ),
+    ...matcherContext.returns,
+    ...postModifierContexts.reduce(
+      returnReducer,
+      {} as PreModifierResult,
+    ),
+  };
+}
+
 /** assert match result, if fail it throw `AssertionError`
  */
 function assert(
-  result: Result & {
-    pass: boolean;
-    matcherName: string;
-    preModifierName?: PropertyKey;
-    postModifierNames: PropertyKey[];
-  },
+  context: ExpectContext,
 ): Result | never {
-  if (result.pass) {
+  const { pass, resultActual, ...rest } = mergeContext(context);
+  const result: Result = {
+    ...rest,
+    resultActual: resultActual ? resultActual : rest.actual,
+    actual: context.expectContext.actual,
+  };
+
+  if (pass) {
     return result;
   }
-  const failMessage = stringifyResult(result);
+
+  const preModifierNames = context.preModifierContexts.map(pickName);
+  const postModifierNames = context.postModifierContexts.map(pickName);
+  const matcherName = context.matcherContext.name;
+  const failMessage = stringifyResult({
+    ...result,
+    preModifierNames,
+    postModifierNames,
+    matcherName,
+  });
 
   throw new AssertionError(failMessage);
 }
+
+type PreModifierContext = {
+  name: string;
+  args: {
+    actual: unknown;
+    matcherArgs: readonly unknown[];
+    matcher: Matcher;
+  };
+  returns: PreModifierResult;
+};
 
 type ExpectContext = {
   expectContext: {
@@ -47,38 +103,21 @@ type ExpectContext = {
     actualHint: string;
     expectedHint: string;
   };
-  preModifierContext?: {
-    args: PreModifierContext & { actual: unknown };
-    returns: PreModifierResult;
-  };
-  postModifierContext?: {
+  preModifierContexts: PreModifierContext[];
+  postModifierContexts: {
+    name: string;
     args: PostModifierContext;
     returns: PostModifierResult;
-  };
+  }[];
   matcherContext: {
+    name: PropertyKey;
     args: Pick<Result, "actual" | "matcherArgs">;
-    returns: RenamedMatchResult;
+    returns: MatchResult;
   };
 };
-
-/** merge expect context */
-function mergeContext(
-  { expectContext, preModifierContext, postModifierContext, matcherContext }:
-    ExpectContext,
-): Result & { pass: boolean } {
-  return {
-    actualResult: expectContext.actual,
-    ...expectContext,
-    ...preModifierContext?.args,
-    ...preModifierContext?.returns,
-    ...matcherContext.args,
-    ...matcherContext.returns,
-    ...postModifierContext?.args,
-    ...postModifierContext?.returns,
-  };
-}
 
 const DEFAULT_EXPECTED_HINT = "Expected:";
 const DEFAULT_ACTUAL_HINT = "Actual:";
 
 export { assert, DEFAULT_ACTUAL_HINT, DEFAULT_EXPECTED_HINT, mergeContext };
+export type { ExpectContext, PreModifierContext };

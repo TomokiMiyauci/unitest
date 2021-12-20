@@ -24,7 +24,7 @@ function toHaveBeenCalledWith(
   return {
     pass: contains(mock.calls, expected),
     actualHint: "Actual args:",
-    actual: mock.calls,
+    resultActual: mock.calls,
     expectedHint: "Expected arg:",
     expected,
   };
