@@ -1,3 +1,16 @@
+# [1.0.0-beta.77](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.76...v1.0.0-beta.77) (2021-12-21)
+
+
+### Bug Fixes
+
+* **expect:** remove debug types ([c59d991](https://github.com/TomokiMiyauci/unitest/commit/c59d9915709560d0d9182483f7906019fa8d112c))
+
+
+### Features
+
+* **dummy:** add `anyFunction` dummy object ([4213261](https://github.com/TomokiMiyauci/unitest/commit/4213261f965b1cba7870faf3988b6459b02f3a78))
+* **helper:** add color to assertion message ([0859d3a](https://github.com/TomokiMiyauci/unitest/commit/0859d3a771637091e20d80c9272d50f944af3497))
+
 # [1.0.0-beta.76](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.75...v1.0.0-beta.76) (2021-12-21)
 
 
