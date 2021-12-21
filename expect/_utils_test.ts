@@ -3,15 +3,14 @@
 import { assertEquals, assertThrowsAssertionError, NOT } from "../dev_deps.ts";
 import {
   assert,
+  makeActualHintHookReducer,
   makePostModifierReducer,
   makePreModifierReducer,
   mergeContext,
 } from "./_utils.ts";
 import { toBe } from "../matcher/to_be.ts";
 import { not } from "../modifier/not.ts";
-import { trim } from "../modifier/trim.ts";
 import { number } from "../modifier/number.ts";
-import { resolves } from "../modifier/resolves.ts";
 import type { ExpectContext, PreModifierContext } from "./_utils.ts";
 import type { PreModifierFn } from "../modifier/types.ts";
 
@@ -38,6 +37,9 @@ Deno.test("assert", () => {
         },
         preModifierContexts: [],
         postModifierContexts: [],
+        hookContext: {
+          actualHints: [],
+        },
       }),
   );
 });
@@ -63,6 +65,9 @@ Deno.test("mergeContext", () => {
       },
       preModifierContexts: [],
       postModifierContexts: [],
+      hookContext: {
+        actualHints: [],
+      },
     }),
     {
       actual: "test",
@@ -103,6 +108,9 @@ Deno.test("mergeContext", () => {
           actual: "test",
         },
       }],
+      hookContext: {
+        actualHints: [],
+      },
     }),
     {
       actual: "test",
@@ -133,7 +141,10 @@ Deno.test("makePreModifierReducer sync", () => {
     },
   }], false];
   assertEquals(
-    makePreModifierReducer(args)([[], false], ["trim", trim.fn]),
+    makePreModifierReducer(args)([[], false], [
+      "trim",
+      (actual: string) => ({ actual: actual.trim() }),
+    ]),
     acc,
   );
 
@@ -160,10 +171,13 @@ Deno.test("makePreModifierReducer async", async () => {
 
   const asyncResult = makePreModifierReducer(args)([[], false], [
     "resolves",
-    resolves.fn,
+    async (actual: Promise<unknown>) => ({ actual: await actual }),
   ]);
   assertEquals(
-    makePreModifierReducer(args)([[], false], ["resolves", resolves.fn]),
+    makePreModifierReducer(args)([[], false], [
+      "resolves",
+      async (actual: Promise<unknown>) => ({ actual: await actual }),
+    ]),
     asyncResult,
   );
   assertEquals(await Promise.all(asyncResult[0]), [{
@@ -174,7 +188,10 @@ Deno.test("makePreModifierReducer async", async () => {
     },
   }]);
 
-  const result2 = makePreModifierReducer(args)(asyncResult, ["trim", trim.fn]);
+  const result2 = makePreModifierReducer(args)(asyncResult, [
+    "trim",
+    (actual: string) => ({ actual: actual.trim() }),
+  ]);
 
   assertEquals(result2[1], true);
   assertEquals(await Promise.all(result2[0]), [{
@@ -251,6 +268,92 @@ Deno.test("makePostModifierReducer", () => {
         expectedHint: `Expected: ${NOT} ${NOT}`,
         pass: true,
       },
+    }],
+  );
+});
+
+Deno.test("makeActualHintHookReducer", () => {
+  assertEquals(
+    makeActualHintHookReducer("Actual:")([], {
+      name: "trim",
+      returns: {
+        actual: "test",
+      },
+      args: [" test  ", {} as never],
+    }),
+    [],
+  );
+
+  assertEquals(
+    makeActualHintHookReducer("Actual:")([], {
+      name: "trim",
+      returns: {
+        actual: "test",
+        reserveActualHint: (t) => t,
+      },
+      args: [" test  ", {} as never],
+    }),
+    [{
+      name: "trim",
+      actualHint: "Actual:",
+    }],
+  );
+
+  assertEquals(
+    makeActualHintHookReducer("Actual:")([], {
+      name: "trim",
+      returns: {
+        actual: "test",
+        reserveActualHint: (t) => `${t} test`,
+      },
+      args: [" test  ", {} as never],
+    }),
+    [{
+      name: "trim",
+      actualHint: "Actual: test",
+    }],
+  );
+
+  assertEquals(
+    makeActualHintHookReducer("Actual:")([{
+      name: "trim",
+      actualHint: "Actual: test",
+    }], {
+      name: "string",
+      returns: {
+        actual: "test",
+        reserveActualHint: (t) => `${t} str`,
+      },
+      args: [" test  ", {} as never],
+    }),
+    [{
+      name: "trim",
+      actualHint: "Actual: test",
+    }, {
+      name: "string",
+      actualHint: "Actual: test str",
+    }],
+  );
+  assertEquals(
+    makeActualHintHookReducer("Actual:")([{
+      name: "trim",
+      actualHint: "Actual: test",
+    }, {
+      name: "string",
+      actualHint: "Actual: test str",
+    }], {
+      name: "number",
+      returns: {
+        actual: "test",
+      },
+      args: [" test  ", {} as never],
+    }),
+    [{
+      name: "trim",
+      actualHint: "Actual: test",
+    }, {
+      name: "string",
+      actualHint: "Actual: test str",
     }],
   );
 });

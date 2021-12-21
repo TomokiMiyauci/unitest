@@ -7,7 +7,16 @@ type PreModifierContext = {
   matcher: Matcher;
 };
 
-type PreModifierResult<T = unknown> = { actual: T };
+type PreModifierResult<T = unknown> = {
+  /** overwrite actual value */
+  actual: T;
+
+  /** reservation for `actualHint`
+   * The `actualHint` will be passed the return value of the matcher or the default value.
+   * You can change the details of `actualHint`.
+   */
+  reserveActualHint?: (actualHint: string) => string;
+};
 
 type PostModifierContext =
   & {
