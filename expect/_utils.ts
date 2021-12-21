@@ -212,6 +212,7 @@ function makePostModifierReducer(
   };
 }
 
+/** factory for actual hint hooks reducer */
 function makeActualHintHookReducer(actualHint: string) {
   return (
     acc: ExpectContext["hookContext"]["actualHints"],
