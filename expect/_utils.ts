@@ -2,12 +2,14 @@
 // This module is browser compatible.
 
 import { stringifyResult } from "../helper/format.ts";
-import { AssertionError } from "../deps.ts";
+import { AssertionError, isPromise } from "../deps.ts";
+import { last } from "../matcher/utils.ts";
 
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type {
-  PostModifierContext,
+  PostModifierFn,
   PostModifierResult,
+  PreModifierFn,
   PreModifierResult,
 } from "../modifier/types.ts";
 import type { PartialByKeys } from "../_types.ts";
@@ -86,12 +88,8 @@ function assert(
 }
 
 type PreModifierContext = {
-  name: string;
-  args: {
-    actual: unknown;
-    matcherArgs: readonly unknown[];
-    matcher: Matcher;
-  };
+  name: PropertyKey;
+  args: Parameters<PreModifierFn>;
   returns: PreModifierResult;
 };
 
@@ -105,13 +103,13 @@ type ExpectContext = {
   };
   preModifierContexts: PreModifierContext[];
   postModifierContexts: {
-    name: string;
-    args: PostModifierContext;
+    name: PropertyKey;
+    args: Parameters<PostModifierFn>;
     returns: PostModifierResult;
   }[];
   matcherContext: {
     name: PropertyKey;
-    args: Pick<Result, "actual" | "matcherArgs">;
+    args: Parameters<Matcher>;
     returns: MatchResult;
   };
 };
@@ -119,5 +117,98 @@ type ExpectContext = {
 const DEFAULT_EXPECTED_HINT = "Expected:";
 const DEFAULT_ACTUAL_HINT = "Actual:";
 
-export { assert, DEFAULT_ACTUAL_HINT, DEFAULT_EXPECTED_HINT, mergeContext };
+/** factory for pre modifier reducer */
+function makePreModifierReducer(
+  [actual, preModifierArgs]: Parameters<PreModifierFn>,
+) {
+  return (
+    [acc, usePromise]: [
+      | PreModifierContext[]
+      | (PreModifierContext | Promise<PreModifierContext>)[],
+      boolean,
+    ],
+    [name, fn]: [PropertyKey, PreModifierFn],
+  ) => {
+    const lastResult = last(acc);
+
+    if (isPromise(lastResult)) {
+      return [
+        [
+          ...acc,
+          lastResult.then(async ({ returns }) => {
+            const args = [
+              returns.actual,
+              preModifierArgs,
+            ] as Parameters<PreModifierFn>;
+            return {
+              name,
+              args,
+              returns: await fn(...args),
+            };
+          }),
+        ],
+        true,
+      ] as [
+        (PreModifierContext | Promise<PreModifierContext>)[],
+        true,
+      ];
+    } else {
+      const args: Parameters<PreModifierFn> = [
+        lastResult?.returns.actual ?? actual,
+        preModifierArgs,
+      ];
+      const value = fn(...args);
+
+      /** utility for make shared value */
+      const makeShared = (
+        returns: PreModifierResult<unknown>,
+      ): PreModifierContext => ({
+        name,
+        args,
+        returns,
+      });
+
+      if (isPromise(value)) {
+        return [[
+          ...acc,
+          value.then(makeShared),
+        ], true] as [
+          (PreModifierContext | Promise<PreModifierContext>)[],
+          true,
+        ];
+      }
+
+      return [[...acc, makeShared(value)], usePromise] as [
+        PreModifierContext[],
+        false,
+      ];
+    }
+  };
+}
+
+/** factory for post modifier reducer */
+function makePostModifierReducer(
+  [postModifierContext]: Parameters<PostModifierFn>,
+) {
+  return (
+    acc: ExpectContext["postModifierContexts"],
+    [name, fn]: [PropertyKey, PostModifierFn],
+  ) => {
+    const args: Parameters<PostModifierFn> = [{
+      ...postModifierContext,
+      ...last(acc)?.returns,
+    }];
+    const returns = fn(...args);
+    return [...acc, { name, args, returns }];
+  };
+}
+
+export {
+  assert,
+  DEFAULT_ACTUAL_HINT,
+  DEFAULT_EXPECTED_HINT,
+  makePostModifierReducer,
+  makePreModifierReducer,
+  mergeContext,
+};
 export type { ExpectContext, PreModifierContext };
