@@ -6,7 +6,9 @@ import {
   assertThrowsAssertionError,
 } from "../dev_deps.ts";
 import { trim } from "../modifier/trim.ts";
-
+import { string } from "../modifier/string.ts";
+import { resolves } from "../modifier/resolves.ts";
+import { anyFunction } from "../dummy/any_function.ts";
 import { jestExtendedMatcherMap, jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
 import { MockObject } from "../mock/fn.ts";
@@ -76,6 +78,37 @@ Deno.test({
 
     expect(new String("")).toBeInstanceOf(String);
     assertThrowsAssertionError(() => expect("").toBeInstanceOf(String));
+
+    expect(
+      expect("test").toBe("test"),
+    ).toEqual({
+      matcherArgs: ["test"],
+      matcher: anyFunction(),
+      actual: "test",
+      actualHint: "Actual:",
+      expectedHint: "Expected:",
+      expected: "test",
+      resultActual: "test",
+    });
+
+    expect(
+      expect(Promise.resolve("test")).resolves.toBe("test"),
+    ).toBeInstanceOf(Promise);
+
+    expect(
+      expect(Promise.resolve("test")).resolves.not.toBe(""),
+    ).toBeInstanceOf(Promise);
+
+    expect(
+      defineExpect({
+        matcherMap: jestMatcherMap,
+        modifierMap: {
+          trim,
+          string,
+          resolves,
+        },
+      })(Promise.resolve("test")).resolves.string.trim.toBe("test"),
+    ).toBeInstanceOf(Promise);
 
     await expect(Promise.resolve("aa")).resolves.toBe("aa");
     await expect(Promise.reject("a") as Promise<string>).rejects.toBe("a");
