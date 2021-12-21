@@ -4,7 +4,6 @@ import {
   any,
   equalAnyOf,
   isAnyBigInt,
-  isAnyFunction,
   isAnyString,
   isAnySymbol,
   isBigInt,
@@ -64,25 +63,6 @@ Deno.test("isAnyBigInt", () => {
   ];
 
   table.forEach(([value, result]) => assertEquals(isAnyBigInt(value), result));
-});
-
-Deno.test("isAnyFunction", () => {
-  const table: [
-    ...Parameters<typeof isAnyFunction>,
-    ReturnType<typeof isAnyFunction>,
-  ][] = [
-    [new Function(), true],
-    [() => {}, true],
-    [class A {}, true],
-    [Function, true],
-    [String, true],
-    [Number, true],
-    [{}, false],
-  ];
-
-  table.forEach(([value, result]) =>
-    assertEquals(isAnyFunction(value), result)
-  );
 });
 
 Deno.test("isBitInt", () => {

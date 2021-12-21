@@ -3,6 +3,7 @@ import {
   any,
   anyArray,
   anyBoolean,
+  anyFunction,
   anyNumber,
   anyOf,
   anyString,
@@ -111,4 +112,8 @@ test("should be any array", () => {
   }).toEqual({
     trades: anyArray({ price: anyNumber(), amount: anyNumber() }),
   });
+});
+
+test("should be any function", () => {
+  expect(() => {}).toEqual(anyFunction());
 });
