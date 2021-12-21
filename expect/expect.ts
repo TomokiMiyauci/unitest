@@ -201,41 +201,37 @@ function defineExpect<
           let usePromise = false;
 
           const preModifierContexts = pre.reduce(
-            (acc, [key, fn]) => {
-              const name = String(key);
+            (acc, [name, fn]) => {
               const lastResult = last(acc);
 
               if (isPromise(lastResult)) {
                 return [
                   ...acc,
-                  lastResult.then(async ({ returns }) => ({
-                    name,
-                    args: {
-                      actual: returns.actual,
-                      ...preModifierArgs,
-                    },
-                    returns: await fn(
+                  lastResult.then(async ({ returns }) => {
+                    const args = [
                       returns.actual,
                       preModifierArgs,
-                    ),
-                  })),
+                    ] as Parameters<PreModifierFn>;
+                    return {
+                      name,
+                      args,
+                      returns: await fn(...args),
+                    };
+                  }),
                 ];
               } else {
-                const _actual = lastResult?.returns.actual ?? actual;
-                const value = fn(
-                  _actual,
+                const args: Parameters<PreModifierFn> = [
+                  lastResult?.returns.actual ?? actual,
                   preModifierArgs,
-                );
+                ];
+                const value = fn(...args);
 
                 /** utility for make shared value */
                 const makeShared = (
                   returns: PreModifierResult<unknown>,
                 ): PreModifierContext => ({
                   name,
-                  args: {
-                    actual: _actual,
-                    ...preModifierArgs,
-                  },
+                  args,
                   returns,
                 });
 
@@ -260,33 +256,30 @@ function defineExpect<
             actual: unknown,
             preModifierContexts: ExpectContext["preModifierContexts"],
           ) => {
-            const matcherArgs = {
-              actual: last(preModifierContexts)?.returns.actual ?? actual,
-              matcherArgs: args,
-            };
-            const matchResult = matcher(
-              matcherArgs.actual,
-              ...matcherArgs.matcherArgs,
-            );
+            const matcherArgs: ExpectContext["matcherContext"]["args"] = [
+              last(preModifierContexts)?.returns.actual ?? actual,
+              ...args,
+            ];
+            const matchResult = matcher(...matcherArgs);
 
-            const postModifierArgs = {
-              ...matcherArgs,
-              resultActual: matchResult.resultActual,
-              actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
-              matcher,
-              expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
-              pass: matchResult.pass,
-              expected: matchResult.expected,
-            };
+            const postModifierArgs:
+              ExpectContext["postModifierContexts"][number]["args"][0] = {
+                actual: matcherArgs[0],
+                matcherArgs: args,
+                resultActual: matchResult.resultActual,
+                actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
+                matcher,
+                expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
+                pass: matchResult.pass,
+                expected: matchResult.expected,
+              };
             const postModifierContexts = post.reduce(
-              (acc, [key, fn]) => {
-                const name = String(key);
-                const args = {
+              (acc, [name, fn]) => {
+                const args: Parameters<PostModifierFn> = [{
                   ...postModifierArgs,
                   ...last(acc)?.returns,
-                  name,
-                };
-                const returns = fn(args);
+                }];
+                const returns = fn(...args);
                 return [...acc, { name, args, returns }];
               },
               [] as ExpectContext["postModifierContexts"],

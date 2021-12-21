@@ -18,10 +18,7 @@ Deno.test("assert", () => {
         },
         matcherContext: {
           name: "toBe",
-          args: {
-            actual: "test",
-            matcherArgs: [],
-          },
+          args: ["test"],
           returns: {
             "expected": "test",
             "pass": false,
@@ -46,10 +43,7 @@ Deno.test("mergeContext", () => {
       },
       matcherContext: {
         name: "toBe",
-        args: {
-          actual: "test",
-          matcherArgs: [],
-        },
+        args: ["test"],
         returns: {
           "expected": "test",
           "pass": false,
@@ -81,10 +75,7 @@ Deno.test("mergeContext", () => {
       postModifierContexts: [],
       matcherContext: {
         name: "toBe",
-        args: {
-          actual: "test",
-          matcherArgs: ["test"],
-        },
+        args: ["test"],
         returns: {
           expected: "test",
           pass: true,
@@ -92,11 +83,10 @@ Deno.test("mergeContext", () => {
       },
       preModifierContexts: [{
         name: "resolves",
-        args: {
-          actual: Promise.resolve("test"),
+        args: [Promise.resolve("test"), {
           matcher: matcher,
           matcherArgs: ["test"],
-        },
+        }],
         returns: {
           actual: "test",
         },

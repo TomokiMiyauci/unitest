@@ -6,8 +6,9 @@ import { AssertionError } from "../deps.ts";
 
 import type { Matcher, MatchResult } from "../matcher/types.ts";
 import type {
-  PostModifierContext,
+  PostModifierFn,
   PostModifierResult,
+  PreModifierFn,
   PreModifierResult,
 } from "../modifier/types.ts";
 import type { PartialByKeys } from "../_types.ts";
@@ -86,12 +87,8 @@ function assert(
 }
 
 type PreModifierContext = {
-  name: string;
-  args: {
-    actual: unknown;
-    matcherArgs: readonly unknown[];
-    matcher: Matcher;
-  };
+  name: PropertyKey;
+  args: Parameters<PreModifierFn>;
   returns: PreModifierResult;
 };
 
@@ -105,13 +102,13 @@ type ExpectContext = {
   };
   preModifierContexts: PreModifierContext[];
   postModifierContexts: {
-    name: string;
-    args: PostModifierContext;
+    name: PropertyKey;
+    args: Parameters<PostModifierFn>;
     returns: PostModifierResult;
   }[];
   matcherContext: {
     name: PropertyKey;
-    args: Pick<Result, "actual" | "matcherArgs">;
+    args: Parameters<Matcher>;
     returns: MatchResult;
   };
 };
