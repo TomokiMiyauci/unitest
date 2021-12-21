@@ -3,7 +3,6 @@
 
 import { jestMatcherMap } from "../matcher/preset.ts";
 import { jestModifierMap } from "../modifier/preset.ts";
-import { isPromise } from "../deps.ts";
 import { last } from "../matcher/utils.ts";
 import {
   assert,
@@ -29,6 +28,8 @@ import type {
   PreModifierFn,
   PreModifierResult,
 } from "../modifier/types.ts";
+import { makePostModifierReducer, makePreModifierReducer } from "./_utils.ts";
+
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
 import type { ExpectContext } from "./_utils.ts";
@@ -187,68 +188,26 @@ function defineExpect<
         }
 
         return (...args: readonly unknown[]) => {
-          const preModifierArgs = {
+          const expectContext = {
             matcherArgs: args,
             matcher,
-          };
-          const expectContext = {
-            ...preModifierArgs,
             actual,
             actualHint: DEFAULT_ACTUAL_HINT,
             expectedHint: DEFAULT_EXPECTED_HINT,
           };
 
-          let usePromise = false;
-
-          const preModifierContexts = pre.reduce(
-            (acc, [name, fn]) => {
-              const lastResult = last(acc);
-
-              if (isPromise(lastResult)) {
-                return [
-                  ...acc,
-                  lastResult.then(async ({ returns }) => {
-                    const args = [
-                      returns.actual,
-                      preModifierArgs,
-                    ] as Parameters<PreModifierFn>;
-                    return {
-                      name,
-                      args,
-                      returns: await fn(...args),
-                    };
-                  }),
-                ];
-              } else {
-                const args: Parameters<PreModifierFn> = [
-                  lastResult?.returns.actual ?? actual,
-                  preModifierArgs,
-                ];
-                const value = fn(...args);
-
-                /** utility for make shared value */
-                const makeShared = (
-                  returns: PreModifierResult<unknown>,
-                ): PreModifierContext => ({
-                  name,
-                  args,
-                  returns,
-                });
-
-                if (isPromise(value)) {
-                  usePromise = true;
-                  return [
-                    ...acc,
-                    value.then(makeShared),
-                  ];
-                }
-                return [...acc, makeShared(value)];
-              }
-            },
-            [] as (
-              | PreModifierContext
-              | Promise<PreModifierContext>
-            )[],
+          const preContextResult = pre.reduce(
+            makePreModifierReducer([actual, {
+              matcher,
+              matcherArgs: args,
+            }]),
+            [[], false] as [
+              PreModifierContext[],
+              false,
+            ] | [
+              (PreModifierContext | Promise<PreModifierContext>)[],
+              true,
+            ],
           );
 
           /** exec sync match */
@@ -262,8 +221,8 @@ function defineExpect<
             ];
             const matchResult = matcher(...matcherArgs);
 
-            const postModifierArgs:
-              ExpectContext["postModifierContexts"][number]["args"][0] = {
+            const postModifierContexts = post.reduce(
+              makePostModifierReducer([{
                 actual: matcherArgs[0],
                 matcherArgs: args,
                 resultActual: matchResult.resultActual,
@@ -272,16 +231,7 @@ function defineExpect<
                 expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
                 pass: matchResult.pass,
                 expected: matchResult.expected,
-              };
-            const postModifierContexts = post.reduce(
-              (acc, [name, fn]) => {
-                const args: Parameters<PostModifierFn> = [{
-                  ...postModifierArgs,
-                  ...last(acc)?.returns,
-                }];
-                const returns = fn(...args);
-                return [...acc, { name, args, returns }];
-              },
+              }]),
               [] as ExpectContext["postModifierContexts"],
             );
 
@@ -297,14 +247,14 @@ function defineExpect<
             });
           };
 
-          if (usePromise) {
-            return Promise.all(preModifierContexts).then((_contexts) =>
-              sync(actual, _contexts)
-            );
+          if (preContextResult[1]) {
+            return Promise.all(preContextResult[0]).then((
+              preModifierContexts,
+            ) => sync(actual, preModifierContexts));
           }
           return sync(
             actual,
-            preModifierContexts as PreModifierContext[],
+            preContextResult[0],
           );
         };
       },
