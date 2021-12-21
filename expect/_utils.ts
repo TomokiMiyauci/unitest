@@ -41,8 +41,13 @@ function returnReducer(
 
 /** merge expect context */
 function mergeContext(
-  { expectContext, preModifierContexts, postModifierContexts, matcherContext }:
-    ExpectContext,
+  {
+    expectContext,
+    preModifierContexts,
+    postModifierContexts,
+    matcherContext,
+    hookContext,
+  }: ExpectContext,
 ): PartialByKeys<Result, "resultActual"> & { pass: boolean } {
   return {
     ...expectContext,
@@ -51,6 +56,7 @@ function mergeContext(
       {} as PreModifierResult,
     ),
     ...matcherContext.returns,
+    ...last(hookContext.actualHints.filter(({ actualHint }) => actualHint)),
     ...postModifierContexts.reduce(
       returnReducer,
       {} as PreModifierResult,
@@ -111,6 +117,9 @@ type ExpectContext = {
     name: PropertyKey;
     args: Parameters<Matcher>;
     returns: MatchResult;
+  };
+  hookContext: {
+    actualHints: { name: PropertyKey; actualHint: string }[];
   };
 };
 
@@ -203,10 +212,30 @@ function makePostModifierReducer(
   };
 }
 
+/** factory for actual hint hooks reducer */
+function makeActualHintHookReducer(actualHint: string) {
+  return (
+    acc: ExpectContext["hookContext"]["actualHints"],
+    { name, returns }: PreModifierContext,
+  ) => {
+    const reserveActualHint = returns.reserveActualHint;
+    if (!reserveActualHint) {
+      return acc;
+    }
+    return [...acc, {
+      name,
+      actualHint: reserveActualHint(
+        last(acc)?.actualHint ?? actualHint,
+      ),
+    }];
+  };
+}
+
 export {
   assert,
   DEFAULT_ACTUAL_HINT,
   DEFAULT_EXPECTED_HINT,
+  makeActualHintHookReducer,
   makePostModifierReducer,
   makePreModifierReducer,
   mergeContext,

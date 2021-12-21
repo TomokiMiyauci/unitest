@@ -1,5 +1,6 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import {
+  boolean,
   debug,
   defineExpect,
   expect,
@@ -1243,4 +1244,17 @@ test("passes when numberized value to be", () => {
 
   expect("").number.toBe(0);
   expect("test").number.toBe(NaN);
+});
+
+test("passes when booleanized value to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      boolean,
+    },
+  });
+  expect("").boolean.toBe(false);
+  expect("test").boolean.toBe(true);
 });

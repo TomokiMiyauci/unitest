@@ -1,7 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import type { PreModifier } from "./types.ts";
+import { magenta } from "../deps.ts";
+import type { PreModifier, PreModifierResult } from "./types.ts";
 
 /** Use `.trim` to removes the leading and trailing white space and line terminator
  * characters from a `actual`.
@@ -27,11 +28,13 @@ import type { PreModifier } from "./types.ts";
  * });
  * ```
  */
-const trim: PreModifier<string, { actual: string }> = {
+const trim: PreModifier<string, PreModifierResult<string>> = {
   type: "pre",
   fn: (actual) => {
     return {
       actual: actual.trim(),
+      reserveActualHint: (actualHint) =>
+        `${actualHint} ${magenta("[trimmed]")}`,
     };
   },
 };

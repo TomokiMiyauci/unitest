@@ -28,7 +28,11 @@ import type {
   PreModifierFn,
   PreModifierResult,
 } from "../modifier/types.ts";
-import { makePostModifierReducer, makePreModifierReducer } from "./_utils.ts";
+import {
+  makeActualHintHookReducer,
+  makePostModifierReducer,
+  makePreModifierReducer,
+} from "./_utils.ts";
 
 import type { ModifierMap } from "../modifier/types.ts";
 import type { MatcherMap } from "../matcher/types.ts";
@@ -221,12 +225,18 @@ function defineExpect<
             ];
             const matchResult = matcher(...matcherArgs);
 
+            const _actualHint = matchResult.actualHint ?? DEFAULT_ACTUAL_HINT;
+            const actualHints = preModifierContexts.reduce(
+              makeActualHintHookReducer(_actualHint),
+              [] as ExpectContext["hookContext"]["actualHints"],
+            );
+
             const postModifierContexts = post.reduce(
               makePostModifierReducer([{
                 actual: matcherArgs[0],
                 matcherArgs: args,
                 resultActual: matchResult.resultActual,
-                actualHint: matchResult.actualHint ?? DEFAULT_ACTUAL_HINT,
+                actualHint: last(actualHints)?.actualHint ?? _actualHint,
                 matcher,
                 expectedHint: matchResult.expectedHint ?? DEFAULT_EXPECTED_HINT,
                 pass: matchResult.pass,
@@ -242,6 +252,9 @@ function defineExpect<
                 name,
                 args: matcherArgs,
                 returns: matchResult,
+              },
+              hookContext: {
+                actualHints,
               },
               postModifierContexts,
             });

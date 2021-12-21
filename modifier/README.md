@@ -161,6 +161,34 @@ test("passes when numberized value to be", () => {
 });
 ```
 
+### boolean
+
+Use `.boolean` to convert any `actual` to `boolean`. Internally, the `Boolean`
+constructor is used.
+
+```ts
+import {
+  boolean,
+  defineExpect,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    boolean,
+  },
+});
+
+test("passes when booleanized value to be", () => {
+  expect("").boolean.toBe(false);
+  expect("test").boolean.toBe(true);
+});
+```
+
 ## post modifier
 
 Post modifier is an object that is executed after a match. It interrupts the

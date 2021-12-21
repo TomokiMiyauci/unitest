@@ -1,7 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import type { PreModifier } from "./types.ts";
+import { magenta } from "../deps.ts";
+import type { PreModifier, PreModifierResult } from "./types.ts";
 
 /** Use `.string` to convert any `actual` to `string`. Internally, the `String`
  * constructor is used.
@@ -27,9 +28,12 @@ import type { PreModifier } from "./types.ts";
  * });
  * ```
  */
-const string: PreModifier<unknown, { actual: string }> = {
+const string: PreModifier<unknown, PreModifierResult<string>> = {
   type: "pre",
-  fn: (actual) => ({ actual: String(actual) }),
+  fn: (actual) => ({
+    actual: String(actual),
+    reserveActualHint: (actualHint) => `${actualHint} ${magenta("[toString]")}`,
+  }),
 };
 
 export { string };

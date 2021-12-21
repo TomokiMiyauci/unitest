@@ -3,6 +3,7 @@
 
 import { AssertionError } from "../deps.ts";
 import { stringify } from "../helper/format.ts";
+import { magenta } from "../deps.ts";
 import type { PreModifier, PreModifierResult } from "./types.ts";
 
 /** predict for `rejects` */
@@ -21,6 +22,7 @@ async function predict(
 
   return {
     actual: resolvedActual[1],
+    reserveActualHint: (actualHint) => `${actualHint} ${magenta("[rejected]")}`,
   };
 }
 
@@ -33,7 +35,10 @@ async function predict(
  * });
  * ```
  */
-const rejects: PreModifier<Promise<unknown>, Promise<{ actual: unknown }>> = {
+const rejects: PreModifier<
+  Promise<unknown>,
+  Promise<PreModifierResult<unknown>>
+> = {
   type: "pre",
   fn: predict,
 };
