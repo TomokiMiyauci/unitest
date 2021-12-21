@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { magenta } from "../deps.ts";
 import type { PreModifier, PreModifierResult } from "./types.ts";
 
 /** predict for `resolves` */
@@ -11,6 +12,7 @@ async function predict(
 
   return {
     actual: resolvedActual,
+    reserveActualHint: (actualHint) => `${actualHint} ${magenta("[resolved]")}`,
   };
 }
 
@@ -23,7 +25,10 @@ async function predict(
  * });
  * ```
  */
-const resolves: PreModifier<Promise<unknown>, Promise<{ actual: unknown }>> = {
+const resolves: PreModifier<
+  Promise<unknown>,
+  Promise<PreModifierResult<unknown>>
+> = {
   type: "pre",
   fn: predict,
 };

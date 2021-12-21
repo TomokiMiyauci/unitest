@@ -10,7 +10,6 @@ import {
 } from "./_utils.ts";
 import { toBe } from "../matcher/to_be.ts";
 import { not } from "../modifier/not.ts";
-import { number } from "../modifier/number.ts";
 import type { ExpectContext, PreModifierContext } from "./_utils.ts";
 import type { PreModifierFn } from "../modifier/types.ts";
 
@@ -148,19 +147,25 @@ Deno.test("makePreModifierReducer sync", () => {
     acc,
   );
 
-  assertEquals(makePreModifierReducer(args)(acc, ["number", number.fn]), [
-    [...acc[0], {
-      args: ["test", {
-        matcherArgs: ["test"],
-        matcher: toBe,
+  assertEquals(
+    makePreModifierReducer(args)(acc, [
+      "number",
+      (actual) => ({ actual: Number(actual) }),
+    ]),
+    [
+      [...acc[0], {
+        args: ["test", {
+          matcherArgs: ["test"],
+          matcher: toBe,
+        }],
+        name: "number",
+        returns: {
+          actual: NaN,
+        },
       }],
-      name: "number",
-      returns: {
-        actual: NaN,
-      },
-    }],
-    false,
-  ]);
+      false,
+    ],
+  );
 });
 
 Deno.test("makePreModifierReducer async", async () => {

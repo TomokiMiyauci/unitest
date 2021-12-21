@@ -1,7 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import type { PreModifier } from "./types.ts";
+import { magenta } from "../deps.ts";
+import type { PreModifier, PreModifierResult } from "./types.ts";
 
 /** Use `.number` to convert any `actual` to `number`. Internally, the `Number`
  * constructor is used.
@@ -28,9 +29,12 @@ import type { PreModifier } from "./types.ts";
  * });
  * ```
  */
-const number: PreModifier<unknown, { actual: number }> = {
+const number: PreModifier<unknown, PreModifierResult<number>> = {
   type: "pre",
-  fn: (actual) => ({ actual: Number(actual) }),
+  fn: (actual) => ({
+    actual: Number(actual),
+    reserveActualHint: (actualHint) => `${actualHint} ${magenta("[toNumber]")}`,
+  }),
 };
 
 export { number };
