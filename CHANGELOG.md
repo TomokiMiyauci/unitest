@@ -1,3 +1,12 @@
+# [1.0.0-beta.76](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.75...v1.0.0-beta.76) (2021-12-21)
+
+
+### Features
+
+* **expect:** add `reserveActualHint` hooks for merge actual hint after match ([f0749e3](https://github.com/TomokiMiyauci/unitest/commit/f0749e303e7b5a4b5b83cf15e3ae44bc9e530350))
+* **modifier:** add `boolean` pre modifier ([374dcd1](https://github.com/TomokiMiyauci/unitest/commit/374dcd12ccf881213151e23e9386770f272ed6ed))
+* **modifier:** set reserved actual hint ([cc1bbe6](https://github.com/TomokiMiyauci/unitest/commit/cc1bbe66ea022e9f0649e31dc428909ea830ca93)), closes [#60](https://github.com/TomokiMiyauci/unitest/issues/60)
+
 # [1.0.0-beta.75](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.74...v1.0.0-beta.75) (2021-12-20)
 
 
