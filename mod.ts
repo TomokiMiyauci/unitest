@@ -120,6 +120,8 @@ export { resolves } from "./modifier/resolves.ts";
 export { trim } from "./modifier/trim.ts";
 export { debug } from "./modifier/debug.ts";
 export { string } from "./modifier/string.ts";
+export { boolean } from "./modifier/boolean.ts";
+
 export * from "./modifier/number.ts";
 export * from "./modifier/preset.ts";
 
