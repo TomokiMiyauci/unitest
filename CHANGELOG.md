@@ -1,3 +1,11 @@
+# [1.0.0-beta.78](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.77...v1.0.0-beta.78) (2021-12-22)
+
+
+### Features
+
+* **modifier:** add `lowerCase` pre modifier ([c26dce1](https://github.com/TomokiMiyauci/unitest/commit/c26dce110e225513b9ccfd865b31ef7a2c755c95))
+* **modifier:** add `upperCase` pre modifier ([63008cb](https://github.com/TomokiMiyauci/unitest/commit/63008cb0ae0ff08d14e701443e0113c1bb1ff221))
+
 # [1.0.0-beta.77](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.76...v1.0.0-beta.77) (2021-12-21)
 
 
