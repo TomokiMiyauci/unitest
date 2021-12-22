@@ -189,6 +189,33 @@ test("passes when booleanized value to be", () => {
 });
 ```
 
+### lowerCase
+
+Use `.lowerCase` to convert `string` actual to lower case.
+
+```ts
+import {
+  defineExpect,
+  lowerCase,
+  test,
+  toBe,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const expect = defineExpect({
+  matcherMap: {
+    toBe,
+  },
+  modifierMap: {
+    lowerCase,
+  },
+});
+
+test("passes when lower cased value to be", () => {
+  expect("").lowerCase.toBe("");
+  expect("Test").lowerCase.toBe("test");
+});
+```
+
 ## post modifier
 
 Post modifier is an object that is executed after a match. It interrupts the

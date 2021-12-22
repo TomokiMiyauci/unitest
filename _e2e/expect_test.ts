@@ -7,6 +7,7 @@ import {
   extendExpect,
   fn,
   jestExtendedMatcherMap,
+  lowerCase,
   not,
   number,
   resolves,
@@ -1257,4 +1258,18 @@ test("passes when booleanized value to be", () => {
   });
   expect("").boolean.toBe(false);
   expect("test").boolean.toBe(true);
+});
+
+test("passes when lower cased value to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      lowerCase,
+    },
+  });
+
+  expect("").lowerCase.toBe("");
+  expect("Test").lowerCase.toBe("test");
 });
