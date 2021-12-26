@@ -1,6 +1,8 @@
 import React, { type ComponentType, useMemo, useState } from "react";
 import { useRouter } from "aleph/react";
 import { clsx } from "../deps.ts";
+import Footer from "../components/docs_footer.tsx";
+import type { Markdown } from "../plugins/markdown.ts";
 
 type Menu = {
   title: string;
@@ -40,7 +42,7 @@ const navMenu: NavMenu = {
 };
 
 type DocsProps = {
-  Page?: ComponentType<any>;
+  Page?: ComponentType<any> & Markdown;
 };
 
 export default function Docs({ Page }: DocsProps) {
@@ -68,7 +70,7 @@ export default function Docs({ Page }: DocsProps) {
 
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <div className="top-50px md:fixed md:w-72">
+      <section className="top-72px md:sticky md:float-left md:w-72">
         <button
           className="flex md:hidden space-x-2 items-center w-full px-2"
           onClick={() => setOpen(!isOpen)}
@@ -109,11 +111,29 @@ export default function Docs({ Page }: DocsProps) {
             </ul>
           </nav>
         </aside>
-      </div>
+      </section>
+
+      {
+        <aside className="w-60 hidden xl:block xl:sticky overflow-y-scroll h-92vh xl:float-right top-72px right-0">
+          <h5 className="mb-3">On this page</h5>
+          <ul>
+            {Page?.toc.map(({ title, id, escapedTitle }) => (
+              <li key={id}>
+                <a
+                  className="block opacity-60 transition-colors duration-200 hover:opacity-100"
+                  href={`#${escapedTitle}`}
+                >
+                  {title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      }
 
       {Page &&
         (
-          <div className="prose max-w-none md:ml-72">
+          <article className="prose max-w-none md:ml-72 xl:mx-72">
             <Page className="px-4 lg:px-8" />
 
             <nav className="px-4 lg:px-8">
@@ -136,7 +156,9 @@ export default function Docs({ Page }: DocsProps) {
                 )}
               </div>
             </nav>
-          </div>
+
+            <Footer />
+          </article>
         )}
     </div>
   );
