@@ -62,6 +62,20 @@ export const markdownLoader = async (
       : undefined,
   };
 
+  marked.use({
+    renderer: {
+      heading(text, level) {
+        const escapedText = text.toLowerCase().replaceAll(escape, "-");
+
+        return `
+                <h${level} id=${escapedText}>
+                  <a href="#${escapedText}">
+                    <span class="header-link"></span>
+                  </a>${text}</h${level}>`;
+      },
+    },
+  });
+
   let html = marked.parse(__content);
   if (highlight) {
     html = html.replace(reCodeTag, (_, language, code) => {
@@ -77,7 +91,7 @@ export const markdownLoader = async (
         depth: cur.depth,
         title: cur.text,
         id: globalThis.crypto.randomUUID(),
-        escapedTitle: cur.text.toLowerCase().replaceAll(escape, ""),
+        escapedTitle: cur.text.toLowerCase().replaceAll(escape, "-"),
       });
     }
     return acc;

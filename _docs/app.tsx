@@ -14,14 +14,14 @@ export default function App(
           {`
         html, body {
           scroll-behavior: smooth;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
       `}
         </style>
       </head>
-      <main className="text-gray-700 antialiased">
-        <Header />
-        <Page {...pageProps} />
-      </main>
+      <Header />
+      <Page {...pageProps} />
     </>
   );
 }

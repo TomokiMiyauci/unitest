@@ -70,7 +70,7 @@ export default function Docs({ Page }: DocsProps) {
   }, [navLinks, pathname]);
 
   return (
-    <div className="max-w-screen-2xl mx-auto">
+    <main className="max-w-screen-2xl mx-auto">
       <section className="top-72px md:sticky md:float-left md:w-72">
         <button
           className="flex md:hidden space-x-2 items-center w-full px-2"
@@ -123,6 +123,21 @@ export default function Docs({ Page }: DocsProps) {
                 <a
                   className="block opacity-60 transition-colors duration-200 hover:opacity-100"
                   href={`#${escapedTitle}`}
+                  onClick={(
+                    e,
+                  ) => {
+                    e.preventDefault();
+                    const el = document.getElementById(escapedTitle);
+                    if (el) {
+                      const header = document.getElementsByTagName("header");
+
+                      window.scrollTo({
+                        "behavior": "smooth",
+                        "top": el.offsetTop -
+                          (header.item(0)?.clientHeight ?? 0),
+                      });
+                    }
+                  }}
                 >
                   {title}
                 </a>
@@ -161,6 +176,6 @@ export default function Docs({ Page }: DocsProps) {
             <Footer />
           </article>
         )}
-    </div>
+    </main>
   );
 }
