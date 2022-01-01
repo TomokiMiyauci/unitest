@@ -115,8 +115,7 @@ type Chain<
   }
   & (Promised extends true
     ? Chainable<Post, ReturnTypePromisifyMap<MatcherFilter<Actual, U>>>
-    : Chainable<Post, MatcherFilter<Actual, U>>)
-  & { get: Promised };
+    : Chainable<Post, MatcherFilter<Actual, U>>);
 
 type Expected<
   Actual,

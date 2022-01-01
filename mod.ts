@@ -113,6 +113,7 @@ export { stringMatching } from "./dummy/string_matching.ts";
 export { stringContaining } from "./dummy/string_containing.ts";
 export { anyOf } from "./dummy/any_of.ts";
 export { anyArray } from "./dummy/any_array.ts";
+export { anyFunction } from "./dummy/any_function.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";
@@ -121,6 +122,8 @@ export { trim } from "./modifier/trim.ts";
 export { debug } from "./modifier/debug.ts";
 export { string } from "./modifier/string.ts";
 export { boolean } from "./modifier/boolean.ts";
+export { upperCase } from "./modifier/upper_case.ts";
+export { lowerCase } from "./modifier/lower_case.ts";
 
 export * from "./modifier/number.ts";
 export * from "./modifier/preset.ts";

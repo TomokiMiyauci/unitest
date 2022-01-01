@@ -1,20 +1,24 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 // This module is browser compatible.
-import { green, red, yellow } from "../deps.ts";
+import { blue, green, magenta, red, yellow } from "../deps.ts";
 
+/** Whatever globalThis have `Deno` or not */
 function isDeno(): boolean {
   return "Deno" in globalThis;
 }
 
+/** helper for stringify */
 function stringify(value: unknown): string {
   const _stringify = isDeno() ? Deno.inspect : String;
   return _stringify(value);
 }
 
+/** iterable stringer */
 function printIterable(iterable: readonly unknown[]): string[] {
   return iterable.map((item) => stringify(item));
 }
 
+/** make nested text */
 function nestText(text: string, space: number): string {
   const whiteSpace = " ";
   return `${whiteSpace.repeat(space)}${text}`.replaceAll(
@@ -31,6 +35,7 @@ type StringifyExpectArgs = {
   postModifier: string;
 };
 
+/** expect block stringer */
 function stringifyExpect({
   actual,
   matcherArgs,
@@ -63,6 +68,7 @@ type StringifyAssertArgs = {
   actualHint?: string;
 };
 
+/** assert message stringer */
 function stringifyAssert({
   resultActual,
   expected,
@@ -79,6 +85,7 @@ ${nestText(red(stringify(expected)), 2)}
   );
 }
 
+/** assert stringer */
 function stringifyResult(
   {
     actual,
@@ -95,10 +102,10 @@ function stringifyResult(
   return `${
     stringifyExpect({
       actual: stringify(actual),
-      matcherArgs: matcherArgs ? printIterable(matcherArgs).join(", ") : "",
+      matcherArgs: printIterable(matcherArgs).join(", "),
       matcher: yellow(String(matcherName)),
-      preModifier: preModifierNames.join("."),
-      postModifier: postModifierNames.join("."),
+      preModifier: preModifierNames.map(String).map(magenta).join("."),
+      postModifier: postModifierNames.map(String).map(blue).join("."),
     })
   }
 

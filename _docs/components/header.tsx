@@ -3,7 +3,7 @@ import React from "react";
 export default function Header() {
   return (
     <header
-      className={`py-2 px-4 flex items-center justify-between inset-x-0 text-gray-600 sticky top-0 backdrop-filter backdrop-blur`}
+      className={`py-2 px-4 flex items-center justify-between inset-x-0 text-gray-600 sticky top-0 backdrop-filter backdrop-blur max-w-screen-2xl mx-auto`}
     >
       <a href="/">
         <h1 className="text-2xl space-x-2">
@@ -21,15 +21,6 @@ export default function Header() {
         >
           Document
         </a>
-
-        {
-          /* <span className="relative group">
-          <span>
-            Locale
-          </span>
-          <DropDown className="absolute group-hover:inline-block opacity-0 transform scale-0 group-hover:scale-100 top-5 group-hover:opacity-100 transition duration-300 shadow p-2 rounded right-0" />
-        </span> */
-        }
 
         <a
           className="hover:text-emerald-500 transition-colors duration-300"

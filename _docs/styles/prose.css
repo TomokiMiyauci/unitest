@@ -1,0 +1,7 @@
+@media (max-width: 640px) {
+  .prose :where(pre):not(.not-prose) {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+  }
+}

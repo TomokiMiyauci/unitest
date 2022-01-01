@@ -6,6 +6,8 @@ export { resolves } from "./resolves.ts";
 export { trim } from "./trim.ts";
 export { debug } from "./debug.ts";
 export { boolean } from "./boolean.ts";
+export { lowerCase } from "./lower_case.ts";
+export { upperCase } from "./upper_case.ts";
 export * from "./string.ts";
 export * from "./number.ts";
 export * from "./preset.ts";

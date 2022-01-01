@@ -7,6 +7,7 @@ import {
   extendExpect,
   fn,
   jestExtendedMatcherMap,
+  lowerCase,
   not,
   number,
   resolves,
@@ -73,6 +74,7 @@ import {
   toStartWith,
   toThrow,
   trim,
+  upperCase,
 } from "../mod.ts";
 
 test({
@@ -1257,4 +1259,32 @@ test("passes when booleanized value to be", () => {
   });
   expect("").boolean.toBe(false);
   expect("test").boolean.toBe(true);
+});
+
+test("passes when lower cased value to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      lowerCase,
+    },
+  });
+
+  expect("").lowerCase.toBe("");
+  expect("Test").lowerCase.toBe("test");
+});
+
+test("passes when upper cased value to be", () => {
+  const expect = defineExpect({
+    matcherMap: {
+      toBe,
+    },
+    modifierMap: {
+      upperCase,
+    },
+  });
+
+  expect("").upperCase.toBe("");
+  expect("Test").upperCase.toBe("TEST");
 });

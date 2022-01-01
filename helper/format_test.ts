@@ -1,6 +1,7 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { stringify, stringifyExpect } from "./format.ts";
+import { stringify, stringifyExpect, stringifyResult } from "./format.ts";
 import { assertEquals } from "../dev_deps.ts";
+import { blue, green, magenta, red, yellow } from "../deps.ts";
 import type { StringifyExpectArgs } from "./format.ts";
 Deno.test({
   name: "stringify",
@@ -109,4 +110,29 @@ Deno.test({
       assertEquals(stringifyExpect(value), result)
     );
   },
+});
+
+Deno.test("stringifyResult", () => {
+  assertEquals(
+    stringifyResult({
+      actual: "test",
+      actualHint: "Actual:",
+      matcherArgs: ["testa"],
+      resultActual: "testa",
+      matcherName: "toBe",
+      expected: "test",
+      expectedHint: "Expected:",
+      postModifierNames: ["not", "debug"],
+      preModifierNames: ["string", "trim"],
+    }),
+    `expect("test").${magenta("string")}.${magenta("trim")}.${blue("not")}.${
+      blue("debug")
+    }.${yellow("toBe")}("testa")
+
+    Actual:
+      ${green(`"testa"`)}
+    Expected:
+      ${red(`"test"`)}
+    `,
+  );
 });

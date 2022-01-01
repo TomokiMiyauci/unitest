@@ -158,6 +158,22 @@ test("should be any boolean", () => {
 });
 ```
 
+## anyFunction
+
+`anyFunction()` matches any `function`.
+
+```ts
+import {
+  anyFunction,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should be any function", () => {
+  expect(() => {}).toEqual(anyFunction());
+});
+```
+
 ## anyArray
 
 `anyArray(?unknown)` matches any `array` or any specific `array`
