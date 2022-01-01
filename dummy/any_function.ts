@@ -12,10 +12,12 @@ function isAnyFunction(value: unknown): value is Function {
 
 /** Object have asymmetric matcher for `function`  */
 class AnyFunction implements Equality {
+  /** equality logic called by equal function */
   [equality](actual: unknown): boolean {
     return isAnyFunction(actual);
   }
 
+  /** display name */
   toString() {
     return "any function";
   }
