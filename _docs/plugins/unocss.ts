@@ -17,7 +17,19 @@ export default <Plugin> {
               padding: "0 0",
             },
             "pre > code": {
-              background: "#f9fafb",
+              background: "rgba(229, 231, 235, 0.4)",
+            },
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
+            },
+            "p > code": {
+              "background-color": "rgb(243, 244, 246)",
+              "border-radius": "0.25rem",
+              "padding-left": "0.125rem",
+              "padding-right": "0.125rem",
             },
           },
         }),

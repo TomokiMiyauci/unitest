@@ -3,6 +3,7 @@ import { useRouter } from "aleph/react";
 import { clsx } from "../deps.ts";
 import Footer from "../components/docs_footer.tsx";
 import type { Markdown } from "../plugins/markdown.ts";
+import "../styles/prose.css";
 
 type Menu = {
   title: string;
@@ -133,7 +134,7 @@ export default function Docs({ Page }: DocsProps) {
 
       {Page &&
         (
-          <article className="prose max-w-none md:ml-72 xl:mx-72">
+          <article className="prose prose-gray max-w-none md:ml-72 xl:mx-72">
             <Page className="px-4 lg:px-8" />
 
             <nav className="px-4 lg:px-8">
