@@ -5,18 +5,12 @@ import { equality } from "../helper/equal.ts";
 import type { Equality } from "../helper/equal.ts";
 
 /** Whether argument is `bigint` or not.
- * ```ts
- * isBigInt(1n) // true
- * ```
  */
 function isBigInt(value: unknown): value is bigint {
   return typeof value === "bigint";
 }
 
 /** Whether argument is `bigint` or `BigInt` or not.
- * ```ts
- * isAnyBigInt(BigInt(1)) // true
- * ```
  */
 function isAnyBigInt(value: unknown): value is bigint | BigInt {
   return isBigInt(value) || value instanceof BigInt;

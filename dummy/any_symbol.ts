@@ -6,8 +6,6 @@ import { isSymbol } from "../deps.ts";
 import type { Equality } from "../helper/equal.ts";
 
 /** Whether argument is any `symbol` not.
- * ```ts
- * isAnySymbol(Symbol.for("symbol")) // true
  * ```
  */
 function isAnySymbol(value: unknown): value is symbol | Symbol {
