@@ -158,6 +158,21 @@ test("should be any boolean", () => {
 });
 ```
 
+## anySymbol
+
+`anyBoolean()` matches any `symbol` or `Symbol`
+
+```ts
+import {
+  anySymbol,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+test("should be any symbol", () => {
+  expect(Symbol.for("symbol")).toEqual(anySymbol());
+});
+```
+
 ## anyFunction
 
 `anyFunction()` matches any `function`.

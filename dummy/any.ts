@@ -2,17 +2,14 @@
 // This module is browser compatible.
 
 import { equality } from "../helper/equal.ts";
-import { isObject, isSymbol } from "../deps.ts";
+import { isObject } from "../deps.ts";
 import type { Equality } from "../helper/equal.ts";
 import { isAnyNumber } from "./any_number.ts";
 import { isAnyString } from "./any_string.ts";
 import { isAnyBoolean } from "./any_boolean.ts";
 import { isAnyFunction } from "./any_function.ts";
 import { isAnyBigInt } from "./any_big_int.ts";
-
-function isAnySymbol(value: unknown): value is symbol | Symbol {
-  return isSymbol(value) || value instanceof Symbol;
-}
+import { isAnySymbol } from "./any_symbol.ts";
 
 function equalAnyOf(a: unknown, b: Function): boolean {
   switch (b) {
@@ -50,6 +47,7 @@ class Any implements Equality {
     return equalAnyOf(actual, this.object);
   }
 
+  /** display name */
   toString(): string {
     return "Any";
   }

@@ -1,5 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import { Any, any, equalAnyOf, isAnyString, isAnySymbol } from "./any.ts";
+import { Any, any, equalAnyOf, isAnyString } from "./any.ts";
 import { assertEquals, assertExists } from "../dev_deps.ts";
 import { equality } from "../helper/equal.ts";
 
@@ -15,19 +15,6 @@ Deno.test("isAnyString", () => {
   ];
 
   table.forEach(([value, result]) => assertEquals(isAnyString(value), result));
-});
-
-Deno.test("isAnySymbol", () => {
-  const table: [
-    ...Parameters<typeof isAnySymbol>,
-    ReturnType<typeof isAnySymbol>,
-  ][] = [
-    [Symbol.for(""), true],
-    [Symbol("test"), true],
-    [Symbol, false],
-  ];
-
-  table.forEach(([value, result]) => assertEquals(isAnySymbol(value), result));
 });
 
 Deno.test("equalAnyOf", () => {
