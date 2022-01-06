@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        deno: [1.16.x]
+        deno: [1.17.x]
 
     steps:
       - name: Checkout
