@@ -1,13 +1,5 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
-import {
-  Any,
-  any,
-  equalAnyOf,
-  isAnyBigInt,
-  isAnyString,
-  isAnySymbol,
-  isBigInt,
-} from "./any.ts";
+import { Any, any, equalAnyOf, isAnyString, isAnySymbol } from "./any.ts";
 import { assertEquals, assertExists } from "../dev_deps.ts";
 import { equality } from "../helper/equal.ts";
 
@@ -36,50 +28,6 @@ Deno.test("isAnySymbol", () => {
   ];
 
   table.forEach(([value, result]) => assertEquals(isAnySymbol(value), result));
-});
-
-Deno.test("isAnyBigInt", () => {
-  const table: [
-    ...Parameters<typeof isAnyBigInt>,
-    ReturnType<typeof isAnyBigInt>,
-  ][] = [
-    [1n, true],
-    [BigInt(0n), true],
-    [BigInt, false],
-  ];
-
-  table.forEach(([value, result]) => assertEquals(isAnyBigInt(value), result));
-});
-
-Deno.test("isAnyBigInt", () => {
-  const table: [
-    ...Parameters<typeof isAnyBigInt>,
-    ReturnType<typeof isAnyBigInt>,
-  ][] = [
-    [1n, true],
-    [BigInt(0n), true],
-    [BigInt, false],
-    [1, false],
-  ];
-
-  table.forEach(([value, result]) => assertEquals(isAnyBigInt(value), result));
-});
-
-Deno.test("isBitInt", () => {
-  const table: [
-    ...Parameters<typeof isBigInt>,
-    ReturnType<typeof isBigInt>,
-  ][] = [
-    [1n, true],
-    [0n, true],
-    [0, false],
-    [1, false],
-    ["", false],
-    [{}, false],
-    [null, false],
-  ];
-
-  table.forEach(([value, result]) => assertEquals(isBigInt(value), result));
 });
 
 Deno.test("equalAnyOf", () => {

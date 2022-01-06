@@ -13,3 +13,4 @@ export { stringContaining } from "./string_containing.ts";
 export { anyOf } from "./any_of.ts";
 export { anyArray } from "./any_array.ts";
 export { anyFunction } from "./any_function.ts";
+export { anyBigInt } from "./any_big_int.ts";

@@ -8,14 +8,7 @@ import { isAnyNumber } from "./any_number.ts";
 import { isAnyString } from "./any_string.ts";
 import { isAnyBoolean } from "./any_boolean.ts";
 import { isAnyFunction } from "./any_function.ts";
-
-function isBigInt(value: unknown): value is bigint {
-  return typeof value === "bigint";
-}
-
-function isAnyBigInt(value: unknown): value is bigint | BigInt {
-  return isBigInt(value) || value instanceof BigInt;
-}
+import { isAnyBigInt } from "./any_big_int.ts";
 
 function isAnySymbol(value: unknown): value is symbol | Symbol {
   return isSymbol(value) || value instanceof Symbol;
@@ -75,5 +68,4 @@ export {
   isAnyFunction,
   isAnyString,
   isAnySymbol,
-  isBigInt,
 };
