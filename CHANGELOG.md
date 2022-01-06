@@ -1,3 +1,11 @@
+# [1.0.0-beta.79](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.78...v1.0.0-beta.79) (2022-01-06)
+
+
+### Features
+
+* **dummy:** add `anyBigInt` function ([8c50d41](https://github.com/TomokiMiyauci/unitest/commit/8c50d4138f8762b87eb2ffccdcdfbfcd630f4224))
+* **dummy:** add `anySymbol` function ([ea5d2b4](https://github.com/TomokiMiyauci/unitest/commit/ea5d2b4f95bb789b2930c773a51f1340becf1005))
+
 # [1.0.0-beta.78](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.77...v1.0.0-beta.78) (2021-12-22)
 
 

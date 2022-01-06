@@ -114,6 +114,8 @@ export { stringContaining } from "./dummy/string_containing.ts";
 export { anyOf } from "./dummy/any_of.ts";
 export { anyArray } from "./dummy/any_array.ts";
 export { anyFunction } from "./dummy/any_function.ts";
+export { anyBigInt } from "./dummy/any_big_int.ts";
+export { anySymbol } from "./dummy/any_symbol.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";

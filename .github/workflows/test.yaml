@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-18.04, macos-latest, windows-latest]
-        deno: [1.16.0, 1.15.0]
+        deno: [1.17.2, 1.15.0]
 
     steps:
       - name: Checkout
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-18.04, macos-latest, windows-latest]
-        deno: [1.16.0, 1.15.0]
+        deno: [1.17.2, 1.15.0]
 
     steps:
       - name: Checkout
