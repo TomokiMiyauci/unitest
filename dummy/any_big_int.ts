@@ -42,9 +42,8 @@ class AnyBigInt implements Equality {
  *   expect,
  *   test,
  * } from "https://deno.land/x/unitest@$VERSION/mod.ts";
- *
- * test("should be any boolean", () => {
- *   expect(new Boolean(false)).toEqual(anyBoolean());
+ * test("should be any bigint", () => {
+ *   expect(1n).toEqual(anyBigInt());
  * });
  * ```
  */

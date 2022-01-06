@@ -142,6 +142,21 @@ test("should be any number", () => {
 });
 ```
 
+## anyBitInt
+
+`anyNumber()` matches any `bigint` or `BigInt`.
+
+```ts
+import {
+  anyBigInt,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+test("should be any bigint", () => {
+  expect(1n).toEqual(anyBigInt());
+});
+```
+
 ## anyBoolean
 
 `anyBoolean()` matches any `boolean` or `Boolean`
