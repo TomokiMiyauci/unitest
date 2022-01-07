@@ -12,13 +12,18 @@ function isAnyString(value: unknown): value is string | String {
 
 /** equal to any String */
 class AnyString implements Equality {
+  #condition;
+  constructor(condition?: (value: string) => boolean) {
+    this.#condition = condition;
+  }
   /** equality logic called by equal function */
   [equality](actual: unknown): boolean {
-    return isAnyString(actual);
+    const isStr = isAnyString(actual);
+    return this.#condition ? isStr && this.#condition(String(actual)) : isStr;
   }
 
   /** display name */
-  toString() {
+  toString(): string {
     return "any string";
   }
 }
@@ -36,8 +41,8 @@ class AnyString implements Equality {
  * });
  * ```
  */
-function anyString(): AnyString {
-  return new AnyString();
+function anyString(condition?: (value: string) => boolean): AnyString {
+  return new AnyString(condition);
 }
 
 export { AnyString, anyString, isAnyString };

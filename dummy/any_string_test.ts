@@ -1,6 +1,8 @@
 // Copyright 2021-Present the Unitest authors. All rights reserved. MIT license.
 import { AnyString, anyString, isAnyString } from "./any_string.ts";
 import { assertEquals, assertExists } from "../dev_deps.ts";
+import { fn } from "../mock/fn.ts";
+import { expect } from "../expect/expect.ts";
 import { equality } from "../helper/equal.ts";
 
 Deno.test("isAnyString", () => {
@@ -20,14 +22,32 @@ Deno.test("isAnyString", () => {
 Deno.test({
   name: "AnyString",
   fn: () => {
-    const anyNumber = new AnyString();
-    assertExists(anyNumber.toString);
-    assertExists(anyNumber[equality]);
+    const anyString = new AnyString();
+    assertExists(anyString.toString);
+    assertExists(anyString[equality]);
 
-    assertEquals(anyNumber.toString(), "any string");
-    assertEquals(anyNumber[equality](undefined), false);
-    assertEquals(anyNumber[equality](null), false);
-    assertEquals(anyNumber[equality](""), true);
+    assertEquals(anyString.toString(), "any string");
+    assertEquals(anyString[equality](undefined), false);
+    assertEquals(anyString[equality](null), false);
+    assertEquals(anyString[equality](""), true);
+  },
+});
+
+Deno.test({
+  name: "AnyString with condition",
+  fn: () => {
+    const anyString = new AnyString((v) => /^[A-Z]+$/.test(v));
+
+    assertEquals(anyString[equality]("test"), false);
+    assertEquals(anyString[equality]("Test"), false);
+    assertEquals(anyString[equality]("TEST"), true);
+
+    const mockFn = fn(() => true);
+
+    const anyStr = new AnyString(mockFn);
+    anyStr[equality]("TEST");
+    expect(mockFn).toHaveBeenCalledWith("TEST");
+    expect(mockFn).toHaveReturnedWith(true);
   },
 });
 

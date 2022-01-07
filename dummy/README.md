@@ -126,6 +126,25 @@ test("should be any string", () => {
 });
 ```
 
+### condition
+
+`anyString` accept condition function. You can put conditions on the
+equivalence.
+
+```ts
+import {
+  anyString,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+const isUpper = (value: string): boolean => /^[A-Z]+$/.test(value);
+
+test("should be upperCase string", () => {
+  expect("HELLO").toEqual(anyString(isUpper));
+});
+```
+
 ## anyNumber
 
 `anyNumber()` matches any `number` or `Number`

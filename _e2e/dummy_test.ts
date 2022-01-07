@@ -117,3 +117,8 @@ test("should be any array", () => {
 test("should be any function", () => {
   expect(() => {}).toEqual(anyFunction());
 });
+
+const isUpper = (value: string): boolean => /^[A-Z]+$/.test(value);
+test("should be upperCase string", () => {
+  expect("HELLO").toEqual(anyString(isUpper));
+});
