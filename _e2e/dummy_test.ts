@@ -14,6 +14,7 @@ import {
   stringMatching,
   test,
 } from "../mod.ts";
+import { isEven } from "../deps.ts";
 
 test("anything", () => {
   expect({}).toEqual(anything());
@@ -121,4 +122,8 @@ test("should be any function", () => {
 const isUpper = (value: string): boolean => /^[A-Z]+$/.test(value);
 test("should be upperCase string", () => {
   expect("HELLO").toEqual(anyString(isUpper));
+});
+
+test("should be even", () => {
+  expect(2).toEqual(anyNumber(isEven));
 });

@@ -161,6 +161,24 @@ test("should be any number", () => {
 });
 ```
 
+### condition
+
+`anyNumber` accept condition function. You can put conditions on the
+equivalence.
+
+```ts
+import {
+  anyNumber,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+import { isEven } from "https://deno.land/x/isx/mod.ts";
+
+test("should be even", () => {
+  expect(2).toEqual(anyNumber(isEven));
+});
+```
+
 ## anyBitInt
 
 `anyNumber()` matches any `bigint` or `BigInt`.
