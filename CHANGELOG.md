@@ -1,3 +1,10 @@
+# [1.0.0-beta.81](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.80...v1.0.0-beta.81) (2022-01-09)
+
+
+### Features
+
+* **dummy:** accept conditional function to `anyNumber` dummy function ([cf4e13f](https://github.com/TomokiMiyauci/unitest/commit/cf4e13faaf75df30b9331b0e22d94d4046666b35))
+
 # [1.0.0-beta.80](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.79...v1.0.0-beta.80) (2022-01-07)
 
 
