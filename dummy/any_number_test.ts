@@ -2,6 +2,9 @@
 import { AnyNumber, anyNumber, isAnyNumber } from "./any_number.ts";
 import { assertEquals, assertExists } from "../dev_deps.ts";
 import { equality } from "../helper/equal.ts";
+import { isEven } from "../deps.ts";
+import { expect } from "../expect/expect.ts";
+import { fn } from "../mock/fn.ts";
 
 Deno.test("isAnyNumber", () => {
   const table: [
@@ -29,6 +32,24 @@ Deno.test({
     assertEquals(anyNumber[equality](undefined), false);
     assertEquals(anyNumber[equality](null), false);
     assertEquals(anyNumber[equality](1), true);
+  },
+});
+
+Deno.test({
+  name: "AnyNumber with condition",
+  fn: () => {
+    const anyNumber = new AnyNumber(isEven);
+
+    assertEquals(anyNumber[equality]("test"), false);
+    assertEquals(anyNumber[equality](1), false);
+    assertEquals(anyNumber[equality](2), true);
+
+    const mockFn = fn(() => true);
+
+    const anyStr = new AnyNumber(mockFn);
+    anyStr[equality](1);
+    expect(mockFn).toHaveBeenCalledWith(1);
+    expect(mockFn).toHaveReturnedWith(true);
   },
 });
 

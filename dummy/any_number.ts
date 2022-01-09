@@ -5,15 +5,25 @@ import { isNumber } from "../deps.ts";
 import { equality } from "../helper/equal.ts";
 import type { Equality } from "../helper/equal.ts";
 
+/** Whether argument is any `number` or not. */
 function isAnyNumber(value: unknown): value is number | Number {
   return isNumber(value) || value instanceof Number;
 }
 
+/** equal to any Number */
 class AnyNumber implements Equality {
-  [equality](actual: unknown): boolean {
-    return isAnyNumber(actual);
+  #condition;
+  constructor(condition?: (value: number) => boolean) {
+    this.#condition = condition;
   }
 
+  /** equality logic called by equal function */
+  [equality](actual: unknown): boolean {
+    const isNum = isAnyNumber(actual);
+    return this.#condition ? isNum && this.#condition(Number(actual)) : isNum;
+  }
+
+  /** display name */
   toString() {
     return "any number";
   }
@@ -32,8 +42,8 @@ class AnyNumber implements Equality {
  * });
  * ```
  */
-function anyNumber(): AnyNumber {
-  return new AnyNumber();
+function anyNumber(condition?: (value: number) => boolean): AnyNumber {
+  return new AnyNumber(condition);
 }
 
 export { AnyNumber, anyNumber, isAnyNumber };
