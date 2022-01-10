@@ -1,3 +1,10 @@
+# [1.0.0-beta.82](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.81...v1.0.0-beta.82) (2022-01-10)
+
+
+### Features
+
+* **dummy:** add `anyObject` dummy function ([2b267e2](https://github.com/TomokiMiyauci/unitest/commit/2b267e20d3f3723ba250c1802d770bbaca887827))
+
 # [1.0.0-beta.81](https://github.com/TomokiMiyauci/unitest/compare/v1.0.0-beta.80...v1.0.0-beta.81) (2022-01-09)
 
 
