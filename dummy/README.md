@@ -266,6 +266,38 @@ test("should be any string array", () => {
 });
 ```
 
+## anyObject
+
+`anyObject()` matches any `object`.
+
+```ts
+import {
+  anyObject,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+test("should be any object", () => {
+  expect({ a: "b" }).toEqual(anyObject());
+});
+```
+
+### condition
+
+`anyObject` accept condition function. You can put conditions on the
+equivalence.
+
+```ts
+import {
+  anyObject,
+  expect,
+  test,
+} from "https://deno.land/x/unitest@$VERSION/mod.ts";
+
+test("should have test key", () => {
+  expect({ test: "hello" }).toEqual(anyObject((value) => "test" in value));
+});
+```
+
 ## anyOf
 
 `anyOf(array)` matches any of expected value

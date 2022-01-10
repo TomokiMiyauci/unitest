@@ -116,6 +116,7 @@ export { anyArray } from "./dummy/any_array.ts";
 export { anyFunction } from "./dummy/any_function.ts";
 export { anyBigInt } from "./dummy/any_big_int.ts";
 export { anySymbol } from "./dummy/any_symbol.ts";
+export { anyObject } from "./dummy/any_object.ts";
 
 export { not } from "./modifier/not.ts";
 export { rejects } from "./modifier/rejects.ts";

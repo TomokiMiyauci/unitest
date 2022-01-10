@@ -5,6 +5,7 @@ import {
   anyBoolean,
   anyFunction,
   anyNumber,
+  anyObject,
   anyOf,
   anyString,
   anything,
@@ -126,4 +127,12 @@ test("should be upperCase string", () => {
 
 test("should be even", () => {
   expect(2).toEqual(anyNumber(isEven));
+});
+
+test("should be any object", () => {
+  expect({ a: "b" }).toEqual(anyObject());
+});
+
+test("should have test key", () => {
+  expect({ test: "hello" }).toEqual(anyObject((value) => "test" in value));
 });
