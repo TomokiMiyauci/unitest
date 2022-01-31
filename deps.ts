@@ -2,7 +2,7 @@
 // This module is browser compatible.
 export {
   AssertionError,
-} from "https://deno.land/std@0.118.0/testing/asserts.ts";
+} from "https://deno.land/std@0.123.0/testing/asserts.ts";
 export {
   isBoolean,
   isDate,
@@ -41,7 +41,7 @@ export {
   magenta,
   red,
   yellow,
-} from "https://deno.land/std@0.118.0/fmt/colors.ts";
+} from "https://deno.land/std@0.123.0/fmt/colors.ts";
 
 // third party
 
